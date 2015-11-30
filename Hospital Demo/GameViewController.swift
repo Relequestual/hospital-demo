@@ -16,7 +16,9 @@ class GameViewController: UIViewController {
 
         if let scene = GameScene(fileNamed:"GameScene") {
             // Configure the view.
+            
             let skView = self.view as! SKView
+            scene.size = skView.bounds.size
             skView.showsFPS = true
             skView.showsNodeCount = true
             
@@ -24,7 +26,8 @@ class GameViewController: UIViewController {
             skView.ignoresSiblingOrder = true
             
             /* Set the scale mode to scale to fit the window */
-            scene.scaleMode = .AspectFill
+//            scene.scaleMode = .AspectFill
+            scene.scaleMode = .ResizeFill
             
             skView.presentScene(scene)
         }

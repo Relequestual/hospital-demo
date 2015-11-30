@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10BC8F77BFF692B51942A560 /* libPods-Hospital Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 86F4C980E49DF85A22F23F45 /* libPods-Hospital Demo.a */; };
 		136FA18A1BFBCBDC0086F545 /* BaseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136FA1891BFBCBDC0086F545 /* BaseScene.swift */; };
+		13A5F5CC1C0A464B0013D478 /* Grey Tile.png in Resources */ = {isa = PBXBuildFile; fileRef = 13A5F5CB1C0A464B0013D478 /* Grey Tile.png */; };
+		13A5F5CE1C0A587F0013D478 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 13A5F5CD1C0A587F0013D478 /* GameScene.sks */; };
 		13C765301BF61B2D00AC0223 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C7652F1BF61B2D00AC0223 /* AppDelegate.swift */; };
-		13C765321BF61B2D00AC0223 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 13C765311BF61B2D00AC0223 /* GameScene.sks */; };
 		13C765341BF61B2D00AC0223 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C765331BF61B2D00AC0223 /* GameScene.swift */; };
 		13C765361BF61B2D00AC0223 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C765351BF61B2D00AC0223 /* GameViewController.swift */; };
 		13C765391BF61B2D00AC0223 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13C765371BF61B2D00AC0223 /* Main.storyboard */; };
@@ -18,16 +20,21 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1340ED6E1C0B6F3600776FA1 /* Hospital_Demo-Swift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Hospital_Demo-Swift.h"; sourceTree = "<group>"; };
 		136FA1891BFBCBDC0086F545 /* BaseScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseScene.swift; sourceTree = "<group>"; };
+		13A5F5CB1C0A464B0013D478 /* Grey Tile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Grey Tile.png"; sourceTree = "<group>"; };
+		13A5F5CD1C0A587F0013D478 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		13C7652C1BF61B2D00AC0223 /* Hospital Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hospital Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13C7652F1BF61B2D00AC0223 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		13C765311BF61B2D00AC0223 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		13C765331BF61B2D00AC0223 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		13C765351BF61B2D00AC0223 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		13C765381BF61B2D00AC0223 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		13C7653A1BF61B2D00AC0223 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		13C7653D1BF61B2D00AC0223 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		13C7653F1BF61B2D00AC0223 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		457F6EC4CF57C614C89AFCF5 /* Pods-Hospital Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hospital Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hospital Demo/Pods-Hospital Demo.release.xcconfig"; sourceTree = "<group>"; };
+		86F4C980E49DF85A22F23F45 /* libPods-Hospital Demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Hospital Demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE6259AC48982DC954389865 /* Pods-Hospital Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hospital Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hospital Demo/Pods-Hospital Demo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10BC8F77BFF692B51942A560 /* libPods-Hospital Demo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,8 +60,11 @@
 		13C765231BF61B2D00AC0223 = {
 			isa = PBXGroup;
 			children = (
+				1340ED6E1C0B6F3600776FA1 /* Hospital_Demo-Swift.h */,
 				13C7652E1BF61B2D00AC0223 /* Hospital Demo */,
 				13C7652D1BF61B2D00AC0223 /* Products */,
+				D9D473466C91A2DBC577D2DD /* Pods */,
+				DB3B59A34D3C34780422EEFE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -70,15 +81,33 @@
 			children = (
 				136FA1881BFBCBB90086F545 /* Scenes */,
 				13C7652F1BF61B2D00AC0223 /* AppDelegate.swift */,
-				13C765311BF61B2D00AC0223 /* GameScene.sks */,
 				13C765331BF61B2D00AC0223 /* GameScene.swift */,
+				13A5F5CD1C0A587F0013D478 /* GameScene.sks */,
 				13C765351BF61B2D00AC0223 /* GameViewController.swift */,
 				13C765371BF61B2D00AC0223 /* Main.storyboard */,
 				13C7653A1BF61B2D00AC0223 /* Assets.xcassets */,
 				13C7653C1BF61B2D00AC0223 /* LaunchScreen.storyboard */,
 				13C7653F1BF61B2D00AC0223 /* Info.plist */,
+				13A5F5CB1C0A464B0013D478 /* Grey Tile.png */,
 			);
 			path = "Hospital Demo";
+			sourceTree = "<group>";
+		};
+		D9D473466C91A2DBC577D2DD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FE6259AC48982DC954389865 /* Pods-Hospital Demo.debug.xcconfig */,
+				457F6EC4CF57C614C89AFCF5 /* Pods-Hospital Demo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		DB3B59A34D3C34780422EEFE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				86F4C980E49DF85A22F23F45 /* libPods-Hospital Demo.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -88,9 +117,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13C765421BF61B2D00AC0223 /* Build configuration list for PBXNativeTarget "Hospital Demo" */;
 			buildPhases = (
+				F1BEBF1B64C1BFFCB6E1E9F1 /* Check Pods Manifest.lock */,
 				13C765281BF61B2D00AC0223 /* Sources */,
 				13C765291BF61B2D00AC0223 /* Frameworks */,
 				13C7652A1BF61B2D00AC0223 /* Resources */,
+				625ED48A54126D9CFB7CA0FF /* Embed Pods Frameworks */,
+				13E1461F6BC5573CA7CD27DE /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -140,14 +172,63 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13C765321BF61B2D00AC0223 /* GameScene.sks in Resources */,
 				13C7653E1BF61B2D00AC0223 /* LaunchScreen.storyboard in Resources */,
+				13A5F5CE1C0A587F0013D478 /* GameScene.sks in Resources */,
 				13C7653B1BF61B2D00AC0223 /* Assets.xcassets in Resources */,
 				13C765391BF61B2D00AC0223 /* Main.storyboard in Resources */,
+				13A5F5CC1C0A464B0013D478 /* Grey Tile.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		13E1461F6BC5573CA7CD27DE /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Hospital Demo/Pods-Hospital Demo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		625ED48A54126D9CFB7CA0FF /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Hospital Demo/Pods-Hospital Demo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F1BEBF1B64C1BFFCB6E1E9F1 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		13C765281BF61B2D00AC0223 /* Sources */ = {
@@ -268,23 +349,27 @@
 		};
 		13C765431BF61B2D00AC0223 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FE6259AC48982DC954389865 /* Pods-Hospital Demo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Hospital Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Relequestual.Hospital-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/relequestual/projects/Hospital Demo/Hospital_Demo-Swift.h";
 			};
 			name = Debug;
 		};
 		13C765441BF61B2D00AC0223 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 457F6EC4CF57C614C89AFCF5 /* Pods-Hospital Demo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Hospital Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Relequestual.Hospital-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/relequestual/projects/Hospital Demo/Hospital_Demo-Swift.h";
 			};
 			name = Release;
 		};

@@ -1,0 +1,652 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		02E1DB7C21200A39ABD4CAF3DAEF4909 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E160EC9FBA49EED4D05E9A3B3AB99ED /* UIKit.framework */; };
+		04100488A4169C5CDF3EC8C6BCC68EAD /* HLGridNode.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB87A47E51FD88BDB86B64558057DCB /* HLGridNode.m */; };
+		0A64521D00D90D6284589E287CC2371A /* HLSpriteKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4352D52932E5DBA9A0363030D501C651 /* HLSpriteKit-dummy.m */; };
+		0C0DB8B737EA25F571B5009074387F6E /* HLToolbarNode.m in Sources */ = {isa = PBXBuildFile; fileRef = C1D0012EB9E8A1A1E4099CD82BD72799 /* HLToolbarNode.m */; };
+		1131017B049DE93EE41D24D129685298 /* HLTiledNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 06F27F1EE0BB1906288FBAA56080DC32 /* HLTiledNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		16E1C0BBB9B9F20323B95DB0FD363368 /* HLError.h in Headers */ = {isa = PBXBuildFile; fileRef = EBD239E5CFDB303B66ED7EDD40BCE17A /* HLError.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		172DAB802FFCC747A1FBF55E0A8216B2 /* HLComponentNode.h in Headers */ = {isa = PBXBuildFile; fileRef = F002DE2746E429EB0EED587B0EE7AF60 /* HLComponentNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		19A4A4BB0835F98754974B07E9EC0ECA /* HLScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1104E4DACA771D4465652BBC8FCA8 /* HLScene.m */; };
+		1D62D8C83BA250084814EEE5201D854D /* HLGridNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A0BBBE47AF7EAE18DDA495437E71B8B /* HLGridNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		201F4A17D9CDE50455BF9E81330AC63B /* UIImage+HLImageAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F153BFD8D8BAB3C888F47EFE00B5C1D /* UIImage+HLImageAdditions.m */; };
+		2036A5BE78A54ED3F612198BADC59B61 /* HLMessageNode.h in Headers */ = {isa = PBXBuildFile; fileRef = AF036D89B20093EEA333CBF24284E13F /* HLMessageNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		20970482CD04A79DCCF6185B624B8D2A /* SKLabelNode+HLLabelNodeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEA3746122274233F6A34C7995FC9F1 /* SKLabelNode+HLLabelNodeAdditions.m */; };
+		25C773CE3195C693DD9CCBDD6876DBD8 /* HLMessageNode.m in Sources */ = {isa = PBXBuildFile; fileRef = FB6F6808498D6235CCE1136A607C6BBC /* HLMessageNode.m */; };
+		274B4B58E2CAECAE532829D7785A13A1 /* HLOutlineLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EFC996D488AEB7D6EB2862E15204A727 /* HLOutlineLayoutManager.m */; };
+		2E214BD6ED59436B101A7D0D90C5D78A /* HLTiledNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C4986135151D9CBF060543469166A8 /* HLTiledNode.m */; };
+		2F250C14A338E3599E9E1E6E5AB5EA4D /* HLRingLayoutManager.h in Headers */ = {isa = PBXBuildFile; fileRef = E3E7DB5BFE8147ED163D78296FA18363 /* HLRingLayoutManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		38EA5EA0782FAFFAC713FA7DA8FA63D0 /* SKSpriteNode+HLSpriteNodeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D1E07B0F25A99C37BE0F057366D166D4 /* SKSpriteNode+HLSpriteNodeAdditions.m */; };
+		3A44F9892B8EDC0DF529CEDD28916246 /* HLRingLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FCFEFB1C530F378CFE956EBCB10356B8 /* HLRingLayoutManager.m */; };
+		3A745E1F90335FA90BC2C2A76B93ED7F /* HLItemsNode.h in Headers */ = {isa = PBXBuildFile; fileRef = DF54A6B013BABB312DA4A1D9282915FF /* HLItemsNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		418A8C1F9B4E1A031BD3D777E5299F55 /* HLItemNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 326E0D0CBD2B540A3CDE5B15951EFCBD /* HLItemNode.m */; };
+		41F86513029B5E99D4669E50995A73BB /* UIImage+HLImageAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = CFE0C0B7A763296B687A165E3F736157 /* UIImage+HLImageAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		49B936537BE32C2FB056D4C517A48CD3 /* SKNode+HLLayoutManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C6354F308D49DF040B1544521DA73EE /* SKNode+HLLayoutManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		524969604AE3DEFEF0012C86AEF7ED95 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E1398E4485B9A1D67F6BBAF6A86E32F /* SpriteKit.framework */; };
+		52F256E95105E2BA060F56A1860CEA6A /* HLEmitterStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 0DC37E0D11115B1148D798840997B51D /* HLEmitterStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		669310009712AE4B5D3FE0300E7201A6 /* HLTableLayoutManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A6660D679A5840F4E9375A3D0D811DA /* HLTableLayoutManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66A2A320BFEFC2EB3FAB9E7EB9C19779 /* HLItemNode.h in Headers */ = {isa = PBXBuildFile; fileRef = DFA128E2590355D5547100602A6CBB31 /* HLItemNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D47AF45F8B4EC5E064DD824DA09A8F9 /* HLSpriteKit.h in Headers */ = {isa = PBXBuildFile; fileRef = B9B71D8448749D550C1F3C3D28DDC09A /* HLSpriteKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		73B57373B6BD4006127BBF49A6F1F140 /* HLLayoutManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 672957F83953AA82005BE24F8A9BAA70 /* HLLayoutManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		76555CB31D87FF56436A4C367E9436C9 /* HLItemContentNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 52CDD625BEF5830314A5E07D65AA431D /* HLItemContentNode.m */; };
+		781AD8124BBD850C01713FB05F88D4AA /* HLItemContentNode.h in Headers */ = {isa = PBXBuildFile; fileRef = C5182417B18B9939D49A17D16CC5086B /* HLItemContentNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		78C5FF8D79848E18FD6B8C1E0122118B /* HLMenuNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 81E02740FA6DB7C689537B16228DB03B /* HLMenuNode.m */; };
+		7C6C665F2C57CFA3F238468AECE3983F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1D43C348AC5FACE34E933855B6F8A07 /* Foundation.framework */; };
+		7ECCB8D524F038F6E8EED102298C8B77 /* HLMenuNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 67E9CDE25D1529CF0D9929E706FCC3FB /* HLMenuNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7F6D320A5CF58CF40A7CC3C6C16B17D3 /* SKLabelNode+HLLabelNodeAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 74B4ABBA90120EFFC0F7A1CEE1E88136 /* SKLabelNode+HLLabelNodeAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		817AC8F4C0512E96F49C7D04253179E3 /* HLMath.h in Headers */ = {isa = PBXBuildFile; fileRef = 01AE893639135454D83CBF94322DDD79 /* HLMath.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		854B1A94F7DCE5868DE509D5BF40FD60 /* HLMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC75ED2CB8FE635CD166CA3944B87EA /* HLMath.m */; };
+		8ECDB8FEFD1DFB7919DF94961D9C4267 /* HLItemsNode.m in Sources */ = {isa = PBXBuildFile; fileRef = C62044C4059A72590108C3738613422B /* HLItemsNode.m */; };
+		8EE041B4FD02AC6C0120B865C499D7AE /* HLGestureTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 010D08789E4EAE266A236E22BF447D71 /* HLGestureTarget.m */; };
+		8FB3CA39AE422EC04F14A42B63880192 /* HLScrollNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 68E128F53B0C5E845FD0E8F12EB3EFCD /* HLScrollNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		927D507F81CB9579A3B92DA5E505C344 /* SKNode+HLGestureTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F52F36C1BF0D7E6CB66D0C28EF1E867 /* SKNode+HLGestureTarget.m */; };
+		9B0B75F6BF6F2182E9F8CB6A0F494515 /* SKSpriteNode+HLSpriteNodeAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 861EF655B1DB4885DA932CBB5FDE25CD /* SKSpriteNode+HLSpriteNodeAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9D5546D513C595E0C50E66477739CE65 /* HLTextureStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5263445C7AA3D791F45C5213F3608355 /* HLTextureStore.m */; };
+		A2A2FC1825F4EE7A103E57B81F2EC6BF /* Pods-Hospital Demo-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B09C054FEC4CA65C9153D96D0CFF2B22 /* Pods-Hospital Demo-dummy.m */; };
+		AB5A071E5BEC4DB1B4CBDF8C828D6D58 /* HLGestureTarget.h in Headers */ = {isa = PBXBuildFile; fileRef = E6EE65CD1A524BA3366C6DD0FD87FBF0 /* HLGestureTarget.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B1DB8D780BC61E0164D35A1CBF265D5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1D43C348AC5FACE34E933855B6F8A07 /* Foundation.framework */; };
+		B8C0A453AD9DC4A5133B0DAEF497A218 /* HLTableLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11427A1C18F086BB17B1B55796419120 /* HLTableLayoutManager.m */; };
+		BA2DD2596DFA7C668DAF82A0CF3B330D /* HLRingNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 598D05A5BABB630573BEF352A66F4BE8 /* HLRingNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BCB18D150D789D05E5D25EE4A6C16635 /* SKNode+HLLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DDD19FF5850F9B4EEE0D652D2F1FFBC /* SKNode+HLLayoutManager.m */; };
+		C9FA1A3617433D07C3600FB1CCF7455A /* HLToolbarNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 5C3DC649133BF6E8B4DB425B77CD2A9F /* HLToolbarNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD2C95269305E665CA84DD27CD44E890 /* HLLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1FF8427BC6E78ADBE7D3AAFD9C6834 /* HLLayoutManager.m */; };
+		D0CBF88D85F6A74DE3A9EBBCF781FCE8 /* HLTextureStore.h in Headers */ = {isa = PBXBuildFile; fileRef = A9625C6B683786FA7E74A7BD70960B37 /* HLTextureStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D24D8019CFE7FF9C2038F9D4132E4347 /* HLComponentNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 70DA609A4125209A390C592E5C91CEF0 /* HLComponentNode.m */; };
+		D823E8E878BA2F4E1080D1F2B05877AE /* HLLabelButtonNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C102379CC236F46490CA5D642D2C85D /* HLLabelButtonNode.m */; };
+		E333895D9CAE16E411376205765B673D /* HLLabelButtonNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 05E8885960671D8E37C462D21979829E /* HLLabelButtonNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EAC297534C8269016B8294A48FBA3002 /* HLScene.h in Headers */ = {isa = PBXBuildFile; fileRef = D42F77D2BF441AC80179E9F42FF6E882 /* HLScene.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ECD70FFAC672028CCB79C99DA54F9FF0 /* HLScrollNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E292F33C084FA2A1213FD9D0E9A45F3 /* HLScrollNode.m */; };
+		F54E33BA1181C1B80F6F4A25601C612B /* SKNode+HLGestureTarget.h in Headers */ = {isa = PBXBuildFile; fileRef = BB368ED70454E8559D85E62C89687636 /* SKNode+HLGestureTarget.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F6494C472D829F9E4EDD5C13759E9E5E /* HLEmitterStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F1BCEDC6BB732EACBEFDFBD0A7867C6B /* HLEmitterStore.m */; };
+		FA57A871390DCD9712C0F734FE24A9F9 /* HLRingNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F87F49637E6CD2253F250760111CC1C7 /* HLRingNode.m */; };
+		FC9E8A1057838CD62968377FDEABAC9B /* HLOutlineLayoutManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C134F21110C370DC3439752BC6528B4E /* HLOutlineLayoutManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3E533A67F83BDCC5BB3FD7F60CDFBC65 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7610B0048768F6B7D959C9A8C23441E4;
+			remoteInfo = HLSpriteKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		010D08789E4EAE266A236E22BF447D71 /* HLGestureTarget.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HLGestureTarget.m; path = HLSpriteKit/HLGestureTarget.m; sourceTree = "<group>"; };
+		01AE893639135454D83CBF94322DDD79 /* HLMath.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLMath.h; path = HLSpriteKit/HLMath.h; sourceTree = "<group>"; };
+		05E8885960671D8E37C462D21979829E /* HLLabelButtonNode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLLabelButtonNode.h; path = HLSpriteKit/HLLabelButtonNode.h; sourceTree = "<group>"; };
+		06F27F1EE0BB1906288FBAA56080DC32 /* HLTiledNode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLTiledNode.h; path = HLSpriteKit/HLTiledNode.h; sourceTree = "<group>"; };
+		0B76BEA6749E47138E0A8FE605F947AC /* HLSpriteKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = HLSpriteKit.xcconfig; sourceTree = "<group>"; };
+		0BA1104E4DACA771D4465652BBC8FCA8 /* HLScene.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HLScene.m; path = HLSpriteKit/HLScene.m; sourceTree = "<group>"; };
+		0D580D60CCD78AE3AA95B4642F0F1292 /* libHLSpriteKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libHLSpriteKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		0DC37E0D11115B1148D798840997B51D /* HLEmitterStore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLEmitterStore.h; path = HLSpriteKit/HLEmitterStore.h; sourceTree = "<group>"; };
+		11427A1C18F086BB17B1B55796419120 /* HLTableLayoutManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HLTableLayoutManager.m; path = HLSpriteKit/HLTableLayoutManager.m; sourceTree = "<group>"; };
+		1A0BBBE47AF7EAE18DDA495437E71B8B /* HLGridNode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLGridNode.h; path = HLSpriteKit/HLGridNode.h; sourceTree = "<group>"; };
+		2A6660D679A5840F4E9375A3D0D811DA /* HLTableLayoutManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLTableLayoutManager.h; path = HLSpriteKit/HLTableLayoutManager.h; sourceTree = "<group>"; };
+		326E0D0CBD2B540A3CDE5B15951EFCBD /* HLItemNode.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HLItemNode.m; path = HLSpriteKit/HLItemNode.m; sourceTree = "<group>"; };
+		36C4986135151D9CBF060543469166A8 /* HLTiledNode.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HLTiledNode.m; path = HLSpriteKit/HLTiledNode.m; sourceTree = "<group>"; };
+		3DDD19FF5850F9B4EEE0D652D2F1FFBC /* SKNode+HLLayoutManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "SKNode+HLLayoutManager.m"; path = "HLSpriteKit/SKNode+HLLayoutManager.m"; sourceTree = "<group>"; };
+		3EEA3746122274233F6A34C7995FC9F1 /* SKLabelNode+HLLabelNodeAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "SKLabelNode+HLLabelNodeAdditions.m"; path = "HLSpriteKit/SKLabelNode+HLLabelNodeAdditions.m"; sourceTree = "<group>"; };
+		4066425599DE6E341CBE4F0F2C6A69F8 /* Pods-Hospital Demo-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Hospital Demo-acknowledgements.plist"; sourceTree = "<group>"; };
+		4352D52932E5DBA9A0363030D501C651 /* HLSpriteKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "HLSpriteKit-dummy.m"; sourceTree = "<group>"; };
+		4591E592BC3DF2FB467F09776C281DCB /* Pods-Hospital Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Hospital Demo.release.xcconfig"; sourceTree = "<group>"; };
+		4AC75ED2CB8FE635CD166CA3944B87EA /* HLMath.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HLMath.m; path = HLSpriteKit/HLMath.m; sourceTree = "<group>"; };
+		4C102379CC236F46490CA5D642D2C85D /* HLLabelButtonNode.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HLLabelButtonNode.m; path = HLSpriteKit/HLLabelButtonNode.m; sourceTree = "<group>"; };
+		4E292F33C084FA2A1213FD9D0E9A45F3 /* HLScrollNode.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HLScrollNode.m; path = HLSpriteKit/HLScrollNode.m; sourceTree = "<group>"; };
+		5263445C7AA3D791F45C5213F3608355 /* HLTextureStore.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HLTextureStore.m; path = HLSpriteKit/HLTextureStore.m; sourceTree = "<group>"; };
+		52CDD625BEF5830314A5E07D65AA431D /* HLItemContentNode.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HLItemContentNode.m; path = HLSpriteKit/HLItemContentNode.m; sourceTree = "<group>"; };
+		598D05A5BABB630573BEF352A66F4BE8 /* HLRingNode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLRingNode.h; path = HLSpriteKit/HLRingNode.h; sourceTree = "<group>"; };
+		5C3DC649133BF6E8B4DB425B77CD2A9F /* HLToolbarNode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLToolbarNode.h; path = HLSpriteKit/HLToolbarNode.h; sourceTree = "<group>"; };
+		672957F83953AA82005BE24F8A9BAA70 /* HLLayoutManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLLayoutManager.h; path = HLSpriteKit/HLLayoutManager.h; sourceTree = "<group>"; };
+		67E9CDE25D1529CF0D9929E706FCC3FB /* HLMenuNode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLMenuNode.h; path = HLSpriteKit/HLMenuNode.h; sourceTree = "<group>"; };
+		68E128F53B0C5E845FD0E8F12EB3EFCD /* HLScrollNode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLScrollNode.h; path = HLSpriteKit/HLScrollNode.h; sourceTree = "<group>"; };
+		6E1398E4485B9A1D67F6BBAF6A86E32F /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/SpriteKit.framework; sourceTree = DEVELOPER_DIR; };
+		70DA609A4125209A390C592E5C91CEF0 /* HLComponentNode.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HLComponentNode.m; path = HLSpriteKit/HLComponentNode.m; sourceTree = "<group>"; };
+		71B6FE43DCF644FD3E185997DEECC9EC /* Pods-Hospital Demo-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Hospital Demo-resources.sh"; sourceTree = "<group>"; };
+		74B4ABBA90120EFFC0F7A1CEE1E88136 /* SKLabelNode+HLLabelNodeAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SKLabelNode+HLLabelNodeAdditions.h"; path = "HLSpriteKit/SKLabelNode+HLLabelNodeAdditions.h"; sourceTree = "<group>"; };
+		7C6354F308D49DF040B1544521DA73EE /* SKNode+HLLayoutManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SKNode+HLLayoutManager.h"; path = "HLSpriteKit/SKNode+HLLayoutManager.h"; sourceTree = "<group>"; };
+		7E160EC9FBA49EED4D05E9A3B3AB99ED /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		81E02740FA6DB7C689537B16228DB03B /* HLMenuNode.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HLMenuNode.m; path = HLSpriteKit/HLMenuNode.m; sourceTree = "<group>"; };
+		861EF655B1DB4885DA932CBB5FDE25CD /* SKSpriteNode+HLSpriteNodeAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SKSpriteNode+HLSpriteNodeAdditions.h"; path = "HLSpriteKit/SKSpriteNode+HLSpriteNodeAdditions.h"; sourceTree = "<group>"; };
+		8CDD32850A75A922141DF21CA6DC8618 /* HLSpriteKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "HLSpriteKit-prefix.pch"; sourceTree = "<group>"; };
+		8F153BFD8D8BAB3C888F47EFE00B5C1D /* UIImage+HLImageAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+HLImageAdditions.m"; path = "HLSpriteKit/UIImage+HLImageAdditions.m"; sourceTree = "<group>"; };
+		8F52F36C1BF0D7E6CB66D0C28EF1E867 /* SKNode+HLGestureTarget.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "SKNode+HLGestureTarget.m"; path = "HLSpriteKit/SKNode+HLGestureTarget.m"; sourceTree = "<group>"; };
+		9348BA2B0BF6AEF7B4C228CD00ACC0ED /* Pods-Hospital Demo-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Hospital Demo-frameworks.sh"; sourceTree = "<group>"; };
+		A9625C6B683786FA7E74A7BD70960B37 /* HLTextureStore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLTextureStore.h; path = HLSpriteKit/HLTextureStore.h; sourceTree = "<group>"; };
+		AF036D89B20093EEA333CBF24284E13F /* HLMessageNode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLMessageNode.h; path = HLSpriteKit/HLMessageNode.h; sourceTree = "<group>"; };
+		B09C054FEC4CA65C9153D96D0CFF2B22 /* Pods-Hospital Demo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Hospital Demo-dummy.m"; sourceTree = "<group>"; };
+		B1D43C348AC5FACE34E933855B6F8A07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		B9B71D8448749D550C1F3C3D28DDC09A /* HLSpriteKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLSpriteKit.h; path = HLSpriteKit/HLSpriteKit.h; sourceTree = "<group>"; };
+		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		BB368ED70454E8559D85E62C89687636 /* SKNode+HLGestureTarget.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SKNode+HLGestureTarget.h"; path = "HLSpriteKit/SKNode+HLGestureTarget.h"; sourceTree = "<group>"; };
+		C134F21110C370DC3439752BC6528B4E /* HLOutlineLayoutManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLOutlineLayoutManager.h; path = HLSpriteKit/HLOutlineLayoutManager.h; sourceTree = "<group>"; };
+		C1D0012EB9E8A1A1E4099CD82BD72799 /* HLToolbarNode.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HLToolbarNode.m; path = HLSpriteKit/HLToolbarNode.m; sourceTree = "<group>"; };
+		C2BABA5AC10D0808BA1E254DEADCC162 /* Pods-Hospital Demo-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Hospital Demo-acknowledgements.markdown"; sourceTree = "<group>"; };
+		C5182417B18B9939D49A17D16CC5086B /* HLItemContentNode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLItemContentNode.h; path = HLSpriteKit/HLItemContentNode.h; sourceTree = "<group>"; };
+		C62044C4059A72590108C3738613422B /* HLItemsNode.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HLItemsNode.m; path = HLSpriteKit/HLItemsNode.m; sourceTree = "<group>"; };
+		CFE0C0B7A763296B687A165E3F736157 /* UIImage+HLImageAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+HLImageAdditions.h"; path = "HLSpriteKit/UIImage+HLImageAdditions.h"; sourceTree = "<group>"; };
+		D1E07B0F25A99C37BE0F057366D166D4 /* SKSpriteNode+HLSpriteNodeAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "SKSpriteNode+HLSpriteNodeAdditions.m"; path = "HLSpriteKit/SKSpriteNode+HLSpriteNodeAdditions.m"; sourceTree = "<group>"; };
+		D42F77D2BF441AC80179E9F42FF6E882 /* HLScene.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLScene.h; path = HLSpriteKit/HLScene.h; sourceTree = "<group>"; };
+		DA1FF8427BC6E78ADBE7D3AAFD9C6834 /* HLLayoutManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HLLayoutManager.m; path = HLSpriteKit/HLLayoutManager.m; sourceTree = "<group>"; };
+		DF54A6B013BABB312DA4A1D9282915FF /* HLItemsNode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLItemsNode.h; path = HLSpriteKit/HLItemsNode.h; sourceTree = "<group>"; };
+		DFA128E2590355D5547100602A6CBB31 /* HLItemNode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLItemNode.h; path = HLSpriteKit/HLItemNode.h; sourceTree = "<group>"; };
+		DFB87A47E51FD88BDB86B64558057DCB /* HLGridNode.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HLGridNode.m; path = HLSpriteKit/HLGridNode.m; sourceTree = "<group>"; };
+		E3E7DB5BFE8147ED163D78296FA18363 /* HLRingLayoutManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLRingLayoutManager.h; path = HLSpriteKit/HLRingLayoutManager.h; sourceTree = "<group>"; };
+		E6EE65CD1A524BA3366C6DD0FD87FBF0 /* HLGestureTarget.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLGestureTarget.h; path = HLSpriteKit/HLGestureTarget.h; sourceTree = "<group>"; };
+		EBD239E5CFDB303B66ED7EDD40BCE17A /* HLError.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLError.h; path = HLSpriteKit/HLError.h; sourceTree = "<group>"; };
+		EDBDACF3CC6A120727916C7CE95D4BDF /* Pods-Hospital Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Hospital Demo.debug.xcconfig"; sourceTree = "<group>"; };
+		EFC996D488AEB7D6EB2862E15204A727 /* HLOutlineLayoutManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HLOutlineLayoutManager.m; path = HLSpriteKit/HLOutlineLayoutManager.m; sourceTree = "<group>"; };
+		F002DE2746E429EB0EED587B0EE7AF60 /* HLComponentNode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLComponentNode.h; path = HLSpriteKit/HLComponentNode.h; sourceTree = "<group>"; };
+		F1BCEDC6BB732EACBEFDFBD0A7867C6B /* HLEmitterStore.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HLEmitterStore.m; path = HLSpriteKit/HLEmitterStore.m; sourceTree = "<group>"; };
+		F7A2F1AFE15CAC13D14F886B93E6869E /* libPods-Hospital Demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Hospital Demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F87F49637E6CD2253F250760111CC1C7 /* HLRingNode.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HLRingNode.m; path = HLSpriteKit/HLRingNode.m; sourceTree = "<group>"; };
+		FB6F6808498D6235CCE1136A607C6BBC /* HLMessageNode.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HLMessageNode.m; path = HLSpriteKit/HLMessageNode.m; sourceTree = "<group>"; };
+		FCFEFB1C530F378CFE956EBCB10356B8 /* HLRingLayoutManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HLRingLayoutManager.m; path = HLSpriteKit/HLRingLayoutManager.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3D3D6553D10B8D7E641D497E3C70FA4C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1DB8D780BC61E0164D35A1CBF265D5F /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6C60CA335EF0B7654B458CA600CEB1FF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7C6C665F2C57CFA3F238468AECE3983F /* Foundation.framework in Frameworks */,
+				524969604AE3DEFEF0012C86AEF7ED95 /* SpriteKit.framework in Frameworks */,
+				02E1DB7C21200A39ABD4CAF3DAEF4909 /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		122DA2E5084A4393C29BE363C764795C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				91BBEF3DA3BDDCFC77FBE782D94FA859 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2161E9BFDC00BAABB68571375BA5D23A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0D580D60CCD78AE3AA95B4642F0F1292 /* libHLSpriteKit.a */,
+				F7A2F1AFE15CAC13D14F886B93E6869E /* libPods-Hospital Demo.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		27C82C2633F38DF4848C94D6F577D2F0 /* Pods-Hospital Demo */ = {
+			isa = PBXGroup;
+			children = (
+				C2BABA5AC10D0808BA1E254DEADCC162 /* Pods-Hospital Demo-acknowledgements.markdown */,
+				4066425599DE6E341CBE4F0F2C6A69F8 /* Pods-Hospital Demo-acknowledgements.plist */,
+				B09C054FEC4CA65C9153D96D0CFF2B22 /* Pods-Hospital Demo-dummy.m */,
+				9348BA2B0BF6AEF7B4C228CD00ACC0ED /* Pods-Hospital Demo-frameworks.sh */,
+				71B6FE43DCF644FD3E185997DEECC9EC /* Pods-Hospital Demo-resources.sh */,
+				EDBDACF3CC6A120727916C7CE95D4BDF /* Pods-Hospital Demo.debug.xcconfig */,
+				4591E592BC3DF2FB467F09776C281DCB /* Pods-Hospital Demo.release.xcconfig */,
+			);
+			name = "Pods-Hospital Demo";
+			path = "Target Support Files/Pods-Hospital Demo";
+			sourceTree = "<group>";
+		};
+		6F13EF1D74DF780F4AA93BC90D5CEE5A /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				0B76BEA6749E47138E0A8FE605F947AC /* HLSpriteKit.xcconfig */,
+				4352D52932E5DBA9A0363030D501C651 /* HLSpriteKit-dummy.m */,
+				8CDD32850A75A922141DF21CA6DC8618 /* HLSpriteKit-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/HLSpriteKit";
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
+				122DA2E5084A4393C29BE363C764795C /* Frameworks */,
+				AADD7FB82FD35E734F5BF82B86D2552D /* Pods */,
+				2161E9BFDC00BAABB68571375BA5D23A /* Products */,
+				BF3D49AA437D74245534F39058C96044 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		91BBEF3DA3BDDCFC77FBE782D94FA859 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				B1D43C348AC5FACE34E933855B6F8A07 /* Foundation.framework */,
+				6E1398E4485B9A1D67F6BBAF6A86E32F /* SpriteKit.framework */,
+				7E160EC9FBA49EED4D05E9A3B3AB99ED /* UIKit.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		9F4C803FA105087B46193B07DDE35BF4 /* HLSpriteKit */ = {
+			isa = PBXGroup;
+			children = (
+				F002DE2746E429EB0EED587B0EE7AF60 /* HLComponentNode.h */,
+				70DA609A4125209A390C592E5C91CEF0 /* HLComponentNode.m */,
+				0DC37E0D11115B1148D798840997B51D /* HLEmitterStore.h */,
+				F1BCEDC6BB732EACBEFDFBD0A7867C6B /* HLEmitterStore.m */,
+				EBD239E5CFDB303B66ED7EDD40BCE17A /* HLError.h */,
+				E6EE65CD1A524BA3366C6DD0FD87FBF0 /* HLGestureTarget.h */,
+				010D08789E4EAE266A236E22BF447D71 /* HLGestureTarget.m */,
+				1A0BBBE47AF7EAE18DDA495437E71B8B /* HLGridNode.h */,
+				DFB87A47E51FD88BDB86B64558057DCB /* HLGridNode.m */,
+				C5182417B18B9939D49A17D16CC5086B /* HLItemContentNode.h */,
+				52CDD625BEF5830314A5E07D65AA431D /* HLItemContentNode.m */,
+				DFA128E2590355D5547100602A6CBB31 /* HLItemNode.h */,
+				326E0D0CBD2B540A3CDE5B15951EFCBD /* HLItemNode.m */,
+				DF54A6B013BABB312DA4A1D9282915FF /* HLItemsNode.h */,
+				C62044C4059A72590108C3738613422B /* HLItemsNode.m */,
+				05E8885960671D8E37C462D21979829E /* HLLabelButtonNode.h */,
+				4C102379CC236F46490CA5D642D2C85D /* HLLabelButtonNode.m */,
+				672957F83953AA82005BE24F8A9BAA70 /* HLLayoutManager.h */,
+				DA1FF8427BC6E78ADBE7D3AAFD9C6834 /* HLLayoutManager.m */,
+				01AE893639135454D83CBF94322DDD79 /* HLMath.h */,
+				4AC75ED2CB8FE635CD166CA3944B87EA /* HLMath.m */,
+				67E9CDE25D1529CF0D9929E706FCC3FB /* HLMenuNode.h */,
+				81E02740FA6DB7C689537B16228DB03B /* HLMenuNode.m */,
+				AF036D89B20093EEA333CBF24284E13F /* HLMessageNode.h */,
+				FB6F6808498D6235CCE1136A607C6BBC /* HLMessageNode.m */,
+				C134F21110C370DC3439752BC6528B4E /* HLOutlineLayoutManager.h */,
+				EFC996D488AEB7D6EB2862E15204A727 /* HLOutlineLayoutManager.m */,
+				E3E7DB5BFE8147ED163D78296FA18363 /* HLRingLayoutManager.h */,
+				FCFEFB1C530F378CFE956EBCB10356B8 /* HLRingLayoutManager.m */,
+				598D05A5BABB630573BEF352A66F4BE8 /* HLRingNode.h */,
+				F87F49637E6CD2253F250760111CC1C7 /* HLRingNode.m */,
+				D42F77D2BF441AC80179E9F42FF6E882 /* HLScene.h */,
+				0BA1104E4DACA771D4465652BBC8FCA8 /* HLScene.m */,
+				68E128F53B0C5E845FD0E8F12EB3EFCD /* HLScrollNode.h */,
+				4E292F33C084FA2A1213FD9D0E9A45F3 /* HLScrollNode.m */,
+				B9B71D8448749D550C1F3C3D28DDC09A /* HLSpriteKit.h */,
+				2A6660D679A5840F4E9375A3D0D811DA /* HLTableLayoutManager.h */,
+				11427A1C18F086BB17B1B55796419120 /* HLTableLayoutManager.m */,
+				A9625C6B683786FA7E74A7BD70960B37 /* HLTextureStore.h */,
+				5263445C7AA3D791F45C5213F3608355 /* HLTextureStore.m */,
+				06F27F1EE0BB1906288FBAA56080DC32 /* HLTiledNode.h */,
+				36C4986135151D9CBF060543469166A8 /* HLTiledNode.m */,
+				5C3DC649133BF6E8B4DB425B77CD2A9F /* HLToolbarNode.h */,
+				C1D0012EB9E8A1A1E4099CD82BD72799 /* HLToolbarNode.m */,
+				74B4ABBA90120EFFC0F7A1CEE1E88136 /* SKLabelNode+HLLabelNodeAdditions.h */,
+				3EEA3746122274233F6A34C7995FC9F1 /* SKLabelNode+HLLabelNodeAdditions.m */,
+				BB368ED70454E8559D85E62C89687636 /* SKNode+HLGestureTarget.h */,
+				8F52F36C1BF0D7E6CB66D0C28EF1E867 /* SKNode+HLGestureTarget.m */,
+				7C6354F308D49DF040B1544521DA73EE /* SKNode+HLLayoutManager.h */,
+				3DDD19FF5850F9B4EEE0D652D2F1FFBC /* SKNode+HLLayoutManager.m */,
+				861EF655B1DB4885DA932CBB5FDE25CD /* SKSpriteNode+HLSpriteNodeAdditions.h */,
+				D1E07B0F25A99C37BE0F057366D166D4 /* SKSpriteNode+HLSpriteNodeAdditions.m */,
+				CFE0C0B7A763296B687A165E3F736157 /* UIImage+HLImageAdditions.h */,
+				8F153BFD8D8BAB3C888F47EFE00B5C1D /* UIImage+HLImageAdditions.m */,
+				6F13EF1D74DF780F4AA93BC90D5CEE5A /* Support Files */,
+			);
+			path = HLSpriteKit;
+			sourceTree = "<group>";
+		};
+		AADD7FB82FD35E734F5BF82B86D2552D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9F4C803FA105087B46193B07DDE35BF4 /* HLSpriteKit */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		BF3D49AA437D74245534F39058C96044 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				27C82C2633F38DF4848C94D6F577D2F0 /* Pods-Hospital Demo */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		88E46A6FD8B766CCE7B372582E0181D1 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				172DAB802FFCC747A1FBF55E0A8216B2 /* HLComponentNode.h in Headers */,
+				52F256E95105E2BA060F56A1860CEA6A /* HLEmitterStore.h in Headers */,
+				16E1C0BBB9B9F20323B95DB0FD363368 /* HLError.h in Headers */,
+				AB5A071E5BEC4DB1B4CBDF8C828D6D58 /* HLGestureTarget.h in Headers */,
+				1D62D8C83BA250084814EEE5201D854D /* HLGridNode.h in Headers */,
+				781AD8124BBD850C01713FB05F88D4AA /* HLItemContentNode.h in Headers */,
+				66A2A320BFEFC2EB3FAB9E7EB9C19779 /* HLItemNode.h in Headers */,
+				3A745E1F90335FA90BC2C2A76B93ED7F /* HLItemsNode.h in Headers */,
+				E333895D9CAE16E411376205765B673D /* HLLabelButtonNode.h in Headers */,
+				73B57373B6BD4006127BBF49A6F1F140 /* HLLayoutManager.h in Headers */,
+				817AC8F4C0512E96F49C7D04253179E3 /* HLMath.h in Headers */,
+				7ECCB8D524F038F6E8EED102298C8B77 /* HLMenuNode.h in Headers */,
+				2036A5BE78A54ED3F612198BADC59B61 /* HLMessageNode.h in Headers */,
+				FC9E8A1057838CD62968377FDEABAC9B /* HLOutlineLayoutManager.h in Headers */,
+				2F250C14A338E3599E9E1E6E5AB5EA4D /* HLRingLayoutManager.h in Headers */,
+				BA2DD2596DFA7C668DAF82A0CF3B330D /* HLRingNode.h in Headers */,
+				EAC297534C8269016B8294A48FBA3002 /* HLScene.h in Headers */,
+				8FB3CA39AE422EC04F14A42B63880192 /* HLScrollNode.h in Headers */,
+				6D47AF45F8B4EC5E064DD824DA09A8F9 /* HLSpriteKit.h in Headers */,
+				669310009712AE4B5D3FE0300E7201A6 /* HLTableLayoutManager.h in Headers */,
+				D0CBF88D85F6A74DE3A9EBBCF781FCE8 /* HLTextureStore.h in Headers */,
+				1131017B049DE93EE41D24D129685298 /* HLTiledNode.h in Headers */,
+				C9FA1A3617433D07C3600FB1CCF7455A /* HLToolbarNode.h in Headers */,
+				7F6D320A5CF58CF40A7CC3C6C16B17D3 /* SKLabelNode+HLLabelNodeAdditions.h in Headers */,
+				F54E33BA1181C1B80F6F4A25601C612B /* SKNode+HLGestureTarget.h in Headers */,
+				49B936537BE32C2FB056D4C517A48CD3 /* SKNode+HLLayoutManager.h in Headers */,
+				9B0B75F6BF6F2182E9F8CB6A0F494515 /* SKSpriteNode+HLSpriteNodeAdditions.h in Headers */,
+				41F86513029B5E99D4669E50995A73BB /* UIImage+HLImageAdditions.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		7610B0048768F6B7D959C9A8C23441E4 /* HLSpriteKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 81E5330C399F290DB4869CC342286B98 /* Build configuration list for PBXNativeTarget "HLSpriteKit" */;
+			buildPhases = (
+				3C6DAA684AD8EB8EBD7D3C47F19068CB /* Sources */,
+				6C60CA335EF0B7654B458CA600CEB1FF /* Frameworks */,
+				88E46A6FD8B766CCE7B372582E0181D1 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HLSpriteKit;
+			productName = HLSpriteKit;
+			productReference = 0D580D60CCD78AE3AA95B4642F0F1292 /* libHLSpriteKit.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		C0DA35BF248113E0D67B6757BBBD8603 /* Pods-Hospital Demo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 088AB3771FD33BF5795D67CAC3B87D91 /* Build configuration list for PBXNativeTarget "Pods-Hospital Demo" */;
+			buildPhases = (
+				298F52C2076B5A889DF5101915323456 /* Sources */,
+				3D3D6553D10B8D7E641D497E3C70FA4C /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				48E8A2476ADD845CCC558184896F1C8B /* PBXTargetDependency */,
+			);
+			name = "Pods-Hospital Demo";
+			productName = "Pods-Hospital Demo";
+			productReference = F7A2F1AFE15CAC13D14F886B93E6869E /* libPods-Hospital Demo.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = 2161E9BFDC00BAABB68571375BA5D23A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7610B0048768F6B7D959C9A8C23441E4 /* HLSpriteKit */,
+				C0DA35BF248113E0D67B6757BBBD8603 /* Pods-Hospital Demo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		298F52C2076B5A889DF5101915323456 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A2A2FC1825F4EE7A103E57B81F2EC6BF /* Pods-Hospital Demo-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3C6DAA684AD8EB8EBD7D3C47F19068CB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D24D8019CFE7FF9C2038F9D4132E4347 /* HLComponentNode.m in Sources */,
+				F6494C472D829F9E4EDD5C13759E9E5E /* HLEmitterStore.m in Sources */,
+				8EE041B4FD02AC6C0120B865C499D7AE /* HLGestureTarget.m in Sources */,
+				04100488A4169C5CDF3EC8C6BCC68EAD /* HLGridNode.m in Sources */,
+				76555CB31D87FF56436A4C367E9436C9 /* HLItemContentNode.m in Sources */,
+				418A8C1F9B4E1A031BD3D777E5299F55 /* HLItemNode.m in Sources */,
+				8ECDB8FEFD1DFB7919DF94961D9C4267 /* HLItemsNode.m in Sources */,
+				D823E8E878BA2F4E1080D1F2B05877AE /* HLLabelButtonNode.m in Sources */,
+				CD2C95269305E665CA84DD27CD44E890 /* HLLayoutManager.m in Sources */,
+				854B1A94F7DCE5868DE509D5BF40FD60 /* HLMath.m in Sources */,
+				78C5FF8D79848E18FD6B8C1E0122118B /* HLMenuNode.m in Sources */,
+				25C773CE3195C693DD9CCBDD6876DBD8 /* HLMessageNode.m in Sources */,
+				274B4B58E2CAECAE532829D7785A13A1 /* HLOutlineLayoutManager.m in Sources */,
+				3A44F9892B8EDC0DF529CEDD28916246 /* HLRingLayoutManager.m in Sources */,
+				FA57A871390DCD9712C0F734FE24A9F9 /* HLRingNode.m in Sources */,
+				19A4A4BB0835F98754974B07E9EC0ECA /* HLScene.m in Sources */,
+				ECD70FFAC672028CCB79C99DA54F9FF0 /* HLScrollNode.m in Sources */,
+				0A64521D00D90D6284589E287CC2371A /* HLSpriteKit-dummy.m in Sources */,
+				B8C0A453AD9DC4A5133B0DAEF497A218 /* HLTableLayoutManager.m in Sources */,
+				9D5546D513C595E0C50E66477739CE65 /* HLTextureStore.m in Sources */,
+				2E214BD6ED59436B101A7D0D90C5D78A /* HLTiledNode.m in Sources */,
+				0C0DB8B737EA25F571B5009074387F6E /* HLToolbarNode.m in Sources */,
+				20970482CD04A79DCCF6185B624B8D2A /* SKLabelNode+HLLabelNodeAdditions.m in Sources */,
+				927D507F81CB9579A3B92DA5E505C344 /* SKNode+HLGestureTarget.m in Sources */,
+				BCB18D150D789D05E5D25EE4A6C16635 /* SKNode+HLLayoutManager.m in Sources */,
+				38EA5EA0782FAFFAC713FA7DA8FA63D0 /* SKSpriteNode+HLSpriteNodeAdditions.m in Sources */,
+				201F4A17D9CDE50455BF9E81330AC63B /* UIImage+HLImageAdditions.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		48E8A2476ADD845CCC558184896F1C8B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = HLSpriteKit;
+			target = 7610B0048768F6B7D959C9A8C23441E4 /* HLSpriteKit */;
+			targetProxy = 3E533A67F83BDCC5BB3FD7F60CDFBC65 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		27CC24BE1FA6A3F2B76B410556A0868B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4591E592BC3DF2FB467F09776C281DCB /* Pods-Hospital Demo.release.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		47B5DCCF2CE8028B93E4977322F5EFEE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EDBDACF3CC6A120727916C7CE95D4BDF /* Pods-Hospital Demo.debug.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		5CE5176205D06FF3FFE3DDDA9291E44B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		74857149DC1E0D599B8A01A78349A926 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E5105BEB6AFD69AD319134AD274403C0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0B76BEA6749E47138E0A8FE605F947AC /* HLSpriteKit.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/HLSpriteKit/HLSpriteKit-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		FCC8A09FEAEC0C1427AD9286282D7C3E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0B76BEA6749E47138E0A8FE605F947AC /* HLSpriteKit.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/HLSpriteKit/HLSpriteKit-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		088AB3771FD33BF5795D67CAC3B87D91 /* Build configuration list for PBXNativeTarget "Pods-Hospital Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				47B5DCCF2CE8028B93E4977322F5EFEE /* Debug */,
+				27CC24BE1FA6A3F2B76B410556A0868B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5CE5176205D06FF3FFE3DDDA9291E44B /* Debug */,
+				74857149DC1E0D599B8A01A78349A926 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		81E5330C399F290DB4869CC342286B98 /* Build configuration list for PBXNativeTarget "HLSpriteKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FCC8A09FEAEC0C1427AD9286282D7C3E /* Debug */,
+				E5105BEB6AFD69AD319134AD274403C0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}

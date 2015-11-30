@@ -1,4 +1,4 @@
-//
+// #import "HLScrollNode.h"
 //  BaseScene.swift
 //  Hospital Demo
 //
@@ -14,7 +14,7 @@ import SpriteKit
 /**
  A base class for all of the scenes in the app.
  */
-class BaseScene: SKScene {
+class BaseScene: SKScene, UIGestureRecognizerDelegate {
 
     /**
      The native size for this scene. This is the height at which the scene
@@ -22,6 +22,10 @@ class BaseScene: SKScene {
      Defaults to `zeroSize`; the actual value to use is set in `createCamera()`.
      */
     var nativeSize = CGSize.zero
+    
+    
+    var staticObjects = SKSpriteNode()
+    
     
     
     /// A reference to the scene manager for scene progression.
@@ -41,6 +45,20 @@ class BaseScene: SKScene {
         // Find all the buttons and set the initial focus.
 //        buttons = findAllButtonsInScene()
 //        resetFocus()
+        
+        
+        // Code I've actually written...
+        
+        createTiles()
+        
+        var scrollable = HLScrollNode();
+        scrollable.contentNode = staticObjects
+        
+//        scrollable.addChild(staticObjects)
+        self.addChild(scrollable)
+
+        
+        
     }
     
     override func didChangeSize(oldSize: CGSize) {
@@ -66,6 +84,35 @@ class BaseScene: SKScene {
         if let camera = camera {
             camera.setScale(nativeSize.height / size.height)
         }
+    }
+    
+    
+    func createTiles() {
+        
+        
+        let tileTexture = SKTexture(imageNamed: "Grey Tile.png")
+        
+        let initSize: [Int] = [10, 10]
+        
+        for var x: Int = 0; x < initSize[0]; x++ {
+            
+            print(x)
+            
+            var y = 0
+            
+            var tile = SKSpriteNode(texture: tileTexture)
+            
+//            tile
+            
+//            tile.position = CGPoint(x: Int(tileTexture.size().width) + Int(tileTexture.size().width) * x, y: Int(tileTexture.size().height) * y)
+
+            tile.position = CGPoint(x: Int(tileTexture.size().width) * x, y: Int(tileTexture.size().height) * y)
+            
+            staticObjects.addChild(tile)
+            
+        }
+        
+        
     }
     
 
