@@ -51,11 +51,14 @@ class BaseScene: SKScene, UIGestureRecognizerDelegate {
         
         createTiles()
         
-        var scrollable = HLScrollNode();
-        scrollable.contentNode = staticObjects
+        let myScrollNode: HLScrollNode = HLScrollNode(size: CGSize(width: 100.0, height: 100.0), contentSize: CGSize(width: 200.0, height: 200.0))
+        
+        let myContentNode = SKShapeNode(rectOfSize: CGSize(width: 150, height: 200))
+        
+        myScrollNode.contentNode = myContentNode
         
 //        scrollable.addChild(staticObjects)
-        self.addChild(scrollable)
+        self.addChild(myScrollNode)
 
         
         
