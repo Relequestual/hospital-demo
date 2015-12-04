@@ -21,6 +21,7 @@ class GameViewController: UIViewController {
             scene.size = skView.bounds.size
             skView.showsFPS = true
             skView.showsNodeCount = true
+            skView.showsPhysics = true
             
             /* Sprite Kit applies additional optimizations to improve rendering performance */
             skView.ignoresSiblingOrder = true
