@@ -10,11 +10,10 @@ import Foundation
 
 import SpriteKit
 
-
 /**
  A base class for all of the scenes in the app.
  */
-class BaseScene: SKScene, UIGestureRecognizerDelegate {
+class BaseScene: HLScene {
 
     /**
      The native size for this scene. This is the height at which the scene
@@ -51,29 +50,29 @@ class BaseScene: SKScene, UIGestureRecognizerDelegate {
         
         createTiles()
         
-//        let myScrollNode: HLScrollNode = HLScrollNode(size: CGSize(width: 100.0, height: 100.0), contentSize: CGSize(width: 200.0, height: 200.0))
-        
-        let myScrollNode: HLScrollNode = HLScrollNode(size: view.bounds.size, contentSize: view.bounds.size)
+        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+      
+        let myContentNode = SKSpriteNode(color: UIColor.blueColor(), size: CGSize(width:2000, height:2000))
+        let red1Node = SKSpriteNode(color: UIColor.redColor(), size: CGSize(width:1000, height: 1000))
+        red1Node.position = CGPoint(x: -500.0, y: 500.0)
+        let red2Node = SKSpriteNode(color: UIColor.redColor(), size: CGSize(width:1000, height: 1000))
+        red2Node.position = CGPoint(x: 500.0, y: -500.0)
+        let greenNode = SKSpriteNode(color: UIColor.greenColor(), size: CGSize(width:100, height: 100))
+        myContentNode.addChild(red1Node)
+        myContentNode.addChild(red2Node)
+        myContentNode.addChild(greenNode)
 
-        
-//        let myContentNode = SKShapeNode(rectOfSize: CGSize(width: 400, height: 200))
+        let myScrollNode: HLScrollNode = HLScrollNode(size: view.bounds.size, contentSize: myContentNode.size)
+        myScrollNode.contentScaleMinimum = 0.0
+        myScrollNode.contentNode = myContentNode
+        self.addChild(myScrollNode)
 
-        let myContentNode = SKShapeNode(rectOfSize: view.bounds.size)
-        
-        
-        let position = CGPoint(x: 100, y: 210)
-        
-        myContentNode.position = position
-        
+        myScrollNode.hlSetGestureTarget(myScrollNode)
+        self.registerDescendant(myScrollNode, withOptions:NSSet(objects: HLSceneChildResizeWithScene, HLSceneChildGestureTarget) as Set<NSObject>)
+      
         print(myContentNode.position)
-        
-//        myScrollNode.contentNode = myContentNode
-        
+      
 //        scrollable.addChild(staticObjects)
-        self.addChild(myContentNode)
-
-        
-        
     }
     
     override func didChangeSize(oldSize: CGSize) {
