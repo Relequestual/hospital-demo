@@ -14,7 +14,7 @@ import SpriteKit
 /**
  A base class for all of the scenes in the app.
  */
-class BaseScene: SKScene, UIGestureRecognizerDelegate {
+class BaseScene: HLScene {
 
     /**
      The native size for this scene. This is the height at which the scene
@@ -59,21 +59,26 @@ class BaseScene: SKScene, UIGestureRecognizerDelegate {
 //        let myContentNode = SKShapeNode(rectOfSize: CGSize(width: 400, height: 200))
 
         let myContentNode = SKShapeNode(rectOfSize: view.bounds.size)
-        
+
+        myContentNode.addChild(staticObjects)
         
         let position = CGPoint(x: 100, y: 210)
         
         myContentNode.position = position
-        
-        print(myContentNode.position)
-        
-//        myScrollNode.contentNode = myContentNode
-        
-//        scrollable.addChild(staticObjects)
-        self.addChild(myContentNode)
 
         
-        
+        myScrollNode.contentNode = myContentNode
+        myScrollNode.contentScale = 0.0
+        myScrollNode.contentScaleMaximum = 2.0
+        myScrollNode.contentScaleMinimum = 0.0
+
+        self.addChild(myScrollNode)
+
+
+//      [_catalogScrollNode hlSetGestureTarget:_catalogScrollNode];
+        myScrollNode.hlSetGestureTarget(myScrollNode)
+        registerDescendant(myScrollNode, withOptions:NSSet(objects: HLSceneChildResizeWithScene, HLSceneChildGestureTarget) as Set<NSObject>)
+
     }
     
     override func didChangeSize(oldSize: CGSize) {
@@ -100,7 +105,7 @@ class BaseScene: SKScene, UIGestureRecognizerDelegate {
             camera.setScale(nativeSize.height / size.height)
         }
     }
-    
+
     
     func createTiles() {
         
