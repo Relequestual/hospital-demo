@@ -50,19 +50,44 @@ class BaseScene: HLScene {
         
         createTiles()
         
-        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+//        self.anchorPoint = CGPoint(x: 0.0, y: 0.0)
+        
+        let bottomleft = CGPoint(x: 0.0, y: 0.0)
+        let center = CGPoint(x: 0.5, y: 0.5)
       
         let myContentNode = SKSpriteNode(color: UIColor.blueColor(), size: CGSize(width:2000, height:2000))
-        let red1Node = SKSpriteNode(color: UIColor.redColor(), size: CGSize(width:1000, height: 1000))
-        red1Node.position = CGPoint(x: -500.0, y: 500.0)
+        
+        myContentNode.anchorPoint = bottomleft
+        
+        let red1Node = SKSpriteNode(color: UIColor.redColor(), size: CGSize(width:500, height: 500))
+        red1Node.position = CGPoint(x: 500, y: 500)
+        red1Node.anchorPoint = center
+        
         let red2Node = SKSpriteNode(color: UIColor.redColor(), size: CGSize(width:1000, height: 1000))
-        red2Node.position = CGPoint(x: 500.0, y: -500.0)
+        red2Node.position = CGPoint(x: 1500.0, y: 1500.0)
+        red2Node.anchorPoint = center
         let greenNode = SKSpriteNode(color: UIColor.greenColor(), size: CGSize(width:100, height: 100))
+        greenNode.position = CGPoint(x: 1000.0, y: 1000.0)
+        greenNode.anchorPoint = center
+
         myContentNode.addChild(red1Node)
         myContentNode.addChild(red2Node)
         myContentNode.addChild(greenNode)
 
+        for (var i = 0; i<500; i += 10) {
+            let greenNode = SKSpriteNode(color: UIColor.greenColor(), size: CGSize(width:20, height: 20))
+            greenNode.position = CGPoint(x: i, y: i)
+            myContentNode.addChild(greenNode)
+        }
+        
+        myContentNode.addChild(staticObjects)
+        print("size is")
+        print(view.bounds.size)
+        print(myContentNode.size)
+
         let myScrollNode: HLScrollNode = HLScrollNode(size: view.bounds.size, contentSize: myContentNode.size)
+        myScrollNode.anchorPoint = bottomleft
+        myScrollNode.contentAnchorPoint = bottomleft
         myScrollNode.contentScaleMinimum = 0.0
         myScrollNode.contentNode = myContentNode
         self.addChild(myScrollNode)
@@ -72,7 +97,6 @@ class BaseScene: HLScene {
       
         print(myContentNode.position)
       
-//        scrollable.addChild(staticObjects)
     }
     
     override func didChangeSize(oldSize: CGSize) {
@@ -110,11 +134,10 @@ class BaseScene: HLScene {
         
         for var x: Int = 0; x < initSize[0]; x++ {
             
+            var tile = SKSpriteNode(texture: tileTexture)
             print(x)
             
             var y = 0
-            
-            var tile = SKSpriteNode(texture: tileTexture)
             
 //            tile
             
