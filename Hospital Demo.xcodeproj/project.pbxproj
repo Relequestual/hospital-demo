@@ -7,23 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		10BC8F77BFF692B51942A560 /* libPods-Hospital Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 86F4C980E49DF85A22F23F45 /* libPods-Hospital Demo.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		136FA18A1BFBCBDC0086F545 /* BaseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136FA1891BFBCBDC0086F545 /* BaseScene.swift */; };
 		13A5F5CC1C0A464B0013D478 /* Grey Tile.png in Resources */ = {isa = PBXBuildFile; fileRef = 13A5F5CB1C0A464B0013D478 /* Grey Tile.png */; };
 		13A5F5CE1C0A587F0013D478 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 13A5F5CD1C0A587F0013D478 /* GameScene.sks */; };
+		13B6A1B41C255C940087649C /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B6A1B31C255C940087649C /* Tile.swift */; };
+		13B6A1B61C255D8E0087649C /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B6A1B51C255D8E0087649C /* SpriteComponent.swift */; };
 		13C765301BF61B2D00AC0223 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C7652F1BF61B2D00AC0223 /* AppDelegate.swift */; };
 		13C765341BF61B2D00AC0223 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C765331BF61B2D00AC0223 /* GameScene.swift */; };
 		13C765361BF61B2D00AC0223 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C765351BF61B2D00AC0223 /* GameViewController.swift */; };
 		13C765391BF61B2D00AC0223 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13C765371BF61B2D00AC0223 /* Main.storyboard */; };
 		13C7653B1BF61B2D00AC0223 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13C7653A1BF61B2D00AC0223 /* Assets.xcassets */; };
 		13C7653E1BF61B2D00AC0223 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13C7653C1BF61B2D00AC0223 /* LaunchScreen.storyboard */; };
+		58B51067ED2966DA1F5E3564 /* Pods_Hospital_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 119B22F354B724D95C8C9719 /* Pods_Hospital_Demo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		119B22F354B724D95C8C9719 /* Pods_Hospital_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hospital_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1340ED6E1C0B6F3600776FA1 /* Hospital_Demo-Swift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Hospital_Demo-Swift.h"; sourceTree = "<group>"; };
 		136FA1891BFBCBDC0086F545 /* BaseScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseScene.swift; sourceTree = "<group>"; };
 		13A5F5CB1C0A464B0013D478 /* Grey Tile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Grey Tile.png"; sourceTree = "<group>"; };
 		13A5F5CD1C0A587F0013D478 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		13B6A1B31C255C940087649C /* Tile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tile.swift; path = Entity/Tile.swift; sourceTree = "<group>"; };
+		13B6A1B51C255D8E0087649C /* SpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpriteComponent.swift; path = Component/SpriteComponent.swift; sourceTree = "<group>"; };
 		13C7652C1BF61B2D00AC0223 /* Hospital Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hospital Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13C7652F1BF61B2D00AC0223 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		13C765331BF61B2D00AC0223 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -33,7 +38,6 @@
 		13C7653D1BF61B2D00AC0223 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		13C7653F1BF61B2D00AC0223 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		457F6EC4CF57C614C89AFCF5 /* Pods-Hospital Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hospital Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hospital Demo/Pods-Hospital Demo.release.xcconfig"; sourceTree = "<group>"; };
-		86F4C980E49DF85A22F23F45 /* libPods-Hospital Demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Hospital Demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE6259AC48982DC954389865 /* Pods-Hospital Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hospital Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hospital Demo/Pods-Hospital Demo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -42,7 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				10BC8F77BFF692B51942A560 /* libPods-Hospital Demo.a in Frameworks */,
+				58B51067ED2966DA1F5E3564 /* Pods_Hospital_Demo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,6 +59,22 @@
 				136FA1891BFBCBDC0086F545 /* BaseScene.swift */,
 			);
 			name = Scenes;
+			sourceTree = "<group>";
+		};
+		13B6A1B11C255B070087649C /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				13B6A1B31C255C940087649C /* Tile.swift */,
+			);
+			name = Entity;
+			sourceTree = "<group>";
+		};
+		13B6A1B21C255B110087649C /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				13B6A1B51C255D8E0087649C /* SpriteComponent.swift */,
+			);
+			name = Component;
 			sourceTree = "<group>";
 		};
 		13C765231BF61B2D00AC0223 = {
@@ -79,6 +99,8 @@
 		13C7652E1BF61B2D00AC0223 /* Hospital Demo */ = {
 			isa = PBXGroup;
 			children = (
+				13B6A1B11C255B070087649C /* Entity */,
+				13B6A1B21C255B110087649C /* Component */,
 				136FA1881BFBCBB90086F545 /* Scenes */,
 				13C7652F1BF61B2D00AC0223 /* AppDelegate.swift */,
 				13C765331BF61B2D00AC0223 /* GameScene.swift */,
@@ -105,7 +127,7 @@
 		DB3B59A34D3C34780422EEFE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				86F4C980E49DF85A22F23F45 /* libPods-Hospital Demo.a */,
+				119B22F354B724D95C8C9719 /* Pods_Hospital_Demo.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -237,7 +259,9 @@
 			files = (
 				13C765341BF61B2D00AC0223 /* GameScene.swift in Sources */,
 				13C765361BF61B2D00AC0223 /* GameViewController.swift in Sources */,
+				13B6A1B41C255C940087649C /* Tile.swift in Sources */,
 				13C765301BF61B2D00AC0223 /* AppDelegate.swift in Sources */,
+				13B6A1B61C255D8E0087649C /* SpriteComponent.swift in Sources */,
 				136FA18A1BFBCBDC0086F545 /* BaseScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

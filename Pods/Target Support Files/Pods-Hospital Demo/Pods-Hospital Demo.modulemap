@@ -1,0 +1,6 @@
+framework module Pods_Hospital_Demo {
+  umbrella header "Pods-Hospital Demo-umbrella.h"
+
+  export *
+  module * { export * }
+}

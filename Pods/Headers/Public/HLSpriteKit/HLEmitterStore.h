@@ -1,1 +1,0 @@
-../../../HLSpriteKit/HLSpriteKit/HLEmitterStore.h

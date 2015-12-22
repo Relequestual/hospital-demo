@@ -1,1 +1,0 @@
-../../../HLSpriteKit/HLSpriteKit/HLComponentNode.h
