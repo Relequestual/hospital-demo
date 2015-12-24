@@ -7,8 +7,8 @@
 //
 
 import Foundation
-
 import SpriteKit
+import HLSpriteKit
 
 /**
  A base class for all of the scenes in the app.
@@ -84,7 +84,7 @@ class BaseScene: HLScene {
         print("size is")
         print(view.bounds.size)
         print(myContentNode.size)
-
+        
         let myScrollNode: HLScrollNode = HLScrollNode(size: view.bounds.size, contentSize: myContentNode.size)
         myScrollNode.anchorPoint = bottomleft
         myScrollNode.contentAnchorPoint = bottomleft
@@ -134,10 +134,10 @@ class BaseScene: HLScene {
         
         for var x: Int = 0; x < initSize[0]; x++ {
             
-            var tile = SKSpriteNode(texture: tileTexture)
+            let tile = SKSpriteNode(texture: tileTexture)
             print(x)
             
-            var y = 0
+            let y = 0
             
 //            tile
             

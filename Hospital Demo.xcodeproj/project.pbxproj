@@ -23,7 +23,6 @@
 
 /* Begin PBXFileReference section */
 		119B22F354B724D95C8C9719 /* Pods_Hospital_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hospital_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1340ED6E1C0B6F3600776FA1 /* Hospital_Demo-Swift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Hospital_Demo-Swift.h"; sourceTree = "<group>"; };
 		136FA1891BFBCBDC0086F545 /* BaseScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseScene.swift; sourceTree = "<group>"; };
 		13A5F5CB1C0A464B0013D478 /* Grey Tile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Grey Tile.png"; sourceTree = "<group>"; };
 		13A5F5CD1C0A587F0013D478 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -80,7 +79,6 @@
 		13C765231BF61B2D00AC0223 = {
 			isa = PBXGroup;
 			children = (
-				1340ED6E1C0B6F3600776FA1 /* Hospital_Demo-Swift.h */,
 				13C7652E1BF61B2D00AC0223 /* Hospital Demo */,
 				13C7652D1BF61B2D00AC0223 /* Products */,
 				D9D473466C91A2DBC577D2DD /* Pods */,
@@ -385,7 +383,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Relequestual.Hospital-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}//Hospital_Demo-Swift.h";
 			};
 			name = Debug;
 		};
@@ -403,7 +400,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Relequestual.Hospital-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}//Hospital_Demo-Swift.h";
 			};
 			name = Release;
 		};

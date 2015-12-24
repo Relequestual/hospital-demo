@@ -6,8 +6,8 @@
 //  Copyright © 2015 Ben Hutton. All rights reserved.
 //
 
-import SpriteKit
 import GameplayKit
+import SpriteKit
 
 class SpriteComponent: GKComponent {
 
