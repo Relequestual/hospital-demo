@@ -13,7 +13,7 @@ import GameplayKit
 class EntityManager {
 
     var entities = Set<GKEntity>()
-    let scene: SKScene
+    let node: SKNode
     var toRemove = Set<GKEntity>()
 
     lazy var componentSystems: [GKComponentSystem] = {
@@ -22,15 +22,15 @@ class EntityManager {
         return []
     }()
 
-    init(scene: SKScene) {
-        self.scene = scene
+    init(node: SKNode) {
+        self.node = node
     }
 
     func add(entity: GKEntity) {
         entities.insert(entity)
 
         if let spriteNode = entity.componentForClass(SpriteComponent.self)?.node {
-            scene.addChild(spriteNode)
+            node.addChild(spriteNode)
         }
 
         for componentSystem in componentSystems {

@@ -12,7 +12,6 @@ import GameplayKit
 class PositionComponent: GKComponent {
 
     var x : Int
-
     var y : Int
     
     init(x : Int, y : Int) {
