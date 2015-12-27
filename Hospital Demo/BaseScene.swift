@@ -15,6 +15,10 @@ import HLSpriteKit
  */
 class BaseScene: HLScene {
 
+
+    var entityManager: EntityManager!
+
+
     /**
      The native size for this scene. This is the height at which the scene
      would be rendered if it did not need to be scaled to fit a window or device.

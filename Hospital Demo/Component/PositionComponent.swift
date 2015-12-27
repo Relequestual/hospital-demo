@@ -11,9 +11,12 @@ import GameplayKit
 
 class PositionComponent: GKComponent {
 
-    let position = what?
+    var x : Int
+
+    var y : Int
     
-    init(texture: SKTexture) {
-        node = SKSpriteNode(texture: texture, color: SKColor.whiteColor(), size: texture.size())
+    init(x : Int, y : Int) {
+        self.x = x
+        self.y = y
     }
 }

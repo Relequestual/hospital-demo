@@ -9,8 +9,11 @@
 import SpriteKit
 
 class GameScene: BaseScene {
-//    override func didMoveToView(view: SKView) {
-//        
+
+    override func didMoveToView(view: SKView) {
+
+        super.didMoveToView(view)
+
 //        /* Setup your scene here */
 //        let myLabel = SKLabelNode(fontNamed:"Chalkduster")
 //        myLabel.text = "Hello Hospital!";
@@ -18,10 +21,10 @@ class GameScene: BaseScene {
 //        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame));
 //        
 //        self.addChild(myLabel)
-//        
-//        
-//    }
-    
+
+        
+    }
+
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
        /* Called when a touch begins */
         
