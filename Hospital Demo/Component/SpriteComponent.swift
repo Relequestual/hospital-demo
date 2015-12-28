@@ -11,9 +11,9 @@ import SpriteKit
 
 class SpriteComponent: GKComponent {
 
-    let node: SKSpriteNode
+  let node: SKSpriteNode
 
-    init(texture: SKTexture) {
-        node = SKSpriteNode(texture: texture, color: SKColor.whiteColor(), size: texture.size())
-    }
+  init(texture: SKTexture) {
+    node = SKSpriteNode(texture: texture, color: SKColor.whiteColor(), size: texture.size())
+  }
 }

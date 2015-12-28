@@ -11,47 +11,47 @@ import SpriteKit
 
 class GameViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+  override func viewDidLoad() {
+    super.viewDidLoad()
 
-        if let scene = GameScene(fileNamed:"GameScene") {
-            // Configure the view.
-            
-            let skView = self.view as! SKView
-            scene.size = skView.bounds.size
-            skView.showsFPS = true
-            skView.showsNodeCount = true
-            skView.showsPhysics = true
-            
-            /* Sprite Kit applies additional optimizations to improve rendering performance */
-            skView.ignoresSiblingOrder = true
-            
-            /* Set the scale mode to scale to fit the window */
-//            scene.scaleMode = .AspectFill
-            scene.scaleMode = .ResizeFill
-            
-            skView.presentScene(scene)
-        }
-    }
+    if let scene = GameScene(fileNamed:"GameScene") {
+      // Configure the view.
 
-    override func shouldAutorotate() -> Bool {
-        return true
-    }
+      let skView = self.view as! SKView
+      scene.size = skView.bounds.size
+      skView.showsFPS = true
+      skView.showsNodeCount = true
+      skView.showsPhysics = true
 
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
-            return .AllButUpsideDown
-        } else {
-            return .All
-        }
-    }
+      /* Sprite Kit applies additional optimizations to improve rendering performance */
+      skView.ignoresSiblingOrder = true
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
-    }
+      /* Set the scale mode to scale to fit the window */
+      //            scene.scaleMode = .AspectFill
+      scene.scaleMode = .ResizeFill
 
-    override func prefersStatusBarHidden() -> Bool {
-        return true
+      skView.presentScene(scene)
     }
+  }
+
+  override func shouldAutorotate() -> Bool {
+    return true
+  }
+
+  override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+    if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+      return .AllButUpsideDown
+    } else {
+      return .All
+    }
+  }
+
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Release any cached data, images, etc that aren't in use.
+  }
+
+  override func prefersStatusBarHidden() -> Bool {
+    return true
+  }
 }
