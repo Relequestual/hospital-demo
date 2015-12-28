@@ -137,20 +137,16 @@ class BaseScene: HLScene {
     
     func createTiles() {
 
-//        let tileTexture = SKTexture(imageNamed: "Grey Tile.png")
-
         let initSize: [Int] = [10, 10]
         for var x: Int = 0; x < initSize[0]; x++ {
+            for var y: Int = 0; y < initSize[1]; y++ {
 
-            let y = 0
-//            let position = CGPoint(x: Int(tileTexture.size().width) + Int(tileTexture.size().width) * x, y: Int(tileTexture.size().height) * y)
+              let tile = Tile(imageName: "Grey Tile.png", x: x, y: y)
 
+              print(x)
 
-            let tile = Tile(imageName: "Grey Tile.png", x: x, y: y)
-
-            print(x)
-
-            entityManager.add(tile)
+              entityManager.add(tile)
+            }
         }
         
     }
