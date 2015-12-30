@@ -16,17 +16,16 @@ class Tile: GKEntity {
 
     let spriteComponent = SpriteComponent(texture: SKTexture(imageNamed: imageName))
     let width = Int((spriteComponent.node.texture?.size().width)!)
-    let newx = width * x
+    let x = width * x
+    let y = width * y
 
-    print(newx)
-
-    let positionComponent = PositionComponent(x: newx, y: y)
+    let positionComponent = PositionComponent(x: x, y: y)
 
     addComponent(spriteComponent)
     addComponent(positionComponent)
 
     spriteComponent.node.anchorPoint = CGPoint(x: 0, y: 0)
-    spriteComponent.node.position = CGPoint(x: newx, y: y)
+    spriteComponent.node.position = CGPoint(x: x, y: y)
 
   }
 }
