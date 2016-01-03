@@ -16,11 +16,10 @@ class SpriteDebugComponent: GKComponent {
     print(size)
 
     let debugRect = SKShapeNode(rectOfSize: size!)
-    print(debugRect.description)
     debugRect.strokeColor = UIColor.cyanColor()
-//    debugRect.fillColor = UIColor.blackColor()
     debugRect.zPosition = 100
     node.addChild(debugRect)
+    
   }
 
 }

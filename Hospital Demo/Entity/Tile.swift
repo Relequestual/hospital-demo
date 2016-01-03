@@ -21,14 +21,13 @@ class Tile: GKEntity {
     addComponent(spriteDebugComponent)
 
     let width = Int((spriteComponent.node.texture?.size().width)!)
-    let x = width * x
-    let y = width * y
+    let x = width * x + width / 2
+    let y = width * y + width / 2
 
     let positionComponent = PositionComponent(x: x, y: y)
 
     addComponent(positionComponent)
 
-    spriteComponent.node.anchorPoint = CGPoint(x: 0, y: 0)
     spriteComponent.node.position = CGPoint(x: x, y: y)
 
   }
