@@ -86,7 +86,7 @@ class BaseScene: HLScene {
       myContentNode.addChild(greenNode)
     }
 
-    myContentNode.addChild(staticObjects)
+//    myContentNode.addChild(staticObjects)
     print("size is")
     print(view.bounds.size)
     print(myContentNode.size)
@@ -102,8 +102,14 @@ class BaseScene: HLScene {
 
     print(myContentNode.position)
 
+
     entityManager = EntityManager(node: myContentNode)
     createTiles()
+    let debugRect = SKShapeNode(rectOfSize: CGSize(width: 64, height: 64))
+    debugRect.strokeColor = UIColor.cyanColor()
+    debugRect.fillColor = UIColor.blackColor()
+    debugRect.position = CGPoint(x: 0.0, y: 0.0)
+    myContentNode.addChild(debugRect)
 
     self.addChild(myScrollNode)
 
@@ -148,6 +154,7 @@ class BaseScene: HLScene {
         entityManager.add(tile)
       }
     }
+
 
   }
 
