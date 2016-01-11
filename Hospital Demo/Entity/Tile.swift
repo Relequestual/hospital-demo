@@ -15,10 +15,7 @@ class Tile: GKEntity {
     super.init()
 
     let spriteComponent = SpriteComponent(texture: SKTexture(imageNamed: imageName))
-    addComponent(spriteComponent)
-
-    let spriteDebugComponent = SpriteDebugComponent(node: spriteComponent.node)
-    addComponent(spriteDebugComponent)
+    addComponent(spriteComponent)    
 
     let width = Int((spriteComponent.node.texture?.size().width)!)
     let x = width * x + width / 2
@@ -27,8 +24,11 @@ class Tile: GKEntity {
     let positionComponent = PositionComponent(x: x, y: y)
 
     addComponent(positionComponent)
-
+    
     spriteComponent.node.position = CGPoint(x: x, y: y)
+    
+    let spriteDebugComponent = SpriteDebugComponent(node: spriteComponent.node)
+    addComponent(spriteDebugComponent)
 
   }
 }

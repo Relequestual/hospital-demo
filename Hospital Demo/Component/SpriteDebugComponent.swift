@@ -14,7 +14,7 @@ class SpriteDebugComponent: GKComponent {
   init(node: SKSpriteNode ) {
     super.init()
     let size = node.texture?.size()
-    let position = entity?.componentForClass(PositionComponent)
+    let position = node.position
     print(size)
 
     let debugRect = SKShapeNode(rectOfSize: size!)
@@ -28,13 +28,15 @@ class SpriteDebugComponent: GKComponent {
     node.addChild(anchorPoint)
 
 
-    let desc = SKLabelNode(text: NSStringFromCGPoint(CGPoint(x: position!.x, y: position!.y)))
+    let desc = SKLabelNode(text: NSStringFromCGPoint(CGPoint(x: (position.x - 32) / 64, y: (position.y - 32) / 64)))
     desc.fontColor = UIColor.blackColor()
     desc.zPosition = 100
-    desc.position = CGPoint(x: 0, y: 0)
+    desc.position = CGPoint(x: -32, y: -32)
     desc.fontSize = 10
+    desc.fontName = "AvenirNext-Bold"
 
-    desc.verticalAlignmentMode = .Top
+    desc.verticalAlignmentMode = .Bottom
+    desc.horizontalAlignmentMode = .Left
 
     node.addChild(desc)
 
