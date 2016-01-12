@@ -111,7 +111,24 @@ class BaseScene: HLScene {
     debugRect.position = CGPoint(x: 0.0, y: 0.0)
     myContentNode.addChild(debugRect)
 
+    myScrollNode.zPosition = 50
+    
     self.addChild(myScrollNode)
+    
+    let toolbarNode = HLToolbarNode()
+    toolbarNode.anchorPoint = CGPoint(x: 0, y: 0)
+    toolbarNode.size = CGSize(width: 300, height: 80)
+    toolbarNode.position = CGPoint(x: 0, y: 0)
+    
+    let toolNodes = NSMutableArray()
+    
+    let redTool = SKSpriteNode(color: UIColor.redColor(), size: CGSize(width: 20, height: 20))
+    
+    toolNodes.addObject(redTool)
+    toolbarNode.setTools(toolNodes as [AnyObject], tags: ["red"], animation:HLToolbarNodeAnimation.SlideUp)
+    
+    self.addChild(toolbarNode)
+    
 
   }
 

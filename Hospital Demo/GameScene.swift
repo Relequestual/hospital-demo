@@ -32,17 +32,17 @@ class GameScene: BaseScene {
       let location = touch.locationInNode(self)
       print(location)
 
-      let sprite = SKSpriteNode(imageNamed:"Grey Tile.png")
-
-      sprite.xScale = 0.5
-      sprite.yScale = 0.5
-      sprite.position = location
-
-      let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:1)
-
-      sprite.runAction(SKAction.repeatActionForever(action))
-
-      self.addChild(sprite)
+//      let sprite = SKSpriteNode(imageNamed:"Grey Tile.png")
+//
+//      sprite.xScale = 0.5
+//      sprite.yScale = 0.5
+//      sprite.position = location
+//
+//      let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:1)
+//
+//      sprite.runAction(SKAction.repeatActionForever(action))
+//
+//      self.addChild(sprite)
     }
 
 
