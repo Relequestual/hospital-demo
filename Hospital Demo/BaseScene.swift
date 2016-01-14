@@ -86,6 +86,7 @@ class BaseScene: HLScene {
       myContentNode.addChild(greenNode)
     }
 
+
 //    myContentNode.addChild(staticObjects)
     print("size is")
     print(view.bounds.size)
@@ -114,20 +115,8 @@ class BaseScene: HLScene {
     myScrollNode.zPosition = 50
     
     self.addChild(myScrollNode)
-    
-    let toolbarNode = HLToolbarNode()
-    toolbarNode.anchorPoint = CGPoint(x: 0, y: 0)
-    toolbarNode.size = CGSize(width: 300, height: 80)
-    toolbarNode.position = CGPoint(x: 0, y: 0)
-    
-    let toolNodes = NSMutableArray()
-    
-    let redTool = SKSpriteNode(color: UIColor.redColor(), size: CGSize(width: 20, height: 20))
-    
-    toolNodes.addObject(redTool)
-    toolbarNode.setTools(toolNodes as [AnyObject], tags: ["red"], animation:HLToolbarNodeAnimation.SlideUp)
-    
-    self.addChild(toolbarNode)
+
+    createToolbar()
     
 
   }
@@ -173,6 +162,24 @@ class BaseScene: HLScene {
     }
 
 
+  }
+
+  func createToolbar() {
+
+    let toolbarNode = HLToolbarNode()
+    toolbarNode.anchorPoint = CGPoint(x: 0, y: 0)
+    toolbarNode.size = CGSize(width: view!.bounds.width, height: 64)
+    toolbarNode.position = CGPoint(x: 0, y: 0)
+    toolbarNode.zPosition = 999
+
+    let toolNodes = NSMutableArray()
+
+    let redTool = SKSpriteNode(color: UIColor.redColor(), size: CGSize(width: 20, height: 20))
+
+    toolNodes.addObject(redTool)
+    toolbarNode.setTools(toolNodes as [AnyObject], tags: ["red"], animation:HLToolbarNodeAnimation.SlideUp)
+
+    self.addChild(toolbarNode)
   }
 
 
