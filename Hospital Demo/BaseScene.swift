@@ -80,11 +80,11 @@ class BaseScene: HLScene {
     myContentNode.addChild(red2Node)
     myContentNode.addChild(greenNode)
 
-    for (var i = 0; i<500; i += 10) {
-      let greenNode = SKSpriteNode(color: UIColor.greenColor(), size: CGSize(width:20, height: 20))
-      greenNode.position = CGPoint(x: i, y: i)
-      myContentNode.addChild(greenNode)
-    }
+//    for (var i = 0; i<500; i += 10) {
+//      let greenNode = SKSpriteNode(color: UIColor.greenColor(), size: CGSize(width:20, height: 20))
+//      greenNode.position = CGPoint(x: i, y: i)
+//      myContentNode.addChild(greenNode)
+//    }
 
 
 //    myContentNode.addChild(staticObjects)
@@ -111,12 +111,26 @@ class BaseScene: HLScene {
     debugRect.fillColor = UIColor.blackColor()
     debugRect.position = CGPoint(x: 0.0, y: 0.0)
     myContentNode.addChild(debugRect)
+    
+    let debugLayer = SpriteDebugComponent.debugLayer
+    let debugTexture = view.textureFromNode(debugLayer)
+    let debugNode = SKSpriteNode(texture: debugTexture)
+    debugNode.zPosition = 100
+    debugNode.anchorPoint = CGPoint(x: 0,y: 0)
+    // for thickness of line
+    debugNode.position = CGPoint(x: -1,y: -1)
+    
+    print("debug node size is")
+    print(debugNode.size)
+    print(debugNode.position)
+    
+    myContentNode.addChild(debugNode)
 
     myScrollNode.zPosition = 50
     
     self.addChild(myScrollNode)
 
-    createToolbar()
+//    createToolbar()
     
 
   }
@@ -154,8 +168,6 @@ class BaseScene: HLScene {
       for var y: Int = 0; y < initSize[1]; y++ {
 
         let tile = Tile(imageName: "Grey Tile.png", x: x, y: y)
-
-        print(x)
 
         entityManager.add(tile)
       }
