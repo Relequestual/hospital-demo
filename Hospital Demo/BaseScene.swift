@@ -106,11 +106,6 @@ class BaseScene: HLScene {
 
     entityManager = EntityManager(node: myContentNode)
     createTiles()
-    let debugRect = SKShapeNode(rectOfSize: CGSize(width: 64, height: 64))
-    debugRect.strokeColor = UIColor.cyanColor()
-    debugRect.fillColor = UIColor.blackColor()
-    debugRect.position = CGPoint(x: 0.0, y: 0.0)
-    myContentNode.addChild(debugRect)
     
     let debugLayer = SpriteDebugComponent.debugLayer
     let debugTexture = view.textureFromNode(debugLayer)
@@ -128,10 +123,10 @@ class BaseScene: HLScene {
 
     myScrollNode.zPosition = 50
     
-    self.addChild(myScrollNode)
-
-//    createToolbar()
+    createToolbar()
     
+    myScrollNode.position = CGPoint(x: 0, y: 64)
+    self.addChild(myScrollNode)
 
   }
 
@@ -190,7 +185,7 @@ class BaseScene: HLScene {
 
     toolNodes.addObject(redTool)
     toolbarNode.setTools(toolNodes as [AnyObject], tags: ["red"], animation:HLToolbarNodeAnimation.SlideUp)
-
+    
     self.addChild(toolbarNode)
   }
 
