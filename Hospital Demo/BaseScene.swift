@@ -124,9 +124,14 @@ class BaseScene: HLScene {
     myScrollNode.zPosition = 50
     
     createToolbar()
-    
+
     myScrollNode.position = CGPoint(x: 0, y: 64)
+
+    myScrollNode.contentClipped = true
+
     self.addChild(myScrollNode)
+
+    self.HL_showMessage("testing!")
 
   }
 
@@ -185,7 +190,17 @@ class BaseScene: HLScene {
 
     toolNodes.addObject(redTool)
     toolbarNode.setTools(toolNodes as [AnyObject], tags: ["red"], animation:HLToolbarNodeAnimation.SlideUp)
+
+    toolbarNode.toolTappedBlock = {(toolTag: String!) -> Void in
+      print("toolbar!")
+      self.HL_showMessage("Tapped tool on HLToolbarNode.")
+    }
+    toolbarNode.hlSetGestureTarget(toolbarNode)
     
+//    self.registerDescendant(toolbarNode, withOptions: Set<AnyObject>.setWithObject(HLSceneChildGestureTarget))
+    self.registerDescendant(toolbarNode, withOptions: Set(arrayLiteral: HLSceneChildGestureTarget))
+    print(toolbarNode)
+
     self.addChild(toolbarNode)
   }
 
@@ -197,6 +212,28 @@ class BaseScene: HLScene {
     lastUpdateTimeInterval = currentTime
 
     entityManager.update(deltaTime)
+  }
+
+
+  func HL_showMessage(message: NSString) {
+
+    print("message?")
+    print(self.size.height)
+    
+    let _messageNode = HLMessageNode(color: UIColor.blackColor(), size: CGSizeZero)
+
+    _messageNode.zPosition = 10000
+    _messageNode.fontName = "Helvetica"
+    _messageNode.fontSize = 12.0
+    _messageNode.verticalAlignmentMode = HLLabelNodeVerticalAlignmentMode.AlignFont
+
+    _messageNode.messageLingerDuration = 4.0
+
+    _messageNode.size = CGSize(width: self.size.width, height: 20.0)
+    _messageNode.position = CGPoint(x: 0, y: 0 + self.size.height);
+    _messageNode.anchorPoint = CGPoint(x: 0, y: 1)
+    _messageNode.showMessage(message as String, parent: self)
+    print(_messageNode)
   }
 
 
