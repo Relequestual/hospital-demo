@@ -21,6 +21,7 @@
 		13CCF1551C2F47FF00297EF3 /* EntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF1541C2F47FF00297EF3 /* EntityManager.swift */; };
 		13CCF1571C34088D00297EF3 /* SpriteDebugComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF1561C34088D00297EF3 /* SpriteDebugComponent.swift */; };
 		58B51067ED2966DA1F5E3564 /* Pods_Hospital_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 119B22F354B724D95C8C9719 /* Pods_Hospital_Demo.framework */; };
+		914667E11C5937D800560251 /* TouchableSpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914667E01C5937D800560251 /* TouchableSpriteComponent.swift */; };
 		91DF14CF1C2A958D003E813F /* PositionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DF14CE1C2A958D003E813F /* PositionComponent.swift */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +43,7 @@
 		13CCF1541C2F47FF00297EF3 /* EntityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EntityManager.swift; path = Entity/EntityManager.swift; sourceTree = "<group>"; };
 		13CCF1561C34088D00297EF3 /* SpriteDebugComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpriteDebugComponent.swift; path = Component/SpriteDebugComponent.swift; sourceTree = "<group>"; };
 		457F6EC4CF57C614C89AFCF5 /* Pods-Hospital Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hospital Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hospital Demo/Pods-Hospital Demo.release.xcconfig"; sourceTree = "<group>"; };
+		914667E01C5937D800560251 /* TouchableSpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TouchableSpriteComponent.swift; path = Component/TouchableSpriteComponent.swift; sourceTree = "<group>"; };
 		91DF14CE1C2A958D003E813F /* PositionComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PositionComponent.swift; path = Component/PositionComponent.swift; sourceTree = "<group>"; };
 		FE6259AC48982DC954389865 /* Pods-Hospital Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hospital Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hospital Demo/Pods-Hospital Demo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -81,6 +83,7 @@
 				13B6A1B51C255D8E0087649C /* SpriteComponent.swift */,
 				91DF14CE1C2A958D003E813F /* PositionComponent.swift */,
 				13CCF1561C34088D00297EF3 /* SpriteDebugComponent.swift */,
+				914667E01C5937D800560251 /* TouchableSpriteComponent.swift */,
 			);
 			name = Component;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 				13C765301BF61B2D00AC0223 /* AppDelegate.swift in Sources */,
 				91DF14CF1C2A958D003E813F /* PositionComponent.swift in Sources */,
 				13B6A1B61C255D8E0087649C /* SpriteComponent.swift in Sources */,
+				914667E11C5937D800560251 /* TouchableSpriteComponent.swift in Sources */,
 				13CCF1551C2F47FF00297EF3 /* EntityManager.swift in Sources */,
 				136FA18A1BFBCBDC0086F545 /* BaseScene.swift in Sources */,
 				13CCF1571C34088D00297EF3 /* SpriteDebugComponent.swift in Sources */,
