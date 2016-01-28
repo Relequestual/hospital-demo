@@ -18,12 +18,3 @@ class ToucheableSpriteComponent: GKComponent {
     self.node = node
   }
 }
-
-
-class Touchable: SKSpriteNode {
-
-  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    print("touched!")
-  }
-  
-}

@@ -18,3 +18,12 @@ class SpriteComponent: GKComponent {
     node.userInteractionEnabled = true
   }
 }
+
+
+class Touchable: SKSpriteNode {
+
+  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    print("touched!")
+  }
+
+}

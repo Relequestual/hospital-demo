@@ -114,7 +114,7 @@ class BaseScene: HLScene {
     debugNode.anchorPoint = CGPoint(x: 0,y: 0)
     // for thickness of line
     debugNode.position = CGPoint(x: -1,y: -1)
-    
+
     print("debug node size is")
     print(debugNode.size)
     print(debugNode.position)
