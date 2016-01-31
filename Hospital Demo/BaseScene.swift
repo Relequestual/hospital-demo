@@ -115,10 +115,13 @@ class BaseScene: HLScene {
     // for thickness of line
     debugNode.position = CGPoint(x: -1,y: -1)
 
+    debugNode.size = CGSizeZero
     print("debug node size is")
     print(debugNode.size)
     print(debugNode.position)
-    
+
+//    debugNode.userInteractionEnabled = false
+
     myContentNode.addChild(debugNode)
 
     myScrollNode.zPosition = 50
@@ -234,6 +237,28 @@ class BaseScene: HLScene {
     _messageNode.anchorPoint = CGPoint(x: 0, y: 1)
     _messageNode.showMessage(message as String, parent: self)
     print(_messageNode)
+  }
+
+  
+  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    print("touched!")
+
+    let touch = touches.first!
+//    let touch:UITouch = touches.anyObject()! as UITouch
+    let positionInScene = touch.locationInNode(self)
+    let touchedNodes = self.nodesAtPoint(positionInScene)
+
+//    print(touchedNodes)
+    for node in touchedNodes {
+//      print("")
+      print(node.userData)
+      if((node.userData?["entity"]) != nil){
+        print("DING")
+        print(node)
+      }
+    }
+
+
   }
 
 

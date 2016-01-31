@@ -14,16 +14,13 @@ class SpriteComponent: GKComponent {
   let node: SKSpriteNode
 
   init(texture: SKTexture) {
-    node = Touchable(texture: texture, color: SKColor.whiteColor(), size: texture.size())
-    node.userInteractionEnabled = true
-  }
-}
+    node = SKSpriteNode(texture: texture, color: SKColor.whiteColor(), size: texture.size())
 
-
-class Touchable: SKSpriteNode {
-
-  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    print("touched!")
   }
 
+  func addToNodeKey() {
+    self.node.userData = NSMutableDictionary()
+    self.node.userData?.setObject(self.entity!, forKey: "entity")
+  }
+  
 }
