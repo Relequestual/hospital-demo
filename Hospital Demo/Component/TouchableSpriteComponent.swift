@@ -9,7 +9,16 @@
 import GameplayKit
 import SpriteKit
 
-class ToucheableSpriteComponent: GKComponent {
+class TouchableSpriteComponent: GKComponent {
   
-
+  var entityTouched: ()->Void;
+  
+  init(f:() -> Void) {
+    self.entityTouched = f
+  }
+  
+  func callFunction() {
+    self.entityTouched()
+  }
+  
 }

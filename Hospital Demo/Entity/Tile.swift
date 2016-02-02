@@ -28,8 +28,22 @@ class Tile: GKEntity {
     
     spriteComponent.node.position = CGPoint(x: x, y: y)
     
+    let touchableComponent = TouchableSpriteComponent(){
+      print("function of spritecomponent?")
+      self.handleTouch()
+      
+    }
+    addComponent(touchableComponent)
+    
     let spriteDebugComponent = SpriteDebugComponent(node: spriteComponent.node)
     addComponent(spriteDebugComponent)
 
+  }
+  
+  func handleTouch() {
+    print("I am a TILE!")
+    print(self.componentForClass(PositionComponent)?.x)
+    print(self.componentForClass(PositionComponent)?.y)
+    // Do some more things like change state of another component
   }
 }

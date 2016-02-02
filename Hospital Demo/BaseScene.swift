@@ -8,6 +8,7 @@
 
 import Foundation
 import SpriteKit
+import GameplayKit
 import HLSpriteKit
 
 /**
@@ -171,7 +172,6 @@ class BaseScene: HLScene {
       for var y: Int = 0; y < initSize[1]; y++ {
 
         let tile = Tile(imageName: "Grey Tile.png", x: x, y: y)
-
         entityManager.add(tile)
       }
     }
@@ -244,17 +244,14 @@ class BaseScene: HLScene {
     print("touched!")
 
     let touch = touches.first!
-//    let touch:UITouch = touches.anyObject()! as UITouch
     let positionInScene = touch.locationInNode(self)
     let touchedNodes = self.nodesAtPoint(positionInScene)
 
-//    print(touchedNodes)
     for node in touchedNodes {
-//      print("")
       print(node.userData)
       if((node.userData?["entity"]) != nil){
-        print("DING")
-        print(node)
+        let entity = node.userData!["entity"] as! GKEntity
+        entity.componentForClass(TouchableSpriteComponent)?.callFunction()
       }
     }
 
