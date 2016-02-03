@@ -19,6 +19,7 @@ class SpriteComponent: GKComponent {
 
   func addToNodeKey() {
     self.node.userData = NSMutableDictionary()
+    guard self.entity != nil else {return}
     self.node.userData?.setObject(self.entity!, forKey: "entity")
   }
   
