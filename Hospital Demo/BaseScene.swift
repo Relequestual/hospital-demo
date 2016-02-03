@@ -116,12 +116,9 @@ class BaseScene: HLScene {
     // for thickness of line
     debugNode.position = CGPoint(x: -1,y: -1)
 
-    debugNode.size = CGSizeZero
     print("debug node size is")
     print(debugNode.size)
     print(debugNode.position)
-
-//    debugNode.userInteractionEnabled = false
 
     myContentNode.addChild(debugNode)
 
@@ -248,13 +245,9 @@ class BaseScene: HLScene {
     let touchedNodes = self.nodesAtPoint(positionInScene)
 
     for node in touchedNodes {
-      print(node.userData)
-      if((node.userData?["entity"]) != nil){
-        let entity = node.userData!["entity"] as! GKEntity
-        entity.componentForClass(TouchableSpriteComponent)?.callFunction()
-      }
+      guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else {continue}
+      entity.componentForClass(TouchableSpriteComponent)?.callFunction()
     }
-
 
   }
 
