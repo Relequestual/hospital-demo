@@ -26,7 +26,7 @@ class Tile: GKEntity {
         TilePathState(tile: self)
       ])
 
-    stateMachine.enterState(TileState)
+    stateMachine.enterState(initState)
 
     let width = Int((spriteComponent.node.texture?.size().width)!)
     let x = width * x + width / 2
@@ -55,5 +55,9 @@ class Tile: GKEntity {
     print(self.componentForClass(PositionComponent)?.x)
     print(self.componentForClass(PositionComponent)?.y)
     // Do some more things like change state of another component
+    print(self.stateMachine.currentState)
+    self.stateMachine.enterState(self.nextSpriteState())
+//    self.nextSpriteState()
+    
   }
 }

@@ -70,18 +70,19 @@
 			name = Scenes;
 			sourceTree = "<group>";
 		};
-		13907E4C1C62B786009FC199 /* States */ = {
+		13907E4C1C62B786009FC199 /* TileStates */ = {
 			isa = PBXGroup;
 			children = (
 				13907E4D1C62BA1D009FC199 /* TileStates.swift */,
 			);
-			name = States;
+			name = TileStates;
 			sourceTree = "<group>";
 		};
 		13B6A1B11C255B070087649C /* Entity */ = {
 			isa = PBXGroup;
 			children = (
 				13B6A1B31C255C940087649C /* Tile.swift */,
+				13907E4C1C62B786009FC199 /* TileStates */,
 				13CCF1541C2F47FF00297EF3 /* EntityManager.swift */,
 			);
 			name = Entity;
@@ -122,7 +123,6 @@
 				13B6A1B11C255B070087649C /* Entity */,
 				13B6A1B21C255B110087649C /* Component */,
 				136FA1881BFBCBB90086F545 /* Scenes */,
-				13907E4C1C62B786009FC199 /* States */,
 				13C7652F1BF61B2D00AC0223 /* AppDelegate.swift */,
 				13C765331BF61B2D00AC0223 /* GameScene.swift */,
 				13A5F5CD1C0A587F0013D478 /* GameScene.sks */,
