@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		136FA18A1BFBCBDC0086F545 /* BaseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136FA1891BFBCBDC0086F545 /* BaseScene.swift */; };
+		13907E4E1C62BA1D009FC199 /* TileStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13907E4D1C62BA1D009FC199 /* TileStates.swift */; };
 		13A5F5CC1C0A464B0013D478 /* Grey Tile.png in Resources */ = {isa = PBXBuildFile; fileRef = 13A5F5CB1C0A464B0013D478 /* Grey Tile.png */; };
 		13A5F5CE1C0A587F0013D478 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 13A5F5CD1C0A587F0013D478 /* GameScene.sks */; };
 		13B6A1B41C255C940087649C /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B6A1B31C255C940087649C /* Tile.swift */; };
@@ -28,6 +29,7 @@
 /* Begin PBXFileReference section */
 		119B22F354B724D95C8C9719 /* Pods_Hospital_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hospital_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		136FA1891BFBCBDC0086F545 /* BaseScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseScene.swift; sourceTree = "<group>"; };
+		13907E4D1C62BA1D009FC199 /* TileStates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TileStates.swift; path = States/TileStates.swift; sourceTree = "<group>"; };
 		13A5F5CB1C0A464B0013D478 /* Grey Tile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Grey Tile.png"; sourceTree = "<group>"; };
 		13A5F5CD1C0A587F0013D478 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		13B6A1B31C255C940087649C /* Tile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tile.swift; path = Entity/Tile.swift; sourceTree = "<group>"; };
@@ -66,6 +68,14 @@
 				136FA1891BFBCBDC0086F545 /* BaseScene.swift */,
 			);
 			name = Scenes;
+			sourceTree = "<group>";
+		};
+		13907E4C1C62B786009FC199 /* States */ = {
+			isa = PBXGroup;
+			children = (
+				13907E4D1C62BA1D009FC199 /* TileStates.swift */,
+			);
+			name = States;
 			sourceTree = "<group>";
 		};
 		13B6A1B11C255B070087649C /* Entity */ = {
@@ -112,6 +122,7 @@
 				13B6A1B11C255B070087649C /* Entity */,
 				13B6A1B21C255B110087649C /* Component */,
 				136FA1881BFBCBB90086F545 /* Scenes */,
+				13907E4C1C62B786009FC199 /* States */,
 				13C7652F1BF61B2D00AC0223 /* AppDelegate.swift */,
 				13C765331BF61B2D00AC0223 /* GameScene.swift */,
 				13A5F5CD1C0A587F0013D478 /* GameScene.sks */,
@@ -269,6 +280,7 @@
 			files = (
 				13C765341BF61B2D00AC0223 /* GameScene.swift in Sources */,
 				13C765361BF61B2D00AC0223 /* GameViewController.swift in Sources */,
+				13907E4E1C62BA1D009FC199 /* TileStates.swift in Sources */,
 				13B6A1B41C255C940087649C /* Tile.swift in Sources */,
 				13C765301BF61B2D00AC0223 /* AppDelegate.swift in Sources */,
 				91DF14CF1C2A958D003E813F /* PositionComponent.swift in Sources */,

@@ -11,12 +11,22 @@ import GameplayKit
 
 class Tile: GKEntity {
 
-  init(imageName: String, x: Int, y: Int) {
+  var stateMachine: GKStateMachine!
+
+  init(imageName: String, initState: TileState.Type, x: Int, y: Int) {
     super.init()
 
     let spriteComponent = SpriteComponent(texture: SKTexture(imageNamed: imageName))
     addComponent(spriteComponent)
     spriteComponent.addToNodeKey()
+
+    stateMachine = GKStateMachine(states: [
+        TileTileState(tile: self),
+        TileGrassState(tile: self),
+        TilePathState(tile: self)
+      ])
+
+    stateMachine.enterState(TileState)
 
     let width = Int((spriteComponent.node.texture?.size().width)!)
     let x = width * x + width / 2

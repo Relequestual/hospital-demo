@@ -168,7 +168,7 @@ class BaseScene: HLScene {
     for var x: Int = 0; x < initSize[0]; x++ {
       for var y: Int = 0; y < initSize[1]; y++ {
 
-        let tile = Tile(imageName: "Grey Tile.png", x: x, y: y)
+        let tile = Tile(imageName: "Grey Tile.png", initState: TileTileState(self), x: x, y: y)
         entityManager.add(tile)
       }
     }
