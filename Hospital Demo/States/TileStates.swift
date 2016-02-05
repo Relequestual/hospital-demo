@@ -15,6 +15,7 @@ class TileState : GKState{
   var tile : Tile?
 
   init( tile: Tile ) {
+    super.init()
     self.tile = tile
   }
   
