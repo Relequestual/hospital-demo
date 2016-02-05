@@ -13,18 +13,16 @@ import GameplayKit
 class TileState : GKState{
 
   var tile : Tile?
-  var view : SKView
 
   init( tile: Tile ) {
     self.tile = tile
-    self.view = SKView()
   }
   
-  func createColoredTileTexture(color: UIColor) -> SKTexture {
+  static func createColoredTileTexture(color: UIColor) -> SKTexture {
     let node = SKShapeNode(rectOfSize: CGSize(width: 32, height: 32))
     node.lineWidth = 0
     node.fillColor = color
-    return self.view.textureFromNode(node)!
+    return SKView().textureFromNode(node)!
   }
 }
 
@@ -43,10 +41,7 @@ class TileGrassState: TileState {
   override func didEnterWithPreviousState(previousState: GKState?) {
     super.didEnterWithPreviousState(previousState)
 
-    let node = SKShapeNode(rectOfSize: CGSize(width: 32, height: 32))
-    node.lineWidth = 0
-    node.fillColor = UIColor.greenColor()
-    let texture = view.textureFromNode(node)
+    let texture = TileState.self.createColoredTileTexture(UIColor.greenColor())
     tile?.componentForClass(SpriteComponent)?.node.texture = texture
   }
 
@@ -57,10 +52,7 @@ class TilePathState: TileState {
   override func didEnterWithPreviousState(previousState: GKState?) {
     super.didEnterWithPreviousState(previousState)
     
-    let node = SKShapeNode(rectOfSize: CGSize(width: 32, height: 32))
-    node.lineWidth = 0
-    node.fillColor = UIColor.grayColor()
-    let texture = view.textureFromNode(node)
+    let texture = TileState.self.createColoredTileTexture(UIColor.grayColor())
     tile?.componentForClass(SpriteComponent)?.node.texture = texture
   }
   
