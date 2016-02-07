@@ -23,6 +23,7 @@
 		13CCF1551C2F47FF00297EF3 /* EntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF1541C2F47FF00297EF3 /* EntityManager.swift */; };
 		13CCF1571C34088D00297EF3 /* SpriteDebugComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF1561C34088D00297EF3 /* SpriteDebugComponent.swift */; };
 		13DFA1791C65ECE8003289E9 /* GameToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DFA1781C65ECE8003289E9 /* GameToolbar.swift */; };
+		13DFA17B1C6806F4003289E9 /* BuildState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DFA17A1C6806F4003289E9 /* BuildState.swift */; };
 		58B51067ED2966DA1F5E3564 /* Pods_Hospital_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 119B22F354B724D95C8C9719 /* Pods_Hospital_Demo.framework */; };
 		914667E11C5937D800560251 /* TouchableSpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914667E01C5937D800560251 /* TouchableSpriteComponent.swift */; };
 		91C836831C649978008ECABF /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C836821C649978008ECABF /* GameState.swift */; };
@@ -49,6 +50,7 @@
 		13CCF1541C2F47FF00297EF3 /* EntityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EntityManager.swift; path = Entity/EntityManager.swift; sourceTree = "<group>"; };
 		13CCF1561C34088D00297EF3 /* SpriteDebugComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpriteDebugComponent.swift; path = Component/SpriteDebugComponent.swift; sourceTree = "<group>"; };
 		13DFA1781C65ECE8003289E9 /* GameToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameToolbar.swift; path = SceneElements/GameToolbar.swift; sourceTree = "<group>"; };
+		13DFA17A1C6806F4003289E9 /* BuildState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildState.swift; sourceTree = "<group>"; };
 		457F6EC4CF57C614C89AFCF5 /* Pods-Hospital Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hospital Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hospital Demo/Pods-Hospital Demo.release.xcconfig"; sourceTree = "<group>"; };
 		914667E01C5937D800560251 /* TouchableSpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TouchableSpriteComponent.swift; path = Component/TouchableSpriteComponent.swift; sourceTree = "<group>"; };
 		91C836821C649978008ECABF /* GameState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameState.swift; path = States/GameState.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				91C836821C649978008ECABF /* GameState.swift */,
+				13DFA17A1C6806F4003289E9 /* BuildState.swift */,
 			);
 			name = GameStates;
 			sourceTree = "<group>";
@@ -304,6 +307,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13C765341BF61B2D00AC0223 /* GameScene.swift in Sources */,
+				13DFA17B1C6806F4003289E9 /* BuildState.swift in Sources */,
 				13C765361BF61B2D00AC0223 /* GameViewController.swift in Sources */,
 				91C836831C649978008ECABF /* GameState.swift in Sources */,
 				13907E4E1C62BA1D009FC199 /* TileStates.swift in Sources */,
