@@ -16,9 +16,6 @@ import HLSpriteKit
  */
 class BaseScene: HLScene {
 
-
-  var entityManager: EntityManager!
-
   // Update time
   var lastUpdateTimeInterval: NSTimeInterval = 0
 
@@ -104,8 +101,7 @@ class BaseScene: HLScene {
 
     print(myContentNode.position)
 
-
-    entityManager = EntityManager(node: myContentNode)
+    Game.sharedInstance.entityManager = EntityManager(node: myContentNode)
     createTiles()
     
     let debugLayer = SpriteDebugComponent.debugLayer
@@ -124,7 +120,11 @@ class BaseScene: HLScene {
 
     myScrollNode.zPosition = 50
     
-    createToolbar()
+    let toolbar = GameToolbar(size: CGSize(width: view.bounds.width, height: 64), baseScene: self)
+    toolbar.hlSetGestureTarget(toolbar)
+    self.addChild(toolbar)
+
+    self.registerDescendant(toolbar, withOptions: Set(arrayLiteral: HLSceneChildGestureTarget))
 
     myScrollNode.position = CGPoint(x: 0, y: 64)
 
@@ -169,39 +169,11 @@ class BaseScene: HLScene {
       for var y: Int = 0; y < initSize[1]; y++ {
 
         let tile = Tile(imageName: "Grey Tile.png", initState: TileTileState.self, x: x, y: y)
-        entityManager.add(tile)
+        Game.sharedInstance.entityManager.add(tile)
       }
     }
 
 
-  }
-
-  func createToolbar() {
-
-    let toolbarNode = HLToolbarNode()
-    toolbarNode.anchorPoint = CGPoint(x: 0, y: 0)
-    toolbarNode.size = CGSize(width: view!.bounds.width, height: 64)
-    toolbarNode.position = CGPoint(x: 0, y: 0)
-    toolbarNode.zPosition = 999
-
-    let toolNodes = NSMutableArray()
-
-    let redTool = SKSpriteNode(color: UIColor.redColor(), size: CGSize(width: 20, height: 20))
-
-    toolNodes.addObject(redTool)
-    toolbarNode.setTools(toolNodes as [AnyObject], tags: ["red"], animation:HLToolbarNodeAnimation.SlideUp)
-
-    toolbarNode.toolTappedBlock = {(toolTag: String!) -> Void in
-      print("toolbar!")
-      self.HL_showMessage("Tapped tool on HLToolbarNode.")
-    }
-    toolbarNode.hlSetGestureTarget(toolbarNode)
-    
-//    self.registerDescendant(toolbarNode, withOptions: Set<AnyObject>.setWithObject(HLSceneChildGestureTarget))
-    self.registerDescendant(toolbarNode, withOptions: Set(arrayLiteral: HLSceneChildGestureTarget))
-    print(toolbarNode)
-
-    self.addChild(toolbarNode)
   }
 
 
@@ -211,7 +183,7 @@ class BaseScene: HLScene {
     let deltaTime = currentTime - lastUpdateTimeInterval
     lastUpdateTimeInterval = currentTime
 
-    entityManager.update(deltaTime)
+    Game.sharedInstance.entityManager.update(deltaTime)
   }
 
 
