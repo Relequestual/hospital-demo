@@ -12,11 +12,19 @@ import GameplayKit
 class GameState : GKState{
   
 
- 
 }
 
 
 
 class GameBuildState: GameState {
+
+}
+
+class GeneralState: GameState {
+
+}
+
+class LevelEditState: GameState {
+
 }
 
