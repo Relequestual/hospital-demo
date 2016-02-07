@@ -52,12 +52,12 @@ class Tile: GKEntity {
   
   func handleTouch() {
     print("I am a TILE!")
-    print(self.componentForClass(PositionComponent)?.x)
-    print(self.componentForClass(PositionComponent)?.y)
     // Do some more things like change state of another component
-    print(self.stateMachine.currentState)
-    self.stateMachine.enterState(self.nextSpriteState())
-//    self.nextSpriteState()
-    
+    print(Game.sharedInstance.stateMachine.currentState)
+    if (( Game.sharedInstance.stateMachine.currentState!.isKindOfClass(LevelEditState))) {
+      print(self.stateMachine.currentState)
+      self.stateMachine.enterState(self.nextSpriteState())
+    }
+
   }
 }
