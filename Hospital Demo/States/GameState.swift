@@ -16,15 +16,15 @@ class GameState : GKState{
 
 
 
-class GameBuildState: GameState {
+class GSBuild: GameState {
 
 }
 
-class GeneralState: GameState {
+class GSGeneral: GameState {
 
 }
 
-class LevelEditState: GameState {
+class GSLevelEdit: GameState {
 
 }
 

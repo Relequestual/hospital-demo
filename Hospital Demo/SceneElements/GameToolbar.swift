@@ -60,15 +60,15 @@ class GameToolbar: HLToolbarNode {
   }
 
   class func redTouch() {
-    Game.sharedInstance.stateMachine.enterState(LevelEditState)
+    Game.sharedInstance.stateMachine.enterState(GSLevelEdit)
   }
 
   class func greenTouch() {
-    Game.sharedInstance.stateMachine.enterState(GeneralState)
+    Game.sharedInstance.stateMachine.enterState(GSGeneral)
   }
 
   class func blueTouch() {
-    Game.sharedInstance.stateMachine.enterState(GameBuildState)
+    Game.sharedInstance.stateMachine.enterState(GSBuild)
   }
 
 
