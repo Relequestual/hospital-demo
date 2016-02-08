@@ -13,19 +13,25 @@ import GameplayKit
 class Game {
   static let sharedInstance = Game()
 
-  var stateMachine: GKStateMachine
+  var gameStateMachine = GKStateMachine(states: [
+    GSBuild(),
+    GSGeneral(),
+    GSLevelEdit()
+  ])
+
+  var buildStateMachine = GKStateMachine(states: [
+    BSNoBuild(),
+    BSPlaceItem(),
+    BSSelectSqaures()
+  ])
 
   var entityManager: EntityManager!
 
   private init() {
 
-    stateMachine = GKStateMachine(states: [
-      GSBuild(),
-      GSGeneral(),
-      GSLevelEdit()
-    ])
-
-    stateMachine.enterState(GSGeneral)
+    self.gameStateMachine.enterState(GSGeneral)
+    
+    self.buildStateMachine.enterState(BSNoBuild)
 
   }
 
