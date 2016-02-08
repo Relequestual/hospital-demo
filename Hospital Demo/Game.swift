@@ -20,12 +20,12 @@ class Game {
   private init() {
 
     stateMachine = GKStateMachine(states: [
-      GameBuildState(),
-      GeneralState(),
-      LevelEditState()
+      GSBuild(),
+      GSGeneral(),
+      GSLevelEdit()
     ])
 
-    stateMachine.enterState(GeneralState)
+    stateMachine.enterState(GSGeneral)
 
   }
 

@@ -54,7 +54,7 @@ class Tile: GKEntity {
     print("I am a TILE!")
     // Do some more things like change state of another component
     print(Game.sharedInstance.stateMachine.currentState)
-    if (( Game.sharedInstance.stateMachine.currentState!.isKindOfClass(LevelEditState))) {
+    if (( Game.sharedInstance.stateMachine.currentState!.isKindOfClass(GSLevelEdit))) {
       print(self.stateMachine.currentState)
       self.stateMachine.enterState(self.nextSpriteState())
     }
