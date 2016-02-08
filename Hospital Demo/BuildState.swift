@@ -17,9 +17,20 @@ class BuildState : GKState{
 
 class BSNoBuild: BuildState {
 
+  override func isValidNextState(stateClass: AnyClass) -> Bool {
+    let allowed_states: [AnyClass] = [ BSPlaceItem.self ]
+    
+    return allowed_states.contains({ $0 == stateClass})
+  }
 }
 
 class BSPlaceItem: BuildState {
+  
+  override func didEnterWithPreviousState(previousState: GKState?) {
+    print(previousState)
+    print("In Place Item State")
+  }
+
 
 }
 
