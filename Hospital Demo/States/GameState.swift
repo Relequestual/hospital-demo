@@ -18,6 +18,11 @@ class GameState : GKState{
 
 class GSBuild: GameState {
 
+  override func didEnterWithPreviousState(previousState: GKState?) {
+    print(previousState)
+    print("In game state build state")
+  }
+
 }
 
 class GSGeneral: GameState {

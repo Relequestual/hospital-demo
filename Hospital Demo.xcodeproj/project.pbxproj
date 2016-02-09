@@ -12,6 +12,8 @@
 		13A5F5CC1C0A464B0013D478 /* Grey Tile.png in Resources */ = {isa = PBXBuildFile; fileRef = 13A5F5CB1C0A464B0013D478 /* Grey Tile.png */; };
 		13A5F5CE1C0A587F0013D478 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 13A5F5CD1C0A587F0013D478 /* GameScene.sks */; };
 		13B223011C6407D300567B0E /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B223001C6407D300567B0E /* Game.swift */; };
+		13B6032D1C6935D700A65E7F /* ReceptionDesk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B6032C1C6935D700A65E7F /* ReceptionDesk.swift */; };
+		13B6032F1C69434900A65E7F /* AreaComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B6032E1C69434900A65E7F /* AreaComponent.swift */; };
 		13B6A1B41C255C940087649C /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B6A1B31C255C940087649C /* Tile.swift */; };
 		13B6A1B61C255D8E0087649C /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B6A1B51C255D8E0087649C /* SpriteComponent.swift */; };
 		13C765301BF61B2D00AC0223 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C7652F1BF61B2D00AC0223 /* AppDelegate.swift */; };
@@ -37,6 +39,8 @@
 		13A5F5CB1C0A464B0013D478 /* Grey Tile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Grey Tile.png"; sourceTree = "<group>"; };
 		13A5F5CD1C0A587F0013D478 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		13B223001C6407D300567B0E /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		13B6032C1C6935D700A65E7F /* ReceptionDesk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReceptionDesk.swift; path = Entity/ReceptionDesk.swift; sourceTree = "<group>"; };
+		13B6032E1C69434900A65E7F /* AreaComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AreaComponent.swift; path = Component/AreaComponent.swift; sourceTree = "<group>"; };
 		13B6A1B31C255C940087649C /* Tile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tile.swift; path = Entity/Tile.swift; sourceTree = "<group>"; };
 		13B6A1B51C255D8E0087649C /* SpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpriteComponent.swift; path = Component/SpriteComponent.swift; sourceTree = "<group>"; };
 		13C7652C1BF61B2D00AC0223 /* Hospital Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hospital Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,12 +91,21 @@
 			name = TileStates;
 			sourceTree = "<group>";
 		};
+		13B6032B1C69320B00A65E7F /* States */ = {
+			isa = PBXGroup;
+			children = (
+				13907E4C1C62B786009FC199 /* TileStates */,
+				91C836811C64991A008ECABF /* GameStates */,
+			);
+			name = States;
+			sourceTree = "<group>";
+		};
 		13B6A1B11C255B070087649C /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				13B6A1B31C255C940087649C /* Tile.swift */,
-				13907E4C1C62B786009FC199 /* TileStates */,
 				13CCF1541C2F47FF00297EF3 /* EntityManager.swift */,
+				13B6A1B31C255C940087649C /* Tile.swift */,
+				13B6032C1C6935D700A65E7F /* ReceptionDesk.swift */,
 			);
 			name = Entity;
 			sourceTree = "<group>";
@@ -104,6 +117,7 @@
 				91DF14CE1C2A958D003E813F /* PositionComponent.swift */,
 				13CCF1561C34088D00297EF3 /* SpriteDebugComponent.swift */,
 				914667E01C5937D800560251 /* TouchableSpriteComponent.swift */,
+				13B6032E1C69434900A65E7F /* AreaComponent.swift */,
 			);
 			name = Component;
 			sourceTree = "<group>";
@@ -133,7 +147,7 @@
 				13B6A1B21C255B110087649C /* Component */,
 				136FA1881BFBCBB90086F545 /* Scenes */,
 				13B223001C6407D300567B0E /* Game.swift */,
-				91C836811C64991A008ECABF /* GameStates */,
+				13B6032B1C69320B00A65E7F /* States */,
 				13C7652F1BF61B2D00AC0223 /* AppDelegate.swift */,
 				13C765331BF61B2D00AC0223 /* GameScene.swift */,
 				13A5F5CD1C0A587F0013D478 /* GameScene.sks */,
@@ -309,6 +323,7 @@
 				13C765341BF61B2D00AC0223 /* GameScene.swift in Sources */,
 				13DFA17B1C6806F4003289E9 /* BuildState.swift in Sources */,
 				13C765361BF61B2D00AC0223 /* GameViewController.swift in Sources */,
+				13B6032F1C69434900A65E7F /* AreaComponent.swift in Sources */,
 				91C836831C649978008ECABF /* GameState.swift in Sources */,
 				13907E4E1C62BA1D009FC199 /* TileStates.swift in Sources */,
 				13B6A1B41C255C940087649C /* Tile.swift in Sources */,
@@ -320,6 +335,7 @@
 				13CCF1551C2F47FF00297EF3 /* EntityManager.swift in Sources */,
 				13DFA1791C65ECE8003289E9 /* GameToolbar.swift in Sources */,
 				136FA18A1BFBCBDC0086F545 /* BaseScene.swift in Sources */,
+				13B6032D1C6935D700A65E7F /* ReceptionDesk.swift in Sources */,
 				13CCF1571C34088D00297EF3 /* SpriteDebugComponent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
