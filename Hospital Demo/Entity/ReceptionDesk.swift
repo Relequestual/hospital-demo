@@ -14,6 +14,9 @@ class ReceptionDesk: GKEntity {
   init(height: Int, width: Int) {
     super.init()
 
+    let areaComponent = AreaComponent(width: width, height: height)
+    self.addComponent(areaComponent)
+    
   }
 
 

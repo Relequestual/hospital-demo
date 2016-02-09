@@ -11,6 +11,9 @@ import GameplayKit
 
 class BuildState : GKState{
 
+  func currentBuild() -> GKEntity? {
+    return nil
+  }
 
 }
 
@@ -30,8 +33,8 @@ class BSPlaceItem: BuildState {
     print(previousState)
     print("In Place Item State")
   }
-
-
+  
+  
 }
 
 class BSSelectSqaures: BuildState {
