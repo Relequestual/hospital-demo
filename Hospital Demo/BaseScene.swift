@@ -123,8 +123,15 @@ class BaseScene: HLScene {
     let toolbar = GameToolbar(size: CGSize(width: view.bounds.width, height: 64), baseScene: self)
     toolbar.hlSetGestureTarget(toolbar)
     self.addChild(toolbar)
+    
+    let placeObjectToolbar = PlaceObjectToolbar.construct(CGSize(width: view.bounds.width, height: 64), baseScene: self)!
+    placeObjectToolbar.hlSetGestureTarget(placeObjectToolbar)
+    self.addChild(placeObjectToolbar)
+    placeObjectToolbar.hidden = true
 
     self.registerDescendant(toolbar, withOptions: Set(arrayLiteral: HLSceneChildGestureTarget))
+    self.registerDescendant(placeObjectToolbar, withOptions: Set(arrayLiteral: HLSceneChildGestureTarget))
+
 
     myScrollNode.position = CGPoint(x: 0, y: 64)
 
