@@ -11,13 +11,17 @@ import GameplayKit
 
 class ReceptionDesk: GKEntity {
 
-  init(height: Int, width: Int) {
+  let area = [[0,0], [1,0]]
+  
+  override init() {
     super.init()
 
-    let areaComponent = AreaComponent(width: width, height: height)
-    self.addComponent(areaComponent)
+    let blueprint = BlueprintComponent(area: area)
+    self.addComponent(blueprint)
     
   }
+  
+  
 
 
 }

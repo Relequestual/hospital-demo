@@ -176,6 +176,9 @@ class BaseScene: HLScene {
       for var y: Int = 0; y < initSize[1]; y++ {
 
         let tile = Tile(imageName: "Grey Tile.png", initState: TileTileState.self, x: x, y: y)
+        
+        Game.sharedInstance.tilesAtCoords?.updateValue(forKey: x, value: [y => tile])
+        
         Game.sharedInstance.entityManager.add(tile)
       }
     }

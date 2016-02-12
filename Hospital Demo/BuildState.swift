@@ -24,6 +24,10 @@ class BSNoBuild: BuildState {
     let allowed_states: [AnyClass] = [ BSPlaceItem.self ]
     
     return allowed_states.contains({ $0 == stateClass})
+
+  }
+  
+  override func didEnterWithPreviousState(previousState: GKState?) {
     PlaceObjectToolbar.sharedInstance?.hidden = true
 
   }

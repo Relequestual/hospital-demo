@@ -26,6 +26,10 @@ class Game {
   ])
 
   var entityManager: EntityManager!
+  
+  var tilesAtCoords: [Int: [Int: Tile]]?
+  
+  var placingObjectsQueue = NSMutableArray()
 
   private init() {
 

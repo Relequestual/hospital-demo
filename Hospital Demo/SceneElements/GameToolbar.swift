@@ -68,8 +68,16 @@ class GameToolbar: HLToolbarNode {
   }
 
   class func blueTouch() {
-    Game.sharedInstance.gameStateMachine.enterState(GSBuild)
-    Game.sharedInstance.buildStateMachine.enterState(BSPlaceItem)
+    if ( Game.sharedInstance.buildStateMachine.currentState is BSPlaceItem) {
+      Game.sharedInstance.gameStateMachine.enterState(GSGeneral)
+      Game.sharedInstance.buildStateMachine.enterState(BSNoBuild)
+    } else {
+      Game.sharedInstance.gameStateMachine.enterState(GSBuild)
+      Game.sharedInstance.buildStateMachine.enterState(BSPlaceItem)
+      
+      Game.sharedInstance.placingObjectsQueue.addObject(ReceptionDesk)
+      
+    }
   }
 
 
