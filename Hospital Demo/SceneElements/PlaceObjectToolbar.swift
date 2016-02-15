@@ -16,9 +16,11 @@ class PlaceObjectToolbar: HLToolbarNode {
   static var sharedInstance: PlaceObjectToolbar? = nil;
   
   let options = [
-    "red": { PlaceObjectToolbar.redTouch() },
-    "green": { PlaceObjectToolbar.greenTouch() },
-    "blue": { PlaceObjectToolbar.blueTouch() }
+    "left": { PlaceObjectToolbar.leftTouch() },
+    "up": { PlaceObjectToolbar.upTouch() },
+    "down": { PlaceObjectToolbar.downTouch() },
+    "right": { PlaceObjectToolbar.rightTouch() },
+
   ]
   
   class func construct(size: CGSize, baseScene: BaseScene) -> PlaceObjectToolbar? {
@@ -39,16 +41,32 @@ class PlaceObjectToolbar: HLToolbarNode {
     self.zPosition = 999
     
     let toolNodes = NSMutableArray()
-    
-    let redTool = SKSpriteNode(color: UIColor.redColor(), size: CGSize(width: 20, height: 20))
-    let greenTool = SKSpriteNode(color: UIColor.greenColor(), size: CGSize(width: 20, height: 20))
-    let blueTool = SKSpriteNode(color: UIColor.blueColor(), size: CGSize(width: 20, height: 20))
-    
-    
-    toolNodes.addObject(redTool)
-    toolNodes.addObject(greenTool)
-    toolNodes.addObject(blueTool)
-    self.setTools(toolNodes as [AnyObject], tags: ["red", "green", "blue"], animation:HLToolbarNodeAnimation.SlideUp)
+
+    let arrowTexture = PlaceObjectToolbar.arrowTexture()
+
+    let rotateBy90 = SKAction.rotateByAngle(CGFloat(GLKMathDegreesToRadians(90.0)), duration: 0)
+    let rotateBy180 = SKAction.rotateByAngle(CGFloat(GLKMathDegreesToRadians(180.0)), duration: 0)
+    let rotateBy270 = SKAction.rotateByAngle(CGFloat(GLKMathDegreesToRadians(270.0)), duration: 0)
+
+
+    let leftArrowTool = SKSpriteNode(texture: arrowTexture, size: CGSize(width: 20, height: 20))
+    leftArrowTool.runAction(rotateBy90)
+    toolNodes.addObject(leftArrowTool)
+
+    let upArrowTool = SKSpriteNode(texture: arrowTexture, size: CGSize(width: 20, height: 20))
+    toolNodes.addObject(upArrowTool)
+
+    let downArrowTool = SKSpriteNode(texture: arrowTexture, size: CGSize(width: 20, height: 20))
+    downArrowTool.runAction(rotateBy180)
+    toolNodes.addObject(downArrowTool)
+
+    let rightArrowTool = SKSpriteNode(texture: arrowTexture, size: CGSize(width: 20, height: 20))
+    rightArrowTool.runAction(rotateBy270)
+    toolNodes.addObject(rightArrowTool)
+
+
+
+    self.setTools(toolNodes as [AnyObject], tags: ["left", "up", "down", "right"], animation:HLToolbarNodeAnimation.SlideUp)
     
     self.toolTappedBlock = {(toolTag: String!) -> Void in
       baseScene.HL_showMessage("Tapped \(toolTag) tool on HLToolbarNode.")
@@ -66,16 +84,45 @@ class PlaceObjectToolbar: HLToolbarNode {
     fatalError("init(coder:) has not been implemented")
   }
   
-  class func redTouch() {
-    print("red")
+  class func upTouch() {
+    print("up")
   }
-  
-  class func greenTouch() {
-    print("green")
+
+  class func downTouch() {
+    print("down")
   }
-  
-  class func blueTouch() {
-    print("blue")
+
+  class func leftTouch() {
+    print("left")
+  }
+
+  class func rightTouch() {
+    print("right")
+  }
+
+
+  class func arrowTexture() -> SKTexture {
+
+    let arrow = CGPathCreateMutable()
+
+    CGPathAddLines(arrow, nil, [
+      CGPoint(x: 10, y: 0),
+      CGPoint(x: 10, y: 20),
+      CGPoint(x: 0, y: 20),
+      CGPoint(x: 15, y: 35),
+      CGPoint(x: 30, y: 20),
+      CGPoint(x: 20, y: 20),
+      CGPoint(x: 20, y: 0),
+      CGPoint(x: 10, y: 0),
+    ], 8)
+
+    let shape = SKShapeNode()
+    shape.path = arrow
+    let view = SKView()
+    let arrowTexture: SKTexture = view.textureFromNode(shape)!
+
+    return arrowTexture
+
   }
   
   
