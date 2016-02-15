@@ -172,13 +172,15 @@ class BaseScene: HLScene {
   func createTiles() {
 
     let initSize: [Int] = [10, 10]
+
     for var x: Int = 0; x < initSize[0]; x++ {
+      Game.sharedInstance.tilesAtCoords[x] = [:]
       for var y: Int = 0; y < initSize[1]; y++ {
 
         let tile = Tile(imageName: "Grey Tile.png", initState: TileTileState.self, x: x, y: y)
-        
-        Game.sharedInstance.tilesAtCoords?.updateValue(forKey: x, value: [y => tile])
-        
+
+        Game.sharedInstance.tilesAtCoords[x]![y] = tile
+
         Game.sharedInstance.entityManager.add(tile)
       }
     }
