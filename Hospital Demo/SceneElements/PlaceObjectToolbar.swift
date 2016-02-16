@@ -20,7 +20,7 @@ class PlaceObjectToolbar: HLToolbarNode {
     "up": { PlaceObjectToolbar.upTouch() },
     "down": { PlaceObjectToolbar.downTouch() },
     "right": { PlaceObjectToolbar.rightTouch() },
-
+    "rotate": { PlaceObjectToolbar.rotateTouch() },
   ]
   
   class func construct(size: CGSize, baseScene: BaseScene) -> PlaceObjectToolbar? {
@@ -64,9 +64,16 @@ class PlaceObjectToolbar: HLToolbarNode {
     rightArrowTool.runAction(rotateBy270)
     toolNodes.addObject(rightArrowTool)
 
+    let size = CGSize(width: 20, height: 20)
+    let rotateNode = SKShapeNode(ellipseOfSize: size)
+    let view = SKView()
+    let rotateTexture: SKTexture = view.textureFromNode(rotateNode)!
+    let rotateTool = SKSpriteNode(texture: rotateTexture, size: CGSize(width: 20, height: 20))
+
+    toolNodes.addObject(rotateTool)
 
 
-    self.setTools(toolNodes as [AnyObject], tags: ["left", "up", "down", "right"], animation:HLToolbarNodeAnimation.SlideUp)
+    self.setTools(toolNodes as [AnyObject], tags: ["left", "up", "down", "right", "rotate"], animation:HLToolbarNodeAnimation.SlideUp)
     
     self.toolTappedBlock = {(toolTag: String!) -> Void in
       baseScene.HL_showMessage("Tapped \(toolTag) tool on HLToolbarNode.")
@@ -98,6 +105,10 @@ class PlaceObjectToolbar: HLToolbarNode {
 
   class func rightTouch() {
     print("right")
+  }
+
+  class func rotateTouch() {
+    print("rotate")
   }
 
 
