@@ -16,12 +16,17 @@ class ReceptionDesk: GKEntity {
   override init() {
     super.init()
 
-    let blueprint = BlueprintComponent(area: area)
+    let blueprint = BlueprintComponent(area: area, pf: { tile in
+      self.planAtPoint(tile)
+    })
     self.addComponent(blueprint)
     
   }
   
-  
+  func planAtPoint(tile: Tile){
+    print("planning reception desk at ")
+    print(tile)
+  }
 
 
 }

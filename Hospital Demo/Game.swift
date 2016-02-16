@@ -22,6 +22,7 @@ class Game {
   var buildStateMachine = GKStateMachine(states: [
     BSNoBuild(),
     BSPlaceItem(),
+    BSPlanedItem(),
     BSSelectSqaures()
   ])
 
@@ -29,7 +30,7 @@ class Game {
   
   var tilesAtCoords = [Int: [Int: Tile]]()
   
-  var placingObjectsQueue = NSMutableArray()
+  var placingObjectsQueue = Array<GKEntity.Type>()
 
   private init() {
 

@@ -75,7 +75,7 @@ class GameToolbar: HLToolbarNode {
       Game.sharedInstance.gameStateMachine.enterState(GSBuild)
       Game.sharedInstance.buildStateMachine.enterState(BSPlaceItem)
       
-      Game.sharedInstance.placingObjectsQueue.addObject(ReceptionDesk)
+      Game.sharedInstance.placingObjectsQueue.append(ReceptionDesk)
       
     }
   }

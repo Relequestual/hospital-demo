@@ -13,7 +13,13 @@ class Tile: GKEntity {
 
   var stateMachine: GKStateMachine!
 
+  var realPosition: (x: Int, y: Int)
+
   init(imageName: String, initState: TileState.Type, x: Int, y: Int) {
+
+    self.realPosition.x = x
+    self.realPosition.y = y
+
     super.init()
 
     let spriteComponent = SpriteComponent(texture: SKTexture(imageNamed: imageName))
@@ -68,8 +74,19 @@ class Tile: GKEntity {
     switch Game.sharedInstance.buildStateMachine.currentState {
     case is BSPlaceItem:
       
-      Game.sharedInstance.placingObjectsQueue.objectAtIndex(0)
+      guard let placingObject: GKEntity.Type = Game.sharedInstance.placingObjectsQueue[0] else {
+        //Cry
+      }
+      let plannedObject = placingObject.init()
+      plannedObject.componentForClass(BlueprintComponent)?.planFunctionCall(self)
+      
+
+
 //      Get co-ords of tile here
+      Game.sharedInstance.buildStateMachine.enterState(BSPlanedItem)
+      
+      
+      
 //      And get other tiles based on area for object
       
       
@@ -79,7 +96,6 @@ class Tile: GKEntity {
       print(self.stateMachine.currentState)
     }
 
-    
-
   }
+
 }

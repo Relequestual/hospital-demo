@@ -41,9 +41,19 @@ class BSPlaceItem: BuildState {
     PlaceObjectToolbar.sharedInstance?.hidden = false
     
   }
-  
-  
 }
+
+class BSPlanedItem: BuildState {
+
+  override func didEnterWithPreviousState(previousState: GKState?) {
+    print(previousState)
+    print("In PlanedItem State")
+//    PlaceObjectToolbar.sharedInstance?.hidden = false
+
+  }
+}
+
+
 
 class BSSelectSqaures: BuildState {
 
