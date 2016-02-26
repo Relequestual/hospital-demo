@@ -11,11 +11,9 @@ import GameplayKit
 
 class PositionComponent: GKComponent {
 
-  var x : Int
-  var y : Int
+  var position: CGPoint
 
   init(x : Int, y : Int) {
-    self.x = x
-    self.y = y
+    self.position = CGPoint(x: x, y: y)
   }
 }

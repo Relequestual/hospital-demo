@@ -32,11 +32,16 @@ class Game {
   
   var placingObjectsQueue = Array<GKEntity.Type>()
 
+  var plannedBuildingObject: GKEntity?
+  
+  var plannedBuildingTiles = [Tile]()
+
   private init() {
 
     self.gameStateMachine.enterState(GSGeneral)
     
     self.buildStateMachine.enterState(BSNoBuild)
+    
 
   }
 

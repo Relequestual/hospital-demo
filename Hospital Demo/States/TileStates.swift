@@ -12,8 +12,10 @@ import GameplayKit
 
 class TileState : GKState{
 
-  var tile : Tile?
+  var tile: Tile?
 
+  var previousState: GKState.Type?
+  
   init( tile: Tile ) {
     super.init()
     self.tile = tile
@@ -25,6 +27,7 @@ class TileState : GKState{
     node.fillColor = color
     return SKView().textureFromNode(node)!
   }
+  
 }
 
 
@@ -55,6 +58,23 @@ class TilePathState: TileState {
     
     let texture = TileState.self.createColoredTileTexture(UIColor.grayColor())
     tile?.componentForClass(SpriteComponent)?.node.texture = texture
+  }
+  
+}
+
+class TilePlanState: TileState {
+
+  override func didEnterWithPreviousState(previousState: GKState?) {
+    super.didEnterWithPreviousState(previousState)
+    
+//    TESTING HERE
+    
+    tile?.previousState = previousState!.dynamicType
+    print(tile?.previousState)
+
+    let texture = TileState.self.createColoredTileTexture(UIColor.cyanColor())
+    tile?.componentForClass(SpriteComponent)?.node.texture = texture
+    Game.sharedInstance.plannedBuildingTiles.append(tile!)
   }
   
 }

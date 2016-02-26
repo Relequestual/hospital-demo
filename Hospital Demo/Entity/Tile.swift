@@ -13,12 +13,13 @@ class Tile: GKEntity {
 
   var stateMachine: GKStateMachine!
 
-  var realPosition: (x: Int, y: Int)
+  var realPosition: CGPoint
+  
+  var previousState: GKState.Type?
 
   init(imageName: String, initState: TileState.Type, x: Int, y: Int) {
 
-    self.realPosition.x = x
-    self.realPosition.y = y
+    self.realPosition = CGPoint(x: x, y: y)
 
     super.init()
 
@@ -29,7 +30,8 @@ class Tile: GKEntity {
     stateMachine = GKStateMachine(states: [
         TileTileState(tile: self),
         TileGrassState(tile: self),
-        TilePathState(tile: self)
+        TilePathState(tile: self),
+        TilePlanState(tile: self),
       ])
 
     stateMachine.enterState(initState)
@@ -78,19 +80,14 @@ class Tile: GKEntity {
         //Cry
       }
       let plannedObject = placingObject.init()
-      plannedObject.componentForClass(BlueprintComponent)?.planFunctionCall(self)
+      plannedObject.componentForClass(BlueprintComponent)?.planFunctionCall(self.realPosition)
       
 
 
 //      Get co-ords of tile here
       Game.sharedInstance.buildStateMachine.enterState(BSPlanedItem)
       
-      
-      
-//      And get other tiles based on area for object
-      
-      
-      
+
     default:
       print("State that we aren't interested in!")
       print(self.stateMachine.currentState)

@@ -47,7 +47,7 @@ class BSPlanedItem: BuildState {
 
   override func didEnterWithPreviousState(previousState: GKState?) {
     print(previousState)
-    print("In PlanedItem State")
+    print("In Planned Item State")
 //    PlaceObjectToolbar.sharedInstance?.hidden = false
 
   }

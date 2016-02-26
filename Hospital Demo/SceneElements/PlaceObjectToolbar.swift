@@ -82,7 +82,6 @@ class PlaceObjectToolbar: HLToolbarNode {
         closure()
       }
       
-      //      Game.sharedInstance.stateMachine.enterState(GeneralState)
     }
     
   }
@@ -93,24 +92,43 @@ class PlaceObjectToolbar: HLToolbarNode {
   
   class func upTouch() {
     print("up")
+    movePlannedObject(0, y: 1)
   }
 
   class func downTouch() {
     print("down")
+    movePlannedObject(0, y: -1)
   }
 
   class func leftTouch() {
     print("left")
+    movePlannedObject(-1, y: 0)
   }
 
   class func rightTouch() {
     print("right")
+    movePlannedObject(1, y: 0)
   }
 
   class func rotateTouch() {
     print("rotate")
   }
 
+  class func movePlannedObject(x: Int, y: Int) {
+
+    for tile in Game.sharedInstance.plannedBuildingTiles {
+//      tile.stateMachine.enterState(tile.previousState)
+      tile.stateMachine.enterState(tile.previousState!)
+    }
+    
+    let thisObject = Game.sharedInstance.plannedBuildingObject
+    let oldPosition = thisObject?.componentForClass(PositionComponent)?.position
+    let newPosition = CGPoint(x: Int(oldPosition!.x) + x, y: Int(oldPosition!.y) + y)
+    
+    thisObject?.componentForClass(PositionComponent)?.position = newPosition
+    thisObject?.componentForClass(BlueprintComponent)?.planFunctionCall(newPosition)
+    
+  }
 
   class func arrowTexture() -> SKTexture {
 

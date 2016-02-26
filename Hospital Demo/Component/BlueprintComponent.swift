@@ -14,14 +14,14 @@ class BlueprintComponent: GKComponent {
   
   var area : [[Int]]
 
-  var planFunction: (tile: Tile)->Void;
+  var planFunction: (position: CGPoint)->Void;
   
-  init(area: [[Int]], pf:(tile: Tile) -> Void) {
+  init(area: [[Int]], pf:(position: CGPoint) -> Void) {
     self.area = area
     self.planFunction = pf
   }
 
-  func planFunctionCall(tile: Tile) {
-    self.planFunction(tile: tile)
+  func planFunctionCall(position: CGPoint) {
+    self.planFunction(position: position)
   }
 }
