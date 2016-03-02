@@ -13,11 +13,13 @@ import GameplayKit
 class BlueprintComponent: GKComponent {
   
   var area : [[Int]]
+  var pous : [[Int]]
 
   var planFunction: (position: CGPoint)->Void;
   
-  init(area: [[Int]], pf:(position: CGPoint) -> Void) {
+  init(area: [[Int]], pous: [[Int]], pf:(position: CGPoint) -> Void) {
     self.area = area
+    self.pous = pous
     self.planFunction = pf
   }
 
