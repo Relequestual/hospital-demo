@@ -117,7 +117,6 @@ class PlaceObjectToolbar: HLToolbarNode {
   class func movePlannedObject(x: Int, y: Int) {
 
     for tile in Game.sharedInstance.plannedBuildingTiles {
-//      tile.stateMachine.enterState(tile.previousState)
       tile.stateMachine.enterState(tile.previousState!)
     }
     
@@ -127,6 +126,10 @@ class PlaceObjectToolbar: HLToolbarNode {
     
     thisObject?.componentForClass(PositionComponent)?.position = newPosition
     thisObject?.componentForClass(BlueprintComponent)?.planFunctionCall(newPosition)
+    
+  }
+  
+  class func rotatePlannedObject() {
     
   }
 
