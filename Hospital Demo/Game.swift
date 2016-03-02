@@ -35,6 +35,22 @@ class Game {
   var plannedBuildingObject: GKEntity?
   
   var plannedBuildingTiles = [Tile]()
+  
+  enum rotation {
+    case North, East, South, West
+    mutating func next() {
+      switch self {
+      case North:
+        self = East
+      case East:
+        self = South
+      case South:
+        self = West
+      case West:
+        self = North
+      }
+    }
+  }
 
   private init() {
 
