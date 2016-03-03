@@ -14,6 +14,8 @@ class BlueprintComponent: GKComponent {
   
   var area : [[Int]]
   var pous : [[Int]]
+  
+  var baring = Game.rotation.North
 
   var planFunction: (position: CGPoint)->Void;
   
@@ -26,4 +28,28 @@ class BlueprintComponent: GKComponent {
   func planFunctionCall(position: CGPoint) {
     self.planFunction(position: position)
   }
+  
+  func rotate(var previousRotation: Game.rotation) {
+    previousRotation.next()
+    let newRotation = previousRotation
+    print("new rotation is")
+    print(newRotation)
+    
+
+      for var i = 0; i < self.area.count; i++ {
+        var coord = self.area[i]
+        coord = [coord[1] * 1, coord[0] * -1]
+        self.area[i] = coord
+      }
+      for var i = 0; i < self.pous.count; i++ {
+        var coord = self.pous[i]
+        coord = [coord[1] * 1, coord[0] * -1]
+        self.pous[i] = coord
+      }
+//        print(self.area)
+        
+
+    self.baring = newRotation
+  }
+  
 }

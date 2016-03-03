@@ -112,6 +112,7 @@ class PlaceObjectToolbar: HLToolbarNode {
 
   class func rotateTouch() {
     print("rotate")
+    rotatePlannedObject()
   }
 
   class func movePlannedObject(x: Int, y: Int) {
@@ -130,7 +131,11 @@ class PlaceObjectToolbar: HLToolbarNode {
   }
   
   class func rotatePlannedObject() {
+    let thisObject = Game.sharedInstance.plannedBuildingObject
+    let blueprintComponent = thisObject?.componentForClass(BlueprintComponent)
+    blueprintComponent?.rotate((blueprintComponent?.baring)!)
     
+    movePlannedObject(0, y: 0)
   }
 
   class func arrowTexture() -> SKTexture {

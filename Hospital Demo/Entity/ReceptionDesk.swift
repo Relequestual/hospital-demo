@@ -32,7 +32,6 @@ class ReceptionDesk: GKEntity {
     print(position)
     Game.sharedInstance.entityManager.node.enumerateChildNodesWithName("planned_object", usingBlock: { (node, stop) -> Void in
       node.removeFromParent()
-      
     });
 
     let positionComponent = PositionComponent(x: Int(position.x), y: Int(position.y))
@@ -41,7 +40,8 @@ class ReceptionDesk: GKEntity {
     let texture = createPlannedTexture()
     let texturePOU = createPlannedPOUTexture()
 
-
+    self.area = (self.componentForClass(BlueprintComponent)?.area)!
+    print(self.area)
     for blueprint in self.area {
       let x = Int(positionComponent.position.x) + blueprint[0]
       let y = Int(positionComponent.position.y) + blueprint[1]
@@ -58,6 +58,7 @@ class ReceptionDesk: GKEntity {
       tile?.stateMachine.enterState(TilePlanState)
     }
     
+    self.pous = (self.componentForClass(BlueprintComponent)?.pous)!
     for blueprint in self.pous {
       let x = Int(positionComponent.position.x) + blueprint[0]
       let y = Int(positionComponent.position.y) + blueprint[1]
