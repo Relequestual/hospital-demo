@@ -125,6 +125,14 @@ class PlaceObjectToolbar: HLToolbarNode {
     let oldPosition = thisObject?.componentForClass(PositionComponent)?.position
     let newPosition = CGPoint(x: Int(oldPosition!.x) + x, y: Int(oldPosition!.y) + y)
     
+    guard (Game.sharedInstance.tilesAtCoords[Int(newPosition.x)] != nil) else {
+      return
+    }
+    guard (Game.sharedInstance.tilesAtCoords[Int(newPosition.x)]![Int(newPosition.y)] != nil) else {
+      return
+    }
+    
+    
     thisObject?.componentForClass(PositionComponent)?.position = newPosition
     thisObject?.componentForClass(BlueprintComponent)?.planFunctionCall(newPosition)
     
