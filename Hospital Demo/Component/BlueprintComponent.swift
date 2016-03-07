@@ -50,4 +50,18 @@ class BlueprintComponent: GKComponent {
     self.baring = newRotation
   }
   
+  func canPlanAtPoint(point: CGPoint) -> Bool {
+    
+    for coord in self.area + self.pous {
+      guard (Game.sharedInstance.tilesAtCoords[Int(point.x) + coord[0]] != nil) else {
+        return false
+      }
+      guard (Game.sharedInstance.tilesAtCoords[Int(point.x) + coord[0]]![Int(point.y) + coord[1]] != nil) else {
+        return false
+      }
+    }
+    
+    return true
+  }
+  
 }

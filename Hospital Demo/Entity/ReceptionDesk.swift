@@ -30,18 +30,13 @@ class ReceptionDesk: GKEntity {
   func planAtPoint(position: CGPoint){
     
     // Check can place object at location
+    guard self.componentForClass(BlueprintComponent)!.canPlanAtPoint(position) else {
+      // Nope
+      return
+    }
+    
     self.area = (self.componentForClass(BlueprintComponent)?.area)!
     self.pous = (self.componentForClass(BlueprintComponent)?.pous)!
-    
-//    Probably a nicer way of doing this... but hey ho
-    for coord in self.area + self.pous {
-      guard (Game.sharedInstance.tilesAtCoords[Int(position.x) + coord[0]] != nil) else {
-        return
-      }
-      guard (Game.sharedInstance.tilesAtCoords[Int(position.x) + coord[0]]![Int(position.y) + coord[1]] != nil) else {
-        return
-      }
-    }
     
     
     Game.sharedInstance.entityManager.node.enumerateChildNodesWithName("planned_object", usingBlock: { (node, stop) -> Void in

@@ -112,24 +112,24 @@ class PlaceObjectToolbar: HLToolbarNode {
 
   class func movePlannedObject(x: Int, y: Int) {
 
+    guard let thisObject = Game.sharedInstance.plannedBuildingObject else {
+      return
+    }
+    
     for tile in Game.sharedInstance.plannedBuildingTiles {
       tile.stateMachine.enterState(tile.previousState!)
     }
     
-    let thisObject = Game.sharedInstance.plannedBuildingObject
-    let oldPosition = thisObject?.componentForClass(PositionComponent)?.position
+    let oldPosition = thisObject.componentForClass(PositionComponent)?.position
     let newPosition = CGPoint(x: Int(oldPosition!.x) + x, y: Int(oldPosition!.y) + y)
     
-    guard (Game.sharedInstance.tilesAtCoords[Int(newPosition.x)] != nil) else {
-      return
-    }
-    guard (Game.sharedInstance.tilesAtCoords[Int(newPosition.x)]![Int(newPosition.y)] != nil) else {
+    guard thisObject.componentForClass(BlueprintComponent)!.canPlanAtPoint(newPosition) else {
       return
     }
     
     
-    thisObject?.componentForClass(PositionComponent)?.position = newPosition
-    thisObject?.componentForClass(BlueprintComponent)?.planFunctionCall(newPosition)
+    thisObject.componentForClass(PositionComponent)?.position = newPosition
+    thisObject.componentForClass(BlueprintComponent)?.planFunctionCall(newPosition)
     
   }
   
