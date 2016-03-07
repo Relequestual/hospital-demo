@@ -47,7 +47,6 @@ class Tile: GKEntity {
     spriteComponent.node.position = CGPoint(x: x, y: y)
     
     let touchableComponent = TouchableSpriteComponent(){
-      print("function of spritecomponent?")
       self.handleTouch()
       
     }
@@ -59,7 +58,6 @@ class Tile: GKEntity {
   }
   
   func handleTouch() {
-    print("I am a TILE!")
     // Do some more things like change state of another component
 //    print(Game.sharedInstance.gameStateMachine.currentState)
     

@@ -28,8 +28,6 @@ class ReceptionDesk: GKEntity {
   }
   
   func planAtPoint(position: CGPoint){
-    print("planning reception desk at ")
-    print(position)
     
     // Check can place object at location
     self.area = (self.componentForClass(BlueprintComponent)?.area)!
@@ -56,7 +54,6 @@ class ReceptionDesk: GKEntity {
     let texture = createPlannedTexture()
     let texturePOU = createPlannedPOUTexture()
 
-    print(self.area)
     for blueprint in self.area {
       let x = Int(positionComponent.position.x) + blueprint[0]
       let y = Int(positionComponent.position.y) + blueprint[1]

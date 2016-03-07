@@ -91,27 +91,22 @@ class PlaceObjectToolbar: HLToolbarNode {
   }
   
   class func upTouch() {
-    print("up")
     movePlannedObject(0, y: 1)
   }
 
   class func downTouch() {
-    print("down")
     movePlannedObject(0, y: -1)
   }
 
   class func leftTouch() {
-    print("left")
     movePlannedObject(-1, y: 0)
   }
 
   class func rightTouch() {
-    print("right")
     movePlannedObject(1, y: 0)
   }
 
   class func rotateTouch() {
-    print("rotate")
     rotatePlannedObject()
   }
 

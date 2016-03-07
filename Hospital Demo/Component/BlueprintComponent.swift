@@ -32,8 +32,6 @@ class BlueprintComponent: GKComponent {
   func rotate(var previousRotation: Game.rotation) {
     previousRotation.next()
     let newRotation = previousRotation
-    print("new rotation is")
-    print(newRotation)
     
 
       for var i = 0; i < self.area.count; i++ {

@@ -201,8 +201,6 @@ class BaseScene: HLScene {
 
   func HL_showMessage(message: NSString) {
 
-    print("message?")
-    print(self.size.height)
     
     let _messageNode = HLMessageNode(color: UIColor.blackColor(), size: CGSizeZero)
 
@@ -217,12 +215,10 @@ class BaseScene: HLScene {
     _messageNode.position = CGPoint(x: 0, y: 0 + self.size.height);
     _messageNode.anchorPoint = CGPoint(x: 0, y: 1)
     _messageNode.showMessage(message as String, parent: self)
-    print(_messageNode)
   }
 
   
   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    print("touched!")
 
     let touch = touches.first!
     let positionInScene = touch.locationInNode(self)
