@@ -117,7 +117,7 @@ class PlaceObjectToolbar: HLToolbarNode {
     }
     
     for tile in Game.sharedInstance.plannedBuildingTiles {
-      tile.stateMachine.enterState(tile.previousState!)
+      tile.isBuildingOn = false
     }
     
     let oldPosition = thisObject.componentForClass(PositionComponent)?.position

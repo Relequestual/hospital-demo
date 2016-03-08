@@ -62,7 +62,13 @@ class ReceptionDesk: GKEntity {
       node.name = "planned_object"
       Game.sharedInstance.entityManager.node.addChild(node)
       
-      tile?.stateMachine.enterState(TilePlanState)
+      tile?.isBuildingOn = true
+      
+      if !(tile?.stateMachine.currentState is TileTileState) {
+        setBlockedNode(node.position)
+      }
+      
+      tile?.isBuildingOn = true
     }
     
     for blueprint in self.pous {
@@ -78,17 +84,24 @@ class ReceptionDesk: GKEntity {
       node.name = "planned_object"
       Game.sharedInstance.entityManager.node.addChild(node)
       
-      tile?.stateMachine.enterState(TilePlanState)
+      tile?.isBuildingOn = true
       
+      if !(tile?.stateMachine.currentState is TileTileState) {
+        setBlockedNode(node.position)
+      }
     }
-    
-
-    
-//    addComponent(spriteComponent)
-    
-//    Game.sharedInstance.entityManager.add(self)
-    
     Game.sharedInstance.plannedBuildingObject = self
+  }
+  
+  func setBlockedNode(position: CGPoint) -> Void {
+    let blockedTexture = createBlockedTexture()
+    let blockedNode = SKSpriteNode(texture: blockedTexture)
+    
+    blockedNode.alpha = 0.8
+    blockedNode.position = position
+    blockedNode.name = "planned_object"
+    blockedNode.zPosition = 8
+    Game.sharedInstance.entityManager.node.addChild(blockedNode)
   }
 
   func createPlannedTexture() -> SKTexture {
@@ -102,6 +115,13 @@ class ReceptionDesk: GKEntity {
     let node = SKShapeNode(circleOfRadius: 24)
     node.lineWidth = 0
     node.fillColor = UIColor.orangeColor()
+    return SKView().textureFromNode(node)!
+  }
+  
+  func createBlockedTexture() -> SKTexture {
+    let node = SKShapeNode(rectOfSize: CGSize(width: 60, height: 60))
+    node.lineWidth = 0
+    node.fillColor = UIColor.redColor()
     return SKView().textureFromNode(node)!
   }
 

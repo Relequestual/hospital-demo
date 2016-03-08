@@ -62,22 +62,6 @@ class TilePathState: TileState {
   
 }
 
-class TilePlanState: TileState {
-
-  override func didEnterWithPreviousState(previousState: GKState?) {
-    super.didEnterWithPreviousState(previousState)
-    
-    tile?.previousState = previousState!.dynamicType
-    print(tile?.previousState)
-
-    //Move this to be an additional layer ontop of the tile controlled by the building object
-//    let texture = TileState.self.createColoredTileTexture(UIColor.cyanColor())
-//    tile?.componentForClass(SpriteComponent)?.node.texture = texture
-    Game.sharedInstance.plannedBuildingTiles.append(tile!)
-  }
-  
-}
-
 extension Tile {
   
   func nextSpriteState() -> TileState.Type {

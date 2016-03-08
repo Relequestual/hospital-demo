@@ -16,6 +16,8 @@ class Tile: GKEntity {
   var realPosition: CGPoint
   
   var previousState: GKState.Type?
+  
+  var isBuildingOn = false
 
   init(imageName: String, initState: TileState.Type, x: Int, y: Int) {
 
@@ -31,7 +33,6 @@ class Tile: GKEntity {
         TileTileState(tile: self),
         TileGrassState(tile: self),
         TilePathState(tile: self),
-        TilePlanState(tile: self),
       ])
 
     stateMachine.enterState(initState)

@@ -36,12 +36,12 @@ class BlueprintComponent: GKComponent {
 
       for var i = 0; i < self.area.count; i++ {
         var coord = self.area[i]
-        coord = [coord[1] * 1, coord[0] * -1]
+        coord = [coord[1], -coord[0]]
         self.area[i] = coord
       }
       for var i = 0; i < self.pous.count; i++ {
         var coord = self.pous[i]
-        coord = [coord[1] * 1, coord[0] * -1]
+        coord = [coord[1], -coord[0]]
         self.pous[i] = coord
       }
 //        print(self.area)
@@ -56,9 +56,13 @@ class BlueprintComponent: GKComponent {
       guard (Game.sharedInstance.tilesAtCoords[Int(point.x) + coord[0]] != nil) else {
         return false
       }
-      guard (Game.sharedInstance.tilesAtCoords[Int(point.x) + coord[0]]![Int(point.y) + coord[1]] != nil) else {
+      guard let tile = Game.sharedInstance.tilesAtCoords[Int(point.x) + coord[0]]![Int(point.y) + coord[1]] else {
         return false
       }
+
+//      if !(tile.stateMachine.currentState is TileTileState) {
+//        return false
+//      }
     }
     
     return true
