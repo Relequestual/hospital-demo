@@ -126,8 +126,9 @@ class BaseScene: HLScene {
     
     let placeObjectToolbar = PlaceObjectToolbar.construct(CGSize(width: view.bounds.width, height: 64), baseScene: self)!
     placeObjectToolbar.hlSetGestureTarget(placeObjectToolbar)
-    self.addChild(placeObjectToolbar)
     placeObjectToolbar.hidden = true
+    placeObjectToolbar.zPosition = 60
+    self.addChild(placeObjectToolbar)
 
     self.registerDescendant(toolbar, withOptions: Set(arrayLiteral: HLSceneChildGestureTarget))
     self.registerDescendant(placeObjectToolbar, withOptions: Set(arrayLiteral: HLSceneChildGestureTarget))
@@ -223,13 +224,55 @@ class BaseScene: HLScene {
     let touch = touches.first!
     let positionInScene = touch.locationInNode(self)
     let touchedNodes = self.nodesAtPoint(positionInScene)
+    
+
+    //    touchedNodes.filter(<#T##includeElement: (SKNode) throws -> Bool##(SKNode) throws -> Bool#>).first
 
     for node in touchedNodes {
+      print(node)
       guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else {continue}
       entity.componentForClass(TouchableSpriteComponent)?.callFunction()
     }
 
   }
+  
+  override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    print("touches moved ------------")
+//    print(touches)
+  }
+  
+  override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    print("touches ended")
+  }
+  
+  override func touchesEstimatedPropertiesUpdated(touches: Set<NSObject>) {
+    print("----- estmate updated")
+  }
+  
+  override func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+    
+    let positionInScene = touch.locationInNode(self)
+    let touchedNodes = self.nodesAtPoint(positionInScene)
+    
+    
+    
+    for node in touchedNodes {
+//      Get the type of node and return false for scroll node
+//      if (node.isKindOfClass(HLScrollNode) && gestureRecognizer.isKindOfClass(UIPanGestureRecognizer)) {
+      if (node.isKindOfClass(HLScrollNode)) {
+
+        print("is kind of scroll node")
+        print(gestureRecognizer.description)
+        print(node.description)
+        print("----")
+        return false
+      }
+    }
+    
+    return super.gestureRecognizer(gestureRecognizer, shouldReceiveTouch: touch)
+  }
+  
+  
 
 
 }
