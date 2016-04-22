@@ -138,8 +138,10 @@ class BaseScene: HLScene {
 
     myScrollNode.contentClipped = true
 
+    self.gestureTargetHitTestMode = HLSceneGestureTargetHitTestMode.ZPositionThenParent
+    
     self.addChild(myScrollNode)
-
+    
     self.HL_showMessage("testing!")
 
   }
@@ -254,19 +256,14 @@ class BaseScene: HLScene {
     let positionInScene = touch.locationInNode(self)
     let touchedNodes = self.nodesAtPoint(positionInScene)
     
-    
-    
-    for node in touchedNodes {
-//      Get the type of node and return false for scroll node
-//      if (node.isKindOfClass(HLScrollNode) && gestureRecognizer.isKindOfClass(UIPanGestureRecognizer)) {
-      if (node.isKindOfClass(HLScrollNode)) {
-
-        print("is kind of scroll node")
-        print(gestureRecognizer.description)
-        print(node.description)
-        print("----")
-        return false
+    if (gestureRecognizer.isKindOfClass(UIPanGestureRecognizer) && !Game.sharedInstance.panWorld) {
+//      ... and scroll mode is off
+//      do something for each node which is draggable, and then call super
+      for node in touchedNodes {
+        if (node.isKindOfClass(HLScrollNode)) {
+        }
       }
+      return false
     }
     
     return super.gestureRecognizer(gestureRecognizer, shouldReceiveTouch: touch)

@@ -25,6 +25,8 @@ class Game {
     BSPlanedItem(),
     BSSelectSqaures()
   ])
+  
+  var panWorld = true
 
   var entityManager: EntityManager!
   
