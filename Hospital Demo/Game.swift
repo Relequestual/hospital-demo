@@ -9,6 +9,7 @@
 
 import Foundation
 import GameplayKit
+import HLSpriteKit
 
 class Game {
   static let sharedInstance = Game()
@@ -29,6 +30,8 @@ class Game {
   var panWorld = true
 
   var entityManager: EntityManager!
+  
+  var wolrdnode: HLScrollNode!
   
   var tilesAtCoords = [Int: [Int: Tile]]()
   

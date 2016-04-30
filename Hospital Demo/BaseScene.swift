@@ -1,3 +1,4 @@
+
 // #import "HLScrollNode.h"
 //  BaseScene.swift
 //  Hospital Demo
@@ -134,13 +135,18 @@ class BaseScene: HLScene {
     self.registerDescendant(placeObjectToolbar, withOptions: Set(arrayLiteral: HLSceneChildGestureTarget))
 
 
-    myScrollNode.position = CGPoint(x: 0, y: 64)
+    myScrollNode.position = CGPoint(x: 0, y: 0)
+//  Offset below to move above bottom toolbar
+//    myScrollNode.position = CGPoint(x: 0, y: 64)
+
 
     myScrollNode.contentClipped = true
 
     self.gestureTargetHitTestMode = HLSceneGestureTargetHitTestMode.ZPositionThenParent
     
     self.addChild(myScrollNode)
+    
+    Game.sharedInstance.wolrdnode = myScrollNode
     
     self.HL_showMessage("testing!")
 
@@ -240,7 +246,19 @@ class BaseScene: HLScene {
   
   override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
     print("touches moved ------------")
-//    print(touches)
+    let currentOffset = Game.sharedInstance.wolrdnode.contentOffset
+    let currentScale = Game.sharedInstance.wolrdnode.contentScale
+
+//    Offset needs to be set to minus value, not positive
+//    Game.sharedInstance.wolrdnode.setContentOffset(CGPoint(x: -500, y: -500), contentScale: currentScale)
+
+    print(touches.first?.locationInView(self.view))
+    print("----")
+    
+    let gesturePosition = touches.first?.locationInView(self.view)
+    
+    updateAutoScroll(gesturePosition!)
+
   }
   
   override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -261,6 +279,7 @@ class BaseScene: HLScene {
 //      do something for each node which is draggable, and then call super
       for node in touchedNodes {
         if (node.isKindOfClass(HLScrollNode)) {
+          
         }
       }
       return false
@@ -270,6 +289,79 @@ class BaseScene: HLScene {
   }
   
   
+  
+  func updateAutoScroll(point: CGPoint) {
+    
+    
+//    let FLWorldAutoScrollMarginSizeMax = CGFloat(96.0)
+//    
+//    var marginSize = min(self.size.width, self.size.height) / 7.0
+//    
+//    if (marginSize > FLWorldAutoScrollMarginSizeMax) {
+//      marginSize = FLWorldAutoScrollMarginSizeMax
+//    }
+
+    var marginSize = CGFloat(64)
+
+    
+    
+    let FLAutoScrollVelocityMin = CGFloat(4.0)
+    let FLAutoScrollVelocityLinear = CGFloat(800.0)
+
+    let scorllNode = Game.sharedInstance.wolrdnode
+
+//    _worldAutoScrollState.scrolling = NO
+    var autoScroll = false
+    
+//
+    let sceneXMin = CGFloat(scorllNode.size.width * -1.0 * scorllNode.anchorPoint.x)
+    let sceneXMax = CGFloat(sceneXMin + self.size.width)
+    let sceneYMin = CGFloat(scorllNode.size.height * -1.0 * scorllNode.anchorPoint.y)
+    let sceneYMax = CGFloat(sceneYMin + self.size.height)
+
+    print("--Scene XY min max --")
+    print(sceneXMin)
+    print(sceneXMax)
+    print(sceneYMin)
+    print(sceneYMax)
+    print("---end---")
+
+    let additionalMargin = CGFloat(64)
+
+    var proximity = CGFloat(0.0)
+    if (point.x < sceneXMin + marginSize) {
+      let proximityX = ((sceneXMin + marginSize) - point.x) / marginSize;
+      proximity = proximityX;
+      autoScroll = true;
+    } else if (point.x > sceneXMax - marginSize) {
+      let proximityX = (point.x - (sceneXMax - marginSize)) / marginSize;
+      proximity = proximityX;
+      autoScroll = true;
+    }
+//    marginSize = marginSize + additionalMargin
+    if (point.y < sceneYMin + marginSize + additionalMargin) {
+      let proximityY = ((sceneYMin + marginSize) - point.y + additionalMargin) / marginSize;
+      if (proximityY > proximity) {
+        proximity = proximityY;
+      }
+      autoScroll = true;
+    } else if (point.y > sceneYMax - marginSize - additionalMargin) {
+      let proximityY = (point.y + additionalMargin - (sceneYMax - marginSize)) / marginSize;
+      if (proximityY > proximity) {
+        proximity = proximityY;
+      }
+      autoScroll = true;
+    }
+
+//    Game.sharedInstance.panWorld = autoScroll
+
+    print("--proximity")
+    print(proximity)
+    print("--proximity")
+
+    
+    
+  }
 
 
 }
