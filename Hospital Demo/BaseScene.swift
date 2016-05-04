@@ -323,6 +323,9 @@ class BaseScene: HLScene {
   }
   
   override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    Game.sharedInstance.autoScroll = false;
+    Game.sharedInstance.autoScrollVelocityX = 0;
+    Game.sharedInstance.autoScrollVelocityY = 0;
     print("touches ended")
   }
   
