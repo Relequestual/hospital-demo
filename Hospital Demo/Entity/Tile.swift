@@ -49,8 +49,9 @@ class Tile: GKEntity {
     
     let touchableComponent = TouchableSpriteComponent(){
       self.handleTouch()
-      
+
     }
+
     addComponent(touchableComponent)
     
     let spriteDebugComponent = SpriteDebugComponent(node: spriteComponent.node)

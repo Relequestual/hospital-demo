@@ -27,7 +27,13 @@ class Game {
     BSSelectSqaures()
   ])
   
-  var panWorld = true
+  var canPanWorld = true
+
+  var autoScroll = false
+
+  var autoScrollVelocityX = CGFloat(0.0);
+
+  var autoScrollVelocityY = CGFloat(0.0);
 
   var entityManager: EntityManager!
   

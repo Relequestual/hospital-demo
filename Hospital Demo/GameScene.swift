@@ -50,7 +50,7 @@ class GameScene: BaseScene {
 //  }
   
 
-  override func update(currentTime: CFTimeInterval) {
-    /* Called before each frame is rendered */
-  }
+//  override func update(currentTime: CFTimeInterval) {
+//    /* Called before each frame is rendered */
+//  }
 }

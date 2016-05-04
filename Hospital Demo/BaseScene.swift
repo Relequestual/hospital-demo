@@ -20,6 +20,8 @@ class BaseScene: HLScene {
   // Update time
   var lastUpdateTimeInterval: NSTimeInterval = 0
 
+  var updateLastTime: NSTimeInterval = 0
+
   /**
    The native size for this scene. This is the height at which the scene
    would be rendered if it did not need to be scaled to fit a window or device.
@@ -150,6 +152,8 @@ class BaseScene: HLScene {
     
     self.HL_showMessage("testing!")
 
+    self.paused = false
+
   }
 
   override func didChangeSize(oldSize: CGSize) {
@@ -201,10 +205,67 @@ class BaseScene: HLScene {
   // Taken from entity component example artcile...
   override func update(currentTime: CFTimeInterval) {
 
-    let deltaTime = currentTime - lastUpdateTimeInterval
-    lastUpdateTimeInterval = currentTime
+    super.update(currentTime)
 
-    Game.sharedInstance.entityManager.update(deltaTime)
+    lastUpdateTimeInterval = currentTime
+    let deltaTime = currentTime - lastUpdateTimeInterval
+    //    Game.sharedInstance.entityManager.update(deltaTime)
+
+
+    var elapsedTime = currentTime - updateLastTime;
+
+    updateLastTime = currentTime
+
+    if (elapsedTime < 0.0) {
+      elapsedTime = 0.0;
+    }
+    // note: If framerate is crazy low, pretend time has slowed down, too.
+    if (elapsedTime > 0.2) {
+      elapsedTime = 0.01;
+    }
+
+    if (Game.sharedInstance.autoScroll) {
+      self.updateAutoScroll(elapsedTime)
+    }
+  }
+
+
+
+
+  func updateAutoScroll(time: CFTimeInterval) {
+
+    let scrollXDistance = Game.sharedInstance.autoScrollVelocityX * CGFloat(time);
+    let scrollYDistance = Game.sharedInstance.autoScrollVelocityY * CGFloat(time);
+
+    // note: Scrolling velocity is measured in scene units, not world units (i.e. regardless of world scale).
+    let currentOffset = Game.sharedInstance.wolrdnode.contentOffset;
+
+    print("scrollXDistance")
+    print(scrollXDistance)
+    print("--")
+
+    print("scrollYDistance")
+    print(scrollYDistance)
+    print("--")
+
+    let positionX = (currentOffset.x - scrollXDistance / Game.sharedInstance.wolrdnode.xScale)
+    let positionY = (currentOffset.y - scrollYDistance / Game.sharedInstance.wolrdnode.yScale)
+
+    //    if (_worldAutoScrollState.gestureUpdateBlock) {
+    //      _worldAutoScrollState.gestureUpdateBlock();
+    //    }
+
+    let currentScale = Game.sharedInstance.wolrdnode.contentScale
+
+    //    Offset needs to be set to minus value, not positive
+//        Game.sharedInstance.wolrdnode.setContentOffset(CGPoint(x: -500, y: -500), contentScale: currentScale)
+
+//    print("***trying to set content offset")
+//    print(positionX)
+//    print(positionY)
+    Game.sharedInstance.wolrdnode.setContentOffset(CGPoint(x: positionX, y: positionY), contentScale: currentScale)
+
+
   }
 
 
@@ -245,19 +306,19 @@ class BaseScene: HLScene {
   }
   
   override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    print("touches moved ------------")
+//    print("touches moved ------------")
     let currentOffset = Game.sharedInstance.wolrdnode.contentOffset
     let currentScale = Game.sharedInstance.wolrdnode.contentScale
 
 //    Offset needs to be set to minus value, not positive
 //    Game.sharedInstance.wolrdnode.setContentOffset(CGPoint(x: -500, y: -500), contentScale: currentScale)
 
-    print(touches.first?.locationInView(self.view))
-    print("----")
-    
+//    print(touches.first?.locationInView(self.view))
+//    print("----")
+
     let gesturePosition = touches.first?.locationInView(self.view)
     
-    updateAutoScroll(gesturePosition!)
+    checkAutoScroll(gesturePosition!)
 
   }
   
@@ -274,7 +335,7 @@ class BaseScene: HLScene {
     let positionInScene = touch.locationInNode(self)
     let touchedNodes = self.nodesAtPoint(positionInScene)
     
-    if (gestureRecognizer.isKindOfClass(UIPanGestureRecognizer) && !Game.sharedInstance.panWorld) {
+    if (gestureRecognizer.isKindOfClass(UIPanGestureRecognizer) && !Game.sharedInstance.canPanWorld) {
 //      ... and scroll mode is off
 //      do something for each node which is draggable, and then call super
       for node in touchedNodes {
@@ -290,7 +351,7 @@ class BaseScene: HLScene {
   
   
   
-  func updateAutoScroll(point: CGPoint) {
+  func checkAutoScroll(point: CGPoint) {
     
     
 //    let FLWorldAutoScrollMarginSizeMax = CGFloat(96.0)
@@ -313,51 +374,68 @@ class BaseScene: HLScene {
 //    _worldAutoScrollState.scrolling = NO
     var autoScroll = false
     
-//
+    let additionalYMargin = CGFloat(64)
+
     let sceneXMin = CGFloat(scorllNode.size.width * -1.0 * scorllNode.anchorPoint.x)
     let sceneXMax = CGFloat(sceneXMin + self.size.width)
     let sceneYMin = CGFloat(scorllNode.size.height * -1.0 * scorllNode.anchorPoint.y)
     let sceneYMax = CGFloat(sceneYMin + self.size.height)
 
-    print("--Scene XY min max --")
-    print(sceneXMin)
-    print(sceneXMax)
-    print(sceneYMin)
-    print(sceneYMax)
-    print("---end---")
+//    print("--Scene XY min max --")
+//    print(sceneXMin)
+//    print(sceneXMax)
+//    print(sceneYMin)
+//    print(sceneYMax)
+//    print("---end---")
 
-    let additionalMargin = CGFloat(64)
 
     var proximity = CGFloat(0.0)
     if (point.x < sceneXMin + marginSize) {
-      let proximityX = ((sceneXMin + marginSize) - point.x) / marginSize;
-      proximity = proximityX;
-      autoScroll = true;
+      let proximityX = ((sceneXMin + marginSize) - point.x) / marginSize
+      proximity = proximityX
+      autoScroll = true
     } else if (point.x > sceneXMax - marginSize) {
-      let proximityX = (point.x - (sceneXMax - marginSize)) / marginSize;
-      proximity = proximityX;
-      autoScroll = true;
+      let proximityX = (point.x - (sceneXMax - marginSize)) / marginSize
+      proximity = proximityX
+      autoScroll = true
     }
 //    marginSize = marginSize + additionalMargin
-    if (point.y < sceneYMin + marginSize + additionalMargin) {
-      let proximityY = ((sceneYMin + marginSize) - point.y + additionalMargin) / marginSize;
+
+    if (point.y < sceneYMin + marginSize + additionalYMargin) {
+      let proximityY = ((sceneYMin + marginSize) - point.y + additionalYMargin) / marginSize
       if (proximityY > proximity) {
-        proximity = proximityY;
+        proximity = proximityY
       }
-      autoScroll = true;
-    } else if (point.y > sceneYMax - marginSize - additionalMargin) {
-      let proximityY = (point.y + additionalMargin - (sceneYMax - marginSize)) / marginSize;
+      autoScroll = true
+    } else if (point.y > sceneYMax - marginSize - additionalYMargin) {
+      let proximityY = (point.y + additionalYMargin - (sceneYMax - marginSize)) / marginSize
       if (proximityY > proximity) {
-        proximity = proximityY;
+        proximity = proximityY
       }
-      autoScroll = true;
+      autoScroll = true
     }
 
-//    Game.sharedInstance.panWorld = autoScroll
+    Game.sharedInstance.autoScroll = autoScroll
 
-    print("--proximity")
-    print(proximity)
-    print("--proximity")
+//    print("--proximity")
+//    print(proximity)
+//    print("--proximity")
+
+
+    if (autoScroll) {
+      let sceneXCenter = sceneXMin + self.size.width / 2.0
+      let sceneYCenter = sceneYMin + self.size.height / 2.0
+      let locationOffsetX = point.x - sceneXCenter
+      let locationOffsetY = point.y - sceneYCenter
+      let locationOffsetSum = abs(locationOffsetX) + abs(locationOffsetY)
+      let speed = FLAutoScrollVelocityLinear * proximity + FLAutoScrollVelocityMin
+
+      Game.sharedInstance.autoScrollVelocityX = (locationOffsetX / locationOffsetSum) * speed
+
+      Game.sharedInstance.autoScrollVelocityY = (locationOffsetY / locationOffsetSum) * speed
+
+//      _worldAutoScrollState.gestureUpdateBlock = gestureUpdateBlock;
+    }
 
     
     
