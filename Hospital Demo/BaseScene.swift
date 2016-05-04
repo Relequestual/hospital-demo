@@ -429,7 +429,7 @@ class BaseScene: HLScene {
       let sceneXCenter = sceneXMin + self.size.width / 2.0
       let sceneYCenter = sceneYMin + self.size.height / 2.0
       let locationOffsetX = point.x - sceneXCenter
-      let locationOffsetY = point.y - sceneYCenter
+      let locationOffsetY = -(point.y - sceneYCenter)
       let locationOffsetSum = abs(locationOffsetX) + abs(locationOffsetY)
       let speed = FLAutoScrollVelocityLinear * proximity + FLAutoScrollVelocityMin
 
