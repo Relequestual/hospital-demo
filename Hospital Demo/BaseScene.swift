@@ -89,9 +89,9 @@ class BaseScene: HLScene {
 
 
 //    myContentNode.addChild(staticObjects)
-    print("size is")
-    print(view.bounds.size)
-    print(myContentNode.size)
+//    print("size is")
+//    print(view.bounds.size)
+//    print(myContentNode.size)
 
     let myScrollNode: HLScrollNode = HLScrollNode(size: view.bounds.size, contentSize: myContentNode.size)
     myScrollNode.anchorPoint = bottomleft
@@ -102,7 +102,7 @@ class BaseScene: HLScene {
     myScrollNode.hlSetGestureTarget(myScrollNode)
     self.registerDescendant(myScrollNode, withOptions:NSSet(objects: HLSceneChildResizeWithScene, HLSceneChildGestureTarget) as Set<NSObject>)
 
-    print(myContentNode.position)
+//    print(myContentNode.position)
 
     Game.sharedInstance.entityManager = EntityManager(node: myContentNode)
     createTiles()
@@ -240,14 +240,6 @@ class BaseScene: HLScene {
     // note: Scrolling velocity is measured in scene units, not world units (i.e. regardless of world scale).
     let currentOffset = Game.sharedInstance.wolrdnode.contentOffset;
 
-    print("scrollXDistance")
-    print(scrollXDistance)
-    print("--")
-
-    print("scrollYDistance")
-    print(scrollYDistance)
-    print("--")
-
     let positionX = (currentOffset.x - scrollXDistance / Game.sharedInstance.wolrdnode.xScale)
     let positionY = (currentOffset.y - scrollYDistance / Game.sharedInstance.wolrdnode.yScale)
 
@@ -298,7 +290,7 @@ class BaseScene: HLScene {
     //    touchedNodes.filter(<#T##includeElement: (SKNode) throws -> Bool##(SKNode) throws -> Bool#>).first
 
     for node in touchedNodes {
-      print(node)
+//      print(node)
       guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else {continue}
       entity.componentForClass(TouchableSpriteComponent)?.callFunction()
     }

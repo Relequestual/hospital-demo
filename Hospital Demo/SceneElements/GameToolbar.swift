@@ -68,7 +68,9 @@ class GameToolbar: HLToolbarNode {
   }
 
   class func blueTouch() {
-    if ( Game.sharedInstance.buildStateMachine.currentState is BSPlaceItem) {
+    
+    if ( Game.sharedInstance.buildStateMachine.currentState is BSPlaceItem ||
+      Game.sharedInstance.buildStateMachine.currentState is BSPlanedItem) {
       Game.sharedInstance.gameStateMachine.enterState(GSGeneral)
       Game.sharedInstance.buildStateMachine.enterState(BSNoBuild)
     } else {
