@@ -26,6 +26,7 @@ class GSBuild: GameState {
   
   override func willExitWithNextState(nextState: GKState) {
     Game.sharedInstance.canPanWorld = true
+    Game.sharedInstance.canAutoScroll = false
   }
 
 }

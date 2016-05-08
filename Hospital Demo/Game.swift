@@ -29,7 +29,7 @@ class Game {
   
   var canPanWorld = true
 
-  var autoScroll = false
+  var canAutoScroll = false
 
   var autoScrollVelocityX = CGFloat(0.0);
 

@@ -224,8 +224,12 @@ class BaseScene: HLScene {
       elapsedTime = 0.01;
     }
 
-    if (Game.sharedInstance.autoScroll) {
+
+    if (Game.sharedInstance.canAutoScroll) {
       self.updateAutoScroll(elapsedTime)
+    } else {
+      Game.sharedInstance.autoScrollVelocityX = 0;
+      Game.sharedInstance.autoScrollVelocityY = 0;
     }
   }
 
@@ -234,29 +238,17 @@ class BaseScene: HLScene {
 
   func updateAutoScroll(time: CFTimeInterval) {
 
-    let scrollXDistance = Game.sharedInstance.autoScrollVelocityX * CGFloat(time);
-    let scrollYDistance = Game.sharedInstance.autoScrollVelocityY * CGFloat(time);
+      let scrollXDistance = Game.sharedInstance.autoScrollVelocityX * CGFloat(time);
+      let scrollYDistance = Game.sharedInstance.autoScrollVelocityY * CGFloat(time);
 
-    // note: Scrolling velocity is measured in scene units, not world units (i.e. regardless of world scale).
-    let currentOffset = Game.sharedInstance.wolrdnode.contentOffset;
+      // note: Scrolling velocity is measured in scene units, not world units (i.e. regardless of world scale).
+      let currentOffset = Game.sharedInstance.wolrdnode.contentOffset;
 
-    let positionX = (currentOffset.x - scrollXDistance / Game.sharedInstance.wolrdnode.xScale)
-    let positionY = (currentOffset.y - scrollYDistance / Game.sharedInstance.wolrdnode.yScale)
+      let positionX = (currentOffset.x - scrollXDistance / Game.sharedInstance.wolrdnode.xScale)
+      let positionY = (currentOffset.y - scrollYDistance / Game.sharedInstance.wolrdnode.yScale)
 
-    //    if (_worldAutoScrollState.gestureUpdateBlock) {
-    //      _worldAutoScrollState.gestureUpdateBlock();
-    //    }
-
-    let currentScale = Game.sharedInstance.wolrdnode.contentScale
-
-    //    Offset needs to be set to minus value, not positive
-//        Game.sharedInstance.wolrdnode.setContentOffset(CGPoint(x: -500, y: -500), contentScale: currentScale)
-
-//    print("***trying to set content offset")
-//    print(positionX)
-//    print(positionY)
-    Game.sharedInstance.wolrdnode.setContentOffset(CGPoint(x: positionX, y: positionY), contentScale: currentScale)
-
+      let currentScale = Game.sharedInstance.wolrdnode.contentScale
+      Game.sharedInstance.wolrdnode.setContentOffset(CGPoint(x: positionX, y: positionY), contentScale: currentScale)
 
   }
 
@@ -299,23 +291,19 @@ class BaseScene: HLScene {
   
   override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
 //    print("touches moved ------------")
-    let currentOffset = Game.sharedInstance.wolrdnode.contentOffset
-    let currentScale = Game.sharedInstance.wolrdnode.contentScale
-
-//    Offset needs to be set to minus value, not positive
-//    Game.sharedInstance.wolrdnode.setContentOffset(CGPoint(x: -500, y: -500), contentScale: currentScale)
-
-//    print(touches.first?.locationInView(self.view))
-//    print("----")
 
     let gesturePosition = touches.first?.locationInView(self.view)
-    
-    checkAutoScroll(gesturePosition!)
+
+//    let currentOffset = Game.sharedInstance.wolrdnode.contentOffset
+//    let currentScale = Game.sharedInstance.wolrdnode.contentScale
+
+    if (Game.sharedInstance.canAutoScroll) {
+      checkAutoScroll(gesturePosition!)
+    }
 
   }
   
   override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    Game.sharedInstance.autoScroll = false;
     Game.sharedInstance.autoScrollVelocityX = 0;
     Game.sharedInstance.autoScrollVelocityY = 0;
     print("touches ended")
@@ -340,7 +328,7 @@ class BaseScene: HLScene {
       }
       return false
     }
-    
+
     return super.gestureRecognizer(gestureRecognizer, shouldReceiveTouch: touch)
   }
   
@@ -366,7 +354,6 @@ class BaseScene: HLScene {
 
     let scorllNode = Game.sharedInstance.wolrdnode
 
-//    _worldAutoScrollState.scrolling = NO
     var autoScroll = false
     
     let additionalYMargin = CGFloat(64)
@@ -375,13 +362,6 @@ class BaseScene: HLScene {
     let sceneXMax = CGFloat(sceneXMin + self.size.width)
     let sceneYMin = CGFloat(scorllNode.size.height * -1.0 * scorllNode.anchorPoint.y)
     let sceneYMax = CGFloat(sceneYMin + self.size.height)
-
-//    print("--Scene XY min max --")
-//    print(sceneXMin)
-//    print(sceneXMax)
-//    print(sceneYMin)
-//    print(sceneYMax)
-//    print("---end---")
 
 
     var proximity = CGFloat(0.0)
@@ -410,12 +390,6 @@ class BaseScene: HLScene {
       autoScroll = true
     }
 
-    Game.sharedInstance.autoScroll = autoScroll
-
-//    print("--proximity")
-//    print(proximity)
-//    print("--proximity")
-
 
     if (autoScroll) {
       let sceneXCenter = sceneXMin + self.size.width / 2.0
@@ -430,6 +404,9 @@ class BaseScene: HLScene {
       Game.sharedInstance.autoScrollVelocityY = (locationOffsetY / locationOffsetSum) * speed
 
 //      _worldAutoScrollState.gestureUpdateBlock = gestureUpdateBlock;
+    } else {
+      Game.sharedInstance.autoScrollVelocityX = 0;
+      Game.sharedInstance.autoScrollVelocityY = 0;
     }
 
     
