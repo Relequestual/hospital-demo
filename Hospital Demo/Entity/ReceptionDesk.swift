@@ -25,6 +25,14 @@ class ReceptionDesk: GKEntity {
     })
     self.addComponent(blueprint)
 //    Add position component somewhere?
+
+    let draggableComponent = DraggableSpriteComponent(){
+      self.dragStartHandler()
+    }
+  }
+
+  func dragStartHandler() {
+
   }
   
   func planAtPoint(position: CGPoint){

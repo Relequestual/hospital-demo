@@ -279,7 +279,6 @@ class BaseScene: HLScene {
     let touchedNodes = self.nodesAtPoint(positionInScene)
     
 
-    //    touchedNodes.filter(<#T##includeElement: (SKNode) throws -> Bool##(SKNode) throws -> Bool#>).first
 
     for node in touchedNodes {
 //      print(node)

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		136FA18A1BFBCBDC0086F545 /* BaseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136FA1891BFBCBDC0086F545 /* BaseScene.swift */; };
+		137F2E161CDF8D4600665C17 /* DraggableSpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137F2E151CDF8D4600665C17 /* DraggableSpriteComponent.swift */; };
 		13907E4E1C62BA1D009FC199 /* TileStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13907E4D1C62BA1D009FC199 /* TileStates.swift */; };
 		13A5F5CC1C0A464B0013D478 /* Grey Tile.png in Resources */ = {isa = PBXBuildFile; fileRef = 13A5F5CB1C0A464B0013D478 /* Grey Tile.png */; };
 		13A5F5CE1C0A587F0013D478 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 13A5F5CD1C0A587F0013D478 /* GameScene.sks */; };
@@ -36,6 +37,7 @@
 /* Begin PBXFileReference section */
 		119B22F354B724D95C8C9719 /* Pods_Hospital_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hospital_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		136FA1891BFBCBDC0086F545 /* BaseScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseScene.swift; sourceTree = "<group>"; };
+		137F2E151CDF8D4600665C17 /* DraggableSpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DraggableSpriteComponent.swift; path = Component/DraggableSpriteComponent.swift; sourceTree = "<group>"; };
 		13907E4D1C62BA1D009FC199 /* TileStates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TileStates.swift; path = States/TileStates.swift; sourceTree = "<group>"; };
 		13A5F5CB1C0A464B0013D478 /* Grey Tile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Grey Tile.png"; sourceTree = "<group>"; };
 		13A5F5CD1C0A587F0013D478 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 				91DF14CE1C2A958D003E813F /* PositionComponent.swift */,
 				13CCF1561C34088D00297EF3 /* SpriteDebugComponent.swift */,
 				914667E01C5937D800560251 /* TouchableSpriteComponent.swift */,
+				137F2E151CDF8D4600665C17 /* DraggableSpriteComponent.swift */,
 				91C3E3561C6BB1E900E8CBD8 /* BlueprintComponent.swift */,
 			);
 			name = Component;
@@ -327,6 +330,7 @@
 				13DFA17B1C6806F4003289E9 /* BuildState.swift in Sources */,
 				13C765361BF61B2D00AC0223 /* GameViewController.swift in Sources */,
 				91C836831C649978008ECABF /* GameState.swift in Sources */,
+				137F2E161CDF8D4600665C17 /* DraggableSpriteComponent.swift in Sources */,
 				13907E4E1C62BA1D009FC199 /* TileStates.swift in Sources */,
 				13B6A1B41C255C940087649C /* Tile.swift in Sources */,
 				13C765301BF61B2D00AC0223 /* AppDelegate.swift in Sources */,
