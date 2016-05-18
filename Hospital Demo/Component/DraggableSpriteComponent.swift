@@ -11,14 +11,26 @@ import SpriteKit
 
 class DraggableSpriteComponent: GKComponent {
   
-  var entityTouched: ()->Void;
+  var entityTouchStart: ()->Void;
+  var entityTouchMove: (CGPoint)->Void;
+  var entityTouchEnd: ()->Void;
   
-  init(f:() -> Void) {
-    self.entityTouched = f
+  init(start:() -> Void, move:(CGPoint) -> Void, end:() -> Void) {
+    self.entityTouchStart = start
+    self.entityTouchMove  = move
+    self.entityTouchEnd   = end
   }
   
-  func callFunction() {
-    self.entityTouched()
+  func touchStart() {
+    self.entityTouchStart()
+  }
+  
+  func touchMove(point: CGPoint) {
+    self.entityTouchMove(point)
+  }
+  
+  func touchEnd() {
+    self.entityTouchEnd()
   }
   
 }

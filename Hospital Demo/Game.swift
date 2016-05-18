@@ -47,6 +47,8 @@ class Game {
   
   var plannedBuildingTiles = [Tile]()
   
+  var draggingEntiy: GKEntity?
+  
   enum rotation {
     case North, East, South, West
     mutating func next() {

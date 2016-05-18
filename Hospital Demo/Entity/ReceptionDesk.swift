@@ -26,13 +26,36 @@ class ReceptionDesk: GKEntity {
     self.addComponent(blueprint)
 //    Add position component somewhere?
 
-    let draggableComponent = DraggableSpriteComponent(){
-      self.dragStartHandler()
-    }
+    let draggableComponent = DraggableSpriteComponent(
+      start: self.dragStartHandler,
+      move: self.dragMoveHandler,
+      end: self.dragEndHandler
+    )
+    self.addComponent(draggableComponent)
+    print(self.componentForClass(DraggableSpriteComponent))
+    
+    let graphicNode = SKShapeNode(rectOfSize: CGSize(width:128, height:64), cornerRadius: 0.2)
+    graphicNode.fillColor = UIColor.whiteColor()
+    let view = SKView()
+    let graphicTexture: SKTexture = view.textureFromNode(graphicNode)!
+    
+    let spriteComponent = SpriteComponent(texture: graphicTexture)
+    addComponent(spriteComponent)
+    spriteComponent.addToNodeKey()
+    
   }
 
   func dragStartHandler() {
-
+    print("RD Start drag")
+  }
+  
+  func dragMoveHandler(point: CGPoint) {
+    print("RD Move drag")
+    self.componentForClass(SpriteComponent)?.node.position = point
+  }
+  
+  func dragEndHandler() {
+    print("RD End drag")
   }
   
   func planAtPoint(position: CGPoint){

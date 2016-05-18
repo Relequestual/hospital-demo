@@ -278,12 +278,19 @@ class BaseScene: HLScene {
     let positionInScene = touch.locationInNode(self)
     let touchedNodes = self.nodesAtPoint(positionInScene)
     
-
-
     for node in touchedNodes {
-//      print(node)
       guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else {continue}
+      
+      print(node.userData?["entity"])
+      
+      if (entity.componentForClass(DraggableSpriteComponent) != nil) {
+        print("has draggable component")
+        print(node)
+        Game.sharedInstance.draggingEntiy = entity
+      }
+      
       entity.componentForClass(TouchableSpriteComponent)?.callFunction()
+      entity.componentForClass(DraggableSpriteComponent)?.entityTouchStart()
     }
 
   }
@@ -291,13 +298,37 @@ class BaseScene: HLScene {
   override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
 //    print("touches moved ------------")
 
-    let gesturePosition = touches.first?.locationInView(self.view)
+    let positionInScene = touches.first?.locationInNode(self)
+    let positionInSceneView = touches.first?.locationInView(self.view)
+    
+    let positionInWorldnode = touches.first?.locationInNode(Game.sharedInstance.wolrdnode.contentNode)
+    
+    let touchedNodes = self.nodesAtPoint(positionInScene!)
+    
+//    for node in touchedNodes {
+//      guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else {continue}
+//      
+//      print(node.userData?["entity"])
+//      
+//      if (entity.componentForClass(DraggableSpriteComponent) != nil) {
+//        print("has draggable component")
+//        print(node)
+//      }
+//      
+//      entity.componentForClass(DraggableSpriteComponent)?.entityTouchMove(positionInWorldnode!)
+//    }
+    
+    if (Game.sharedInstance.draggingEntiy != nil) {
+      Game.sharedInstance.draggingEntiy?.componentForClass(DraggableSpriteComponent)?.entityTouchMove(positionInWorldnode!)
+    }
+
+    
 
 //    let currentOffset = Game.sharedInstance.wolrdnode.contentOffset
 //    let currentScale = Game.sharedInstance.wolrdnode.contentScale
 
     if (Game.sharedInstance.canAutoScroll) {
-      checkAutoScroll(gesturePosition!)
+      checkAutoScroll(positionInSceneView!)
     }
 
   }
@@ -306,6 +337,7 @@ class BaseScene: HLScene {
     Game.sharedInstance.autoScrollVelocityX = 0;
     Game.sharedInstance.autoScrollVelocityY = 0;
     print("touches ended")
+    Game.sharedInstance.draggingEntiy = nil
   }
   
   override func touchesEstimatedPropertiesUpdated(touches: Set<NSObject>) {
