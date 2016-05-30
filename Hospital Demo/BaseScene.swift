@@ -32,6 +32,7 @@ class BaseScene: HLScene {
 
   var staticObjects = SKSpriteNode()
 
+  var _panLastNodeLocation = CGPoint()
 
 
   /// A reference to the scene manager for scene progression.
@@ -99,8 +100,8 @@ class BaseScene: HLScene {
     myScrollNode.contentScaleMinimum = 0.0
     myScrollNode.contentNode = myContentNode
 
-    myScrollNode.hlSetGestureTarget(myScrollNode)
-    self.registerDescendant(myScrollNode, withOptions:NSSet(objects: HLSceneChildResizeWithScene, HLSceneChildGestureTarget) as Set<NSObject>)
+//    myScrollNode.hlSetGestureTarget(myScrollNode)
+//    self.registerDescendant(myScrollNode, withOptions:NSSet(objects: HLSceneChildResizeWithScene, HLSceneChildGestureTarget) as Set<NSObject>)
 
 //    print(myContentNode.position)
 
@@ -277,6 +278,7 @@ class BaseScene: HLScene {
     let touch = touches.first!
     let positionInScene = touch.locationInNode(self)
     let touchedNodes = self.nodesAtPoint(positionInScene)
+    _panLastNodeLocation = positionInScene
     
     for node in touchedNodes {
       guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else {continue}
@@ -294,17 +296,27 @@ class BaseScene: HLScene {
     }
 
   }
-  
+
   override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
 //    print("touches moved ------------")
 
-    let positionInScene = touches.first?.locationInNode(self)
     let positionInSceneView = touches.first?.locationInView(self.view)
-    
+    let positionInScene = touches.first?.locationInNode(self)
+    let nodeLocation = convertPoint(positionInScene!, fromNode: self)
+
+    let contentNodeLocation = Game.sharedInstance.wolrdnode.contentOffset
+    let translationInNode = CGPointMake(nodeLocation.x - _panLastNodeLocation.x, nodeLocation.y - _panLastNodeLocation.y)
+
+    let currentScale = Game.sharedInstance.wolrdnode.contentScale
+    Game.sharedInstance.wolrdnode.setContentOffset(CGPoint(x: contentNodeLocation.x + translationInNode.x, y: contentNodeLocation.y + translationInNode.y), contentScale: currentScale)
+
+    _panLastNodeLocation = nodeLocation
+
+
     let positionInWorldnode = touches.first?.locationInNode(Game.sharedInstance.wolrdnode.contentNode)
     
-    let touchedNodes = self.nodesAtPoint(positionInScene!)
-    
+//    let touchedNodes = self.nodesAtPoint(positionInScene!)
+
 //    for node in touchedNodes {
 //      guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else {continue}
 //      
@@ -342,25 +354,6 @@ class BaseScene: HLScene {
   
   override func touchesEstimatedPropertiesUpdated(touches: Set<NSObject>) {
     print("----- estmate updated")
-  }
-  
-  override func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-    
-    let positionInScene = touch.locationInNode(self)
-    let touchedNodes = self.nodesAtPoint(positionInScene)
-    
-    if (gestureRecognizer.isKindOfClass(UIPanGestureRecognizer) && !Game.sharedInstance.canPanWorld) {
-//      ... and scroll mode is off
-//      do something for each node which is draggable, and then call super
-      for node in touchedNodes {
-        if (node.isKindOfClass(HLScrollNode)) {
-          
-        }
-      }
-      return false
-    }
-
-    return super.gestureRecognizer(gestureRecognizer, shouldReceiveTouch: touch)
   }
   
   
