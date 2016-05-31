@@ -27,7 +27,7 @@ class Game {
     BSSelectSqaures()
   ])
   
-  var canPanWorld = true
+  var panningWold = true
 
   var canAutoScroll = false
 

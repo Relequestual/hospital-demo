@@ -21,11 +21,9 @@ class GSBuild: GameState {
   override func didEnterWithPreviousState(previousState: GKState?) {
     print(previousState)
     print("In game state build state")
-    Game.sharedInstance.canPanWorld = false
   }
   
   override func willExitWithNextState(nextState: GKState) {
-    Game.sharedInstance.canPanWorld = true
     Game.sharedInstance.canAutoScroll = false
   }
 

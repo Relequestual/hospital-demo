@@ -280,6 +280,7 @@ class BaseScene: HLScene {
     let touchedNodes = self.nodesAtPoint(positionInScene)
     _panLastNodeLocation = positionInScene
     
+    var draggingDraggableNode = false
     for node in touchedNodes {
       guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else {continue}
       
@@ -289,11 +290,14 @@ class BaseScene: HLScene {
         print("has draggable component")
         print(node)
         Game.sharedInstance.draggingEntiy = entity
+        draggingDraggableNode = true
       }
       
       entity.componentForClass(TouchableSpriteComponent)?.callFunction()
       entity.componentForClass(DraggableSpriteComponent)?.entityTouchStart()
     }
+    
+    Game.sharedInstance.panningWold = !draggingDraggableNode
 
   }
 
@@ -301,18 +305,11 @@ class BaseScene: HLScene {
 //    print("touches moved ------------")
 
     let positionInSceneView = touches.first?.locationInView(self.view)
-    let positionInScene = touches.first?.locationInNode(self)
-    let nodeLocation = convertPoint(positionInScene!, fromNode: self)
 
-    let contentNodeLocation = Game.sharedInstance.wolrdnode.contentOffset
-    let translationInNode = CGPointMake(nodeLocation.x - _panLastNodeLocation.x, nodeLocation.y - _panLastNodeLocation.y)
-
-    let currentScale = Game.sharedInstance.wolrdnode.contentScale
-    Game.sharedInstance.wolrdnode.setContentOffset(CGPoint(x: contentNodeLocation.x + translationInNode.x, y: contentNodeLocation.y + translationInNode.y), contentScale: currentScale)
-
-    _panLastNodeLocation = nodeLocation
-
-
+    if (Game.sharedInstance.panningWold) {
+      panWold(touches)
+    }
+    
     let positionInWorldnode = touches.first?.locationInNode(Game.sharedInstance.wolrdnode.contentNode)
     
 //    let touchedNodes = self.nodesAtPoint(positionInScene!)
@@ -339,7 +336,7 @@ class BaseScene: HLScene {
 //    let currentOffset = Game.sharedInstance.wolrdnode.contentOffset
 //    let currentScale = Game.sharedInstance.wolrdnode.contentScale
 
-    if (Game.sharedInstance.canAutoScroll) {
+    if (Game.sharedInstance.canAutoScroll && !Game.sharedInstance.panningWold) {
       checkAutoScroll(positionInSceneView!)
     }
 
@@ -354,6 +351,19 @@ class BaseScene: HLScene {
   
   override func touchesEstimatedPropertiesUpdated(touches: Set<NSObject>) {
     print("----- estmate updated")
+  }
+  
+  func panWold(touches: Set<UITouch>) {
+    let positionInScene = touches.first?.locationInNode(self)
+    let nodeLocation = convertPoint(positionInScene!, fromNode: self)
+    
+    let contentNodeLocation = Game.sharedInstance.wolrdnode.contentOffset
+    let translationInNode = CGPointMake(nodeLocation.x - _panLastNodeLocation.x, nodeLocation.y - _panLastNodeLocation.y)
+    
+    let currentScale = Game.sharedInstance.wolrdnode.contentScale
+    Game.sharedInstance.wolrdnode.setContentOffset(CGPoint(x: contentNodeLocation.x + translationInNode.x, y: contentNodeLocation.y + translationInNode.y), contentScale: currentScale)
+    
+    _panLastNodeLocation = nodeLocation
   }
   
   

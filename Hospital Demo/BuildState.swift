@@ -30,7 +30,6 @@ class BSNoBuild: BuildState {
   override func didEnterWithPreviousState(previousState: GKState?) {
     print("entering BSNoBuild")
     PlaceObjectToolbar.sharedInstance?.hidden = true
-//    Game.sharedInstance.canPanWorld = true
   }
 }
 
@@ -40,7 +39,6 @@ class BSPlaceItem: BuildState {
     print(previousState)
     print("In Place Item State")
     PlaceObjectToolbar.sharedInstance?.hidden = false
-    Game.sharedInstance.canPanWorld = false
     Game.sharedInstance.canAutoScroll = true
   }
 }
