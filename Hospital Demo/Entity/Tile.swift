@@ -80,6 +80,7 @@ class Tile: GKEntity {
         //Cry
       }
       let plannedObject = placingObject.init()
+      Game.sharedInstance.draggingEntiy = plannedObject
       plannedObject.componentForClass(BlueprintComponent)?.planFunctionCall(self.realPosition)
       
 //      Do the below but elsewhere, like using blueprint component

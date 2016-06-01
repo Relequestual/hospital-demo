@@ -281,6 +281,10 @@ class BaseScene: HLScene {
     _panLastNodeLocation = positionInScene
     
     var draggingDraggableNode = false
+    if (Game.sharedInstance.buildStateMachine.currentState is BSPlaceItem) {
+      draggingDraggableNode = true
+    }
+    
     for node in touchedNodes {
       guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else {continue}
       
