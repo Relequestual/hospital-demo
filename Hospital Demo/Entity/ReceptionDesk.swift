@@ -51,6 +51,7 @@ class ReceptionDesk: GKEntity {
   
   func dragMoveHandler(point: CGPoint) {
     print("RD Move drag")
+    
     self.componentForClass(SpriteComponent)?.node.position = point
   }
   
@@ -74,20 +75,20 @@ class ReceptionDesk: GKEntity {
       node.removeFromParent()
     });
 
-    let positionComponent = PositionComponent(x: Int(position.x), y: Int(position.y))
+    let positionComponent = PositionComponent(gridPosition: CGPoint(x: position.x, y: position.y))
     addComponent(positionComponent)
 
     let texture = createPlannedTexture()
     let texturePOU = createPlannedPOUTexture()
 
     for blueprint in self.area {
-      let x = Int(positionComponent.position.x) + blueprint[0]
-      let y = Int(positionComponent.position.y) + blueprint[1]
+      let x = Int(positionComponent.gridPosition.x) + blueprint[0]
+      let y = Int(positionComponent.gridPosition.y) + blueprint[1]
 
       let tile = Game.sharedInstance.tilesAtCoords[x]![y]
       let node = SKSpriteNode(texture: texture)
       node.alpha = 0.6
-      node.position = (tile?.componentForClass(PositionComponent)?.position)!
+      node.position = (tile?.componentForClass(PositionComponent)?.spritePosition)!
       
       node.zPosition = 10
       node.name = "planned_object"
@@ -103,13 +104,13 @@ class ReceptionDesk: GKEntity {
     }
     
     for blueprint in self.pous {
-      let x = Int(positionComponent.position.x) + blueprint[0]
-      let y = Int(positionComponent.position.y) + blueprint[1]
+      let x = Int(positionComponent.gridPosition.x) + blueprint[0]
+      let y = Int(positionComponent.gridPosition.y) + blueprint[1]
       
       let tile = Game.sharedInstance.tilesAtCoords[x]![y]
       let node = SKSpriteNode(texture: texturePOU)
       node.alpha = 0.4
-      node.position = (tile?.componentForClass(PositionComponent)?.position)!
+      node.position = (tile?.componentForClass(PositionComponent)?.spritePosition)!
       
       node.zPosition = 10
       node.name = "planned_object"

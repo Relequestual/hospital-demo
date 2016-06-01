@@ -120,7 +120,7 @@ class PlaceObjectToolbar: HLToolbarNode {
       tile.isBuildingOn = false
     }
     
-    let oldPosition = thisObject.componentForClass(PositionComponent)?.position
+    let oldPosition = thisObject.componentForClass(PositionComponent)?.gridPosition
     let newPosition = CGPoint(x: Int(oldPosition!.x) + x, y: Int(oldPosition!.y) + y)
     
     guard thisObject.componentForClass(BlueprintComponent)!.canPlanAtPoint(newPosition) else {
@@ -128,7 +128,7 @@ class PlaceObjectToolbar: HLToolbarNode {
     }
     
     
-    thisObject.componentForClass(PositionComponent)?.position = newPosition
+    thisObject.componentForClass(PositionComponent)?.gridPosition = newPosition
     thisObject.componentForClass(BlueprintComponent)?.planFunctionCall(newPosition)
     
   }

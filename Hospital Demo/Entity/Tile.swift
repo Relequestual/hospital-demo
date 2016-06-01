@@ -41,7 +41,7 @@ class Tile: GKEntity {
     let x = width * x + width / 2
     let y = width * y + width / 2
 
-    let positionComponent = PositionComponent(x: x, y: y)
+    let positionComponent = PositionComponent(gridPosition: self.realPosition, spritePosition: CGPoint(x: x, y: y))
 
     addComponent(positionComponent)
     
@@ -98,6 +98,7 @@ class Tile: GKEntity {
         return coord[1]
       }).maxElement()
       
+//      Fix this to take position from component
       var nodePosition = self.componentForClass(SpriteComponent)?.node.position
       nodePosition = CGPoint(x: Int(nodePosition!.x) + 32 * mx!, y: Int(nodePosition!.y) + 32 * my!)
       

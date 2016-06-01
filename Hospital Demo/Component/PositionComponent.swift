@@ -11,9 +11,11 @@ import GameplayKit
 
 class PositionComponent: GKComponent {
 
-  var position: CGPoint
+  var gridPosition: CGPoint
+  var spritePosition: CGPoint?
 
-  init(x : Int, y : Int) {
-    self.position = CGPoint(x: x, y: y)
+  init(gridPosition: CGPoint, spritePosition: CGPoint?=nil) {
+    self.gridPosition = gridPosition
+    self.spritePosition = spritePosition
   }
 }
