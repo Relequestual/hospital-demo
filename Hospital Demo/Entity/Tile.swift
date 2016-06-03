@@ -81,38 +81,10 @@ class Tile: GKEntity {
       }
       let plannedObject = placingObject.init()
       Game.sharedInstance.draggingEntiy = plannedObject
-      plannedObject.componentForClass(BlueprintComponent)?.planFunctionCall(self.realPosition)
+      plannedObject.componentForClass(BlueprintComponent)?.planFunctionCall((self.componentForClass(PositionComponent)?.gridPosition)!)
       
 //      Do the below but elsewhere, like using blueprint component
-      var graphicNode = plannedObject.componentForClass(SpriteComponent)?.node
-      graphicNode?.zPosition = 100
-      
-      let nodeArea = plannedObject.componentForClass(BlueprintComponent)?.area
-      
-//      This method of working the graphic offset will need to change to account for rotation
-      
-      let mx = nodeArea?.map({ ( coord: [Int] ) -> Int in
-        return coord[0]
-      }).maxElement()
-      
-      let my = nodeArea?.map({ ( coord: [Int] ) -> Int in
-        return coord[1]
-      }).maxElement()
-      
-//      Fix this to take position from component
-      var nodePosition = self.componentForClass(SpriteComponent)?.node.position
-      nodePosition = CGPoint(x: Int(nodePosition!.x) + 32 * mx!, y: Int(nodePosition!.y) + 32 * my!)
-      
-      
-      graphicNode?.position = nodePosition!
-      Game.sharedInstance.wolrdnode.contentNode.addChild(graphicNode!)
-      
-      
-      
 
-
-//      Get co-ords of tile here
-      Game.sharedInstance.buildStateMachine.enterState(BSPlanedItem)
       
 
     default:

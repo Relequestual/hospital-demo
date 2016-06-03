@@ -36,6 +36,7 @@ class ReceptionDesk: GKEntity {
     
     let graphicNode = SKShapeNode(rectOfSize: CGSize(width:128, height:64), cornerRadius: 0.2)
     graphicNode.fillColor = UIColor.whiteColor()
+    graphicNode.alpha = 0.6
     let view = SKView()
     let graphicTexture: SKTexture = view.textureFromNode(graphicNode)!
     
@@ -52,7 +53,18 @@ class ReceptionDesk: GKEntity {
   func dragMoveHandler(point: CGPoint) {
     print("RD Move drag")
     
-    self.componentForClass(SpriteComponent)?.node.position = point
+//    self.componentForClass(SpriteComponent)?.node.position = point
+    let nodesAtPoint = Game.sharedInstance.wolrdnode.scene?.nodesAtPoint(point)
+    
+    for node in nodesAtPoint! {
+      guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else {continue}
+      
+      if (entity.isKindOfClass(Tile)) {
+        self.componentForClass(BlueprintComponent)?.planFunctionCall((entity.componentForClass(PositionComponent)?.gridPosition)!)
+//        self.planAtPoint((entity.componentForClass(PositionComponent)?.gridPosition)!)
+      }
+
+    }
   }
   
   func dragEndHandler() {
@@ -74,6 +86,7 @@ class ReceptionDesk: GKEntity {
     Game.sharedInstance.entityManager.node.enumerateChildNodesWithName("planned_object", usingBlock: { (node, stop) -> Void in
       node.removeFromParent()
     });
+    print("Removed planned object nodes")
 
     let positionComponent = PositionComponent(gridPosition: CGPoint(x: position.x, y: position.y))
     addComponent(positionComponent)

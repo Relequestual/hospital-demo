@@ -27,6 +27,40 @@ class BlueprintComponent: GKComponent {
 
   func planFunctionCall(position: CGPoint) {
     self.planFunction(position: position)
+    
+    var plannedObject = self.entity!
+    
+    var graphicNode = plannedObject.componentForClass(SpriteComponent)?.node
+    graphicNode?.zPosition = 100
+    graphicNode?.name = "planned_object"
+    print(graphicNode)
+    print("graphic node")
+    
+    let nodeArea = plannedObject.componentForClass(BlueprintComponent)?.area
+    
+    //      This method of working the graphic offset will need to change to account for rotation
+    
+    let mx = nodeArea?.map({ ( coord: [Int] ) -> Int in
+      return coord[0]
+    }).maxElement()
+    
+    let my = nodeArea?.map({ ( coord: [Int] ) -> Int in
+      return coord[1]
+    }).maxElement()
+    
+    var nodePosition = Game.sharedInstance.tilesAtCoords[Int(position.x)]![Int(position.y)]!.componentForClass(PositionComponent)?.spritePosition
+    nodePosition = CGPoint(x: Int(nodePosition!.x) + 32 * mx!, y: Int(nodePosition!.y) + 32 * my!)
+    
+    
+    graphicNode?.position = nodePosition!
+    Game.sharedInstance.wolrdnode.contentNode.addChild(graphicNode!)
+    
+    
+    
+    //      Get co-ords of tile here... what? why?
+    Game.sharedInstance.buildStateMachine.enterState(BSPlanedItem)
+    
+    
   }
   
   func rotate(var previousRotation: Game.rotation) {
