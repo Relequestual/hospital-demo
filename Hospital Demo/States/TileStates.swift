@@ -35,7 +35,7 @@ class TileTileState: TileState {
 
   override func didEnterWithPreviousState(previousState: GKState?) {
     super.didEnterWithPreviousState(previousState)
-    tile?.componentForClass(SpriteComponent)?.node.texture = SKTexture(imageNamed: "Grey Tile.png")
+    tile?.componentForClass(SpriteComponent)?.node.texture = SKTexture(imageNamed: "Graphics/Tile.png")
   }
 
 }
