@@ -330,6 +330,7 @@ class BaseScene: HLScene {
     Game.sharedInstance.autoScrollVelocityX = 0;
     Game.sharedInstance.autoScrollVelocityY = 0;
     print("touches ended")
+    Game.sharedInstance.draggingEntiy?.componentForClass(DraggableSpriteComponent)?.entityTouchEnd()
     Game.sharedInstance.draggingEntiy = nil
   }
   
