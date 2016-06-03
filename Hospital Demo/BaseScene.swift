@@ -316,29 +316,9 @@ class BaseScene: HLScene {
     
     let positionInWorldnodeContent = touches.first?.locationInNode(Game.sharedInstance.wolrdnode.contentNode)
     
-//    let touchedNodes = self.nodesAtPoint(positionInScene!)
-
-//    for node in touchedNodes {
-//      guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else {continue}
-//      
-//      print(node.userData?["entity"])
-//      
-//      if (entity.componentForClass(DraggableSpriteComponent) != nil) {
-//        print("has draggable component")
-//        print(node)
-//      }
-//      
-//      entity.componentForClass(DraggableSpriteComponent)?.entityTouchMove(positionInWorldnode!)
-//    }
-    
     if (Game.sharedInstance.draggingEntiy != nil) {
       Game.sharedInstance.draggingEntiy?.componentForClass(DraggableSpriteComponent)?.entityTouchMove(positionInWorldnodeContent!)
     }
-
-    
-
-//    let currentOffset = Game.sharedInstance.wolrdnode.contentOffset
-//    let currentScale = Game.sharedInstance.wolrdnode.contentScale
 
     if (Game.sharedInstance.canAutoScroll && !Game.sharedInstance.panningWold) {
       checkAutoScroll(positionInSceneView!)
