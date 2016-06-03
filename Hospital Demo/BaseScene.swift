@@ -314,7 +314,7 @@ class BaseScene: HLScene {
       panWold(touches)
     }
     
-    let positionInWorldnode = touches.first?.locationInNode(Game.sharedInstance.wolrdnode.contentNode)
+    let positionInWorldnodeContent = touches.first?.locationInNode(Game.sharedInstance.wolrdnode.contentNode)
     
 //    let touchedNodes = self.nodesAtPoint(positionInScene!)
 
@@ -332,7 +332,7 @@ class BaseScene: HLScene {
 //    }
     
     if (Game.sharedInstance.draggingEntiy != nil) {
-      Game.sharedInstance.draggingEntiy?.componentForClass(DraggableSpriteComponent)?.entityTouchMove(positionInWorldnode!)
+      Game.sharedInstance.draggingEntiy?.componentForClass(DraggableSpriteComponent)?.entityTouchMove(positionInWorldnodeContent!)
     }
 
     

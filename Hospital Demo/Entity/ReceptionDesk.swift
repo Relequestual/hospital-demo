@@ -54,9 +54,9 @@ class ReceptionDesk: GKEntity {
     print("RD Move drag")
     
 //    self.componentForClass(SpriteComponent)?.node.position = point
-    let nodesAtPoint = Game.sharedInstance.wolrdnode.scene?.nodesAtPoint(point)
+    let nodesAtPoint = Game.sharedInstance.wolrdnode.contentNode.nodesAtPoint(point)
     
-    for node in nodesAtPoint! {
+    for node in nodesAtPoint {
       guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else {continue}
       
       if (entity.isKindOfClass(Tile)) {
@@ -86,7 +86,6 @@ class ReceptionDesk: GKEntity {
     Game.sharedInstance.entityManager.node.enumerateChildNodesWithName("planned_object", usingBlock: { (node, stop) -> Void in
       node.removeFromParent()
     });
-    print("Removed planned object nodes")
 
     let positionComponent = PositionComponent(gridPosition: CGPoint(x: position.x, y: position.y))
     addComponent(positionComponent)
