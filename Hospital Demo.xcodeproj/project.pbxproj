@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		130AFEAF1D0494B1002F266D /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130AFEAE1D0494B1002F266D /* Button.swift */; };
 		136FA18A1BFBCBDC0086F545 /* BaseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136FA1891BFBCBDC0086F545 /* BaseScene.swift */; };
 		137F2E161CDF8D4600665C17 /* DraggableSpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137F2E151CDF8D4600665C17 /* DraggableSpriteComponent.swift */; };
 		13907E4E1C62BA1D009FC199 /* TileStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13907E4D1C62BA1D009FC199 /* TileStates.swift */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		119B22F354B724D95C8C9719 /* Pods_Hospital_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hospital_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		130AFEAE1D0494B1002F266D /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Button.swift; path = Entity/Button.swift; sourceTree = "<group>"; };
 		136FA1891BFBCBDC0086F545 /* BaseScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseScene.swift; sourceTree = "<group>"; };
 		137F2E151CDF8D4600665C17 /* DraggableSpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DraggableSpriteComponent.swift; path = Component/DraggableSpriteComponent.swift; sourceTree = "<group>"; };
 		13907E4D1C62BA1D009FC199 /* TileStates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TileStates.swift; path = States/TileStates.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				13CCF1541C2F47FF00297EF3 /* EntityManager.swift */,
 				13B6A1B31C255C940087649C /* Tile.swift */,
 				13B6032C1C6935D700A65E7F /* ReceptionDesk.swift */,
+				130AFEAE1D0494B1002F266D /* Button.swift */,
 			);
 			name = Entity;
 			sourceTree = "<group>";
@@ -333,6 +336,7 @@
 				137F2E161CDF8D4600665C17 /* DraggableSpriteComponent.swift in Sources */,
 				13907E4E1C62BA1D009FC199 /* TileStates.swift in Sources */,
 				13B6A1B41C255C940087649C /* Tile.swift in Sources */,
+				130AFEAF1D0494B1002F266D /* Button.swift in Sources */,
 				13C765301BF61B2D00AC0223 /* AppDelegate.swift in Sources */,
 				91DF14CF1C2A958D003E813F /* PositionComponent.swift in Sources */,
 				13B6A1B61C255D8E0087649C /* SpriteComponent.swift in Sources */,

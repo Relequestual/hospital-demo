@@ -69,6 +69,7 @@ class ReceptionDesk: GKEntity {
   
   func dragEndHandler() {
     print("RD End drag")
+    
   }
   
   func planAtPoint(position: CGPoint){

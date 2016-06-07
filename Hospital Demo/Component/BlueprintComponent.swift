@@ -14,6 +14,8 @@ class BlueprintComponent: GKComponent {
   
   var area : [[Int]]
   var pous : [[Int]]
+  var confirm = CGPoint(x: 0,y: 1)
+  var deny = CGPoint(x: 1, y: 1)
   
   var baring = Game.rotation.North
 
@@ -100,6 +102,51 @@ class BlueprintComponent: GKComponent {
     }
     
     return true
+  }
+  
+  func displayBuildObjectConfirm() {
+    
+    let gridPosition = entity?.componentForClass(PositionComponent)?.gridPosition
+    let tickPosition = entity?.componentForClass(BlueprintComponent)?.confirm
+    let crossPosition = entity?.componentForClass(BlueprintComponent)?.deny
+    
+    var finalTickPosition = CGPoint(x: gridPosition!.x + tickPosition!.x, y: gridPosition!.y + tickPosition!.y)
+    finalTickPosition = CGPoint(x: finalTickPosition.x * 64 + 32, y: finalTickPosition.y * 64 + 32)
+    
+    var finalCrossPosition = CGPoint(x: gridPosition!.x + crossPosition!.x, y: gridPosition!.y + crossPosition!.y)
+    finalCrossPosition = CGPoint(x: finalCrossPosition.x * 64 + 32, y: finalCrossPosition.y * 64 + 32)
+    
+    //    re colouring black is not easy. Will just make actual green / red colour graphics. Makes sense anyway. =/
+    var tickTexture = SKTexture(imageNamed: "Graphics/tick.png")
+//    var tickNode = SKSpriteNode(texture: tickTexture, size: CGSize(width: tickTexture.size().width / 2, height: tickTexture.size().height / 2))
+    
+    var tickEntity = Button(texture: tickTexture, f: {
+      self.entity?.componentForClass(SpriteComponent)?.node.removeFromParent()
+      Game.sharedInstance.entityManager.add(self.entity!)
+    })
+    var tickNode = tickEntity.componentForClass(SpriteComponent)!.node
+    
+    tickNode.size = CGSize(width: tickTexture.size().width / 2, height: tickTexture.size().height / 2)
+    tickNode.position = finalTickPosition
+    tickNode.name = "planned_object"
+    tickNode.zPosition = 20
+    
+    Game.sharedInstance.entityManager.node.addChild(tickNode)
+
+    var crossTexture = SKTexture(imageNamed: "Graphics/cross.png")
+    var crossEntity = Button(texture: crossTexture, f: {
+      print("tap cross")
+    })
+    
+    var crossNode = crossEntity.componentForClass(SpriteComponent)!.node
+    crossNode.texture = crossTexture
+    crossNode.size = CGSize(width: crossTexture.size().width / 2, height: crossTexture.size().height / 2)
+    crossNode.position = finalCrossPosition
+    crossNode.name = "planned_object"
+    crossNode.zPosition = 20
+    
+    Game.sharedInstance.entityManager.node.addChild(crossNode)
+    
   }
   
 }

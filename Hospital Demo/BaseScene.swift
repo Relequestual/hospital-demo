@@ -286,9 +286,8 @@ class BaseScene: HLScene {
     }
     
     for node in touchedNodes {
+      print(node.userData)
       guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else {continue}
-      
-      print(node.userData?["entity"])
       
       if (entity.componentForClass(DraggableSpriteComponent) != nil) {
         print("has draggable component")
@@ -330,7 +329,7 @@ class BaseScene: HLScene {
     Game.sharedInstance.autoScrollVelocityX = 0;
     Game.sharedInstance.autoScrollVelocityY = 0;
     print("touches ended")
-    Game.sharedInstance.draggingEntiy?.componentForClass(DraggableSpriteComponent)?.entityTouchEnd()
+    Game.sharedInstance.draggingEntiy?.componentForClass(DraggableSpriteComponent)?.touchEnd()
     Game.sharedInstance.draggingEntiy = nil
   }
   

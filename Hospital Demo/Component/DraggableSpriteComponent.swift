@@ -30,6 +30,10 @@ class DraggableSpriteComponent: GKComponent {
   }
   
   func touchEnd() {
+    if (self.entity?.componentForClass(BlueprintComponent) != nil && Game.sharedInstance.buildStateMachine.currentState is BSPlanedItem) {
+      self.entity?.componentForClass(BlueprintComponent)?.displayBuildObjectConfirm()
+    }
+
     self.entityTouchEnd()
   }
   
