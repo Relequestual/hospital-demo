@@ -33,7 +33,7 @@ class GameToolbar: HLToolbarNode {
     let tags = [Option.Red.rawValue, Option.Green.rawValue, Option.Blue.rawValue]
     self.setTools(toolNodes, tags: tags, animation:HLToolbarNodeAnimation.SlideUp)
     
-    self.toolTappedBlock = {(tag: String!) -> Void in
+    self.toolTappedBlock = {tag in
       baseScene.HL_showMessage("Tapped \(tag) tool on HLToolbarNode.")
 
       GameToolbar.didTouch(tag)
