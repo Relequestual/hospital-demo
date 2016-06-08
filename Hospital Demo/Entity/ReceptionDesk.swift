@@ -36,7 +36,7 @@ class ReceptionDesk: GKEntity {
     
     let graphicNode = SKShapeNode(rectOfSize: CGSize(width:128, height:64), cornerRadius: 0.2)
     graphicNode.fillColor = UIColor.whiteColor()
-    graphicNode.alpha = 0.6
+//    graphicNode.alpha = 0.6
     let view = SKView()
     let graphicTexture: SKTexture = view.textureFromNode(graphicNode)!
     
@@ -61,7 +61,6 @@ class ReceptionDesk: GKEntity {
       
       if (entity.isKindOfClass(Tile)) {
         self.componentForClass(BlueprintComponent)?.planFunctionCall((entity.componentForClass(PositionComponent)?.gridPosition)!)
-//        self.planAtPoint((entity.componentForClass(PositionComponent)?.gridPosition)!)
       }
 
     }

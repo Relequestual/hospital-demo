@@ -39,7 +39,7 @@ class BSPlaceItem: BuildState {
     print(previousState)
     print("In Place Item State")
     PlaceObjectToolbar.sharedInstance?.hidden = false
-    Game.sharedInstance.canAutoScroll = true
+//    Game.sharedInstance.canAutoScroll = true
   }
 }
 

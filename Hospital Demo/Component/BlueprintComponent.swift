@@ -35,8 +35,7 @@ class BlueprintComponent: GKComponent {
     var graphicNode = plannedObject.componentForClass(SpriteComponent)?.node
     graphicNode?.zPosition = 100
     graphicNode?.name = "planned_object"
-    print(graphicNode)
-    print("graphic node")
+    graphicNode?.alpha = 0.6
     
     let nodeArea = plannedObject.componentForClass(BlueprintComponent)?.area
     
@@ -56,12 +55,6 @@ class BlueprintComponent: GKComponent {
     
     graphicNode?.position = nodePosition!
     Game.sharedInstance.wolrdnode.contentNode.addChild(graphicNode!)
-    
-    
-    
-    //      Get co-ords of tile here... what? why?
-    Game.sharedInstance.buildStateMachine.enterState(BSPlanedItem)
-    
     
   }
   
@@ -122,6 +115,7 @@ class BlueprintComponent: GKComponent {
     
     var tickEntity = Button(texture: tickTexture, f: {
       self.entity?.componentForClass(SpriteComponent)?.node.removeFromParent()
+      self.entity?.componentForClass(SpriteComponent)?.node.alpha = 1
       Game.sharedInstance.entityManager.add(self.entity!)
     })
     var tickNode = tickEntity.componentForClass(SpriteComponent)!.node

@@ -83,9 +83,7 @@ class Tile: GKEntity {
       Game.sharedInstance.draggingEntiy = plannedObject
       plannedObject.componentForClass(BlueprintComponent)?.planFunctionCall((self.componentForClass(PositionComponent)?.gridPosition)!)
       
-//      Do the below but elsewhere, like using blueprint component
-
-      
+      Game.sharedInstance.buildStateMachine.enterState(BSPlanedItem)
 
     default:
       print("State that we aren't interested in!")
