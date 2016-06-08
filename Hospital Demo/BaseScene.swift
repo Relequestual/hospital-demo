@@ -201,8 +201,6 @@ class BaseScene: HLScene {
         Game.sharedInstance.entityManager.add(tile)
       }
     }
-    
-    //Game.sharedInstance.entityManager.add(tile)
   }
 
   private func createRow(numberOfTiles numberOfTiles: Int, yIndex: Int) -> [Int: Tile] {
