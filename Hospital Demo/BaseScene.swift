@@ -16,6 +16,7 @@ import HLSpriteKit
  A base class for all of the scenes in the app.
  */
 class BaseScene: HLScene {
+  private let greyTileImageName = "Grey Tile.png"
 
   // Update time
   var lastUpdateTimeInterval: NSTimeInterval = 0
@@ -106,7 +107,7 @@ class BaseScene: HLScene {
 //    print(myContentNode.position)
 
     Game.sharedInstance.entityManager = EntityManager(node: myContentNode)
-    createTiles()
+    createTiles(gridWidth: 10, gridHeight: 10)
     
     let debugLayer = SpriteDebugComponent.debugLayer
     let debugTexture = view.textureFromNode(debugLayer)
@@ -183,23 +184,34 @@ class BaseScene: HLScene {
   }
 
 
-  func createTiles() {
-
-    let initSize: [Int] = [10, 10]
-
-    for var x: Int = 0; x < initSize[0]; x++ {
-      Game.sharedInstance.tilesAtCoords[x] = [:]
-      for var y: Int = 0; y < initSize[1]; y++ {
-
-        let tile = Tile(imageName: "Grey Tile.png", initState: TileTileState.self, x: x, y: y)
-
-        Game.sharedInstance.tilesAtCoords[x]![y] = tile
-
+  func createTiles(gridWidth gridWidth: Int, gridHeight: Int) {
+    var tiles = [Int: [Int: Tile]]()
+    
+    for i in 0..<gridWidth {
+      let row = createRow(numberOfTiles: gridWidth, yIndex: i)
+      tiles[i] = row
+    }
+    
+    // Add tiles to Game
+    Game.sharedInstance.tilesAtCoords = tiles
+    
+    // Add tiles to entity manager
+    for (_, row) in tiles {
+      for (_, tile) in row {
         Game.sharedInstance.entityManager.add(tile)
       }
     }
+    
+    //Game.sharedInstance.entityManager.add(tile)
+  }
 
-
+  private func createRow(numberOfTiles numberOfTiles: Int, yIndex: Int) -> [Int: Tile] {
+    var tiles = [Int: Tile]()
+    for i in 0..<numberOfTiles {
+      let tile = Tile(imageName: greyTileImageName, initState: TileTileState.self, x: i, y: yIndex)
+      tiles[i] = tile
+    }
+    return tiles
   }
 
 
