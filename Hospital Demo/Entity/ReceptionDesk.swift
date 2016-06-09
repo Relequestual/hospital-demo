@@ -14,7 +14,7 @@ class ReceptionDesk: GKEntity {
   var area = [[0,0], [1,0]]
   
   var pous = [[0,-1], [1,-1]]
-
+  
 //  var position: CGPoint?
   
   override init() {
@@ -36,7 +36,6 @@ class ReceptionDesk: GKEntity {
     
     let graphicNode = SKShapeNode(rectOfSize: CGSize(width:128, height:64), cornerRadius: 0.2)
     graphicNode.fillColor = UIColor.whiteColor()
-//    graphicNode.alpha = 0.6
     let view = SKView()
     let graphicTexture: SKTexture = view.textureFromNode(graphicNode)!
     
@@ -52,6 +51,11 @@ class ReceptionDesk: GKEntity {
   
   func dragMoveHandler(point: CGPoint) {
     print("RD Move drag")
+    
+    if (self.componentForClass(BlueprintComponent)?.status == BlueprintComponent.Status.Built) {
+      print("No dragging built items")
+      return
+    }
     
 //    self.componentForClass(SpriteComponent)?.node.position = point
     let nodesAtPoint = Game.sharedInstance.wolrdnode.contentNode.nodesAtPoint(point)

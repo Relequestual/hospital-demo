@@ -30,7 +30,8 @@ class DraggableSpriteComponent: GKComponent {
   }
   
   func touchEnd() {
-    if (self.entity?.componentForClass(BlueprintComponent) != nil && Game.sharedInstance.buildStateMachine.currentState is BSPlanedItem) {
+    if (self.entity?.componentForClass(BlueprintComponent) != nil && Game.sharedInstance.buildStateMachine.currentState is BSPlanedItem && self.entity?.componentForClass(BlueprintComponent)?.status != BlueprintComponent.Status.Built) {
+//      Built entities should have the draggable component removed. Maybe.
       self.entity?.componentForClass(BlueprintComponent)?.displayBuildObjectConfirm()
     }
 

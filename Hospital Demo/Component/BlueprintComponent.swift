@@ -21,6 +21,14 @@ class BlueprintComponent: GKComponent {
 
   var planFunction: (position: CGPoint)->Void;
   
+  enum Status {
+    case Planning
+    case Planned
+    case Built
+  }
+
+  var status = Status.Planning
+  
   init(area: [[Int]], pous: [[Int]], pf:(position: CGPoint) -> Void) {
     self.area = area
     self.pous = pous
@@ -114,9 +122,18 @@ class BlueprintComponent: GKComponent {
 //    var tickNode = SKSpriteNode(texture: tickTexture, size: CGSize(width: tickTexture.size().width / 2, height: tickTexture.size().height / 2))
     
     var tickEntity = Button(texture: tickTexture, f: {
-      self.entity?.componentForClass(SpriteComponent)?.node.removeFromParent()
-      self.entity?.componentForClass(SpriteComponent)?.node.alpha = 1
+      Game.sharedInstance.entityManager.node.enumerateChildNodesWithName("planned_object", usingBlock: { (node, stop) -> Void in
+        node.removeFromParent()
+      });
+      let node: SKSpriteNode = (Game.sharedInstance.plannedBuildingObject?.componentForClass(SpriteComponent)?.node)!
+      node.alpha = 1
+      node.name = ""
       Game.sharedInstance.entityManager.add(self.entity!)
+      self.status = Status.Built
+      Game.sharedInstance.plannedBuildingObject = nil
+      Game.sharedInstance.draggingEntiy = nil
+      Game.sharedInstance.placingObjectsQueue.removeFirst()
+      Game.sharedInstance.buildStateMachine.enterState(BSNoBuild)
     })
     var tickNode = tickEntity.componentForClass(SpriteComponent)!.node
     
