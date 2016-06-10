@@ -122,18 +122,7 @@ class BlueprintComponent: GKComponent {
 //    var tickNode = SKSpriteNode(texture: tickTexture, size: CGSize(width: tickTexture.size().width / 2, height: tickTexture.size().height / 2))
     
     var tickEntity = Button(texture: tickTexture, f: {
-      Game.sharedInstance.entityManager.node.enumerateChildNodesWithName("planned_object", usingBlock: { (node, stop) -> Void in
-        node.removeFromParent()
-      });
-      let node: SKSpriteNode = (Game.sharedInstance.plannedBuildingObject?.componentForClass(SpriteComponent)?.node)!
-      node.alpha = 1
-      node.name = ""
-      Game.sharedInstance.entityManager.add(self.entity!)
-      self.status = Status.Built
-      Game.sharedInstance.plannedBuildingObject = nil
-      Game.sharedInstance.draggingEntiy = nil
-      Game.sharedInstance.placingObjectsQueue.removeFirst()
-      Game.sharedInstance.buildStateMachine.enterState(BSNoBuild)
+      self.confirmPlan()
     })
     var tickNode = tickEntity.componentForClass(SpriteComponent)!.node
     
@@ -147,6 +136,7 @@ class BlueprintComponent: GKComponent {
     var crossTexture = SKTexture(imageNamed: "Graphics/cross.png")
     var crossEntity = Button(texture: crossTexture, f: {
       print("tap cross")
+      self.cancelPlan()
     })
     
     var crossNode = crossEntity.componentForClass(SpriteComponent)!.node
@@ -158,6 +148,31 @@ class BlueprintComponent: GKComponent {
     
     Game.sharedInstance.entityManager.node.addChild(crossNode)
     
+  }
+  
+  func confirmPlan() {
+    
+    let node: SKSpriteNode = (Game.sharedInstance.plannedBuildingObject?.componentForClass(SpriteComponent)?.node)!
+    self.clearPlan()
+    node.alpha = 1
+    node.name = ""
+    self.status = Status.Built
+    Game.sharedInstance.entityManager.add(self.entity!)
+  }
+  
+  func cancelPlan() {
+    self.clearPlan()
+  }
+  
+  func clearPlan() {
+    Game.sharedInstance.entityManager.node.enumerateChildNodesWithName("planned_object", usingBlock: { (node, stop) -> Void in
+      node.removeFromParent()
+    });
+    Game.sharedInstance.plannedBuildingObject = nil
+    Game.sharedInstance.draggingEntiy = nil
+    Game.sharedInstance.placingObjectsQueue.removeFirst()
+    Game.sharedInstance.buildStateMachine.enterState(BSNoBuild)
+
   }
   
 }
