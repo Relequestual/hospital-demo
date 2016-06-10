@@ -138,7 +138,9 @@
 				D9D473466C91A2DBC577D2DD /* Pods */,
 				DB3B59A34D3C34780422EEFE /* Frameworks */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		13C7652D1BF61B2D00AC0223 /* Products */ = {
 			isa = PBXGroup;
