@@ -18,8 +18,7 @@ class BuildState : GKState {
 
 class BSInitial: BuildState {
   override func isValidNextState(stateClass: AnyClass) -> Bool {
-    let allowed_states: [AnyClass] = [ BSPlaceItem.self ]
-    return allowed_states.contains({ $0 == stateClass})
+    return stateClass == BSPlaceItem.self
   }
 }
 
