@@ -9,52 +9,44 @@
 import Foundation
 import GameplayKit
 
-class BuildState : GKState{
-
+class BuildState : GKState {
   func currentBuild() -> GKEntity? {
     return nil
   }
 
 }
 
+class BSInitial: BuildState {
+  override func isValidNextState(stateClass: AnyClass) -> Bool {
+    return stateClass == BSPlaceItem.self
+  }
+}
 
 class BSNoBuild: BuildState {
-
-  override func isValidNextState(stateClass: AnyClass) -> Bool {
-    let allowed_states: [AnyClass] = [ BSPlaceItem.self ]
-    
-    return allowed_states.contains({ $0 == stateClass})
-
-  }
-  
   override func didEnterWithPreviousState(previousState: GKState?) {
     print("entering BSNoBuild")
-    PlaceObjectToolbar.sharedInstance?.hidden = true
+    Game.shouldShowPlaceObjectToolbar(false)
   }
 }
 
 class BSPlaceItem: BuildState {
-  
   override func didEnterWithPreviousState(previousState: GKState?) {
     print(previousState)
     print("In Place Item State")
-    PlaceObjectToolbar.sharedInstance?.hidden = false
+    Game.shouldShowPlaceObjectToolbar(true)
 //    Game.sharedInstance.canAutoScroll = true
   }
 }
 
 class BSPlanedItem: BuildState {
-
   override func didEnterWithPreviousState(previousState: GKState?) {
     print(previousState)
     print("In Planned Item State")
-    PlaceObjectToolbar.sharedInstance?.hidden = false
+    Game.shouldShowPlaceObjectToolbar(true)
 
   }
 }
 
-
-
-class BSSelectSqaures: BuildState {
+class BSSelectSquares: BuildState {
 
 }

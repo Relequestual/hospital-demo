@@ -67,18 +67,11 @@ class PlaceObjectToolbar: HLToolbarNode {
   static let rotate180 = SKAction.rotateByAngle(CGFloat(GLKMathDegreesToRadians(180.0)), duration: 0)
   static let rotate270 = SKAction.rotateByAngle(CGFloat(GLKMathDegreesToRadians(270.0)), duration: 0)
   
-  static var sharedInstance: PlaceObjectToolbar?
-  
   var options = [ToolbarOption]()
   
   init(size: CGSize = GameToolbar.defaultNodeSize, baseScene: BaseScene) {
     self.options = [ToolbarOption]()
     super.init()
-    
-    // If we don't have a shared instance yet, make this the shared instance
-    if PlaceObjectToolbar.sharedInstance == nil {
-      PlaceObjectToolbar.sharedInstance = self
-    }
       
     let topPoint = baseScene.view?.bounds.height
     self.anchorPoint = CGPoint(x: 0, y: 1)
@@ -92,21 +85,21 @@ class PlaceObjectToolbar: HLToolbarNode {
     let leftArrowNode = makeNode(arrowTexture)
     leftArrowNode.runAction(PlaceObjectToolbar.rotate90)
     addOption("left", node: leftArrowNode) { _ in
-      PlaceObjectToolbar.movePlannedObject(.Left)
+      Game.movePlannedObject(.Left)
     }
     let upArrowNode = makeNode(arrowTexture)
     addOption("up", node: upArrowNode) { _ in
-      PlaceObjectToolbar.movePlannedObject(.Up)
+      Game.movePlannedObject(.Up)
     }
     let downArrowNode = makeNode(arrowTexture)
     downArrowNode.runAction(PlaceObjectToolbar.rotate180)
     addOption("down", node: downArrowNode) { _ in
-      PlaceObjectToolbar.movePlannedObject(.Down)
+      Game.movePlannedObject(.Down)
     }
     let rightArrowNode = makeNode(arrowTexture)
     rightArrowNode.runAction(PlaceObjectToolbar.rotate270)
     addOption("right", node: rightArrowNode) { _ in
-      PlaceObjectToolbar.movePlannedObject(.Right)
+      Game.movePlannedObject(.Right)
     }
 
     if let rotateTexture = SKView().textureFromNode(SKShapeNode(ellipseOfSize: size)) {
@@ -155,35 +148,12 @@ class PlaceObjectToolbar: HLToolbarNode {
   class func rotateTouch() {
     rotatePlannedObject()
   }
-
-  class func movePlannedObject(direction: BlueprintMovementDirection) {
-
-    guard let thisObject = Game.sharedInstance.plannedBuildingObject else {
-      return
-    }
-    
-    for tile in Game.sharedInstance.plannedBuildingTiles {
-      tile.isBuildingOn = false
-    }
-    
-    guard let oldPosition = thisObject.componentForClass(PositionComponent)?.gridPosition else { return }
-    let newPosition = direction.coordinatesForDirection(oldPosition)
-    
-    guard thisObject.componentForClass(BlueprintComponent)!.canPlanAtPoint(newPosition) else {
-      return
-    }
-    
-    
-    thisObject.componentForClass(PositionComponent)?.gridPosition = newPosition
-    thisObject.componentForClass(BlueprintComponent)?.planFunctionCall(newPosition)
-    
-  }
   
   class func rotatePlannedObject() {
     let thisObject = Game.sharedInstance.plannedBuildingObject
     let blueprintComponent = thisObject?.componentForClass(BlueprintComponent)
     blueprintComponent?.rotate((blueprintComponent?.baring)!)
     
-    PlaceObjectToolbar.movePlannedObject(.None)
+    Game.movePlannedObject(.None)
   }
 }
