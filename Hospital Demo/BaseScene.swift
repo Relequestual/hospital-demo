@@ -128,7 +128,7 @@ class BaseScene: HLScene {
     toolbar.hlSetGestureTarget(toolbar)
     self.addChild(toolbar)
     
-    let placeObjectToolbar = PlaceObjectToolbar.construct(CGSize(width: view.bounds.width, height: 64), baseScene: self)!
+    let placeObjectToolbar = PlaceObjectToolbar(size: CGSize(width: view.bounds.width, height: 64), baseScene: self)
     placeObjectToolbar.hlSetGestureTarget(placeObjectToolbar)
     placeObjectToolbar.hidden = true
     placeObjectToolbar.zPosition = 60

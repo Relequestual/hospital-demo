@@ -11,11 +11,22 @@ import SpriteKit
 import GameplayKit
 import HLSpriteKit
 
-class GameToolbar: HLToolbarNode {
+struct GameToolbarOption {
+  private let tag: String
+  private let node: SKSpriteNode
+  private let handler: () -> Void
   
-  enum Option: String {
-    case Red, Green, Blue
+  init(tag: String, node: SKSpriteNode, handler: () -> Void) {
+    self.tag = tag
+    self.node = node
+    self.handler = handler
   }
+}
+
+class GameToolbar: HLToolbarNode {
+  static let defaultNodeSize = CGSize(width: 20, height: 20)
+  
+  private var options = [GameToolbarOption]()
   
   init(size: CGSize, baseScene: BaseScene) {
     super.init()
@@ -25,20 +36,26 @@ class GameToolbar: HLToolbarNode {
     self.position = CGPoint(x: 0, y: 0)
     self.zPosition = 999
     
-    let redTool = SKSpriteNode(color: UIColor.redColor(), size: CGSize(width: 20, height: 20))
-    let greenTool = SKSpriteNode(color: UIColor.greenColor(), size: CGSize(width: 20, height: 20))
-    let blueTool = SKSpriteNode(color: UIColor.blueColor(), size: CGSize(width: 20, height: 20))
-    
-    let toolNodes = [redTool, greenTool, blueTool]
-    let tags = [Option.Red.rawValue, Option.Green.rawValue, Option.Blue.rawValue]
-    self.setTools(toolNodes, tags: tags, animation:HLToolbarNodeAnimation.SlideUp)
-    
-    self.toolTappedBlock = {tag in
-      baseScene.HL_showMessage("Tapped \(tag) tool on HLToolbarNode.")
-
-      GameToolbar.didTouch(tag)
-      //Game.sharedInstance.stateMachine.enterState(GeneralState)
+    // add default options
+    addOption("red", node: createNode(.redColor()), handler: GameToolbar.redTouch)
+    addOption("green", node: createNode(.greenColor()), handler: GameToolbar.greenTouch)
+    // can also pass a closure
+    addOption("blue", node: createNode(.blueColor())) {
+      GameToolbar.blueTouch()
     }
+    
+    
+    self.toolTappedBlock = { tag in self.didTapBlock(tag) }
+    
+    let tags = options.reduce([String]()) { (tags, option) in
+      return tags + [option.tag]
+    }
+    
+    let nodes = options.reduce([SKSpriteNode]()) { (nodes, option) in
+      return nodes + [option.node]
+    }
+    
+    self.setTools(nodes, tags: tags, animation:HLToolbarNodeAnimation.SlideUp)
     
     //self.registerDescendant(toolbarNode, withOptions: Set<AnyObject>.setWithObject(HLSceneChildGestureTarget))
     //baseScene.registerDescendant(self, withOptions: Set(arrayLiteral: HLSceneChildGestureTarget))
@@ -49,27 +66,29 @@ class GameToolbar: HLToolbarNode {
     fatalError("init(coder:) has not been implemented")
   }
   
-  class func didTouch(tag: String) {
-    guard let option = Option(rawValue: tag) else { return }
-    switch option {
-    case .Red:
-      GameToolbar.redTouch()
-    case .Green:
-      GameToolbar.greenTouch()
-    case .Blue:
-      GameToolbar.blueTouch()
-    }
+  func addOption(tag: String, node: SKSpriteNode, handler: () -> Void) {
+    let option = GameToolbarOption(tag: tag, node: node, handler: handler)
+    options.append(option)
   }
   
-  class func redTouch() {
+  private func didTapBlock(tag: String) {
+    let nodes = options.filter { $0.tag == tag }
+    nodes.forEach { $0.handler() }
+  }
+  
+  private func createNode(color: UIColor, size: CGSize = GameToolbar.defaultNodeSize) -> SKSpriteNode {
+    return SKSpriteNode(color: color, size: size)
+  }
+  
+  class func redTouch() -> Void {
     Game.sharedInstance.gameStateMachine.enterState(GSLevelEdit)
   }
   
-  class func greenTouch() {
+  class func greenTouch() -> Void {
     Game.sharedInstance.gameStateMachine.enterState(GSGeneral)
   }
   
-  class func blueTouch() {
+  class func blueTouch() -> Void {
     
     if ( Game.sharedInstance.buildStateMachine.currentState is BSPlaceItem ) {
       Game.sharedInstance.gameStateMachine.enterState(GSGeneral)
@@ -81,5 +100,5 @@ class GameToolbar: HLToolbarNode {
       
     }
   }
-
+  
 }
