@@ -21,10 +21,11 @@ class Game {
   ])
 
   var buildStateMachine = GKStateMachine(states: [
+    BSInitial(),
     BSNoBuild(),
     BSPlaceItem(),
     BSPlanedItem(),
-    BSSelectSqaures()
+    BSSelectSquares()
   ])
   
   var panningWold = true
@@ -49,6 +50,8 @@ class Game {
   
   var draggingEntiy: GKEntity?
   
+  var placeObjectToolbar: PlaceObjectToolbar?
+  
   enum rotation {
     case North, East, South, West
     mutating func next() {
@@ -66,12 +69,25 @@ class Game {
   }
 
   private init() {
-
     self.gameStateMachine.enterState(GSGeneral)
-    
-    self.buildStateMachine.enterState(BSNoBuild)
-    
-
+    self.buildStateMachine.enterState(BSInitial)
   }
-
+  
+  class func shouldShowPlaceObjectToolbar(show: Bool) {
+    Game.sharedInstance.placeObjectToolbar?.hidden = !show
+  }
+  
+  class func movePlannedObject(direction: BlueprintMovementDirection) {
+    for tile in Game.sharedInstance.plannedBuildingTiles {
+      tile.isBuildingOn = false
+    }
+    
+    guard let plannedBuildingObject = Game.sharedInstance.plannedBuildingObject,
+      oldPosition = plannedBuildingObject.componentForClass(PositionComponent)?.gridPosition else { return }
+    
+    let newPosition = direction.coordinatesForDirection(oldPosition)
+    
+    plannedBuildingObject.componentForClass(PositionComponent)?.gridPosition = newPosition
+    plannedBuildingObject.componentForClass(BlueprintComponent)?.planFunctionCall(newPosition)
+  }
 }

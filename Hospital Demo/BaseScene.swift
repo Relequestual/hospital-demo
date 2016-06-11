@@ -133,6 +133,7 @@ class BaseScene: HLScene {
     placeObjectToolbar.hidden = true
     placeObjectToolbar.zPosition = 60
     self.addChild(placeObjectToolbar)
+    Game.sharedInstance.placeObjectToolbar = placeObjectToolbar
 
     self.registerDescendant(toolbar, withOptions: Set(arrayLiteral: HLSceneChildGestureTarget))
     self.registerDescendant(placeObjectToolbar, withOptions: Set(arrayLiteral: HLSceneChildGestureTarget))
