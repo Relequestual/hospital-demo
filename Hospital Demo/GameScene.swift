@@ -32,7 +32,10 @@ class GameScene: SKScene {
     doubleTapResponder.numberOfTapsRequired = 2
     view?.addGestureRecognizer(doubleTapResponder)
     
-    for (rowIndex, row) in makeTileRows(10, columnsPerRow: 10).enumerate() {
+    // only respond to a single tap if we don't get a double tap
+    tapResponder.requireGestureRecognizerToFail(doubleTapResponder)
+    
+    for (rowIndex, row) in makeTileRows(100, columnsPerRow: 100).enumerate() {
       for (nodeIndex, node) in row.enumerate() {
         let xOffset = (node.frame.width / 2) + (node.frame.width * CGFloat(nodeIndex))
         let yOffset = node.frame.height / 2 + (node.frame.height * CGFloat(rowIndex))
@@ -41,7 +44,6 @@ class GameScene: SKScene {
       }
     }
     self.addChild(scrollNode)
-    
     setMaxXAndY()
   }
   
@@ -103,17 +105,19 @@ class GameScene: SKScene {
   func singleTap(gestureRecognizer: UIGestureRecognizer) {
     let location  = gestureRecognizer.locationOfTouch(0, inView: view)
     let height = self.frame.height
-    let p = CGPoint(x: location.x, y: height - location.y)
+    let p = CGPoint(x: location.x / scrollNode.xScale, y: height - location.y * scrollNode.yScale)
     let node = scrollNode.nodeAtPoint(p)
     node.alpha = node.alpha == 1.0 ? 0.5 : 1.0
   }
   
   func doubleTap(gestureRecognizer: UIGestureRecognizer) {
-    let location  = gestureRecognizer.locationOfTouch(0, inView: view)
-    let height = self.frame.height
-    let p = CGPoint(x: location.x, y: height - location.y)
-    let node = scrollNode.nodeAtPoint(p)
-    node.alpha = node.alpha != 0.2 ? 0.2 : 1.0
+//    let location  = gestureRecognizer.locationOfTouch(0, inView: view)
+//    let height = self.frame.height
+//    let p = CGPoint(x: location.x, y: height - location.y)
+//    let node = scrollNode.nodeAtPoint(p)
+//    node.alpha = node.alpha != 0.2 ? 0.2 : 1.0
+    
+    scrollNode.xScale == 1.0 ? scrollNode.setScale(0.5) : scrollNode.setScale(1.0)
   }
   
   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
