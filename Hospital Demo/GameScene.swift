@@ -102,7 +102,12 @@ class GameScene: SKScene {
     let location  = gestureRecognizer.locationOfTouch(0, inView: view)
     let height = self.frame.height
     let p = CGPoint(x: location.x / scrollNode.xScale, y: (height - location.y) / scrollNode.yScale)
-    let node = scrollNode.nodeAtPoint(p)
+    
+    let offsetX = -scrollNode.position.x / scrollNode.xScale
+    let offsetY = -scrollNode.position.y / scrollNode.yScale
+    
+    let node = scrollNode.nodeAtPoint(CGPoint(x: p.x + offsetX, y: p.y + offsetY))
+    
     node.alpha = node.alpha == 1.0 ? 0.5 : 1.0
   }
   
