@@ -22,9 +22,16 @@ class GameScene: SKScene {
   var minX: CGFloat = 0
   var minY: CGFloat = 0
   
-  var didMove = false
-  
   override func didMoveToView(skView: SKView) {
+    
+    let tapResponder = UITapGestureRecognizer(target: self, action: #selector(singleTap))
+    tapResponder.numberOfTapsRequired = 1
+    view?.addGestureRecognizer(tapResponder)
+    
+    let doubleTapResponder = UITapGestureRecognizer(target: self, action: #selector(doubleTap))
+    doubleTapResponder.numberOfTapsRequired = 2
+    view?.addGestureRecognizer(doubleTapResponder)
+    
     for (rowIndex, row) in makeTileRows(10, columnsPerRow: 10).enumerate() {
       for (nodeIndex, node) in row.enumerate() {
         let xOffset = (node.frame.width / 2) + (node.frame.width * CGFloat(nodeIndex))
@@ -93,6 +100,22 @@ class GameScene: SKScene {
     return position
   }
   
+  func singleTap(gestureRecognizer: UIGestureRecognizer) {
+    let location  = gestureRecognizer.locationOfTouch(0, inView: view)
+    let height = self.frame.height
+    let p = CGPoint(x: location.x, y: height - location.y)
+    let node = scrollNode.nodeAtPoint(p)
+    node.alpha = node.alpha == 1.0 ? 0.5 : 1.0
+  }
+  
+  func doubleTap(gestureRecognizer: UIGestureRecognizer) {
+    let location  = gestureRecognizer.locationOfTouch(0, inView: view)
+    let height = self.frame.height
+    let p = CGPoint(x: location.x, y: height - location.y)
+    let node = scrollNode.nodeAtPoint(p)
+    node.alpha = node.alpha != 0.2 ? 0.2 : 1.0
+  }
+  
   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
     super.touchesBegan(touches, withEvent: event)
     guard let touch = touches.first else { return }
@@ -103,9 +126,7 @@ class GameScene: SKScene {
   override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
     super.touchesMoved(touches, withEvent: event)
     //print("[GameScene] touchesMoved")
-    
-    didMove = true
-    
+
     guard let touch = touches.first else { return }
     let currentTouchPosition = touch.locationInNode(self)
     let scrollNodePosition = newPosition(currentTouchPosition)
@@ -115,16 +136,5 @@ class GameScene: SKScene {
   override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
     super.touchesEnded(touches, withEvent: event)
     //print("[GameScene] touchesEnded")
-    
-    // Only do tap things if we didn't scroll the view
-    if !didMove {
-      if let touch = touches.first {
-        let point = touch.locationInNode(self)
-        let node = scrollNode.nodeAtPoint(point)
-        node.alpha = node.alpha == 1.0 ? 0.2 : 1.0
-      }
-    }
-    
-    didMove = false
   }
 }
