@@ -105,7 +105,10 @@ class GameScene: SKScene {
   func singleTap(gestureRecognizer: UIGestureRecognizer) {
     let location  = gestureRecognizer.locationOfTouch(0, inView: view)
     let height = self.frame.height
-    let p = CGPoint(x: location.x / scrollNode.xScale, y: height - location.y * scrollNode.yScale)
+    let p = CGPoint(x: location.x / scrollNode.xScale, y: (height - location.y) / scrollNode.yScale)
+    
+    print(p)
+    
     let node = scrollNode.nodeAtPoint(p)
     node.alpha = node.alpha == 1.0 ? 0.5 : 1.0
   }
