@@ -22,6 +22,8 @@ class GameScene: SKScene {
   var minX: CGFloat = 0
   var minY: CGFloat = 0
   
+  var didMove = false
+  
   override func didMoveToView(skView: SKView) {
     for (rowIndex, row) in makeTileRows(10, columnsPerRow: 10).enumerate() {
       for (nodeIndex, node) in row.enumerate() {
@@ -85,7 +87,6 @@ class GameScene: SKScene {
     if position.x > maxX { position.x = maxX }
     if position.x < minX { position.x = minX }
     
-    
     if position.y > maxY { position.y = maxY }
     if position.y < minY { position.y = minY }
     
@@ -103,6 +104,8 @@ class GameScene: SKScene {
     super.touchesMoved(touches, withEvent: event)
     //print("[GameScene] touchesMoved")
     
+    didMove = true
+    
     guard let touch = touches.first else { return }
     let currentTouchPosition = touch.locationInNode(self)
     let scrollNodePosition = newPosition(currentTouchPosition)
@@ -112,5 +115,16 @@ class GameScene: SKScene {
   override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
     super.touchesEnded(touches, withEvent: event)
     //print("[GameScene] touchesEnded")
+    
+    // Only do tap things if we didn't scroll the view
+    if !didMove {
+      if let touch = touches.first {
+        let point = touch.locationInNode(self)
+        let node = scrollNode.nodeAtPoint(point)
+        node.alpha = node.alpha == 1.0 ? 0.2 : 1.0
+      }
+    }
+    
+    didMove = false
   }
 }
