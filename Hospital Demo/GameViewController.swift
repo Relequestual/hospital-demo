@@ -19,6 +19,9 @@ class GameViewController: UIViewController {
   // game controls
   let gameToolbarView = UIView()
   
+  // the game's SKScene
+  let gameScene = GameScene()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -33,6 +36,9 @@ class GameViewController: UIViewController {
     gameSceneView.showsFPS = true
     gameSceneView.showsNodeCount = true
     gameSceneView.showsPhysics = true
+    
+    gameScene.scaleMode = .ResizeFill
+    gameSceneView.presentScene(gameScene)
     
     view.addSubview(toolBarView)
     view.addSubview(gameSceneView)
@@ -54,12 +60,6 @@ class GameViewController: UIViewController {
     constraints.forEach { $0.active = true }
   }
   
-  override func viewDidAppear(animated: Bool) {
-    let gameScene = GameScene(size: gameSceneView.frame.size)
-    gameScene.scaleMode = .AspectFill
-    gameSceneView.presentScene(gameScene)
-  }
-
   override func shouldAutorotate() -> Bool {
     return true
   }

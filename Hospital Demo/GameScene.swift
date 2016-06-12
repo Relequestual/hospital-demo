@@ -33,10 +33,24 @@ class GameScene: SKScene {
     }
     self.addChild(scrollNode)
     
+    setMaxXAndY()
+  }
+  
+  override func didChangeSize(oldSize: CGSize) {
+    super.didChangeSize(oldSize)
+    setMaxXAndY()
+
+    if scrollNode.position.x > maxX { scrollNode.position.x = maxX }
+    if scrollNode.position.x < minX { scrollNode.position.x = minX }
+
+    if scrollNode.position.y > maxY { scrollNode.position.y = maxY }
+    if scrollNode.position.y < minY { scrollNode.position.y = minY }
+  }
+  
+  private func setMaxXAndY() {
     let frame = scrollNode.calculateAccumulatedFrame()
-    
-    minX = -frame.size.width + skView.frame.width
-    minY = -frame.size.height + skView.frame.height
+    minX = -frame.size.width + self.size.width
+    minY = -frame.size.height + self.size.height
   }
   
   private func makeTileRows(numberOfRows: Int, columnsPerRow: Int) -> [[SKSpriteNode]] {
@@ -58,10 +72,11 @@ class GameScene: SKScene {
   }
   
   private func newPosition(currentTouchPosition: CGPoint) -> CGPoint {
-    let speedAdjustment: CGFloat = 20
+    let maxXSpeed: CGFloat = 0.04
+    let maxYSpeed: CGFloat = 0.06
     
-    let deltaX = (currentTouchPosition.x - touchStartPosition.x) / speedAdjustment
-    let deltaY = (currentTouchPosition.y - touchStartPosition.y) / speedAdjustment
+    let deltaX = (currentTouchPosition.x - touchStartPosition.x) * maxXSpeed
+    let deltaY = (currentTouchPosition.y - touchStartPosition.y) * maxYSpeed
     
     let currentPosition = scrollNode.position
     
