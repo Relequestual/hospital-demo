@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Ben Hutton. All rights reserved.
 //
 
-import UIKit
 import SpriteKit
 
 class GameViewController: UIViewController {
