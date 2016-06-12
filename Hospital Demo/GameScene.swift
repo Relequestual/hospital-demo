@@ -83,8 +83,8 @@ class GameScene: SKScene {
   }
   
   private func newPosition(currentTouchPosition: CGPoint) -> CGPoint {
-    let maxXSpeed: CGFloat = 0.04
-    let maxYSpeed: CGFloat = 0.06
+    let maxXSpeed: CGFloat = 0.04 * scrollNode.xScale
+    let maxYSpeed: CGFloat = 0.06 * scrollNode.yScale
     
     let deltaX = (currentTouchPosition.x - touchStartPosition.x) * maxXSpeed
     let deltaY = (currentTouchPosition.y - touchStartPosition.y) * maxYSpeed
