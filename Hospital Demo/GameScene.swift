@@ -62,6 +62,9 @@ class GameScene: SKScene {
     let frame = scrollNode.calculateAccumulatedFrame()
     minX = -frame.size.width + self.size.width
     minY = -frame.size.height + self.size.height
+    
+    print(minX, minY)
+    
   }
   
   private func makeTileRows(numberOfRows: Int, columnsPerRow: Int) -> [[SKSpriteNode]] {
@@ -117,8 +120,8 @@ class GameScene: SKScene {
 //    let p = CGPoint(x: location.x, y: height - location.y)
 //    let node = scrollNode.nodeAtPoint(p)
 //    node.alpha = node.alpha != 0.2 ? 0.2 : 1.0
-    
     scrollNode.xScale == 1.0 ? scrollNode.setScale(0.5) : scrollNode.setScale(1.0)
+    setMaxXAndY()
   }
   
   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
