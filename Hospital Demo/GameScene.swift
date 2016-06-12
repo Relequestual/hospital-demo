@@ -24,11 +24,11 @@ class GameScene: SKScene {
   
   override func didMoveToView(skView: SKView) {
     
-    let tapResponder = UITapGestureRecognizer(target: self, action: #selector(singleTap))
+    let tapResponder = UITapGestureRecognizer(target: self, action: Selector("singleTap:"))
     tapResponder.numberOfTapsRequired = 1
     view?.addGestureRecognizer(tapResponder)
     
-    let doubleTapResponder = UITapGestureRecognizer(target: self, action: #selector(doubleTap))
+    let doubleTapResponder = UITapGestureRecognizer(target: self, action: Selector("doubleTap:"))
     doubleTapResponder.numberOfTapsRequired = 2
     view?.addGestureRecognizer(doubleTapResponder)
     
