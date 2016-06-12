@@ -11,27 +11,54 @@ import SpriteKit
 
 class GameViewController: UIViewController {
 
+  // context sensitive controls
+  let toolBarView = UIView()
+  
+  // game scene
+  let gameSceneView = SKView()
+  
+  // game controls
+  let gameToolbarView = UIView()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    toolBarView.translatesAutoresizingMaskIntoConstraints = false
+    gameSceneView.translatesAutoresizingMaskIntoConstraints = false
+    gameToolbarView.translatesAutoresizingMaskIntoConstraints = false
+    
+    toolBarView.backgroundColor = .orangeColor()
+    gameToolbarView.backgroundColor = .purpleColor()
 
-    if let scene = GameScene(fileNamed:"GameScene") {
-      // Configure the view.
-
-      let skView = self.view as! SKView
-      scene.size = skView.bounds.size
-      skView.showsFPS = true
-      skView.showsNodeCount = true
-      skView.showsPhysics = true
-
-      /* Sprite Kit applies additional optimizations to improve rendering performance */
-      skView.ignoresSiblingOrder = true
-
-      /* Set the scale mode to scale to fit the window */
-      //            scene.scaleMode = .AspectFill
-      scene.scaleMode = .ResizeFill
-
-      skView.presentScene(scene)
-    }
+    gameSceneView.ignoresSiblingOrder = true
+    gameSceneView.showsFPS = true
+    gameSceneView.showsNodeCount = true
+    gameSceneView.showsPhysics = true
+    
+    view.addSubview(toolBarView)
+    view.addSubview(gameSceneView)
+    view.addSubview(gameToolbarView)
+  }
+  
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    var constraints = [NSLayoutConstraint]()
+    
+    let views = ["tools": toolBarView, "game": gameSceneView, "menu": gameToolbarView]
+    let metrics = ["menuHeight": 48]
+    constraints += NSLayoutConstraint.constraintsWithVisualFormat("H:|[tools]|", options: [], metrics: nil, views: views)
+    constraints += NSLayoutConstraint.constraintsWithVisualFormat("H:|[game]|", options: [], metrics: nil, views: views)
+    constraints += NSLayoutConstraint.constraintsWithVisualFormat("H:|[menu]|", options: [], metrics: nil, views: views)
+    constraints += NSLayoutConstraint.constraintsWithVisualFormat("V:|[tools(menuHeight)][game][menu(menuHeight)]|", options: [], metrics: metrics, views: views)
+    
+    constraints.forEach { $0.active = true }
+  }
+  
+  override func viewDidAppear(animated: Bool) {
+    let gameScene = GameScene(size: gameSceneView.frame.size)
+    gameScene.scaleMode = .AspectFill
+    gameSceneView.presentScene(gameScene)
   }
 
   override func shouldAutorotate() -> Bool {
