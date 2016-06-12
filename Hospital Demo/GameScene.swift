@@ -61,10 +61,7 @@ class GameScene: SKScene {
   private func setMaxXAndY() {
     let frame = scrollNode.calculateAccumulatedFrame()
     minX = -frame.size.width + self.size.width
-    minY = -frame.size.height + self.size.height
-    
-    print(minX, minY)
-    
+    minY = -frame.size.height + self.size.height    
   }
   
   private func makeTileRows(numberOfRows: Int, columnsPerRow: Int) -> [[SKSpriteNode]] {
