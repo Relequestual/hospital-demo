@@ -83,23 +83,19 @@ class GameScene: SKScene {
   }
   
   private func newPosition(currentTouchPosition: CGPoint) -> CGPoint {
-    let maxXSpeed: CGFloat = 0.04 * scrollNode.xScale
-    let maxYSpeed: CGFloat = 0.06 * scrollNode.yScale
     
-    let deltaX = (currentTouchPosition.x - touchStartPosition.x) * maxXSpeed
-    let deltaY = (currentTouchPosition.y - touchStartPosition.y) * maxYSpeed
+    let deltaX = currentTouchPosition.x - touchStartPosition.x
+    let deltaY =  currentTouchPosition.y - touchStartPosition.y
     
-    let currentPosition = scrollNode.position
+    var newPosition = CGPoint(x: scrollNode.position.x + deltaX, y: scrollNode.position.y + deltaY)
     
-    var position = CGPoint(x: currentPosition.x + deltaX, y: currentPosition.y + deltaY)
+    if newPosition.x > maxX { newPosition.x = maxX }
+    if newPosition.x < minX { newPosition.x = minX }
     
-    if position.x > maxX { position.x = maxX }
-    if position.x < minX { position.x = minX }
+    if newPosition.y > maxY { newPosition.y = maxY }
+    if newPosition.y < minY { newPosition.y = minY }
     
-    if position.y > maxY { position.y = maxY }
-    if position.y < minY { position.y = minY }
-    
-    return position
+    return newPosition
   }
   
   func singleTap(gestureRecognizer: UIGestureRecognizer) {
@@ -133,8 +129,9 @@ class GameScene: SKScene {
 
     guard let touch = touches.first else { return }
     let currentTouchPosition = touch.locationInNode(self)
-    let scrollNodePosition = newPosition(currentTouchPosition)
-    scrollNode.position = scrollNodePosition
+    let newScrollNodePosition = newPosition(currentTouchPosition)
+    scrollNode.position = newScrollNodePosition
+    touchStartPosition = currentTouchPosition
   }
   
   override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
