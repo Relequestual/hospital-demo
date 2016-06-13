@@ -9,13 +9,30 @@
 import SpriteKit
 import GameplayKit
 
+private func createColoredTileTexture(color: UIColor) -> SKTexture {
+  let node = SKShapeNode(rectOfSize: CGSize(width: 64, height: 64))
+  node.lineWidth = 0
+  node.fillColor = color
+  return SKView().textureFromNode(node)!
+}
+
 class Tile: GKEntity {
 
+  static let defaultTileTexture = SKSpriteNode(imageNamed: "Graphics/Tile").texture
+  static let grassTileTexture = SKSpriteNode(texture: createColoredTileTexture(.greenColor())).texture
+  static let pathTileTexture = SKSpriteNode(texture: createColoredTileTexture(.grayColor())).texture
+  
   var stateMachine: GKStateMachine!
 
   var realPosition: CGPoint
   
   var previousState: GKState.Type?
+  override init() {
+    spriteComponent = SpriteComponent(spriteNode: SKSpriteNode(texture: createColoredTileTexture(.blackColor())))
+    super.init()
+    stateMachine = GKStateMachine(states: [TileDefaultState(tile: self), TileGrassState(tile: self), TilePathState(tile: self)])
+    stateMachine.enterState(TileDefaultState.self)
+  }
   
   var isBuildingOn = false
 
