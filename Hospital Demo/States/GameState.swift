@@ -14,8 +14,6 @@ class GameState : GKState{
 
 }
 
-
-
 class GSBuild: GameState {
 
   override func didEnterWithPreviousState(previousState: GKState?) {

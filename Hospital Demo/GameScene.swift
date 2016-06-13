@@ -50,18 +50,23 @@ class GameScene: SKScene {
   override func didChangeSize(oldSize: CGSize) {
     super.didChangeSize(oldSize)
     setMaxXAndY()
-
-    if scrollNode.position.x > maxX { scrollNode.position.x = maxX }
-    if scrollNode.position.x < minX { scrollNode.position.x = minX }
-
-    if scrollNode.position.y > maxY { scrollNode.position.y = maxY }
-    if scrollNode.position.y < minY { scrollNode.position.y = minY }
+    scrollNode.position = constrainPoint(scrollNode.position)
   }
   
   private func setMaxXAndY() {
     let frame = scrollNode.calculateAccumulatedFrame()
     minX = -frame.size.width + self.size.width
-    minY = -frame.size.height + self.size.height    
+    minY = -frame.size.height + self.size.height
+  }
+  
+  private func constrainPoint(p: CGPoint) -> CGPoint {
+    var constrainedPoint = p
+    if p.x > maxX { constrainedPoint.x = maxX }
+    if p.x < minX { constrainedPoint.x = minX }
+    
+    if p.y > maxY { constrainedPoint.y = maxY }
+    if p.y < minY { constrainedPoint.y = minY }
+    return constrainedPoint
   }
   
   private func makeTileRows(numberOfRows: Int, columnsPerRow: Int) -> [[SKSpriteNode]] {
@@ -87,14 +92,7 @@ class GameScene: SKScene {
     let deltaX = currentTouchPosition.x - touchStartPosition.x
     let deltaY =  currentTouchPosition.y - touchStartPosition.y
     
-    var newPosition = CGPoint(x: scrollNode.position.x + deltaX, y: scrollNode.position.y + deltaY)
-    
-    if newPosition.x > maxX { newPosition.x = maxX }
-    if newPosition.x < minX { newPosition.x = minX }
-    
-    if newPosition.y > maxY { newPosition.y = maxY }
-    if newPosition.y < minY { newPosition.y = minY }
-    
+    let newPosition = constrainPoint(CGPoint(x: scrollNode.position.x + deltaX, y: scrollNode.position.y + deltaY))
     return newPosition
   }
   
@@ -119,6 +117,7 @@ class GameScene: SKScene {
 //    node.alpha = node.alpha != 0.2 ? 0.2 : 1.0
     scrollNode.xScale == 1.0 ? scrollNode.setScale(0.5) : scrollNode.setScale(1.0)
     setMaxXAndY()
+    scrollNode.position = constrainPoint(scrollNode.position)
   }
   
   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
