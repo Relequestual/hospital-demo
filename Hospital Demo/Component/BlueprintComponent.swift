@@ -68,6 +68,14 @@ class BlueprintComponent: GKComponent {
   
   func rotate(var previousRotation: Game.rotation) {
     previousRotation.next()
+
+    let currentRotaton = self.entity?.componentForClass(SpriteComponent)?.node.zRotation
+    var action = SKAction.rotateToAngle(currentRotaton! - CGFloat(M_PI / 2) , duration: NSTimeInterval(1))
+
+
+    self.entity?.componentForClass(SpriteComponent)?.node.runAction(action, withKey: "rotate")
+
+
     let newRotation = previousRotation
     
 
@@ -82,7 +90,7 @@ class BlueprintComponent: GKComponent {
         self.pous[i] = coord
       }
 //        print(self.area)
-        
+
 
     self.baring = newRotation
   }
