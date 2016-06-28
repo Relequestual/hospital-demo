@@ -49,16 +49,49 @@ class BlueprintComponent: GKComponent {
     
     //      This method of working the graphic offset will need to change to account for rotation
     
-    let mx = nodeArea?.map({ ( coord: [Int] ) -> Int in
+    print(nodeArea)
+    
+    var max = nodeArea?.map({ ( coord: [Int] ) -> Int in
       return coord[0]
     }).maxElement()
     
-    let my = nodeArea?.map({ ( coord: [Int] ) -> Int in
+    var may = nodeArea?.map({ ( coord: [Int] ) -> Int in
       return coord[1]
     }).maxElement()
     
+    var mix = nodeArea?.map({ ( coord: [Int] ) -> Int in
+      return coord[0]
+    }).minElement()
+    
+    var miy = nodeArea?.map({ ( coord: [Int] ) -> Int in
+      return coord[1]
+    }).minElement()
+    
+    var x: Int
+    var y: Int
+    
+    switch self.baring {
+      case Game.rotation.North:
+        x = max!
+        y = may!
+      case Game.rotation.East:
+        x = max!
+        y = miy!
+      case Game.rotation.South:
+        x = mix!
+        y = miy!
+      case Game.rotation.West:
+        x = max!
+        y = may!
+    }
+    print(self.baring)
+    print ("x is")
+    print (x)
+    print ("y is")
+    print (y)
+
     var nodePosition = Game.sharedInstance.tilesAtCoords[Int(position.x)]![Int(position.y)]!.componentForClass(PositionComponent)?.spritePosition
-    nodePosition = CGPoint(x: Int(nodePosition!.x) + 32 * mx!, y: Int(nodePosition!.y) + 32 * my!)
+    nodePosition = CGPoint(x: Int(nodePosition!.x) + 32 * x, y: Int(nodePosition!.y) + 32 * y)
     
     
     graphicNode?.position = nodePosition!
@@ -70,7 +103,7 @@ class BlueprintComponent: GKComponent {
     previousRotation.next()
 
     let currentRotaton = self.entity?.componentForClass(SpriteComponent)?.node.zRotation
-    var action = SKAction.rotateToAngle(currentRotaton! - CGFloat(M_PI / 2) , duration: NSTimeInterval(1))
+    var action = SKAction.rotateToAngle(currentRotaton! - CGFloat(M_PI / 2) , duration: NSTimeInterval(0.1))
 
 
     self.entity?.componentForClass(SpriteComponent)?.node.runAction(action, withKey: "rotate")
