@@ -49,46 +49,26 @@ class BlueprintComponent: GKComponent {
     
     //      This method of working the graphic offset will need to change to account for rotation
     
+    let max = nodeArea?.map({ ( coord: [Int] ) -> Int in
+      return coord[0]
+    }).maxElement()
+    
+    let may = nodeArea?.map({ ( coord: [Int] ) -> Int in
+      return coord[1]
+    }).maxElement()
+    
+    let mix = nodeArea?.map({ ( coord: [Int] ) -> Int in
+      return coord[0]
+    }).minElement()
+    
+    let miy = nodeArea?.map({ ( coord: [Int] ) -> Int in
+      return coord[1]
+    }).minElement()
+    
     print(nodeArea)
     
-    var max = nodeArea?.map({ ( coord: [Int] ) -> Int in
-      return coord[0]
-    }).maxElement()
-    
-    var may = nodeArea?.map({ ( coord: [Int] ) -> Int in
-      return coord[1]
-    }).maxElement()
-    
-    var mix = nodeArea?.map({ ( coord: [Int] ) -> Int in
-      return coord[0]
-    }).minElement()
-    
-    var miy = nodeArea?.map({ ( coord: [Int] ) -> Int in
-      return coord[1]
-    }).minElement()
-    
-    var x: Int
-    var y: Int
-    
-    switch self.baring {
-      case Game.rotation.North:
-        x = max!
-        y = may!
-      case Game.rotation.East:
-        x = max!
-        y = miy!
-      case Game.rotation.South:
-        x = mix!
-        y = miy!
-      case Game.rotation.West:
-        x = max!
-        y = may!
-    }
-    print(self.baring)
-    print ("x is")
-    print (x)
-    print ("y is")
-    print (y)
+    let x = max! + mix!
+    let y = may! + miy!
 
     var nodePosition = Game.sharedInstance.tilesAtCoords[Int(position.x)]![Int(position.y)]!.componentForClass(PositionComponent)?.spritePosition
     nodePosition = CGPoint(x: Int(nodePosition!.x) + 32 * x, y: Int(nodePosition!.y) + 32 * y)
