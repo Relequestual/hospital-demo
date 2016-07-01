@@ -14,8 +14,9 @@ class BlueprintComponent: GKComponent {
   
   var area : [[Int]]
   var pous : [[Int]]
-  var confirm = CGPoint(x: 0,y: 1)
+  var confirm = CGPoint(x: 0, y: 1)
   var deny = CGPoint(x: 1, y: 1)
+  var rotate = CGPoint(x: 2, y: 1)
   
   var baring = Game.rotation.North
 
@@ -136,12 +137,17 @@ class BlueprintComponent: GKComponent {
     print(gridPosition)
     let tickPosition = self.confirm
     let crossPosition = self.deny
+    let rotatePosition = self.rotate
     
     var finalTickPosition = CGPoint(x: gridPosition!.x + tickPosition.x, y: gridPosition!.y + tickPosition.y)
     finalTickPosition = CGPoint(x: finalTickPosition.x * 64 + 32, y: finalTickPosition.y * 64 + 32)
     
     var finalCrossPosition = CGPoint(x: gridPosition!.x + crossPosition.x, y: gridPosition!.y + crossPosition.y)
     finalCrossPosition = CGPoint(x: finalCrossPosition.x * 64 + 32, y: finalCrossPosition.y * 64 + 32)
+    
+    var finalRotatePosition = CGPoint(x: gridPosition!.x + rotatePosition.x, y: gridPosition!.y + rotatePosition.y)
+    finalRotatePosition = CGPoint(x: finalRotatePosition.x * 64 + 32, y: finalRotatePosition.y * 64 + 32)
+    
     
     //    re colouring black is not easy. Will just make actual green / red colour graphics. Makes sense anyway. =/
     var tickTexture = SKTexture(imageNamed: "Graphics/tick.png")
@@ -157,6 +163,7 @@ class BlueprintComponent: GKComponent {
     tickNode.name = "planned_object"
     tickNode.zPosition = 20
     
+    
     Game.sharedInstance.entityManager.node.addChild(tickNode)
 
     var crossTexture = SKTexture(imageNamed: "Graphics/cross.png")
@@ -166,13 +173,27 @@ class BlueprintComponent: GKComponent {
     })
     
     var crossNode = crossEntity.componentForClass(SpriteComponent)!.node
-    crossNode.texture = crossTexture
     crossNode.size = CGSize(width: crossTexture.size().width / 2, height: crossTexture.size().height / 2)
     crossNode.position = finalCrossPosition
     crossNode.name = "planned_object"
     crossNode.zPosition = 20
     
     Game.sharedInstance.entityManager.node.addChild(crossNode)
+    
+    
+    var rotateTexture = SKTexture(imageNamed: "Graphics/rotate.png")
+    var rotateEntity = Button(texture: rotateTexture, f: {
+      self.rotate(self.baring)
+    })
+    
+    var rotateNode = rotateEntity.componentForClass(SpriteComponent)!.node
+    rotateNode.size = CGSize(width: rotateTexture.size().width / 2, height: rotateTexture.size().height / 2)
+    rotateNode.position = finalRotatePosition
+    rotateNode.name = "planned_object"
+    rotateNode.zPosition = 20
+    
+    Game.sharedInstance.entityManager.node.addChild(rotateNode)
+    
     
   }
   
