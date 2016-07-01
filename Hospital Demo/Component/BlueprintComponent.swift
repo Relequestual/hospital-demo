@@ -106,6 +106,10 @@ class BlueprintComponent: GKComponent {
 
 
     self.baring = newRotation
+    print("--- new baring set")
+    
+    self.entity?.componentForClass(BlueprintComponent)?.planFunctionCall((self.entity?.componentForClass(PositionComponent)?.gridPosition)!)
+    self.entity?.componentForClass(BlueprintComponent)?.displayBuildObjectConfirm()
   }
   
   func canPlanAtPoint(point: CGPoint) -> Bool {
@@ -127,15 +131,16 @@ class BlueprintComponent: GKComponent {
   }
   
   func displayBuildObjectConfirm() {
-    
+    print("displayBuildObject")
     let gridPosition = entity?.componentForClass(PositionComponent)?.gridPosition
-    let tickPosition = entity?.componentForClass(BlueprintComponent)?.confirm
-    let crossPosition = entity?.componentForClass(BlueprintComponent)?.deny
+    print(gridPosition)
+    let tickPosition = self.confirm
+    let crossPosition = self.deny
     
-    var finalTickPosition = CGPoint(x: gridPosition!.x + tickPosition!.x, y: gridPosition!.y + tickPosition!.y)
+    var finalTickPosition = CGPoint(x: gridPosition!.x + tickPosition.x, y: gridPosition!.y + tickPosition.y)
     finalTickPosition = CGPoint(x: finalTickPosition.x * 64 + 32, y: finalTickPosition.y * 64 + 32)
     
-    var finalCrossPosition = CGPoint(x: gridPosition!.x + crossPosition!.x, y: gridPosition!.y + crossPosition!.y)
+    var finalCrossPosition = CGPoint(x: gridPosition!.x + crossPosition.x, y: gridPosition!.y + crossPosition.y)
     finalCrossPosition = CGPoint(x: finalCrossPosition.x * 64 + 32, y: finalCrossPosition.y * 64 + 32)
     
     //    re colouring black is not easy. Will just make actual green / red colour graphics. Makes sense anyway. =/
