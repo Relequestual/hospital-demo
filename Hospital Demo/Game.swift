@@ -50,8 +50,8 @@ class Game {
   
   var draggingEntiy: GKEntity?
   
-  enum rotation {
-    case North, East, South, West
+  enum rotation: Int {
+    case North = 1, East = 2, South = 3, West = 4
     mutating func next() {
       switch self {
       case North:
