@@ -14,9 +14,14 @@ class BlueprintComponent: GKComponent {
   
   var area : [[Int]]
   var pous : [[Int]]
-  var confirm = CGPoint(x: 0, y: 1)
-  var deny = CGPoint(x: 1, y: 1)
-  var rotate = CGPoint(x: 2, y: 1)
+
+  var confirmPosition = CGPoint(x: 0, y: 1)
+  var rejectPosition = CGPoint(x: 1, y: 1)
+  var rotatePosition = CGPoint(x: 2, y: 1)
+  
+  var confirmButton: Button!
+  var cancelButton: Button!
+  var rotateButton: Button!
   
   var baring = Game.rotation.North
 
@@ -34,6 +39,26 @@ class BlueprintComponent: GKComponent {
     self.area = area
     self.pous = pous
     self.planFunction = pf
+    
+    let tickTexture = SKTexture(imageNamed: "Graphics/tick.png")
+    let crossTexture = SKTexture(imageNamed: "Graphics/cross.png")
+    let rotateTexture = SKTexture(imageNamed: "Graphics/rotate.png")
+
+    super.init()
+    
+    self.confirmButton = createConfirmButtons(tickTexture, f: {
+      self.confirmPlan()
+    })
+    
+    self.cancelButton = createConfirmButtons(crossTexture, f: {
+      self.cancelPlan()
+    })
+    
+    self.rotateButton = createConfirmButtons(rotateTexture, f: ({
+      self.rotate(self.baring)
+    }))
+    
+    
   }
 
   func planFunctionCall(position: CGPoint) {
@@ -133,67 +158,27 @@ class BlueprintComponent: GKComponent {
   
   func displayBuildObjectConfirm() {
     print("displayBuildObject")
-    let gridPosition = entity?.componentForClass(PositionComponent)?.gridPosition
+    print(self.entity)
+    let gridPosition = self.entity?.componentForClass(PositionComponent)?.gridPosition
     print(gridPosition)
-    let tickPosition = self.confirm
-    let crossPosition = self.deny
-    let rotatePosition = self.rotate
     
-    var finalTickPosition = CGPoint(x: gridPosition!.x + tickPosition.x, y: gridPosition!.y + tickPosition.y)
+    var finalTickPosition = CGPoint(x: gridPosition!.x + confirmPosition.x, y: gridPosition!.y + confirmPosition.y)
     finalTickPosition = CGPoint(x: finalTickPosition.x * 64 + 32, y: finalTickPosition.y * 64 + 32)
     
-    var finalCrossPosition = CGPoint(x: gridPosition!.x + crossPosition.x, y: gridPosition!.y + crossPosition.y)
+    self.confirmButton.componentForClass(SpriteComponent)?.node.position = finalTickPosition
+    Game.sharedInstance.entityManager.add(confirmButton)
+    
+    var finalCrossPosition = CGPoint(x: gridPosition!.x + rejectPosition.x, y: gridPosition!.y + rejectPosition.y)
     finalCrossPosition = CGPoint(x: finalCrossPosition.x * 64 + 32, y: finalCrossPosition.y * 64 + 32)
+    
+    self.cancelButton.componentForClass(SpriteComponent)?.node.position = finalCrossPosition
+    Game.sharedInstance.entityManager.add(cancelButton)
     
     var finalRotatePosition = CGPoint(x: gridPosition!.x + rotatePosition.x, y: gridPosition!.y + rotatePosition.y)
     finalRotatePosition = CGPoint(x: finalRotatePosition.x * 64 + 32, y: finalRotatePosition.y * 64 + 32)
     
-    
-    //    re colouring black is not easy. Will just make actual green / red colour graphics. Makes sense anyway. =/
-    var tickTexture = SKTexture(imageNamed: "Graphics/tick.png")
-//    var tickNode = SKSpriteNode(texture: tickTexture, size: CGSize(width: tickTexture.size().width / 2, height: tickTexture.size().height / 2))
-    
-    var tickEntity = Button(texture: tickTexture, f: {
-      self.confirmPlan()
-    })
-    var tickNode = tickEntity.componentForClass(SpriteComponent)!.node
-    
-    tickNode.size = CGSize(width: tickTexture.size().width / 2, height: tickTexture.size().height / 2)
-    tickNode.position = finalTickPosition
-    tickNode.name = "planned_object"
-    tickNode.zPosition = 20
-    
-    
-    Game.sharedInstance.entityManager.node.addChild(tickNode)
-
-    var crossTexture = SKTexture(imageNamed: "Graphics/cross.png")
-    var crossEntity = Button(texture: crossTexture, f: {
-      print("tap cross")
-      self.cancelPlan()
-    })
-    
-    var crossNode = crossEntity.componentForClass(SpriteComponent)!.node
-    crossNode.size = CGSize(width: crossTexture.size().width / 2, height: crossTexture.size().height / 2)
-    crossNode.position = finalCrossPosition
-    crossNode.name = "planned_object"
-    crossNode.zPosition = 20
-    
-    Game.sharedInstance.entityManager.node.addChild(crossNode)
-    
-    
-    var rotateTexture = SKTexture(imageNamed: "Graphics/rotate.png")
-    var rotateEntity = Button(texture: rotateTexture, f: {
-      self.rotate(self.baring)
-    })
-    
-    var rotateNode = rotateEntity.componentForClass(SpriteComponent)!.node
-    rotateNode.size = CGSize(width: rotateTexture.size().width / 2, height: rotateTexture.size().height / 2)
-    rotateNode.position = finalRotatePosition
-    rotateNode.name = "planned_object"
-    rotateNode.zPosition = 20
-    
-    Game.sharedInstance.entityManager.node.addChild(rotateNode)
-    
+    self.rotateButton.componentForClass(SpriteComponent)?.node.position = finalRotatePosition
+    Game.sharedInstance.entityManager.add(rotateButton)
     
   }
   
@@ -213,13 +198,32 @@ class BlueprintComponent: GKComponent {
   
   func clearPlan() {
     Game.sharedInstance.entityManager.node.enumerateChildNodesWithName("planned_object", usingBlock: { (node, stop) -> Void in
-      node.removeFromParent()
+      if let entity = node.userData?["entity"]as? GKEntity {
+        Game.sharedInstance.entityManager.remove(entity)
+      } else {
+        node.removeFromParent()
+      }
     });
     Game.sharedInstance.plannedBuildingObject = nil
     Game.sharedInstance.draggingEntiy = nil
     Game.sharedInstance.placingObjectsQueue.removeFirst()
     Game.sharedInstance.buildStateMachine.enterState(BSNoBuild)
 
+  }
+  
+  func createConfirmButtons(texture: SKTexture, f: ()->(Void)) -> Button {
+    
+    let entity = Button(texture: texture, f: f)
+    
+    let node = entity.componentForClass(SpriteComponent)!.node
+    node.size = CGSize(width: texture.size().width / 2, height: texture.size().height / 2)
+    node.name = "planned_object"
+    node.zPosition = 20
+    
+    
+    Game.sharedInstance.entityManager.node.addChild(node)
+
+    return entity
   }
   
 }

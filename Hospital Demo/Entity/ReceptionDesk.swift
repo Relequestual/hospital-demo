@@ -71,8 +71,10 @@ class ReceptionDesk: GKEntity {
   }
   
   func dragEndHandler() {
+    if( self.componentForClass(BlueprintComponent)?.status != BlueprintComponent.Status.Built ){
+      self.componentForClass(BlueprintComponent)?.displayBuildObjectConfirm()
+    }
     print("RD End drag")
-    
   }
   
   func planAtPoint(position: CGPoint){
