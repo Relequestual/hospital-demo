@@ -184,7 +184,7 @@ class BaseScene: HLScene {
       Game.sharedInstance.tilesAtCoords[x] = [:]
       for var y: Int = 0; y < initSize[1]; y++ {
 
-        let tile = Tile(imageName: "Graphics/Tile.png", initState: TileTileState.self, x: x, y: y)
+        let tile = Tile(imageName: "Graphics/Tile.png", x: x, y: y)
 
         Game.sharedInstance.tilesAtCoords[x]![y] = tile
 

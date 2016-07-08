@@ -11,17 +11,34 @@ import GameplayKit
 
 class Tile: GKEntity {
 
-  var stateMachine: GKStateMachine!
-
+  enum tileTypes {
+    case Tile
+    case Grass
+    case Path
+  }
+  var tileType: tileTypes
+  
   var realPosition: CGPoint
-  
-  var previousState: GKState.Type?
-  
   var isBuildingOn = false
+  var unbuildable: Bool
+  var blocked: Bool
 
-  init(imageName: String, initState: TileState.Type, x: Int, y: Int) {
+  init(imageName: String, initType: tileTypes = tileTypes.Tile , x: Int, y: Int) {
 
     self.realPosition = CGPoint(x: x, y: y)
+    self.tileType = initType
+    
+    switch initType {
+    case tileTypes.Tile:
+      self.unbuildable = false
+      self.blocked = false
+    case _ where (initType == tileTypes.Grass || initType == tileTypes.Path) :
+      self.unbuildable = true
+      self.blocked = true
+    default:
+      self.unbuildable = false
+      self.blocked = false
+    }
 
     super.init()
 
@@ -29,13 +46,6 @@ class Tile: GKEntity {
     addComponent(spriteComponent)
     spriteComponent.addToNodeKey()
 
-    stateMachine = GKStateMachine(states: [
-        TileTileState(tile: self),
-        TileGrassState(tile: self),
-        TilePathState(tile: self),
-      ])
-
-    stateMachine.enterState(initState)
 
     let width = Int((spriteComponent.node.texture?.size().width)!)
     let x = width * x + width / 2
@@ -66,11 +76,11 @@ class Tile: GKEntity {
     
     switch Game.sharedInstance.gameStateMachine.currentState {
       case is GSLevelEdit:
-        self.stateMachine.enterState(self.nextSpriteState())
+//        self.stateMachine.enterState(self.nextSpriteState())
+      print("depricated game state GSLevelEdit")
       
       default:
         print("State that we aren't interested in!")
-        print(self.stateMachine.currentState)
     }
     
     switch Game.sharedInstance.buildStateMachine.currentState {
@@ -91,5 +101,5 @@ class Tile: GKEntity {
     }
 
   }
-
+  
 }

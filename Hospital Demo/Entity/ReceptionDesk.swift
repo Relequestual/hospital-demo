@@ -113,9 +113,10 @@ class ReceptionDesk: GKEntity {
       
       tile?.isBuildingOn = true
       
-      if !(tile?.stateMachine.currentState is TileTileState) {
-        setBlockedNode(node.position)
-      }
+//      TODO: Set tile to be blocked. And remove the below lines
+//      if !(tile?.stateMachine.currentState is TileTileState) {
+//        setBlockedNode(node.position)
+//      }
       
       tile?.isBuildingOn = true
     }
@@ -135,9 +136,10 @@ class ReceptionDesk: GKEntity {
       
       tile?.isBuildingOn = true
       
-      if !(tile?.stateMachine.currentState is TileTileState) {
-        setBlockedNode(node.position)
-      }
+//      TODO: Set tile to be used but not blocked. And remove the below lines
+//      if !(tile?.stateMachine.currentState is TileTileState) {
+//        setBlockedNode(node.position)
+//      }
     }
     Game.sharedInstance.plannedBuildingObject = self
   }
