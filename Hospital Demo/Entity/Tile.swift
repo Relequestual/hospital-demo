@@ -21,7 +21,13 @@ class Tile: GKEntity {
   var realPosition: CGPoint
   var isBuildingOn = false
   var unbuildable: Bool
-  var blocked: Bool
+  var blocked: Bool {
+    didSet {
+      if (blocked == true) {
+        self.unbuildable = true
+      }
+    }
+  }
 
   init(imageName: String, initType: tileTypes = tileTypes.Tile , x: Int, y: Int) {
 

@@ -274,9 +274,11 @@ class BaseScene: HLScene {
     _panLastNodeLocation = positionInScene
     
     var draggingDraggableNode = false
+    //    Also check if buildbale and possible to have position
     if (Game.sharedInstance.buildStateMachine.currentState is BSPlaceItem) {
       draggingDraggableNode = true
     }
+    
     
     for node in touchedNodes {
       print(node.userData)
@@ -288,6 +290,11 @@ class BaseScene: HLScene {
         Game.sharedInstance.draggingEntiy = entity
         draggingDraggableNode = true
       }
+//      if (((Game.sharedInstance.plannedBuildingObject?.componentForClass(PositionComponent)) == nil)) {
+//        if (entity.isKindOfClass(Tile)) {
+//          Game.sharedInstance.plannedBuildingObject?.componentForClass(BlueprintComponent)?.planFunctionCall((entity.componentForClass(PositionComponent)?.gridPosition)!)
+//        }
+//      }
       
       entity.componentForClass(TouchableSpriteComponent)?.callFunction()
       entity.componentForClass(DraggableSpriteComponent)?.entityTouchStart()

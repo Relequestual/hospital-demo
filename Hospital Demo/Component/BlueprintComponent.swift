@@ -14,6 +14,7 @@ class BlueprintComponent: GKComponent {
   
   var area : [[Int]]
   var pous : [[Int]]
+  var staffPous : [[Int]]
 
   var confirmPosition = CGPoint(x: 0, y: 1)
   var rejectPosition = CGPoint(x: 1, y: 1)
@@ -35,9 +36,10 @@ class BlueprintComponent: GKComponent {
 
   var status = Status.Planning
   
-  init(area: [[Int]], pous: [[Int]], pf:(position: CGPoint) -> Void) {
+  init(area: [[Int]], pous: [[Int]], staffPous: [[Int]], pf:(position: CGPoint) -> Void) {
     self.area = area
     self.pous = pous
+    self.staffPous = staffPous
     self.planFunction = pf
     
     let tickTexture = SKTexture(imageNamed: "Graphics/tick.png")
@@ -63,6 +65,7 @@ class BlueprintComponent: GKComponent {
 
   func planFunctionCall(position: CGPoint) {
     self.planFunction(position: position)
+    self.entity?.componentForClass(BuildComponent)?.planAtPoint(position)
     
     var plannedObject = self.entity!
     
@@ -72,9 +75,7 @@ class BlueprintComponent: GKComponent {
     graphicNode?.alpha = 0.6
     
     let nodeArea = plannedObject.componentForClass(BlueprintComponent)?.area
-    
-    //      This method of working the graphic offset will need to change to account for rotation
-    
+        
     let max = nodeArea?.map({ ( coord: [Int] ) -> Int in
       return coord[0]
     }).maxElement()
@@ -102,6 +103,10 @@ class BlueprintComponent: GKComponent {
     
     graphicNode?.position = nodePosition!
     Game.sharedInstance.wolrdnode.contentNode.addChild(graphicNode!)
+    
+    if( plannedObject.componentForClass(BlueprintComponent)?.status != BlueprintComponent.Status.Built ){
+      plannedObject.componentForClass(BlueprintComponent)?.displayBuildObjectConfirm()
+    }
     
   }
   
@@ -134,7 +139,7 @@ class BlueprintComponent: GKComponent {
     print("--- new baring set")
     
     self.entity?.componentForClass(BlueprintComponent)?.planFunctionCall((self.entity?.componentForClass(PositionComponent)?.gridPosition)!)
-    self.entity?.componentForClass(BlueprintComponent)?.displayBuildObjectConfirm()
+//    self.entity?.componentForClass(BlueprintComponent)?.displayBuildObjectConfirm()
   }
   
   func canPlanAtPoint(point: CGPoint) -> Bool {
@@ -147,9 +152,9 @@ class BlueprintComponent: GKComponent {
         return false
       }
 
-//      if !(tile.stateMachine.currentState is TileTileState) {
-//        return false
-//      }
+      if (tile.unbuildable) {
+        return false
+      }
     }
     
     return true
@@ -158,22 +163,25 @@ class BlueprintComponent: GKComponent {
   func displayBuildObjectConfirm() {
     print("displayBuildObject")
     print(self.entity)
-    let gridPosition = self.entity?.componentForClass(PositionComponent)?.gridPosition
+    guard let gridPosition = self.entity?.componentForClass(PositionComponent)?.gridPosition else {
+      print(self.entity)
+      return
+    }
     print(gridPosition)
     
-    var finalTickPosition = CGPoint(x: gridPosition!.x + confirmPosition.x, y: gridPosition!.y + confirmPosition.y)
+    var finalTickPosition = CGPoint(x: gridPosition.x + confirmPosition.x, y: gridPosition.y + confirmPosition.y)
     finalTickPosition = CGPoint(x: finalTickPosition.x * 64 + 32, y: finalTickPosition.y * 64 + 32)
     
     self.confirmButton.componentForClass(SpriteComponent)?.node.position = finalTickPosition
     Game.sharedInstance.entityManager.add(confirmButton)
     
-    var finalCrossPosition = CGPoint(x: gridPosition!.x + rejectPosition.x, y: gridPosition!.y + rejectPosition.y)
+    var finalCrossPosition = CGPoint(x: gridPosition.x + rejectPosition.x, y: gridPosition.y + rejectPosition.y)
     finalCrossPosition = CGPoint(x: finalCrossPosition.x * 64 + 32, y: finalCrossPosition.y * 64 + 32)
     
     self.cancelButton.componentForClass(SpriteComponent)?.node.position = finalCrossPosition
     Game.sharedInstance.entityManager.add(cancelButton)
     
-    var finalRotatePosition = CGPoint(x: gridPosition!.x + rotatePosition.x, y: gridPosition!.y + rotatePosition.y)
+    var finalRotatePosition = CGPoint(x: gridPosition.x + rotatePosition.x, y: gridPosition.y + rotatePosition.y)
     finalRotatePosition = CGPoint(x: finalRotatePosition.x * 64 + 32, y: finalRotatePosition.y * 64 + 32)
     
     self.rotateButton.componentForClass(SpriteComponent)?.node.position = finalRotatePosition
@@ -182,13 +190,13 @@ class BlueprintComponent: GKComponent {
   }
   
   func confirmPlan() {
-    
     let node: SKSpriteNode = (Game.sharedInstance.plannedBuildingObject?.componentForClass(SpriteComponent)?.node)!
     self.clearPlan()
     node.alpha = 1
     node.name = ""
-    self.status = Status.Built
+    Game.sharedInstance.plannedBuildingObject?.componentForClass(BuildComponent)?.build()
     Game.sharedInstance.entityManager.add(self.entity!)
+    self.status = Status.Built
   }
   
   func cancelPlan() {
