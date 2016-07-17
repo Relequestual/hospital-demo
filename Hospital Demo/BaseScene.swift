@@ -279,33 +279,29 @@ class BaseScene: HLScene {
       draggingDraggableNode = true
     }
     
-    
+    var topTappableNodeEntity = GKEntity()
     for node in touchedNodes {
-      print(node.userData)
       guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else {continue}
       
       if (entity.componentForClass(DraggableSpriteComponent) != nil) {
-        print("has draggable component")
-        print(node)
         Game.sharedInstance.draggingEntiy = entity
         draggingDraggableNode = true
       }
-//      if (((Game.sharedInstance.plannedBuildingObject?.componentForClass(PositionComponent)) == nil)) {
-//        if (entity.isKindOfClass(Tile)) {
-//          Game.sharedInstance.plannedBuildingObject?.componentForClass(BlueprintComponent)?.planFunctionCall((entity.componentForClass(PositionComponent)?.gridPosition)!)
-//        }
-//      }
+
+      if (entity.componentForClass(TouchableSpriteComponent) != nil) {
+        topTappableNodeEntity = node.zPosition > topTappableNodeEntity.componentForClass(SpriteComponent)?.node.zPosition ? entity : topTappableNodeEntity
+      }
       
-      entity.componentForClass(TouchableSpriteComponent)?.callFunction()
       entity.componentForClass(DraggableSpriteComponent)?.entityTouchStart()
     }
-    
+    Game.sharedInstance.tappableEntity = topTappableNodeEntity
+
     Game.sharedInstance.panningWold = !draggingDraggableNode
 
   }
 
   override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-//    print("touches moved ------------")
+    print("touches moved ------------")
 
     let positionInSceneView = touches.first?.locationInView(self.view)
 
@@ -323,14 +319,22 @@ class BaseScene: HLScene {
       checkAutoScroll(positionInSceneView!)
     }
 
+    // Reset tappabe entity because tap is now invalid
+    Game.sharedInstance.tappableEntity = nil
+
   }
   
   override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    if (Game.sharedInstance.tappableEntity != nil)  {
+      Game.sharedInstance.tappableEntity?.componentForClass(TouchableSpriteComponent)?.callFunction()
+    }
+
     Game.sharedInstance.autoScrollVelocityX = 0;
     Game.sharedInstance.autoScrollVelocityY = 0;
     print("touches ended")
     Game.sharedInstance.draggingEntiy?.componentForClass(DraggableSpriteComponent)?.touchEnd()
     Game.sharedInstance.draggingEntiy = nil
+
   }
   
   override func touchesEstimatedPropertiesUpdated(touches: Set<NSObject>) {

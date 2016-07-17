@@ -49,6 +49,8 @@ class Game {
   var plannedBuildingTiles = [Tile]()
   
   var draggingEntiy: GKEntity?
+
+  var tappableEntity: GKEntity?
   
   enum rotation: Int {
     case North = 1, East = 2, South = 3, West = 4

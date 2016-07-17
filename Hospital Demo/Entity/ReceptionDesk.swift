@@ -19,7 +19,6 @@ class ReceptionDesk: GKEntity {
 
   override init() {
     super.init()
-
     let blueprint = BlueprintComponent(area: area, pous: pous, staffPous: staffPous, pf: { position in
       self.planAtPoint(position)
     })
@@ -58,7 +57,7 @@ class ReceptionDesk: GKEntity {
     
 //    self.componentForClass(SpriteComponent)?.node.position = point
     let nodesAtPoint = Game.sharedInstance.wolrdnode.contentNode.nodesAtPoint(point)
-    
+        
     for node in nodesAtPoint {
       guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else {continue}
       

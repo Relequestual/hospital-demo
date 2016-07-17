@@ -59,6 +59,8 @@ class BlueprintComponent: GKComponent {
     self.rotateButton = createConfirmButtons(rotateTexture, f: ({
       self.rotate(self.baring)
     }))
+
+    print("--init after buttons created")
     
     
   }
@@ -91,8 +93,6 @@ class BlueprintComponent: GKComponent {
     let miy = nodeArea?.map({ ( coord: [Int] ) -> Int in
       return coord[1]
     }).minElement()
-    
-    print(nodeArea)
     
     let x = max! + mix!
     let y = may! + miy!
@@ -161,30 +161,31 @@ class BlueprintComponent: GKComponent {
   }
   
   func displayBuildObjectConfirm() {
-    print("displayBuildObject")
-    print(self.entity)
     guard let gridPosition = self.entity?.componentForClass(PositionComponent)?.gridPosition else {
       print(self.entity)
       return
     }
-    print(gridPosition)
-    
+
     var finalTickPosition = CGPoint(x: gridPosition.x + confirmPosition.x, y: gridPosition.y + confirmPosition.y)
     finalTickPosition = CGPoint(x: finalTickPosition.x * 64 + 32, y: finalTickPosition.y * 64 + 32)
     
     self.confirmButton.componentForClass(SpriteComponent)?.node.position = finalTickPosition
+//TODO: This is not a solution I am happy with... =/
+    Game.sharedInstance.entityManager.remove(confirmButton)
     Game.sharedInstance.entityManager.add(confirmButton)
     
     var finalCrossPosition = CGPoint(x: gridPosition.x + rejectPosition.x, y: gridPosition.y + rejectPosition.y)
     finalCrossPosition = CGPoint(x: finalCrossPosition.x * 64 + 32, y: finalCrossPosition.y * 64 + 32)
     
     self.cancelButton.componentForClass(SpriteComponent)?.node.position = finalCrossPosition
+    Game.sharedInstance.entityManager.remove(cancelButton)
     Game.sharedInstance.entityManager.add(cancelButton)
     
     var finalRotatePosition = CGPoint(x: gridPosition.x + rotatePosition.x, y: gridPosition.y + rotatePosition.y)
     finalRotatePosition = CGPoint(x: finalRotatePosition.x * 64 + 32, y: finalRotatePosition.y * 64 + 32)
     
     self.rotateButton.componentForClass(SpriteComponent)?.node.position = finalRotatePosition
+    Game.sharedInstance.entityManager.remove(rotateButton)
     Game.sharedInstance.entityManager.add(rotateButton)
     
   }
@@ -219,16 +220,13 @@ class BlueprintComponent: GKComponent {
   }
   
   func createConfirmButtons(texture: SKTexture, f: ()->(Void)) -> Button {
-    
+
     let entity = Button(texture: texture, f: f)
     
     let node = entity.componentForClass(SpriteComponent)!.node
     node.size = CGSize(width: texture.size().width / 2, height: texture.size().height / 2)
     node.name = "planned_object"
     node.zPosition = 20
-    
-    
-    Game.sharedInstance.entityManager.node.addChild(node)
 
     return entity
   }
