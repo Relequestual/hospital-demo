@@ -27,7 +27,7 @@ class EntityManager {
   }
 
   func add(entity: GKEntity) {
-    print("adding entity")
+//    print("adding entity")
     entities.insert(entity)
 
 

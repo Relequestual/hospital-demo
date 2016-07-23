@@ -51,6 +51,8 @@ class Game {
   var draggingEntiy: GKEntity?
 
   var tappableEntity: GKEntity?
+
+  var touchDidMove = false
   
   enum rotation: Int {
     case North = 1, East = 2, South = 3, West = 4

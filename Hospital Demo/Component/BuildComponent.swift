@@ -19,6 +19,11 @@ class BuildComponent: GKComponent {
       return
     }
 
+    print("removing planned_object nodes")
+    Game.sharedInstance.entityManager.node.enumerateChildNodesWithName("planned_object", usingBlock: { (node, stop) -> Void in
+      node.removeFromParent()
+    });
+
     // Check can place object at location
     guard entity.componentForClass(BlueprintComponent)!.canPlanAtPoint(position) else {
       // Nope
@@ -28,10 +33,6 @@ class BuildComponent: GKComponent {
     var area = (entity.componentForClass(BlueprintComponent)?.area)!
     var pous = (entity.componentForClass(BlueprintComponent)?.pous)!
 
-
-    Game.sharedInstance.entityManager.node.enumerateChildNodesWithName("planned_object", usingBlock: { (node, stop) -> Void in
-      node.removeFromParent()
-    });
 
     let positionComponent = PositionComponent(gridPosition: CGPoint(x: position.x, y: position.y))
     entity.addComponent(positionComponent)
@@ -87,6 +88,8 @@ class BuildComponent: GKComponent {
       }
     }
     Game.sharedInstance.plannedBuildingObject = entity
+    print("entity planned!")
+    print(Game.sharedInstance.plannedBuildingObject)
   }
 
   func build() {
@@ -109,6 +112,7 @@ class BuildComponent: GKComponent {
         return
       }
       tile.blocked = true
+      print("blocking tile")
     }
 
   }
@@ -145,7 +149,11 @@ class BuildComponent: GKComponent {
     blockedNode.position = position
     blockedNode.name = "planned_object"
     blockedNode.zPosition = 8
-    Game.sharedInstance.entityManager.node.addChild(blockedNode)
+    if (blockedNode.parent != nil ){
+      print(blockedNode)
+    }else {
+//      Game.sharedInstance.entityManager.node.addChild(blockedNode)
+    }
   }
 
 

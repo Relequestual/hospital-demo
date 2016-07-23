@@ -70,7 +70,12 @@ class BlueprintComponent: GKComponent {
     self.entity?.componentForClass(BuildComponent)?.planAtPoint(position)
     
     var plannedObject = self.entity!
-    
+
+//    print("removing planned_object nodes")
+//    Game.sharedInstance.entityManager.node.enumerateChildNodesWithName("planned_object", usingBlock: { (node, stop) -> Void in
+//      node.removeFromParent()
+//    });
+
     var graphicNode = plannedObject.componentForClass(SpriteComponent)?.node
     graphicNode?.zPosition = 100
     graphicNode?.name = "planned_object"
@@ -102,12 +107,17 @@ class BlueprintComponent: GKComponent {
     
     
     graphicNode?.position = nodePosition!
-    Game.sharedInstance.wolrdnode.contentNode.addChild(graphicNode!)
+    if (graphicNode!.parent != nil) {
+//      Don't touch this one!
+      print(graphicNode);
+    } else {
+      Game.sharedInstance.wolrdnode.contentNode.addChild(graphicNode!)
+    }
     
     if( plannedObject.componentForClass(BlueprintComponent)?.status != BlueprintComponent.Status.Built ){
       plannedObject.componentForClass(BlueprintComponent)?.displayBuildObjectConfirm()
     }
-    
+
   }
   
   func rotate(var previousRotation: Game.rotation) {
@@ -191,19 +201,23 @@ class BlueprintComponent: GKComponent {
   }
   
   func confirmPlan() {
-    let node: SKSpriteNode = (Game.sharedInstance.plannedBuildingObject?.componentForClass(SpriteComponent)?.node)!
     self.clearPlan()
+    let node: SKSpriteNode = (Game.sharedInstance.plannedBuildingObject?.componentForClass(SpriteComponent)?.node)!
     node.alpha = 1
     node.name = ""
+    print("confirming plan!")
+    print(Game.sharedInstance.plannedBuildingObject)
     Game.sharedInstance.plannedBuildingObject?.componentForClass(BuildComponent)?.build()
+    Game.sharedInstance.plannedBuildingObject = nil
     Game.sharedInstance.entityManager.add(self.entity!)
     self.status = Status.Built
   }
-  
+
   func cancelPlan() {
+    Game.sharedInstance.plannedBuildingObject = nil
     self.clearPlan()
   }
-  
+
   func clearPlan() {
     Game.sharedInstance.entityManager.node.enumerateChildNodesWithName("planned_object", usingBlock: { (node, stop) -> Void in
       if let entity = node.userData?["entity"]as? GKEntity {
@@ -212,7 +226,6 @@ class BlueprintComponent: GKComponent {
         node.removeFromParent()
       }
     });
-    Game.sharedInstance.plannedBuildingObject = nil
     Game.sharedInstance.draggingEntiy = nil
     Game.sharedInstance.placingObjectsQueue.removeFirst()
     Game.sharedInstance.buildStateMachine.enterState(BSNoBuild)
