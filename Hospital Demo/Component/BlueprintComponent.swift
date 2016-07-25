@@ -162,9 +162,10 @@ class BlueprintComponent: GKComponent {
         return false
       }
 
-      if (tile.unbuildable) {
-        return false
-      }
+//      This should be in a canbuild function only
+//      if (tile.unbuildable) {
+//        return false
+//      }
     }
     
     return true

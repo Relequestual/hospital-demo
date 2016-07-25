@@ -52,7 +52,7 @@ class BuildComponent: GKComponent {
       node.alpha = 0.6
       node.position = (tile.componentForClass(PositionComponent)?.spritePosition)!
 
-      node.zPosition = 10
+      node.zPosition = 900
       node.name = "planned_object"
       Game.sharedInstance.entityManager.node.addChild(node)
 
@@ -77,7 +77,7 @@ class BuildComponent: GKComponent {
       node.alpha = 0.4
       node.position = (tile.componentForClass(PositionComponent)?.spritePosition)!
 
-      node.zPosition = 10
+      node.zPosition = 900
       node.name = "planned_object"
       Game.sharedInstance.entityManager.node.addChild(node)
 
@@ -145,14 +145,14 @@ class BuildComponent: GKComponent {
     let blockedTexture = createBlockedTexture()
     let blockedNode = SKSpriteNode(texture: blockedTexture)
 
-    blockedNode.alpha = 0.8
+    blockedNode.alpha = 0.2
     blockedNode.position = position
     blockedNode.name = "planned_object"
-    blockedNode.zPosition = 8
+    blockedNode.zPosition = 900
     if (blockedNode.parent != nil ){
       print(blockedNode)
     }else {
-//      Game.sharedInstance.entityManager.node.addChild(blockedNode)
+      Game.sharedInstance.entityManager.node.addChild(blockedNode)
     }
   }
 

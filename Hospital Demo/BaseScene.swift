@@ -281,11 +281,14 @@ class BaseScene: HLScene {
     }
     
     var topTappableNodeEntity = GKEntity()
+    var topDraggableNodeEntity = GKEntity()
     for node in touchedNodes {
       guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else {continue}
       
       if (entity.componentForClass(DraggableSpriteComponent) != nil) {
-        Game.sharedInstance.draggingEntiy = entity
+        topDraggableNodeEntity = node.zPosition > topDraggableNodeEntity.componentForClass(SpriteComponent)?.node.zPosition ? entity : topDraggableNodeEntity
+
+        Game.sharedInstance.draggingEntiy = topDraggableNodeEntity
         draggingDraggableNode = true
       }
 
@@ -293,8 +296,9 @@ class BaseScene: HLScene {
         topTappableNodeEntity = node.zPosition > topTappableNodeEntity.componentForClass(SpriteComponent)?.node.zPosition ? entity : topTappableNodeEntity
       }
       
-      entity.componentForClass(DraggableSpriteComponent)?.entityTouchStart()
     }
+    topDraggableNodeEntity.componentForClass(DraggableSpriteComponent)?.entityTouchStart()
+    
     Game.sharedInstance.tappableEntity = topTappableNodeEntity
 
     Game.sharedInstance.panningWold = !draggingDraggableNode
