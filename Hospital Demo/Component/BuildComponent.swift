@@ -37,9 +37,6 @@ class BuildComponent: GKComponent {
     let positionComponent = PositionComponent(gridPosition: CGPoint(x: position.x, y: position.y))
     entity.addComponent(positionComponent)
 
-    let texture = createPlannedTexture()
-    let texturePOU = createPlannedPOUTexture()
-
     for blueprint in area {
       let x = Int(positionComponent.gridPosition.x) + blueprint[0]
       let y = Int(positionComponent.gridPosition.y) + blueprint[1]
@@ -48,21 +45,17 @@ class BuildComponent: GKComponent {
         // No tile at this position
         return
       }
-      let node = SKSpriteNode(texture: texture)
+      let node = SKSpriteNode(texture: createPlannedTexture(tile.blocked))
       node.alpha = 0.6
       node.position = (tile.componentForClass(PositionComponent)?.spritePosition)!
 
       node.zPosition = 900
       node.name = "planned_object"
+
+
       Game.sharedInstance.entityManager.node.addChild(node)
-
       tile.isBuildingOn = true
 
-      if (tile.blocked) {
-        self.drawBlockedNode(node.position)
-      }
-
-      tile.isBuildingOn = true
     }
 
     for blueprint in pous {
@@ -73,7 +66,7 @@ class BuildComponent: GKComponent {
         // No tile at this position
         return
       }
-      let node = SKSpriteNode(texture: texturePOU)
+      let node = SKSpriteNode(texture: createPlannedPOUTexture(tile.blocked))
       node.alpha = 0.4
       node.position = (tile.componentForClass(PositionComponent)?.spritePosition)!
 
@@ -81,11 +74,6 @@ class BuildComponent: GKComponent {
       node.name = "planned_object"
       Game.sharedInstance.entityManager.node.addChild(node)
 
-      tile.isBuildingOn = true
-
-      if (tile.blocked) {
-        self.drawBlockedNode(node.position)
-      }
     }
     Game.sharedInstance.plannedBuildingObject = entity
     print("entity planned!")
@@ -120,43 +108,18 @@ class BuildComponent: GKComponent {
   //  Optimisation of these would require moving all generated textures to a graphics class.
   //  And checking that it would actually be worth it!
 
-  func createPlannedTexture() -> SKTexture {
+  func createPlannedTexture(blocked:Bool = false) -> SKTexture {
     let node = SKShapeNode(rectOfSize: CGSize(width: 32, height: 32))
     node.lineWidth = 0
-    node.fillColor = UIColor.cyanColor()
+    node.fillColor = blocked ? UIColor.redColor() : UIColor.cyanColor()
     return SKView().textureFromNode(node)!
   }
 
-  func createPlannedPOUTexture() -> SKTexture {
+  func createPlannedPOUTexture(blocked:Bool = false) -> SKTexture {
     let node = SKShapeNode(circleOfRadius: 24)
     node.lineWidth = 0
-    node.fillColor = UIColor.orangeColor()
+    node.fillColor = blocked ? UIColor.redColor() : UIColor.orangeColor()
     return SKView().textureFromNode(node)!
   }
 
-  func createBlockedTexture() -> SKTexture {
-    let node = SKShapeNode(rectOfSize: CGSize(width: 60, height: 60))
-    node.lineWidth = 0
-    node.fillColor = UIColor.redColor()
-    return SKView().textureFromNode(node)!
-  }
-
-  func drawBlockedNode(position: CGPoint) -> Void {
-    let blockedTexture = createBlockedTexture()
-    let blockedNode = SKSpriteNode(texture: blockedTexture)
-
-    blockedNode.alpha = 0.2
-    blockedNode.position = position
-    blockedNode.name = "planned_object"
-    blockedNode.zPosition = 900
-    if (blockedNode.parent != nil ){
-      print(blockedNode)
-    }else {
-      Game.sharedInstance.entityManager.node.addChild(blockedNode)
-    }
-  }
-
-
-  
-  
 }
