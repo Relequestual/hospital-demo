@@ -54,7 +54,7 @@
 		13C7653A1BF61B2D00AC0223 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		13C7653D1BF61B2D00AC0223 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		13C7653F1BF61B2D00AC0223 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		13CCF1541C2F47FF00297EF3 /* EntityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EntityManager.swift; path = Entity/EntityManager.swift; sourceTree = "<group>"; };
+		13CCF1541C2F47FF00297EF3 /* EntityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EntityManager.swift; path = Manager/EntityManager.swift; sourceTree = "<group>"; };
 		13CCF1561C34088D00297EF3 /* SpriteDebugComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpriteDebugComponent.swift; path = Component/SpriteDebugComponent.swift; sourceTree = "<group>"; };
 		13DFA1781C65ECE8003289E9 /* GameToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameToolbar.swift; path = SceneElements/GameToolbar.swift; sourceTree = "<group>"; };
 		13DFA17A1C6806F4003289E9 /* BuildState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildState.swift; sourceTree = "<group>"; };
@@ -109,7 +109,6 @@
 		13B6A1B11C255B070087649C /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				13CCF1541C2F47FF00297EF3 /* EntityManager.swift */,
 				13B6A1B31C255C940087649C /* Tile.swift */,
 				13B6032C1C6935D700A65E7F /* ReceptionDesk.swift */,
 				130AFEAE1D0494B1002F266D /* Button.swift */,
@@ -154,6 +153,7 @@
 		13C7652E1BF61B2D00AC0223 /* Hospital Demo */ = {
 			isa = PBXGroup;
 			children = (
+				91158CBA1D47C94600CD423D /* Manager */,
 				13B6A1B11C255B070087649C /* Entity */,
 				13B6A1B21C255B110087649C /* Component */,
 				136FA1881BFBCBB90086F545 /* Scenes */,
@@ -178,6 +178,14 @@
 				13DFA1781C65ECE8003289E9 /* GameToolbar.swift */,
 			);
 			name = Elements;
+			sourceTree = "<group>";
+		};
+		91158CBA1D47C94600CD423D /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				13CCF1541C2F47FF00297EF3 /* EntityManager.swift */,
+			);
+			name = Manager;
 			sourceTree = "<group>";
 		};
 		91C836811C64991A008ECABF /* GameStates */ = {
