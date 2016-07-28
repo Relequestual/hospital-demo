@@ -188,7 +188,7 @@ class BaseScene: HLScene {
 
         Game.sharedInstance.tilesAtCoords[x]![y] = tile
 
-        Game.sharedInstance.entityManager.add(tile)
+        Game.sharedInstance.entityManager.add(tile, layer: ZPositionManager.WorldLayer.ground)
       }
     }
 

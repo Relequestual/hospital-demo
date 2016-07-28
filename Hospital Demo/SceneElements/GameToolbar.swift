@@ -34,7 +34,7 @@ class GameToolbar: HLToolbarNode {
     self.anchorPoint = CGPoint(x: 0, y: 0)
     self.size = size
     self.position = CGPoint(x: 0, y: 0)
-    self.zPosition = 999
+    self.zPosition = CGFloat(ZPositionManager.WorldLayer.ui.zpos)
     
     // add default options
     addOption("red", node: createNode(.redColor()), handler: GameToolbar.redTouch)

@@ -77,7 +77,7 @@ class BlueprintComponent: GKComponent {
 //    });
 
     var graphicNode = plannedObject.componentForClass(SpriteComponent)?.node
-    graphicNode?.zPosition = 100
+    graphicNode?.zPosition = CGFloat(ZPositionManager.WorldLayer.interaction.zpos - 1)
     graphicNode?.name = "planned_object"
     graphicNode?.alpha = 0.6
     
@@ -183,21 +183,21 @@ class BlueprintComponent: GKComponent {
     self.confirmButton.componentForClass(SpriteComponent)?.node.position = finalTickPosition
 //TODO: This is not a solution I am happy with... =/
     Game.sharedInstance.entityManager.remove(confirmButton)
-    Game.sharedInstance.entityManager.add(confirmButton)
+    Game.sharedInstance.entityManager.add(confirmButton, layer: ZPositionManager.WorldLayer.ui)
     
     var finalCrossPosition = CGPoint(x: gridPosition.x + rejectPosition.x, y: gridPosition.y + rejectPosition.y)
     finalCrossPosition = CGPoint(x: finalCrossPosition.x * 64 + 32, y: finalCrossPosition.y * 64 + 32)
     
     self.cancelButton.componentForClass(SpriteComponent)?.node.position = finalCrossPosition
     Game.sharedInstance.entityManager.remove(cancelButton)
-    Game.sharedInstance.entityManager.add(cancelButton)
+    Game.sharedInstance.entityManager.add(cancelButton, layer: ZPositionManager.WorldLayer.ui)
     
     var finalRotatePosition = CGPoint(x: gridPosition.x + rotatePosition.x, y: gridPosition.y + rotatePosition.y)
     finalRotatePosition = CGPoint(x: finalRotatePosition.x * 64 + 32, y: finalRotatePosition.y * 64 + 32)
     
     self.rotateButton.componentForClass(SpriteComponent)?.node.position = finalRotatePosition
     Game.sharedInstance.entityManager.remove(rotateButton)
-    Game.sharedInstance.entityManager.add(rotateButton)
+    Game.sharedInstance.entityManager.add(rotateButton, layer: ZPositionManager.WorldLayer.ui)
     
   }
   
@@ -210,7 +210,7 @@ class BlueprintComponent: GKComponent {
     print(Game.sharedInstance.plannedBuildingObject)
     Game.sharedInstance.plannedBuildingObject?.componentForClass(BuildComponent)?.build()
     Game.sharedInstance.plannedBuildingObject = nil
-    Game.sharedInstance.entityManager.add(self.entity!)
+    Game.sharedInstance.entityManager.add(self.entity!, layer: ZPositionManager.WorldLayer.world)
     self.status = Status.Built
   }
 
@@ -240,7 +240,6 @@ class BlueprintComponent: GKComponent {
     let node = entity.componentForClass(SpriteComponent)!.node
     node.size = CGSize(width: texture.size().width / 2, height: texture.size().height / 2)
     node.name = "planned_object"
-    node.zPosition = 20
 
     return entity
   }

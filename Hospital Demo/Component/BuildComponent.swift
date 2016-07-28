@@ -49,7 +49,7 @@ class BuildComponent: GKComponent {
       node.alpha = 0.6
       node.position = (tile.componentForClass(PositionComponent)?.spritePosition)!
 
-      node.zPosition = 900
+      node.zPosition = CGFloat(ZPositionManager.WorldLayer.interaction.zpos)
       node.name = "planned_object"
 
 
@@ -70,7 +70,7 @@ class BuildComponent: GKComponent {
       node.alpha = 0.4
       node.position = (tile.componentForClass(PositionComponent)?.spritePosition)!
 
-      node.zPosition = 900
+      node.zPosition = CGFloat(ZPositionManager.WorldLayer.interaction.zpos)
       node.name = "planned_object"
       Game.sharedInstance.entityManager.node.addChild(node)
 

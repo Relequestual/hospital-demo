@@ -26,12 +26,13 @@ class EntityManager {
     self.node = node
   }
 
-  func add(entity: GKEntity) {
-//    print("adding entity")
+  func add(entity: GKEntity, layer: ZPositionManager.WorldLayer) {
+    print("adding entity")
     entities.insert(entity)
 
-
-    if let spriteNode = entity.componentForClass(SpriteComponent.self)?.node {
+    if var spriteNode = entity.componentForClass(SpriteComponent.self)?.node {
+      spriteNode.zPosition = CGFloat(layer.zpos)
+//      spriteNode.zPosition = 1
       node.addChild(spriteNode)
     }
 

@@ -73,6 +73,9 @@ class Game {
   private init() {
     self.gameStateMachine.enterState(GSGeneral)
     self.buildStateMachine.enterState(BSInitial)
+    
+    let zPositionManager = ZPositionManager()
+    print(zPositionManager.topMost)
   }
 
 }
