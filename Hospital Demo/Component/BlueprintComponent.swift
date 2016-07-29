@@ -202,16 +202,44 @@ class BlueprintComponent: GKComponent {
   }
   
   func confirmPlan() {
-    self.clearPlan()
-    let node: SKSpriteNode = (Game.sharedInstance.plannedBuildingObject?.componentForClass(SpriteComponent)?.node)!
-    node.alpha = 1
-    node.name = ""
-    print("confirming plan!")
-    print(Game.sharedInstance.plannedBuildingObject)
-    Game.sharedInstance.plannedBuildingObject?.componentForClass(BuildComponent)?.build()
-    Game.sharedInstance.plannedBuildingObject = nil
-    Game.sharedInstance.entityManager.add(self.entity!, layer: ZPositionManager.WorldLayer.world)
-    self.status = Status.Built
+    let plannedObject = self.entity!
+    guard (entity?.componentForClass(PositionComponent)?.gridPosition != nil) else {
+      return
+    }
+    if (self.canBuildAtPoint((entity?.componentForClass(PositionComponent)?.gridPosition)!)) {
+      self.clearPlan()
+      
+      let node: SKSpriteNode = (plannedObject.componentForClass(SpriteComponent)?.node)!
+      node.alpha = 1
+      node.name = ""
+      print("confirming plan!")
+      
+      print(Game.sharedInstance.plannedBuildingObject)
+      plannedObject.componentForClass(BuildComponent)?.build()
+      Game.sharedInstance.plannedBuildingObject = nil
+      Game.sharedInstance.entityManager.add(self.entity!, layer: ZPositionManager.WorldLayer.world)
+      self.status = Status.Built
+    } else {
+      print("can't build like that!")
+    }
+  }
+  
+  func canBuildAtPoint(point: CGPoint) -> Bool {
+    
+      for coord in self.area + self.pous {
+        guard (Game.sharedInstance.tilesAtCoords[Int(point.x) + coord[0]] != nil) else {
+          return false
+        }
+        guard let tile = Game.sharedInstance.tilesAtCoords[Int(point.x) + coord[0]]![Int(point.y) + coord[1]] else {
+          return false
+        }
+        
+        if (tile.unbuildable) {
+          return false
+        }
+      }
+      
+      return true
   }
 
   func cancelPlan() {
