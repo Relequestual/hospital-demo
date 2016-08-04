@@ -80,14 +80,13 @@ class Tile: GKEntity {
 //    print(Game.sharedInstance.gameStateMachine.currentState)
     
     
-    switch Game.sharedInstance.gameStateMachine.currentState {
-      case is GSLevelEdit:
-//        self.stateMachine.enterState(self.nextSpriteState())
-      print("depricated game state GSLevelEdit")
-      
-      default:
-        print("State that we aren't interested in!")
-    }
+//    switch Game.sharedInstance.gameStateMachine.currentState {
+////      case is GSLevelEdit:
+////        self.stateMachine.enterState(self.nextSpriteState())
+//      
+//      default:
+//        print("State that we aren't interested in!")
+//    }
     
     switch Game.sharedInstance.buildStateMachine.currentState {
     case is BSPlaceItem:
