@@ -37,12 +37,12 @@ class GameToolbar: HLToolbarNode {
     self.zPosition = CGFloat(ZPositionManager.WorldLayer.ui.zpos)
     
     // add default options
-    addOption("red", node: createNode(.redColor()), handler: GameToolbar.redTouch)
+    addOption("build_room", node: createNode(SKTexture(imageNamed: "Graphics/build_room")), handler: GameToolbar.buildRoomTouch)
+    addOption("build", node: createNode(SKTexture(imageNamed: "Graphics/build_item"))) {
+      GameToolbar.buildTouch()
+    }
     addOption("green", node: createNode(.greenColor()), handler: GameToolbar.greenTouch)
     // can also pass a closure
-    addOption("blue", node: createNode(.blueColor())) {
-      GameToolbar.blueTouch()
-    }
     
     
     self.toolTappedBlock = { tag in self.didTapBlock(tag) }
@@ -80,15 +80,19 @@ class GameToolbar: HLToolbarNode {
     return SKSpriteNode(color: color, size: size)
   }
   
-  class func redTouch() -> Void {
-    Game.sharedInstance.gameStateMachine.enterState(GSLevelEdit)
+  private func createNode(texture: SKTexture, size: CGSize = GameToolbar.defaultNodeSize) -> SKSpriteNode {
+    return SKSpriteNode(texture: texture, size: size)
+  }
+  
+  class func buildRoomTouch() -> Void {
+    
   }
   
   class func greenTouch() -> Void {
-    Game.sharedInstance.gameStateMachine.enterState(GSGeneral)
+
   }
   
-  class func blueTouch() -> Void {
+  class func buildTouch() -> Void {
     
     if ( Game.sharedInstance.buildStateMachine.currentState is BSPlaceItem ) {
       Game.sharedInstance.gameStateMachine.enterState(GSGeneral)
