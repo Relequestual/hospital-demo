@@ -9,39 +9,30 @@
 import Foundation
 import GameplayKit
 
-class BuildState : GKState {
+class BuildItemState : GKState {
   func currentBuild() -> GKEntity? {
     return nil
   }
 
 }
 
-class BSInitial: BuildState {
+class BISPlan: BuildItemState {
   override func isValidNextState(stateClass: AnyClass) -> Bool {
-    return stateClass == BSPlaceItem.self
+    return stateClass == BISPlace.self
   }
 }
 
-class BSNoBuild: BuildState {
-  override func didEnterWithPreviousState(previousState: GKState?) {
-    print("entering BSNoBuild")
-  }
-}
-
-class BSPlaceItem: BuildState {
+class BISPlace: BuildItemState {
   override func didEnterWithPreviousState(previousState: GKState?) {
     print(previousState)
     print("In Place Item State")
   }
 }
 
-class BSPlanedItem: BuildState {
+class BISPlaned: BuildItemState {
   override func didEnterWithPreviousState(previousState: GKState?) {
     print(previousState)
     print("In Planned Item State")
   }
 }
 
-class BSSelectSquares: BuildState {
-
-}

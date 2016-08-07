@@ -29,6 +29,10 @@ class GSBuild: GameState {
 
 }
 
+class GSBuildRoom: GameState {
+  
+}
+
 class GSGeneral: GameState {
 
 }
