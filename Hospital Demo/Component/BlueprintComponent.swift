@@ -257,7 +257,7 @@ class BlueprintComponent: GKComponent {
     });
     Game.sharedInstance.draggingEntiy = nil
     Game.sharedInstance.placingObjectsQueue.removeFirst()
-    Game.sharedInstance.buildStateMachine.enterState(BSNoBuild)
+//    Game.sharedInstance.buildStateMachine.enterState(BSNoBuild)
 
   }
   

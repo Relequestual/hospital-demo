@@ -16,16 +16,22 @@ class Game {
 
   var gameStateMachine = GKStateMachine(states: [
     GSBuild(),
+    GSBuildRoom(),
     GSGeneral(),
     GSLevelEdit()
   ])
 
   var buildStateMachine = GKStateMachine(states: [
-    BSInitial(),
-    BSNoBuild(),
-    BSPlaceItem(),
-    BSPlanedItem(),
-    BSSelectSquares()
+    BISPlan(),
+    BISPlace(),
+    BRSPlan(),
+    BRSDoor()
+  ])
+  
+  var buildRoomStateMachine =  GKStateMachine(states: [
+    BRSPrePlan(),
+    BRSPlan(),
+    BRSDoor()
   ])
   
   var panningWold = true
@@ -45,6 +51,8 @@ class Game {
   var placingObjectsQueue = Array<GKEntity.Type>()
 
   var plannedBuildingObject: GKEntity?
+  
+  var plannedRoom: GKEntity.Type?
   
   var plannedBuildingTiles = [Tile]()
   
@@ -71,9 +79,9 @@ class Game {
   }
 
   private init() {
-    self.gameStateMachine.enterState(GSGeneral)
-    self.buildStateMachine.enterState(BSInitial)
-    
+//    self.gameStateMachine.enterState(GSGeneral)
+//    self.buildStateMachine.enterState(BSInitial)
+
     let zPositionManager = ZPositionManager()
     print(zPositionManager.topMost)
   }

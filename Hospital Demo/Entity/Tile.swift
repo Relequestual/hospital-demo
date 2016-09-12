@@ -87,10 +87,23 @@ class Tile: GKEntity {
 //      default:
 //        print("State that we aren't interested in!")
 //    }
-    
+
+    switch Game.sharedInstance.gameStateMachine.currentState {
+    case is GSBuild:
+      buildItemStateTouch()
+    case is GSBuildRoom:
+      buildRoomStateTouch()
+    default:
+      print("Game state is not of interest")
+    }
+
+  }
+  
+  func buildItemStateTouch() {
+
     switch Game.sharedInstance.buildStateMachine.currentState {
-    case is BSPlaceItem:
-      
+    case is BISPlan:
+      print("touch with BISPlan")
       guard let placingObject: GKEntity.Type = Game.sharedInstance.placingObjectsQueue[0] else {
         //Cry
       }
@@ -98,13 +111,35 @@ class Tile: GKEntity {
       Game.sharedInstance.draggingEntiy = plannedObject
       plannedObject.componentForClass(BlueprintComponent)?.planFunctionCall((self.componentForClass(PositionComponent)?.gridPosition)!)
       
-      Game.sharedInstance.buildStateMachine.enterState(BSPlanedItem)
-
+    //      Game.sharedInstance.buildStateMachine.enterState(BISPlaned)
     default:
       print("State that we aren't interested in!")
       print(Game.sharedInstance.buildStateMachine.currentState)
     }
-
+    
+  }
+  
+  func buildRoomStateTouch() {
+    print("-- Gets to room state touch")
+    guard let buildingRoom: GKEntity.Type = Game.sharedInstance.plannedRoom else {
+      //Cry
+      return
+    }
+    
+    switch Game.sharedInstance.buildRoomStateMachine.currentState {
+    case is BRSPrePlan:
+      let plannedRoom = buildingRoom.init()
+      print("planned room is")
+      print(plannedRoom)
+      plannedRoom.componentForClass(BuildRoomComponent)?.clearPlan()
+      plannedRoom.componentForClass(BuildRoomComponent)?.planAtPoint((self.componentForClass(PositionComponent)?.gridPosition)!)
+      Game.sharedInstance.buildRoomStateMachine.enterState(BRSPlan)
+    default:
+      print("Some state that's not accounted for yet")
+      print(Game.sharedInstance.buildRoomStateMachine.currentState)
+    }
+    
+    
   }
   
 }

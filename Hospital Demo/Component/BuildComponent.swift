@@ -29,6 +29,7 @@ class BuildComponent: GKComponent {
       // Nope
       return
     }
+    Game.sharedInstance.canAutoScroll = true
 
     var area = (entity.componentForClass(BlueprintComponent)?.area)!
     var pous = (entity.componentForClass(BlueprintComponent)?.pous)!
@@ -62,6 +63,7 @@ class BuildComponent: GKComponent {
       let x = Int(positionComponent.gridPosition.x) + blueprint[0]
       let y = Int(positionComponent.gridPosition.y) + blueprint[1]
 
+//      This is how we get the spriteposition from grid position!
       guard let tile = Game.sharedInstance.tilesAtCoords[x]![y] else {
         // No tile at this position
         return

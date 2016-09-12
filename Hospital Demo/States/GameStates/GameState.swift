@@ -21,6 +21,7 @@ class GSBuild: GameState {
   override func didEnterWithPreviousState(previousState: GKState?) {
     print(previousState)
     print("In game state build state")
+    Game.sharedInstance.canAutoScroll = true
   }
   
   override func willExitWithNextState(nextState: GKState) {
@@ -30,6 +31,16 @@ class GSBuild: GameState {
 }
 
 class GSBuildRoom: GameState {
+  
+  override func didEnterWithPreviousState(previousState: GKState?) {
+    print(previousState)
+    Game.sharedInstance.canAutoScroll = true
+  }
+  
+  
+  override func willExitWithNextState(nextState: GKState) {
+    Game.sharedInstance.canAutoScroll = false
+  }
   
 }
 

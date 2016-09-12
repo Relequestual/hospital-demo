@@ -29,10 +29,10 @@ class BISPlace: BuildItemState {
   }
 }
 
-class BISPlaned: BuildItemState {
-  override func didEnterWithPreviousState(previousState: GKState?) {
-    print(previousState)
-    print("In Planned Item State")
-  }
-}
+//class BISPlaned: BuildItemState {
+//  override func didEnterWithPreviousState(previousState: GKState?) {
+//    print(previousState)
+//    print("In Planned Item State")
+//  }
+//}
 

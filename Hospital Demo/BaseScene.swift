@@ -270,13 +270,14 @@ class BaseScene: HLScene {
 
     let touch = touches.first!
     let positionInScene = touch.locationInNode(self)
+    let positionInWorldnodeContent = touches.first?.locationInNode(Game.sharedInstance.wolrdnode.contentNode)
     let touchedNodes = self.nodesAtPoint(positionInScene)
     _panLastNodeLocation = positionInScene
     
     var draggingDraggableNode = false
     Game.sharedInstance.touchDidMove = false
     //    Also check if buildbale and possible to have position
-    if (Game.sharedInstance.buildStateMachine.currentState is BSPlaceItem) {
+    if (Game.sharedInstance.buildStateMachine.currentState is BISPlace) {
       draggingDraggableNode = true
     }
     
@@ -297,7 +298,7 @@ class BaseScene: HLScene {
       }
       
     }
-    topDraggableNodeEntity.componentForClass(DraggableSpriteComponent)?.entityTouchStart()
+    topDraggableNodeEntity.componentForClass(DraggableSpriteComponent)?.entityTouchStart(positionInWorldnodeContent!)
     
     Game.sharedInstance.tappableEntity = topTappableNodeEntity
 
@@ -334,13 +335,15 @@ class BaseScene: HLScene {
     if (Game.sharedInstance.tappableEntity != nil)  {
       Game.sharedInstance.tappableEntity?.componentForClass(TouchableSpriteComponent)?.callFunction()
     }
+    let touch = touches.first!
+    let positionInScene = touch.locationInNode(self)
 
     if (Game.sharedInstance.touchDidMove) {
 
-    Game.sharedInstance.autoScrollVelocityX = 0;
+      Game.sharedInstance.autoScrollVelocityX = 0;
       Game.sharedInstance.autoScrollVelocityY = 0;
       print("touches ended")
-      Game.sharedInstance.draggingEntiy?.componentForClass(DraggableSpriteComponent)?.touchEnd()
+      Game.sharedInstance.draggingEntiy?.componentForClass(DraggableSpriteComponent)?.touchEnd(positionInScene)
       Game.sharedInstance.draggingEntiy = nil
     }
 

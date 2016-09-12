@@ -85,6 +85,13 @@ class GameToolbar: HLToolbarNode {
   }
   
   class func buildRoomTouch() -> Void {
+        
+    Game.sharedInstance.gameStateMachine.enterState(GSBuildRoom)
+    Game.sharedInstance.buildRoomStateMachine.enterState(BRSPrePlan)
+    print("gamestate is...")
+    print(Game.sharedInstance.gameStateMachine.currentState)
+    Game.sharedInstance.buildStateMachine.enterState(BRSPlan)
+    Game.sharedInstance.plannedRoom = GPOffice.self
     
   }
   
@@ -93,13 +100,13 @@ class GameToolbar: HLToolbarNode {
   }
   
   class func buildTouch() -> Void {
-    
-    if ( Game.sharedInstance.buildStateMachine.currentState is BSPlaceItem ) {
-      Game.sharedInstance.gameStateMachine.enterState(GSGeneral)
-      Game.sharedInstance.buildStateMachine.enterState(BSNoBuild)
+
+    if ( Game.sharedInstance.buildStateMachine.currentState is BISPlace ) {
+//      Game.sharedInstance.gameStateMachine.enterState(GSGeneral)
+//      Game.sharedInstance.buildStateMachine
     } else {
       Game.sharedInstance.gameStateMachine.enterState(GSBuild)
-      Game.sharedInstance.buildStateMachine.enterState(BSPlaceItem)
+      Game.sharedInstance.buildStateMachine.enterState(BISPlan)
       Game.sharedInstance.placingObjectsQueue.append(ReceptionDesk)
       
     }

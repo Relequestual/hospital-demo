@@ -43,7 +43,7 @@ class ReceptionDesk: GKEntity {
     
   }
 
-  func dragStartHandler() {
+  func dragStartHandler(point: CGPoint) {
     print("RD Start drag")
   }
   
@@ -68,7 +68,7 @@ class ReceptionDesk: GKEntity {
     }
   }
   
-  func dragEndHandler() {
+  func dragEndHandler(point: CGPoint) {
     if( self.componentForClass(BlueprintComponent)?.status != BlueprintComponent.Status.Built ){
       self.componentForClass(BlueprintComponent)?.displayBuildObjectConfirm()
     }
