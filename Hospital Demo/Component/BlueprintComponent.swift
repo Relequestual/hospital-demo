@@ -263,7 +263,7 @@ class BlueprintComponent: GKComponent {
   
   func createConfirmButtons(texture: SKTexture, f: ()->(Void)) -> Button {
 
-    let entity = Button(texture: texture, f: f)
+    let entity = Button(texture: texture, touch_f: f)
     
     let node = entity.componentForClass(SpriteComponent)!.node
     node.size = CGSize(width: texture.size().width / 2, height: texture.size().height / 2)

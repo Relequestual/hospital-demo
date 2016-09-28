@@ -77,6 +77,14 @@ class Game {
       }
     }
   }
+  
+  enum axis {
+    case Vert, Hroiz
+  }
+  
+  enum numericalSignage {
+    case positive, negative
+  }
 
   private init() {
 //    self.gameStateMachine.enterState(GSGeneral)

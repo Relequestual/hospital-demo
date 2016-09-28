@@ -11,7 +11,7 @@ import GameplayKit
 
 class GPOffice: GKEntity {
 
-  let minDimentions = CGSize(width: 4, height: 4)
+  let minDimentions = CGSize(width: 3, height: 4)
 
   override init() {
     super.init()

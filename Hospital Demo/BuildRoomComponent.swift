@@ -14,10 +14,11 @@ class BuildRoomComponent: GKComponent {
 
   var minSize: CGSize
   var size: CGSize = CGSize(width: 1, height: 1)
-  var roomBlueprint: GKEntity
+  var roomBlueprint: RoomBlueprint
   
   init(minSize: CGSize) {
     self.minSize = minSize
+    self.size = minSize
     self.roomBlueprint = RoomBlueprint(size: minSize)
   }
   
@@ -28,10 +29,15 @@ class BuildRoomComponent: GKComponent {
       return
     }
     let spritePosition = (tile.componentForClass(PositionComponent)?.spritePosition)!
-    self.roomBlueprint.componentForClass(SpriteComponent)?.node.position = CGPoint(x: spritePosition.x + 32, y: spritePosition.y + 32)
+    print("mod check")
+    print(self.size.width % 2 == 0)
+//    self.roomBlueprint.componentForClass(SpriteComponent)?.node.position = CGPoint(x: spritePosition.x + (self.size.width % 2 == 0 ? 32 : 0), y: spritePosition.y + (self.size.height % 2 == 0 ? 32 : 0))
+      self.roomBlueprint.componentForClass(SpriteComponent)?.node.position = self.getPointForSize(spritePosition)
+
 //    let sprite = self.roomBlueprint.componentForClass(SpriteComponent)
     
     Game.sharedInstance.entityManager.add(self.roomBlueprint, layer: ZPositionManager.WorldLayer.world)
+    self.roomBlueprint.createResizeHandles()
   }
   
   func clearPlan() {
@@ -39,6 +45,7 @@ class BuildRoomComponent: GKComponent {
       if let entity = node.userData?["entity"]as? GKEntity {
         Game.sharedInstance.entityManager.remove(entity)
       } else {
+        print("node has no entity and is being removed!")
         node.removeFromParent()
       }
     });
@@ -47,4 +54,9 @@ class BuildRoomComponent: GKComponent {
     //    Game.sharedInstance.buildStateMachine.enterState(BSNoBuild)
     
   }
+  
+  func getPointForSize (point: CGPoint) -> CGPoint {
+    return CGPoint(x: point.x + (self.size.width % 2 == 0 ? 32 : 0), y: point.y + (self.size.height % 2 == 0 ? 32 : 0))
+  }
+  
 }
