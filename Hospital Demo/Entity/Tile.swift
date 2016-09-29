@@ -142,4 +142,19 @@ class Tile: GKEntity {
     
   }
   
+  var debugNode: SKShapeNode?
+  
+  func highlight (position: CGPoint, colour: UIColor = UIColor.yellowColor()) {
+    
+//    let position = self.componentForClass(PositionComponent)?.spritePosition
+    self.debugNode = SKShapeNode(rectOfSize: CGSize(width: 50, height: 50))
+    self.debugNode!.position = position
+    self.debugNode!.strokeColor = colour
+    self.debugNode!.zPosition = 1000000
+    Game.sharedInstance.entityManager.node.addChild(self.debugNode!)
+    print("====highlighting tile")
+    
+  }
+  
+  
 }

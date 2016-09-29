@@ -139,9 +139,11 @@ class RoomBlueprint: GKEntity {
   var handleDragXSign: Game.numericalSignage = Game.numericalSignage.positive
   var handleDragYSign: Game.numericalSignage = Game.numericalSignage.positive
   var handleDragEdge: Game.rotation = Game.rotation.North
+  var handleDragPreviousMovePoint: CGPoint = CGPointZero
   
   func handleDragStart (point: CGPoint, axis: Game.axis) {
     self.handleDragAxis = axis
+    self.handleDragPreviousMovePoint = point
 //    Determine edge is being dragged
     let centerOfRoom = self.componentForClass(SpriteComponent)?.node.position
     self.handleDragXSign = (point.x < centerOfRoom!.x) ? Game.numericalSignage.negative : Game.numericalSignage.positive
@@ -150,10 +152,10 @@ class RoomBlueprint: GKEntity {
     switch (self.handleDragAxis, self.handleDragXSign, self.handleDragYSign) {
     case (Game.axis.Vert, _, Game.numericalSignage.negative):
       self.handleDragEdge = Game.rotation.South
-      self.anchorTile = self.getTileAtPoint(CGPoint(x: point.x, y: point.y - 32))
+      self.anchorTile = self.getTileAtPoint(CGPoint(x: point.x, y: point.y + 32))
     case (Game.axis.Vert, _, Game.numericalSignage.positive):
       self.handleDragEdge = Game.rotation.North
-      self.anchorTile = self.getTileAtPoint(CGPoint(x: point.x, y: point.y + 32))
+      self.anchorTile = self.getTileAtPoint(CGPoint(x: point.x, y: point.y - 32))
     case (Game.axis.Hroiz, Game.numericalSignage.negative, _):
       self.handleDragEdge = Game.rotation.East
       self.anchorTile = self.getTileAtPoint(CGPoint(x: point.x - 32, y: point.y))
@@ -170,13 +172,15 @@ class RoomBlueprint: GKEntity {
   //    pointSprite.fillColor = UIColor.redColor()
 
   func handleDragMove (point: CGPoint) {
+    print("___handleDragMove point is")
+    print(point)
     let currentTile = self.getTileAtPoint(CGPoint(x: point.x, y: point.y + 32))
     pointSprite.strokeColor = UIColor.redColor()
+    (currentTile as! Tile).highlight((currentTile!.componentForClass(SpriteComponent)?.node.position)!)
     pointSprite.position = CGPoint(x: point.x, y: point.y + 32)
     pointSprite.zPosition = 100000
     pointSprite.removeFromParent()
-    Game.sharedInstance.wolrdnode.addChild(pointSprite)
-
+    Game.sharedInstance.entityManager.node.addChild(pointSprite)
 
 
 
@@ -184,10 +188,21 @@ class RoomBlueprint: GKEntity {
 //    print("-=-= grid position of current tile =-=-")
 //    print(currentTile?.componentForClass(PositionComponent)?.gridPosition)
     if (self.anchorTile !== currentTile) {
+//      print((self.anchorTile!.componentForClass(SpriteComponent)?.node.position)!)
+//      (currentTile as! Tile).highlight((currentTile!.componentForClass(SpriteComponent)?.node.position)!)
+//      (self.anchorTile as! Tile).highlight((currentTile!.componentForClass(SpriteComponent)?.node.position)!, colour: UIColor.redColor())
+//      print("dragaxis is ")
+//      print(self.handleDragAxis)
+      
+      let currentNodePosition = self.componentForClass(SpriteComponent)?.node.position
+      
 //      Check  what direction was dragged when tile was changed
       var direction: Game.rotation = Game.rotation.North
       if (self.handleDragAxis == Game.axis.Vert){
-        if (self.anchorTile?.componentForClass(PositionComponent)?.gridPosition.y < currentTile!.componentForClass(PositionComponent)?.gridPosition.y) {
+        if (self.anchorTile?.componentForClass(PositionComponent)?.gridPosition.y == currentTile!.componentForClass(PositionComponent)?.gridPosition.y) {
+          return
+        }
+        if (point.y < self.handleDragPreviousMovePoint.y) {
           direction = Game.rotation.South
         } else {
           direction = Game.rotation.North
@@ -196,14 +211,13 @@ class RoomBlueprint: GKEntity {
       print("direction is")
       print(direction)
 
-      let currentNodePosition = self.componentForClass(SpriteComponent)?.node.position
       switch self.handleDragEdge {
       case .South:
-        self.size = CGSize(width: self.size.width, height: self.size.height + (direction == Game.rotation.South ? 1 : -1))
-        self.componentForClass(SpriteComponent)?.node.position = CGPoint(x: currentNodePosition!.x, y: currentNodePosition!.y + ( (direction == Game.rotation.South) ? -32 : 32))
+        self.size = CGSize(width: self.size.width, height: self.size.height + (direction == Game.rotation.South ? 1 : direction == Game.rotation.North ? -1 : 0))
+        self.componentForClass(SpriteComponent)?.node.position = CGPoint(x: currentNodePosition!.x, y: currentNodePosition!.y + ( direction == Game.rotation.South ? -32 : direction == Game.rotation.North ? 32 : 0))
       case .North:
-        self.size = CGSize(width: self.size.width, height: self.size.height + (direction == Game.rotation.North ? 1 : -1))
-        self.componentForClass(SpriteComponent)?.node.position = CGPoint(x: currentNodePosition!.x, y: currentNodePosition!.y - ( (direction == Game.rotation.North) ? 32 : -32))
+        self.size = CGSize(width: self.size.width, height: self.size.height + (direction == Game.rotation.North ? 1 : direction == Game.rotation.South ? -1 : 0))
+        self.componentForClass(SpriteComponent)?.node.position = CGPoint(x: currentNodePosition!.x, y: currentNodePosition!.y - ( (direction == Game.rotation.North) ? 32 : direction == Game.rotation.South ? -32 : 0))
       default:
         print("wat?")
       }
@@ -212,8 +226,10 @@ class RoomBlueprint: GKEntity {
 
       print(self.size)
       self.anchorTile = currentTile
-//      self
+
     }
+    
+    self.handleDragPreviousMovePoint = point
     
   }
   
