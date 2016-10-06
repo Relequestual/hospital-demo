@@ -21,7 +21,7 @@ class BaseScene: HLScene {
   var lastUpdateTimeInterval: NSTimeInterval = 0
 
   var updateLastTime: NSTimeInterval = 0
-
+  
   /**
    The native size for this scene. This is the height at which the scene
    would be rendered if it did not need to be scaled to fit a window or device.
@@ -124,11 +124,12 @@ class BaseScene: HLScene {
 
     myScrollNode.zPosition = 50
     
-    let toolbar = GameToolbar(size: CGSize(width: view.bounds.width, height: 64), baseScene: self)
-    toolbar.hlSetGestureTarget(toolbar)
-    self.addChild(toolbar)
+    Game.sharedInstance.gameToolbar = GameToolbar(size: CGSize(width: view.bounds.width, height: 64), baseScene: self)
+    Game.sharedInstance.gameToolbar?.showUpdateOrigin(CGPoint(x: 0, y: -60))
+    Game.sharedInstance.gameToolbar!.hlSetGestureTarget(Game.sharedInstance.gameToolbar)
+    self.addChild(Game.sharedInstance.gameToolbar!)
 
-    self.registerDescendant(toolbar, withOptions: Set(arrayLiteral: HLSceneChildGestureTarget))
+    self.registerDescendant(Game.sharedInstance.gameToolbar, withOptions: Set(arrayLiteral: HLSceneChildGestureTarget))
 
 
     myScrollNode.position = CGPoint(x: 0, y: 0)
@@ -291,6 +292,11 @@ class BaseScene: HLScene {
 
         Game.sharedInstance.draggingEntiy = topDraggableNodeEntity
         draggingDraggableNode = true
+        print("pre hide xscale is ")
+        print(Game.sharedInstance.gameToolbar?.xScale)
+        Game.sharedInstance.gameToolbar?.hideAnimated(true)
+        
+        Game.sharedInstance.gameToolbar?.hidden = true
       }
 
       if (entity.componentForClass(TouchableSpriteComponent) != nil) {
@@ -332,7 +338,19 @@ class BaseScene: HLScene {
   }
   
   override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    if (Game.sharedInstance.tappableEntity != nil)  {
+     print("touches ended")
+//    Game.sharedInstance.gameToolbar?.hidden = false
+    
+    if (Game.sharedInstance.gameToolbar!.hidden) {
+    
+      Game.sharedInstance.gameToolbar?.showWithOrigin(CGPoint(x: 0, y: -64), finalPosition: CGPoint(x: 0, y: 0), fullScale: 1.0, animated: true)
+      Game.sharedInstance.gameToolbar?.hidden = false
+      if (((Game.sharedInstance.gameToolbar?.parent) == nil)){
+        self.addChild(Game.sharedInstance.gameToolbar!)
+      }
+    }
+    
+    if (Game.sharedInstance.tappableEntity != nil) {
       Game.sharedInstance.tappableEntity?.componentForClass(TouchableSpriteComponent)?.callFunction()
     }
     let touch = touches.first!
@@ -342,10 +360,12 @@ class BaseScene: HLScene {
 
       Game.sharedInstance.autoScrollVelocityX = 0;
       Game.sharedInstance.autoScrollVelocityY = 0;
-      print("touches ended")
+     
       Game.sharedInstance.draggingEntiy?.componentForClass(DraggableSpriteComponent)?.touchEnd(positionInScene)
       Game.sharedInstance.draggingEntiy = nil
     }
+    
+
 
   }
   

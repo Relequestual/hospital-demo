@@ -46,6 +46,8 @@ class Game {
   
   var wolrdnode: HLScrollNode!
   
+  var gameToolbar: GameToolbar?
+  
   var tilesAtCoords = [Int: [Int: Tile]]()
   
   var placingObjectsQueue = Array<GKEntity.Type>()
