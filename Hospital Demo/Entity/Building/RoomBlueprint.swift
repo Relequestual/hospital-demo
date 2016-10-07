@@ -106,6 +106,7 @@ class RoomBlueprint: GKEntity {
     let spritePosition = CGPointZero
     let edgeYT = Int(spritePosition.y + size.height * 64 / 2)
     let edgeYB = Int(spritePosition.y - size.height * 64 / 2)
+    
     let edgeXL = Int(spritePosition.x - size.width * 64 / 2)
     let edgeXR = Int(spritePosition.x + size.width * 64 / 2)
     
@@ -124,14 +125,17 @@ class RoomBlueprint: GKEntity {
     
     let southEdge = resizeHandleDrawingInstruction(axis: Game.axis.Vert, start: edgeXL, end: edgeXR, face: edgeYB, side: Game.rotation.South)
     let northEdge = resizeHandleDrawingInstruction(axis: Game.axis.Vert, start: edgeXL, end: edgeXR, face: edgeYT, side: Game.rotation.North)
+    
+    let eastEdge = resizeHandleDrawingInstruction(axis: Game.axis.Hroiz, start: edgeYB, end: edgeYT, face: edgeXR, side: Game.rotation.East)
+    let westEdge = resizeHandleDrawingInstruction(axis: Game.axis.Hroiz, start: edgeYB, end: edgeYT, face: edgeXL, side: Game.rotation.West)
 
 
-    let edgeInstructions = [southEdge, northEdge]
+    let edgeInstructions = [southEdge, northEdge, eastEdge, westEdge]
     
     for edgeInstruct in edgeInstructions {
       
       for x in edgeInstruct.start.stride(to:edgeInstruct.end, by: 64) {
-        let texture_vert = SKTexture(imageNamed: "Graphics/drag_vert")
+        let texture_vert = SKTexture(imageNamed: edgeInstruct.axis == Game.axis.Vert ? "Graphics/drag_vert" : "Graphics/drag_hroz")
         let vertButton = Button(texture: texture_vert, touch_start_f: { (point: CGPoint) in
           self.handleDragStart(point, axis: edgeInstruct.axis)
           print("handle drag start")
@@ -146,7 +150,7 @@ class RoomBlueprint: GKEntity {
         buttonVertSprite.zPosition = (self.componentForClass(SpriteComponent)?.node.zPosition)! + 1
         buttonVertSprite.setScale(0.5)
         buttonVertSprite.name = "planning_room_blueprint_handles"
-        buttonVertSprite.position = CGPoint(x: x + 32, y: edgeInstruct.face)
+        buttonVertSprite.position = edgeInstruct.axis == Game.axis.Vert ? CGPoint(x: x + 32, y: edgeInstruct.face) : CGPoint(x: edgeInstruct.face, y: x + 32 )
         vertButton.componentForClass(SpriteComponent)?.addToNodeKey()
         self.componentForClass(SpriteComponent)?.node.addChild((vertButton.componentForClass(SpriteComponent)?.node)!)
         //      Game.sharedInstance.entityManager.add(vertButton, layer: ZPositionManager.WorldLayer.interaction)
@@ -177,10 +181,10 @@ class RoomBlueprint: GKEntity {
     case (Game.axis.Vert, _, Game.numericalSignage.positive):
       self.handleDragEdge = Game.rotation.North
       self.anchorTile = self.getTileAtPoint(CGPoint(x: point.x, y: point.y - 32))
-    case (Game.axis.Hroiz, Game.numericalSignage.negative, _):
+    case (Game.axis.Hroiz, Game.numericalSignage.positive, _):
       self.handleDragEdge = Game.rotation.East
       self.anchorTile = self.getTileAtPoint(CGPoint(x: point.x - 32, y: point.y))
-    case (Game.axis.Hroiz, Game.numericalSignage.positive, _):
+    case (Game.axis.Hroiz, Game.numericalSignage.negative, _):
       self.handleDragEdge = Game.rotation.West
       self.anchorTile = self.getTileAtPoint(CGPoint(x: point.x + 32, y: point.y))
     default:
@@ -196,7 +200,7 @@ class RoomBlueprint: GKEntity {
     print("___handleDragMove point is")
     print(point)
     print(edge)
-    let currentTile = self.getTileAtPoint(CGPoint(x: point.x, y: point.y + ((edge == Game.rotation.North) ? -32 : edge == Game.rotation.South ? 32 : 0)) )
+    let currentTile = self.getTileAtPoint(CGPoint(x: point.x + ((edge == Game.rotation.East) ? -32 : edge == Game.rotation.West ? 32 : 0), y: point.y + ((edge == Game.rotation.North) ? -32 : edge == Game.rotation.South ? 32 : 0)) )
 
     pointSprite.strokeColor = UIColor.redColor()
     (currentTile as! Tile).highlight((currentTile!.componentForClass(SpriteComponent)?.node.position)!)
@@ -222,7 +226,17 @@ class RoomBlueprint: GKEntity {
         } else {
           direction = Game.rotation.North
         }
+      } else if (self.handleDragAxis == Game.axis.Hroiz) {
+        if (self.anchorTile?.componentForClass(PositionComponent)?.gridPosition.x == currentTile!.componentForClass(PositionComponent)?.gridPosition.x) {
+          return
+        }
+        if (point.x < self.handleDragPreviousMovePoint.x) {
+          direction = Game.rotation.West
+        } else {
+          direction = Game.rotation.East
+        }
       }
+      
       print("direction is")
       print(direction)
 
@@ -233,13 +247,20 @@ class RoomBlueprint: GKEntity {
       case .North:
         self.size = CGSize(width: self.size.width, height: self.size.height + (direction == Game.rotation.North ? 1 : direction == Game.rotation.South ? -1 : 0))
         self.componentForClass(SpriteComponent)?.node.position = CGPoint(x: currentNodePosition!.x, y: currentNodePosition!.y + ( (direction == Game.rotation.North) ? 32 : direction == Game.rotation.South ? -32 : 0))
+        
+//        NEED TO add east and west conditions. Should be simple... ?
+      case .East:
+        self.size = CGSize(width: self.size.width + (direction == Game.rotation.East ? 1 : direction == Game.rotation.West ? -1 : 0), height: self.size.height)
+        self.componentForClass(SpriteComponent)?.node.position = CGPoint(x: currentNodePosition!.x + ( (direction == Game.rotation.East) ? 32 : direction == Game.rotation.West ? -32 : 0), y: currentNodePosition!.y)
+      case .West:
+        self.size = CGSize(width: self.size.width + (direction == Game.rotation.West ? 1 : direction == Game.rotation.East ? -1 : 0), height: self.size.height)
+        self.componentForClass(SpriteComponent)?.node.position = CGPoint(x: currentNodePosition!.x + ( (direction == Game.rotation.West) ? -32 : direction == Game.rotation.East ? 32 : 0), y: currentNodePosition!.y)
       default:
         print("wat?")
       }
 
       self.createResizeHandles()
 
-      print(self.size)
       self.anchorTile = currentTile
 
     }

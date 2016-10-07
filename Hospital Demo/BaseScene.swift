@@ -292,8 +292,6 @@ class BaseScene: HLScene {
 
         Game.sharedInstance.draggingEntiy = topDraggableNodeEntity
         draggingDraggableNode = true
-        print("pre hide xscale is ")
-        print(Game.sharedInstance.gameToolbar?.xScale)
         Game.sharedInstance.gameToolbar?.hideAnimated(true)
         
         Game.sharedInstance.gameToolbar?.hidden = true
