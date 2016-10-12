@@ -83,6 +83,9 @@ class RoomBlueprint: GKEntity {
 //    print(self.anchorTile)
 //    print(tile)
     if (self.anchorTile !== tile) {
+      if (tile == nil || !tile!.isKindOfClass(Tile)) {
+        return
+      }
       self.anchorTile = tile
       let tilePosition = tile?.componentForClass(PositionComponent)?.spritePosition
 //      Later, make genertic north south east west actions... maybe
@@ -201,9 +204,12 @@ class RoomBlueprint: GKEntity {
     print(point)
     print(edge)
     let currentTile = self.getTileAtPoint(CGPoint(x: point.x + ((edge == Game.rotation.East) ? -32 : edge == Game.rotation.West ? 32 : 0), y: point.y + ((edge == Game.rotation.North) ? -32 : edge == Game.rotation.South ? 32 : 0)) )
+    if (currentTile == nil || !currentTile!.isKindOfClass(Tile)) {
+      return
+    }
 
     pointSprite.strokeColor = UIColor.redColor()
-    (currentTile as! Tile).highlight((currentTile!.componentForClass(SpriteComponent)?.node.position)!)
+//    (currentTile as! Tile).highlight((currentTile!.componentForClass(SpriteComponent)?.node.position)!)
     pointSprite.position = CGPoint(x: point.x, y: point.y + 32)
     pointSprite.zPosition = 100000
     pointSprite.removeFromParent()
