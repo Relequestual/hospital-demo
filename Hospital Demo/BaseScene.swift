@@ -408,7 +408,8 @@ class BaseScene: HLScene {
 
     var autoScroll = false
     
-    let additionalYMargin = CGFloat(64)
+//    Remove this at some point!
+    let additionalYMargin = CGFloat(0)
 
     let sceneXMin = CGFloat(scorllNode.size.width * -1.0 * scorllNode.anchorPoint.x)
     let sceneXMax = CGFloat(sceneXMin + self.size.width)

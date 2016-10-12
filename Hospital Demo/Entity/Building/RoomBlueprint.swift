@@ -231,22 +231,36 @@ class RoomBlueprint: GKEntity {
       
 //      Check  what direction was dragged when tile was changed
       var direction: Game.rotation = Game.rotation.North
+      let anchorTileGridPos = self.anchorTile?.componentForClass(PositionComponent)?.gridPosition
+      let currentTileGridPos = currentTile!.componentForClass(PositionComponent)?.gridPosition
       if (self.handleDragAxis == Game.axis.Vert){
-        if (self.anchorTile?.componentForClass(PositionComponent)?.gridPosition.y == currentTile!.componentForClass(PositionComponent)?.gridPosition.y) {
+        if (anchorTileGridPos!.y == currentTileGridPos!.y) {
           return
         }
         if (point.y < self.handleDragPreviousMovePoint.y) {
+          if (anchorTileGridPos!.y - 1 != currentTileGridPos!.y) {
+            return
+          }
           direction = Game.rotation.South
         } else {
+          if (anchorTileGridPos!.y + 1 != currentTileGridPos!.y) {
+            return
+          }
           direction = Game.rotation.North
         }
       } else if (self.handleDragAxis == Game.axis.Hroiz) {
-        if (self.anchorTile?.componentForClass(PositionComponent)?.gridPosition.x == currentTile!.componentForClass(PositionComponent)?.gridPosition.x) {
+        if (anchorTileGridPos!.x == currentTileGridPos!.x) {
           return
         }
         if (point.x < self.handleDragPreviousMovePoint.x) {
+          if (anchorTileGridPos!.x - 1 != currentTileGridPos!.x) {
+            return
+          }
           direction = Game.rotation.West
         } else {
+          if (anchorTileGridPos!.x + 1 != currentTileGridPos!.x) {
+            return
+          }
           direction = Game.rotation.East
         }
       }
@@ -254,28 +268,37 @@ class RoomBlueprint: GKEntity {
       print("direction is")
       print(direction)
 
+      var newSize = CGSizeZero
+      
+      
       switch self.handleDragEdge {
       case .South:
-        self.size = CGSize(width: self.size.width, height: self.size.height + (direction == Game.rotation.South ? 1 : direction == Game.rotation.North ? -1 : 0))
-        self.componentForClass(SpriteComponent)?.node.position = CGPoint(x: currentNodePosition!.x, y: currentNodePosition!.y + ( direction == Game.rotation.South ? -32 : direction == Game.rotation.North ? 32 : 0))
+        newSize = CGSize(width: self.size.width, height: self.size.height + (direction == Game.rotation.South ? 1 : direction == Game.rotation.North ? -1 : 0))
       case .North:
-        self.size = CGSize(width: self.size.width, height: self.size.height + (direction == Game.rotation.North ? 1 : direction == Game.rotation.South ? -1 : 0))
-        self.componentForClass(SpriteComponent)?.node.position = CGPoint(x: currentNodePosition!.x, y: currentNodePosition!.y + ( (direction == Game.rotation.North) ? 32 : direction == Game.rotation.South ? -32 : 0))
-        
-//        NEED TO add east and west conditions. Should be simple... ?
+        newSize = CGSize(width: self.size.width, height: self.size.height + (direction == Game.rotation.North ? 1 : direction == Game.rotation.South ? -1 : 0))
       case .East:
-        self.size = CGSize(width: self.size.width + (direction == Game.rotation.East ? 1 : direction == Game.rotation.West ? -1 : 0), height: self.size.height)
-        self.componentForClass(SpriteComponent)?.node.position = CGPoint(x: currentNodePosition!.x + ( (direction == Game.rotation.East) ? 32 : direction == Game.rotation.West ? -32 : 0), y: currentNodePosition!.y)
+        newSize = CGSize(width: self.size.width + (direction == Game.rotation.East ? 1 : direction == Game.rotation.West ? -1 : 0), height: self.size.height)
       case .West:
-        self.size = CGSize(width: self.size.width + (direction == Game.rotation.West ? 1 : direction == Game.rotation.East ? -1 : 0), height: self.size.height)
-        self.componentForClass(SpriteComponent)?.node.position = CGPoint(x: currentNodePosition!.x + ( (direction == Game.rotation.West) ? -32 : direction == Game.rotation.East ? 32 : 0), y: currentNodePosition!.y)
+        newSize = CGSize(width: self.size.width + (direction == Game.rotation.West ? 1 : direction == Game.rotation.East ? -1 : 0), height: self.size.height)
       default:
         print("wat?")
+      }
+      
+      if (newSize.width != 0 && newSize.height != 0) {
+        
+        if (self.handleDragAxis == Game.axis.Vert) {
+          self.componentForClass(SpriteComponent)?.node.position = CGPoint(x: currentNodePosition!.x, y: currentNodePosition!.y + ( direction == Game.rotation.South ? -32 : direction == Game.rotation.North ? 32 : 0))
+        } else if (self.handleDragAxis == Game.axis.Hroiz) {
+          self.componentForClass(SpriteComponent)?.node.position = CGPoint(x: currentNodePosition!.x + ( (direction == Game.rotation.West) ? -32 : direction == Game.rotation.East ? 32 : 0), y: currentNodePosition!.y)
+        }
+        
+        self.size = newSize
+        
+        self.anchorTile = currentTile
       }
 
       self.createResizeHandles()
 
-      self.anchorTile = currentTile
 
     }
     
