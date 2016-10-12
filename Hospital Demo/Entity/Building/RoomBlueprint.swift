@@ -154,6 +154,14 @@ class RoomBlueprint: GKEntity {
         buttonVertSprite.setScale(0.5)
         buttonVertSprite.name = "planning_room_blueprint_handles"
         buttonVertSprite.position = edgeInstruct.axis == Game.axis.Vert ? CGPoint(x: x + 32, y: edgeInstruct.face) : CGPoint(x: edgeInstruct.face, y: x + 32 )
+        buttonVertSprite.color = SKColor.blueColor()
+        buttonVertSprite.colorBlendFactor = 1
+        let circle = SKShapeNode(circleOfRadius: 32)
+        circle.strokeColor = SKColor.blueColor()
+        circle.lineWidth = 2
+        
+        //TODO: make this button a single image sometime
+        buttonVertSprite.addChild(circle)
         vertButton.componentForClass(SpriteComponent)?.addToNodeKey()
         self.componentForClass(SpriteComponent)?.node.addChild((vertButton.componentForClass(SpriteComponent)?.node)!)
         //      Game.sharedInstance.entityManager.add(vertButton, layer: ZPositionManager.WorldLayer.interaction)
