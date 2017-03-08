@@ -89,7 +89,7 @@ class Tile: GKEntity {
 //    }
 
     switch Game.sharedInstance.gameStateMachine.currentState {
-    case is GSBuild:
+    case is GSBuildItem:
       buildItemStateTouch()
     case is GSBuildRoom:
       buildRoomStateTouch()
@@ -101,7 +101,7 @@ class Tile: GKEntity {
   
   func buildItemStateTouch() {
 
-    switch Game.sharedInstance.buildStateMachine.currentState {
+    switch Game.sharedInstance.buildItemStateMachine.currentState {
     case is BISPlan:
       print("touch with BISPlan")
       guard let placingObject: GKEntity.Type = Game.sharedInstance.placingObjectsQueue[0] else {
@@ -111,17 +111,18 @@ class Tile: GKEntity {
       Game.sharedInstance.draggingEntiy = plannedObject
       plannedObject.componentForClass(BlueprintComponent)?.planFunctionCall((self.componentForClass(PositionComponent)?.gridPosition)!)
       
+      
     //      Game.sharedInstance.buildStateMachine.enterState(BISPlaned)
     default:
       print("State that we aren't interested in!")
-      print(Game.sharedInstance.buildStateMachine.currentState)
+      print(Game.sharedInstance.buildItemStateMachine.currentState)
     }
     
   }
   
   func buildRoomStateTouch() {
     print("-- Gets to room state touch")
-    guard let buildingRoom: GKEntity.Type = Game.sharedInstance.plannedRoom else {
+    guard let buildingRoom: GKEntity.Type = Game.sharedInstance.buildRoomStateMachine.roomType else {
       //Cry
       return
     }
@@ -134,6 +135,7 @@ class Tile: GKEntity {
       plannedRoom.componentForClass(BuildRoomComponent)?.clearPlan()
       plannedRoom.componentForClass(BuildRoomComponent)?.planAtPoint((self.componentForClass(PositionComponent)?.gridPosition)!)
       Game.sharedInstance.buildRoomStateMachine.enterState(BRSPlan)
+      
     default:
       print("Some state that's not accounted for yet")
       print(Game.sharedInstance.buildRoomStateMachine.currentState)

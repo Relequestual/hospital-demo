@@ -57,8 +57,9 @@ class GameToolbar: HLToolbarNode {
     
     self.setTools(nodes, tags: tags, animation:HLToolbarNodeAnimation.SlideUp)
     
-    //self.registerDescendant(toolbarNode, withOptions: Set<AnyObject>.setWithObject(HLSceneChildGestureTarget))
     //baseScene.registerDescendant(self, withOptions: Set(arrayLiteral: HLSceneChildGestureTarget))
+    //self.registerDescendant(toolbarNode, withOptions: Set<AnyObject>.setWithObject(HLSceneChildGestureTarget))
+    
     
   }
   
@@ -90,8 +91,8 @@ class GameToolbar: HLToolbarNode {
     Game.sharedInstance.buildRoomStateMachine.enterState(BRSPrePlan)
     print("gamestate is...")
     print(Game.sharedInstance.gameStateMachine.currentState)
-    Game.sharedInstance.buildStateMachine.enterState(BRSPlan)
-    Game.sharedInstance.plannedRoom = GPOffice.self
+//    Game.sharedInstance.buildStateMachine.enterState(BRSPlan)
+    Game.sharedInstance.buildRoomStateMachine.roomType = GPOffice.self
     
   }
   
@@ -101,12 +102,12 @@ class GameToolbar: HLToolbarNode {
   
   class func buildTouch() -> Void {
 
-    if ( Game.sharedInstance.buildStateMachine.currentState is BISPlace ) {
+    if ( Game.sharedInstance.buildItemStateMachine.currentState is BISPlace ) {
 //      Game.sharedInstance.gameStateMachine.enterState(GSGeneral)
 //      Game.sharedInstance.buildStateMachine
     } else {
-      Game.sharedInstance.gameStateMachine.enterState(GSBuild)
-      Game.sharedInstance.buildStateMachine.enterState(BISPlan)
+      Game.sharedInstance.gameStateMachine.enterState(GSBuildItem)
+      Game.sharedInstance.buildItemStateMachine.enterState(BISPlan)
       Game.sharedInstance.placingObjectsQueue.append(ReceptionDesk)
       
     }

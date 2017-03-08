@@ -278,7 +278,7 @@ class BaseScene: HLScene {
     var draggingDraggableNode = false
     Game.sharedInstance.touchDidMove = false
     //    Also check if buildbale and possible to have position
-    if (Game.sharedInstance.buildStateMachine.currentState is BISPlace) {
+    if (Game.sharedInstance.buildItemStateMachine.currentState is BISPlace) {
       draggingDraggableNode = true
     }
     

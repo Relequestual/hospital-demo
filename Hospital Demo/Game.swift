@@ -12,27 +12,13 @@ import GameplayKit
 import HLSpriteKit
 
 class Game {
-  static let sharedInstance = Game()
+  static let sharedInstance = Game(view: nil)
 
-  var gameStateMachine = GKStateMachine(states: [
-    GSBuild(),
-    GSBuildRoom(),
-    GSGeneral(),
-    GSLevelEdit()
-  ])
+  var gameStateMachine = GameState()
 
-  var buildStateMachine = GKStateMachine(states: [
-    BISPlan(),
-    BISPlace(),
-    BRSPlan(),
-    BRSDoor()
-  ])
+  var buildItemStateMachine = BuildItemState()
   
-  var buildRoomStateMachine =  GKStateMachine(states: [
-    BRSPrePlan(),
-    BRSPlan(),
-    BRSDoor()
-  ])
+  var buildRoomStateMachine = BuildRoomState()
   
   var panningWold = true
 

@@ -214,9 +214,9 @@ class BlueprintComponent: GKComponent {
       node.name = ""
       print("confirming plan!")
       
-      print(Game.sharedInstance.plannedBuildingObject)
+      print(Game.sharedInstance.buildRoomStateMachine.roomBuilding)
       plannedObject.componentForClass(BuildComponent)?.build()
-      Game.sharedInstance.plannedBuildingObject = nil
+      Game.sharedInstance.buildRoomStateMachine.roomBuilding = nil
       Game.sharedInstance.entityManager.add(self.entity!, layer: ZPositionManager.WorldLayer.world)
       self.status = Status.Built
     } else {
@@ -243,7 +243,7 @@ class BlueprintComponent: GKComponent {
   }
 
   func cancelPlan() {
-    Game.sharedInstance.plannedBuildingObject = nil
+    Game.sharedInstance.buildItemStateMachine.itemBuilding = nil
     self.clearPlan()
   }
 

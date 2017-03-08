@@ -9,14 +9,24 @@
 import Foundation
 import GameplayKit
 
-class GameState : GKState{
-  
+
+
+class GameState : GKStateMachine{
+
+  init() {
+    super.init(states:[
+      GSGeneral(),
+      GSBuildItem(),
+      GSBuildRoom(),
+      GSLevelEdit(),
+    ])
+  }
 
 }
 
 
 
-class GSBuild: GameState {
+class GSBuildItem: GKState {
 
   override func didEnterWithPreviousState(previousState: GKState?) {
     print(previousState)
@@ -30,7 +40,7 @@ class GSBuild: GameState {
 
 }
 
-class GSBuildRoom: GameState {
+class GSBuildRoom: GKState {
   
   override func didEnterWithPreviousState(previousState: GKState?) {
     print(previousState)
@@ -44,11 +54,11 @@ class GSBuildRoom: GameState {
   
 }
 
-class GSGeneral: GameState {
+class GSGeneral: GKState {
 
 }
 
-class GSLevelEdit: GameState {
+class GSLevelEdit: GKState {
 
 }
 

@@ -77,9 +77,9 @@ class BuildComponent: GKComponent {
       Game.sharedInstance.entityManager.node.addChild(node)
 
     }
-    Game.sharedInstance.plannedBuildingObject = entity
+    Game.sharedInstance.buildItemStateMachine.itemBuilding = entity
     print("entity planned!")
-    print(Game.sharedInstance.plannedBuildingObject)
+    print(Game.sharedInstance.buildItemStateMachine.itemBuilding)
   }
 
   func build() {
@@ -118,7 +118,7 @@ class BuildComponent: GKComponent {
       tile.isBuildingOn = false
       
     }
-
+    Game.sharedInstance.gameStateMachine.enterState(GSGeneral)
   }
 
   //  Optimisation of these would require moving all generated textures to a graphics class.

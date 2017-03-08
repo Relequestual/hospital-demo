@@ -9,20 +9,30 @@
 import Foundation
 import GameplayKit
 
-class BuildRoomState : GKState {
-  func currentBuild() -> GKEntity? {
-    return nil
+class BuildRoomState : GKStateMachine {
+  
+  var roomType: GKEntity.Type?
+  var roomBuilding: GKEntity?
+
+  init() {
+    super.init(states:[
+      BRSPrePlan(),
+      BRSPlan(),
+      BRSDoor(),
+      BRSItems(),
+      ])
   }
+
 
 }
 
-class BRSPrePlan: BuildRoomState {}
+class BRSPrePlan: GKState {}
 
-class BRSPlan: BuildRoomState {}
+class BRSPlan: GKState {}
 
-class BRSDoor: BuildRoomState {}
+class BRSDoor: GKState {}
 
-class BRSItems: BuildRoomState {}
+class BRSItems: GKState {}
 
 
 
