@@ -12,9 +12,9 @@ import GameplayKit
 import HLSpriteKit
 
 struct GameToolbarOption {
-  private let tag: String
-  private let node: SKSpriteNode
-  private let handler: () -> Void
+  let tag: String
+  let node: SKSpriteNode
+  let handler: () -> Void
   
   init(tag: String, node: SKSpriteNode, handler: () -> Void) {
     self.tag = tag
@@ -28,19 +28,15 @@ class GameToolbar: HLToolbarNode {
   
   private var options = [GameToolbarOption]()
   
-  init(size: CGSize, baseScene: BaseScene) {
+  init(size: CGSize) {
     super.init()
     
-    self.anchorPoint = CGPoint(x: 0, y: 0)
     self.size = size
-    self.position = CGPoint(x: 0, y: 0)
-    self.zPosition = CGFloat(ZPositionManager.WorldLayer.ui.zpos)
+    self.anchorPoint = CGPoint(x: 0, y: 0)
     
     // add default options
     addOption("build_room", node: createNode(SKTexture(imageNamed: "Graphics/build_room")), handler: GameToolbar.buildRoomTouch)
-    addOption("build", node: createNode(SKTexture(imageNamed: "Graphics/build_item"))) {
-      GameToolbar.buildTouch()
-    }
+    addOption("build", node: createNode(SKTexture(imageNamed: "Graphics/build_item")), handler: GameToolbar.buildTouch)
     addOption("green", node: createNode(.greenColor()), handler: GameToolbar.greenTouch)
     // can also pass a closure
     

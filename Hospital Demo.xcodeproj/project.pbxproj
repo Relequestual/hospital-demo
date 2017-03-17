@@ -29,26 +29,30 @@
 		13DFA1791C65ECE8003289E9 /* GameToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DFA1781C65ECE8003289E9 /* GameToolbar.swift */; };
 		13DFA17B1C6806F4003289E9 /* BuildItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DFA17A1C6806F4003289E9 /* BuildItemState.swift */; };
 		58B51067ED2966DA1F5E3564 /* Pods_Hospital_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 119B22F354B724D95C8C9719 /* Pods_Hospital_Demo.framework */; };
+		9119835E1E72D3D100E6D2A2 /* UseableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9119835D1E72D3D100E6D2A2 /* UseableComponent.swift */; };
 		9122FA441D61AC4000F92958 /* RoomBlueprint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9122FA431D61AC4000F92958 /* RoomBlueprint.swift */; };
+		914650CE1E729E6B00DBF123 /* Door.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914650CD1E729E6B00DBF123 /* Door.swift */; };
 		914667E11C5937D800560251 /* TouchableSpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914667E01C5937D800560251 /* TouchableSpriteComponent.swift */; };
 		9175E2D31D47CACE0026BA8F /* zPositionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9175E2D21D47CACE0026BA8F /* zPositionManager.swift */; };
 		91C3E3571C6BB1E900E8CBD8 /* BlueprintComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3E3561C6BB1E900E8CBD8 /* BlueprintComponent.swift */; };
 		91C836831C649978008ECABF /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C836821C649978008ECABF /* GameState.swift */; };
 		91DF14CF1C2A958D003E813F /* PositionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DF14CE1C2A958D003E813F /* PositionComponent.swift */; };
 		91ED91971D01A34300A9D536 /* Graphics in Resources */ = {isa = PBXBuildFile; fileRef = 91ED91961D01A34300A9D536 /* Graphics */; };
+		91F052661DD35031002F8B19 /* ToolbarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F052651DD35031002F8B19 /* ToolbarManager.swift */; };
+		91F72CF31DC9E00E00210C71 /* ConfirmToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F72CF21DC9E00E00210C71 /* ConfirmToolbar.swift */; };
 		91F7F0E71D2FDA2D00331878 /* BuildComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F7F0E61D2FDA2D00331878 /* BuildComponent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		119B22F354B724D95C8C9719 /* Pods_Hospital_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hospital_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		130AFEAE1D0494B1002F266D /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Button.swift; path = Entity/Button.swift; sourceTree = "<group>"; };
-		13388CF11D5672190080234A /* GPOffice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GPOffice.swift; path = Entity/GPOffice.swift; sourceTree = "<group>"; };
+		13388CF11D5672190080234A /* GPOffice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GPOffice.swift; path = ../GPOffice.swift; sourceTree = "<group>"; };
 		13388CF31D57B6C50080234A /* BuildRoomComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildRoomComponent.swift; sourceTree = "<group>"; };
 		136FA1891BFBCBDC0086F545 /* BaseScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseScene.swift; sourceTree = "<group>"; };
 		137F2E151CDF8D4600665C17 /* DraggableSpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DraggableSpriteComponent.swift; path = Component/DraggableSpriteComponent.swift; sourceTree = "<group>"; };
 		13A5F5CD1C0A587F0013D478 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		13B223001C6407D300567B0E /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
-		13B6032C1C6935D700A65E7F /* ReceptionDesk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReceptionDesk.swift; path = Entity/ReceptionDesk.swift; sourceTree = "<group>"; };
+		13B6032C1C6935D700A65E7F /* ReceptionDesk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceptionDesk.swift; sourceTree = "<group>"; };
 		13B6A1B31C255C940087649C /* Tile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tile.swift; path = Entity/Tile.swift; sourceTree = "<group>"; };
 		13B6A1B51C255D8E0087649C /* SpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpriteComponent.swift; path = Component/SpriteComponent.swift; sourceTree = "<group>"; };
 		13C7652C1BF61B2D00AC0223 /* Hospital Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hospital Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,13 +69,17 @@
 		13DFA1781C65ECE8003289E9 /* GameToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameToolbar.swift; path = SceneElements/GameToolbar.swift; sourceTree = "<group>"; };
 		13DFA17A1C6806F4003289E9 /* BuildItemState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildItemState.swift; sourceTree = "<group>"; };
 		457F6EC4CF57C614C89AFCF5 /* Pods-Hospital Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hospital Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hospital Demo/Pods-Hospital Demo.release.xcconfig"; sourceTree = "<group>"; };
+		9119835D1E72D3D100E6D2A2 /* UseableComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UseableComponent.swift; path = Component/UseableComponent.swift; sourceTree = "<group>"; };
 		9122FA431D61AC4000F92958 /* RoomBlueprint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomBlueprint.swift; sourceTree = "<group>"; };
+		914650CD1E729E6B00DBF123 /* Door.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Door.swift; sourceTree = "<group>"; };
 		914667E01C5937D800560251 /* TouchableSpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TouchableSpriteComponent.swift; path = Component/TouchableSpriteComponent.swift; sourceTree = "<group>"; };
 		9175E2D21D47CACE0026BA8F /* zPositionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = zPositionManager.swift; sourceTree = "<group>"; };
 		91C3E3561C6BB1E900E8CBD8 /* BlueprintComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlueprintComponent.swift; path = Component/BlueprintComponent.swift; sourceTree = "<group>"; };
 		91C836821C649978008ECABF /* GameState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		91DF14CE1C2A958D003E813F /* PositionComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PositionComponent.swift; path = Component/PositionComponent.swift; sourceTree = "<group>"; };
 		91ED91961D01A34300A9D536 /* Graphics */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Graphics; sourceTree = "<group>"; };
+		91F052651DD35031002F8B19 /* ToolbarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ToolbarManager.swift; path = Manager/ToolbarManager.swift; sourceTree = "<group>"; };
+		91F72CF21DC9E00E00210C71 /* ConfirmToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfirmToolbar.swift; path = SceneElements/ConfirmToolbar.swift; sourceTree = "<group>"; };
 		91F7F0E61D2FDA2D00331878 /* BuildComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BuildComponent.swift; path = Component/BuildComponent.swift; sourceTree = "<group>"; };
 		FE6259AC48982DC954389865 /* Pods-Hospital Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hospital Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hospital Demo/Pods-Hospital Demo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -108,11 +116,10 @@
 		13B6A1B11C255B070087649C /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				91D64E411E71C5860081C17C /* Item */,
 				9122FA421D61ABD200F92958 /* Building */,
 				13B6A1B31C255C940087649C /* Tile.swift */,
-				13B6032C1C6935D700A65E7F /* ReceptionDesk.swift */,
 				130AFEAE1D0494B1002F266D /* Button.swift */,
-				13388CF11D5672190080234A /* GPOffice.swift */,
 			);
 			name = Entity;
 			sourceTree = "<group>";
@@ -128,6 +135,7 @@
 				91C3E3561C6BB1E900E8CBD8 /* BlueprintComponent.swift */,
 				91F7F0E61D2FDA2D00331878 /* BuildComponent.swift */,
 				13388CF31D57B6C50080234A /* BuildRoomComponent.swift */,
+				9119835D1E72D3D100E6D2A2 /* UseableComponent.swift */,
 			);
 			name = Component;
 			sourceTree = "<group>";
@@ -178,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				13DFA1781C65ECE8003289E9 /* GameToolbar.swift */,
+				91F72CF21DC9E00E00210C71 /* ConfirmToolbar.swift */,
 			);
 			name = Elements;
 			sourceTree = "<group>";
@@ -187,6 +196,7 @@
 			children = (
 				13CCF1541C2F47FF00297EF3 /* EntityManager.swift */,
 				9175E2D21D47CACE0026BA8F /* zPositionManager.swift */,
+				91F052651DD35031002F8B19 /* ToolbarManager.swift */,
 			);
 			name = Manager;
 			sourceTree = "<group>";
@@ -194,6 +204,7 @@
 		9122FA421D61ABD200F92958 /* Building */ = {
 			isa = PBXGroup;
 			children = (
+				13388CF11D5672190080234A /* GPOffice.swift */,
 				9122FA431D61AC4000F92958 /* RoomBlueprint.swift */,
 			);
 			name = Building;
@@ -209,6 +220,16 @@
 			);
 			name = GameStates;
 			path = States/GameStates;
+			sourceTree = "<group>";
+		};
+		91D64E411E71C5860081C17C /* Item */ = {
+			isa = PBXGroup;
+			children = (
+				13B6032C1C6935D700A65E7F /* ReceptionDesk.swift */,
+				914650CD1E729E6B00DBF123 /* Door.swift */,
+			);
+			name = Item;
+			path = Entity/Item;
 			sourceTree = "<group>";
 		};
 		D9D473466C91A2DBC577D2DD /* Pods */ = {
@@ -358,6 +379,7 @@
 				13C765361BF61B2D00AC0223 /* GameViewController.swift in Sources */,
 				91C836831C649978008ECABF /* GameState.swift in Sources */,
 				137F2E161CDF8D4600665C17 /* DraggableSpriteComponent.swift in Sources */,
+				9119835E1E72D3D100E6D2A2 /* UseableComponent.swift in Sources */,
 				91F7F0E71D2FDA2D00331878 /* BuildComponent.swift in Sources */,
 				13B6A1B41C255C940087649C /* Tile.swift in Sources */,
 				130AFEAF1D0494B1002F266D /* Button.swift in Sources */,
@@ -372,9 +394,12 @@
 				13CCF1551C2F47FF00297EF3 /* EntityManager.swift in Sources */,
 				13DFA1791C65ECE8003289E9 /* GameToolbar.swift in Sources */,
 				136FA18A1BFBCBDC0086F545 /* BaseScene.swift in Sources */,
+				91F72CF31DC9E00E00210C71 /* ConfirmToolbar.swift in Sources */,
 				13B6032D1C6935D700A65E7F /* ReceptionDesk.swift in Sources */,
 				13CCF1571C34088D00297EF3 /* SpriteDebugComponent.swift in Sources */,
+				914650CE1E729E6B00DBF123 /* Door.swift in Sources */,
 				13CBAB641D6A0CBB004561CB /* BuildRoomState.swift in Sources */,
+				91F052661DD35031002F8B19 /* ToolbarManager.swift in Sources */,
 				91C3E3571C6BB1E900E8CBD8 /* BlueprintComponent.swift in Sources */,
 				13388CF21D5672190080234A /* GPOffice.swift in Sources */,
 			);

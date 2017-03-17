@@ -134,7 +134,9 @@ class Tile: GKEntity {
       print(plannedRoom)
       plannedRoom.componentForClass(BuildRoomComponent)?.clearPlan()
       plannedRoom.componentForClass(BuildRoomComponent)?.planAtPoint((self.componentForClass(PositionComponent)?.gridPosition)!)
+      plannedRoom.componentForClass(BuildRoomComponent)?.needConfirmBounds()
       Game.sharedInstance.buildRoomStateMachine.enterState(BRSPlan)
+      Game.sharedInstance.buildRoomStateMachine.roomBuilding = plannedRoom
       
     default:
       print("Some state that's not accounted for yet")

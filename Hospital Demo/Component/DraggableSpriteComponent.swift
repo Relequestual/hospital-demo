@@ -19,23 +19,39 @@ class DraggableSpriteComponent: GKComponent {
   var movedPoint:CGPoint?
   var endPoint:CGPoint?
   
+  var draggable: Bool = true
+  
   init(start:(CGPoint) -> Void, move:(CGPoint) -> Void, end:(CGPoint) -> Void) {
+    
+//    Working here.
+//    Calling these directly rather than through this classes function accessors!! duh!
     self.entityTouchStart = start
     self.entityTouchMove  = move
     self.entityTouchEnd   = end
   }
   
   func touchStart(point: CGPoint) {
+    if (!(self.draggable)){
+      return
+    }
     self.startPoint = point
     self.entityTouchStart(point)
   }
   
   func touchMove(point: CGPoint) {
+    print("draggable?")
+    print(self.draggable)
+    if (!(self.draggable)){
+      return
+    }
     self.movedPoint = point
     self.entityTouchMove(point)
   }
   
   func touchEnd(point: CGPoint) {
+    if (!(self.draggable)){
+      return
+    }
     self.endPoint = point
     self.entityTouchEnd(point)
   }

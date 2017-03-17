@@ -20,6 +20,11 @@ class BuildItemState : GKStateMachine{
       BISPlace(),
     ])
   }
+  
+  func resetState() {
+    itemType = nil
+    itemBuilding = nil
+  }
 
 }
 

@@ -118,10 +118,6 @@ class RoomBlueprint: GKEntity {
     print(edgeYT)
     print(edgeYB)
     
-    Game.sharedInstance.entityManager.node.enumerateChildNodesWithName("planning_room_blueprint_handles", usingBlock: { (node, stop) -> Void in
-        node.removeFromParent()
-    });
-    
     
     
 //    array of dictionaries needed for button creation
@@ -202,6 +198,15 @@ class RoomBlueprint: GKEntity {
       print("huh")
     }
 
+  }
+  
+  //  Remove child nodes from the sprite of this node that are the planning handles
+  //  I realised that the function enumerateChildNodesWithName only does child and not descendant nodes. Not a deep action.
+  func removeResizeHandles() {
+    print("remvoing resize handles")
+      self.componentForClass(SpriteComponent)?.node.enumerateChildNodesWithName("planning_room_blueprint_handles", usingBlock: { (node, stop) -> Void in
+      node.removeFromParent()
+    });
   }
   
   let pointSprite = SKShapeNode(circleOfRadius: 5)

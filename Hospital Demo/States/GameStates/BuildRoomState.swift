@@ -22,7 +22,11 @@ class BuildRoomState : GKStateMachine {
       BRSItems(),
       ])
   }
-
+  
+  func resetState() {
+    roomType = nil
+    roomBuilding = nil
+  }
 
 }
 

@@ -59,6 +59,9 @@ class BaseScene: HLScene {
 
 
     //        self.anchorPoint = CGPoint(x: 0.0, y: 0.0)
+    
+//    Set Game view so bounds are accessible elsewhere
+    Game.sharedInstance.mainView = view
 
     let bottomleft = CGPoint(x: 0.0, y: 0.0)
     let center = CGPoint(x: 0.5, y: 0.5)
@@ -124,12 +127,22 @@ class BaseScene: HLScene {
 
     myScrollNode.zPosition = 50
     
-    Game.sharedInstance.gameToolbar = GameToolbar(size: CGSize(width: view.bounds.width, height: 64), baseScene: self)
-    Game.sharedInstance.gameToolbar?.showUpdateOrigin(CGPoint(x: 0, y: -60))
-    Game.sharedInstance.gameToolbar!.hlSetGestureTarget(Game.sharedInstance.gameToolbar)
-    self.addChild(Game.sharedInstance.gameToolbar!)
+    Game.sharedInstance.toolbarManager = ToolbarManager(scene: self)
+    
+    let gameToolbar = GameToolbar(size: CGSize(width: view.bounds.width, height: 64))
+    Game.sharedInstance.toolbarManager?.addToolbar(gameToolbar, location: Game.rotation.South, shown: true)
+//    Only temp
+//    Game.sharedInstance.gameToolbar = gameToolbar
+    
+//    Change this to work same as above
+//    let confirmToolbar = ConfirmToolbar(size: CGSize(width: view.bounds.width, height: 64))
+//    Game.sharedInstance.toolbarManager?.addToolbar(confirmToolbar)
 
-    self.registerDescendant(Game.sharedInstance.gameToolbar, withOptions: Set(arrayLiteral: HLSceneChildGestureTarget))
+//    Game.sharedInstance.confirmToolbar!.hlSetGestureTarget(Game.sharedInstance.confirmToolbar)
+//    self.addChild(Game.sharedInstance.confirmToolbar!)
+//    Game.sharedInstance.confirmToolbar?.hideAnimated(true)
+//    
+//    self.registerDescendant(Game.sharedInstance.confirmToolbar, withOptions: Set(arrayLiteral: HLSceneChildGestureTarget))
 
 
     myScrollNode.position = CGPoint(x: 0, y: 0)
@@ -292,9 +305,7 @@ class BaseScene: HLScene {
 
         Game.sharedInstance.draggingEntiy = topDraggableNodeEntity
         draggingDraggableNode = true
-        Game.sharedInstance.gameToolbar?.hideAnimated(true)
-        
-        Game.sharedInstance.gameToolbar?.hidden = true
+        Game.sharedInstance.toolbarManager?.hideAll()
       }
 
       if (entity.componentForClass(TouchableSpriteComponent) != nil) {
@@ -302,7 +313,7 @@ class BaseScene: HLScene {
       }
       
     }
-    topDraggableNodeEntity.componentForClass(DraggableSpriteComponent)?.entityTouchStart(positionInWorldnodeContent!)
+    topDraggableNodeEntity.componentForClass(DraggableSpriteComponent)?.touchStart(positionInWorldnodeContent!)
     
     Game.sharedInstance.tappableEntity = topTappableNodeEntity
 
@@ -323,7 +334,7 @@ class BaseScene: HLScene {
     let positionInWorldnodeContent = touches.first?.locationInNode(Game.sharedInstance.wolrdnode.contentNode)
     
     if (Game.sharedInstance.draggingEntiy != nil) {
-      Game.sharedInstance.draggingEntiy?.componentForClass(DraggableSpriteComponent)?.entityTouchMove(positionInWorldnodeContent!)
+      Game.sharedInstance.draggingEntiy?.componentForClass(DraggableSpriteComponent)?.touchMove(positionInWorldnodeContent!)
     }
 
     if (Game.sharedInstance.canAutoScroll && !Game.sharedInstance.panningWold) {
@@ -339,14 +350,7 @@ class BaseScene: HLScene {
      print("touches ended")
 //    Game.sharedInstance.gameToolbar?.hidden = false
     
-    if (Game.sharedInstance.gameToolbar!.hidden) {
-    
-      Game.sharedInstance.gameToolbar?.showWithOrigin(CGPoint(x: 0, y: -64), finalPosition: CGPoint(x: 0, y: 0), fullScale: 1.0, animated: true)
-      Game.sharedInstance.gameToolbar?.hidden = false
-      if (((Game.sharedInstance.gameToolbar?.parent) == nil)){
-        self.addChild(Game.sharedInstance.gameToolbar!)
-      }
-    }
+    Game.sharedInstance.toolbarManager?.showAll()
     
     if (Game.sharedInstance.tappableEntity != nil) {
       Game.sharedInstance.tappableEntity?.componentForClass(TouchableSpriteComponent)?.callFunction()

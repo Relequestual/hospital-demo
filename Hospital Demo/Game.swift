@@ -32,15 +32,11 @@ class Game {
   
   var wolrdnode: HLScrollNode!
   
-  var gameToolbar: GameToolbar?
+  var toolbarManager: ToolbarManager?
   
   var tilesAtCoords = [Int: [Int: Tile]]()
   
   var placingObjectsQueue = Array<GKEntity.Type>()
-
-  var plannedBuildingObject: GKEntity?
-  
-  var plannedRoom: GKEntity.Type?
   
   var plannedBuildingTiles = [Tile]()
   
@@ -73,10 +69,14 @@ class Game {
   enum numericalSignage {
     case positive, negative
   }
+  
+  var mainView: SKView?
 
-  private init() {
+  private init(view: SKView?) {
 //    self.gameStateMachine.enterState(GSGeneral)
 //    self.buildStateMachine.enterState(BSInitial)
+    
+    self.mainView = view
 
     let zPositionManager = ZPositionManager()
     print(zPositionManager.topMost)

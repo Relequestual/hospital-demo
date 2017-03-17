@@ -47,7 +47,6 @@ class GSBuildRoom: GKState {
     Game.sharedInstance.canAutoScroll = true
   }
   
-  
   override func willExitWithNextState(nextState: GKState) {
     Game.sharedInstance.canAutoScroll = false
   }
@@ -55,6 +54,13 @@ class GSBuildRoom: GKState {
 }
 
 class GSGeneral: GKState {
+  
+  override func didEnterWithPreviousState(previousState: GKState?) {
+    Game.sharedInstance.toolbarManager?.resetSide(Game.rotation.South)
+    Game.sharedInstance.buildRoomStateMachine.resetState()
+    Game.sharedInstance.buildItemStateMachine.resetState()
+
+  }
 
 }
 
