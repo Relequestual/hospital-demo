@@ -42,6 +42,10 @@ class ReceptionDesk: GKEntity {
     spriteComponent.addToNodeKey()
     
   }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
 
   func dragStartHandler(point: CGPoint) {
     print("RD Start drag")

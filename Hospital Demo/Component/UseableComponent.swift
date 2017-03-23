@@ -25,7 +25,11 @@ class UseableComponent: GKComponent {
   
   init(usePoints: Array<UsePoint>) {
     self.usePoints = usePoints
-    
+    super.init()
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
   }
   
   func callFunction(usePoint: UsePoint) {

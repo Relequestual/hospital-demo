@@ -28,6 +28,11 @@ class DraggableSpriteComponent: GKComponent {
     self.entityTouchStart = start
     self.entityTouchMove  = move
     self.entityTouchEnd   = end
+    super.init()
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
   }
   
   func touchStart(point: CGPoint) {

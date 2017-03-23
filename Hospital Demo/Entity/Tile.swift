@@ -75,6 +75,10 @@ class Tile: GKEntity {
 
   }
   
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
   func handleTouch() {
     // Do some more things like change state of another component
 //    print(Game.sharedInstance.gameStateMachine.currentState)

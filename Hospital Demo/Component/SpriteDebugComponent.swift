@@ -43,6 +43,10 @@ class SpriteDebugComponent: GKComponent {
 
     SpriteDebugComponent.debugLayer.addChild(desc)
   }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
     
 //  static func getDebugNode() -> SKNode{
 //    return debugLayer

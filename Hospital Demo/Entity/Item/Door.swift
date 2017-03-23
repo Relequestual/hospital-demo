@@ -14,6 +14,8 @@ class Door: GKEntity {
   init(room: GKEntity) {
     super.init()
     
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
   }
   
 //  Usable component

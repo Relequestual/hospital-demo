@@ -24,6 +24,11 @@ class BuildRoomComponent: GKComponent {
     self.minSize = minSize
     self.size = minSize
     self.roomBlueprint = RoomBlueprint(size: minSize)
+    super.init()
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
   }
   
   func planAtPoint(gridPosition: CGPoint) {

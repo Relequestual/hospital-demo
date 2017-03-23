@@ -64,6 +64,10 @@ class BlueprintComponent: GKComponent {
     
     
   }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
 
   func planFunctionCall(position: CGPoint) {
     self.planFunction(position: position)

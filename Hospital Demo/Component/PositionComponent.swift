@@ -17,5 +17,10 @@ class PositionComponent: GKComponent {
   init(gridPosition: CGPoint, spritePosition: CGPoint?=nil) {
     self.gridPosition = gridPosition
     self.spritePosition = spritePosition
+    super.init()
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
   }
 }

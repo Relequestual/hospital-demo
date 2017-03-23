@@ -30,7 +30,7 @@ class RoomBlueprint: GKEntity {
   static var innerSquare = SKShapeNode(rectOfSize: CGSize(width: 55, height: 55))
 
   static var pattern : [CGFloat] = [4.0, 4.0]
-  static let dashed = CGPathCreateCopyByDashingPath (square.path, nil, 0, pattern, 2)
+  static let dashed = CGPathCreateCopyByDashingPath (square.path!, nil, 0, pattern, 2)
   static var dashedSquare = SKShapeNode(path: dashed!)
   
   
@@ -66,6 +66,10 @@ class RoomBlueprint: GKEntity {
     self.componentForClass(SpriteComponent)!.addToNodeKey()
     
     self.addComponent(PositionComponent(gridPosition: CGPointZero))
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
   }
   
   func dragStartHandler(point:CGPoint) {

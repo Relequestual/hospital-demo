@@ -15,6 +15,11 @@ class SpriteComponent: GKComponent {
 
   init(texture: SKTexture) {
     node = SKSpriteNode(texture: texture, color: SKColor.whiteColor(), size: texture.size())
+    super.init()
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
   }
 
   func addToNodeKey() {

@@ -371,9 +371,6 @@ class BaseScene: HLScene {
 
   }
   
-  override func touchesEstimatedPropertiesUpdated(touches: Set<NSObject>) {
-    print("----- estmate updated")
-  }
   
   func panWold(touches: Set<UITouch>) {
     let positionInScene = touches.first?.locationInNode(self)
