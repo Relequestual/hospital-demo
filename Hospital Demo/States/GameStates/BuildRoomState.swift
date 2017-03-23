@@ -20,6 +20,7 @@ class BuildRoomState : GKStateMachine {
       BRSPlan(),
       BRSDoor(),
       BRSItems(),
+      BRSDone(),
       ])
   }
   
@@ -37,6 +38,8 @@ class BRSPlan: GKState {}
 class BRSDoor: GKState {}
 
 class BRSItems: GKState {}
+
+class BRSDone: GKState {}
 
 
 

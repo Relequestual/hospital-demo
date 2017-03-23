@@ -12,6 +12,10 @@ import GameplayKit
 class GPOffice: GKEntity {
 
   let minDimentions = CGSize(width: 3, height: 4)
+  
+//  Let's not have a room component yet, and in stead have props here
+  
+  var doors: [Door] = []
 
   override init() {
     super.init()

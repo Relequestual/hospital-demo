@@ -11,9 +11,15 @@ import SpriteKit
 
 class Door: GKEntity {
   
-  init(room: GKEntity) {
+  var room: GKEntity
+  var position: PositionComponent
+  
+  init(room: GKEntity, gridPosition: CGPoint) {
+    self.room = room
+    self.position = PositionComponent(gridPosition: gridPosition)
     super.init()
-    
+  }
+  
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
