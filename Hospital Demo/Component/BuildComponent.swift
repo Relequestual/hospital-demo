@@ -12,7 +12,7 @@ import GameplayKit
 
 class BuildComponent: GKComponent {
 
-  func planAtPoint(position: CGPoint) {
+  func planAtPoint(_ position: CGPoint) {
 
     guard let entity = self.entity else {
       // WOAH there
@@ -20,19 +20,19 @@ class BuildComponent: GKComponent {
     }
 
     print("removing planned_object nodes")
-    Game.sharedInstance.entityManager.node.enumerateChildNodesWithName("planned_object", usingBlock: { (node, stop) -> Void in
+    Game.sharedInstance.entityManager.node.enumerateChildNodes(withName: "planned_object", using: { (node, stop) -> Void in
       node.removeFromParent()
     });
 
     // Check can place object at location
-    guard entity.componentForClass(BlueprintComponent)!.canPlanAtPoint(position) else {
+    guard entity.component(ofType: BlueprintComponent.self)!.canPlanAtPoint(position) else {
       // Nope
       return
     }
     Game.sharedInstance.canAutoScroll = true
 
-    var area = (entity.componentForClass(BlueprintComponent)?.area)!
-    var pous = (entity.componentForClass(BlueprintComponent)?.pous)!
+    var area = (entity.component(ofType: BlueprintComponent)?.area)!
+    var pous = (entity.component(ofType: BlueprintComponent)?.pous)!
 
 
     let positionComponent = PositionComponent(gridPosition: CGPoint(x: position.x, y: position.y))
@@ -48,7 +48,7 @@ class BuildComponent: GKComponent {
       }
       let node = SKSpriteNode(texture: createPlannedTexture(tile.unbuildable))
       node.alpha = 0.6
-      node.position = (tile.componentForClass(PositionComponent)?.spritePosition)!
+      node.position = (tile.component(ofType: PositionComponent)?.spritePosition)!
 
       node.zPosition = CGFloat(ZPositionManager.WorldLayer.interaction.zpos)
       node.name = "planned_object"
@@ -70,7 +70,7 @@ class BuildComponent: GKComponent {
       }
       let node = SKSpriteNode(texture: createPlannedPOUTexture(tile.unbuildable))
       node.alpha = 0.4
-      node.position = (tile.componentForClass(PositionComponent)?.spritePosition)!
+      node.position = (tile.component(ofType: PositionComponent)?.spritePosition)!
 
       node.zPosition = CGFloat(ZPositionManager.WorldLayer.interaction.zpos)
       node.name = "planned_object"
@@ -88,10 +88,10 @@ class BuildComponent: GKComponent {
       return
     }
 
-    let area = (entity.componentForClass(BlueprintComponent)?.area)!
-    let pous = (entity.componentForClass(BlueprintComponent)?.pous)!
+    let area = (entity.component(ofType: BlueprintComponent)?.area)!
+    let pous = (entity.component(ofType: BlueprintComponent)?.pous)!
 
-    let positionComponent = entity.componentForClass(PositionComponent)!
+    let positionComponent = entity.component(ofType: PositionComponent)!
 
     for blueprint in area {
       let x = Int(positionComponent.gridPosition.x) + blueprint[0]
@@ -118,24 +118,24 @@ class BuildComponent: GKComponent {
       tile.isBuildingOn = false
       
     }
-    Game.sharedInstance.gameStateMachine.enterState(GSGeneral)
+    Game.sharedInstance.gameStateMachine.enter(GSGeneral)
   }
 
   //  Optimisation of these would require moving all generated textures to a graphics class.
   //  And checking that it would actually be worth it!
 
-  func createPlannedTexture(unbuildable:Bool = false) -> SKTexture {
-    let node = SKShapeNode(rectOfSize: CGSize(width: 32, height: 32))
+  func createPlannedTexture(_ unbuildable:Bool = false) -> SKTexture {
+    let node = SKShapeNode(rectOf: CGSize(width: 32, height: 32))
     node.lineWidth = 0
-    node.fillColor = unbuildable ? UIColor.redColor() : UIColor.cyanColor()
-    return SKView().textureFromNode(node)!
+    node.fillColor = unbuildable ? UIColor.red : UIColor.cyan
+    return SKView().texture(from: node)!
   }
 
-  func createPlannedPOUTexture(unbuildable:Bool = false) -> SKTexture {
+  func createPlannedPOUTexture(_ unbuildable:Bool = false) -> SKTexture {
     let node = SKShapeNode(circleOfRadius: 24)
     node.lineWidth = 0
-    node.fillColor = unbuildable ? UIColor.redColor() : UIColor.orangeColor()
-    return SKView().textureFromNode(node)!
+    node.fillColor = unbuildable ? UIColor.red : UIColor.orange
+    return SKView().texture(from: node)!
   }
 
 }

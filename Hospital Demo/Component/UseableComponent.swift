@@ -32,8 +32,8 @@ class UseableComponent: GKComponent {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func callFunction(usePoint: UsePoint) {
-    guard let index = self.usePoints.indexOf({ (up) -> Bool in
+  func callFunction(_ usePoint: UsePoint) {
+    guard let index = self.usePoints.index(where: { (up) -> Bool in
       return up.realPosition == usePoint.realPosition
     }) else {
       

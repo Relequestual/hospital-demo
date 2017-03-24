@@ -16,7 +16,7 @@ struct GameToolbarOption {
   let node: SKSpriteNode
   let handler: () -> Void
   
-  init(tag: String, node: SKSpriteNode, handler: () -> Void) {
+  init(tag: String, node: SKSpriteNode, handler: @escaping () -> Void) {
     self.tag = tag
     self.node = node
     self.handler = handler
@@ -26,7 +26,7 @@ struct GameToolbarOption {
 class GameToolbar: HLToolbarNode {
   static let defaultNodeSize = CGSize(width: 20, height: 20)
   
-  private var options = [GameToolbarOption]()
+  fileprivate var options = [GameToolbarOption]()
   
   init(size: CGSize) {
     super.init()
@@ -37,11 +37,11 @@ class GameToolbar: HLToolbarNode {
     // add default options
     addOption("build_room", node: createNode(SKTexture(imageNamed: "Graphics/build_room")), handler: GameToolbar.buildRoomTouch)
     addOption("build", node: createNode(SKTexture(imageNamed: "Graphics/build_item")), handler: GameToolbar.buildTouch)
-    addOption("green", node: createNode(.greenColor()), handler: GameToolbar.greenTouch)
+    addOption("green", node: createNode(.green), handler: GameToolbar.greenTouch)
     // can also pass a closure
     
     
-    self.toolTappedBlock = { tag in self.didTapBlock(tag) }
+    self.toolTappedBlock = { tag in self.didTapBlock(tag!) }
     
     let tags = options.reduce([String]()) { (tags, option) in
       return tags + [option.tag]
@@ -51,7 +51,7 @@ class GameToolbar: HLToolbarNode {
       return nodes + [option.node]
     }
     
-    self.setTools(nodes, tags: tags, animation:HLToolbarNodeAnimation.SlideUp)
+    self.setTools(nodes, tags: tags, animation:HLToolbarNodeAnimation.slideUp)
     
     //baseScene.registerDescendant(self, withOptions: Set(arrayLiteral: HLSceneChildGestureTarget))
     //self.registerDescendant(toolbarNode, withOptions: Set<AnyObject>.setWithObject(HLSceneChildGestureTarget))
@@ -63,28 +63,28 @@ class GameToolbar: HLToolbarNode {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func addOption(tag: String, node: SKSpriteNode, handler: () -> Void) {
+  func addOption(_ tag: String, node: SKSpriteNode, handler: @escaping () -> Void) {
     let option = GameToolbarOption(tag: tag, node: node, handler: handler)
     options.append(option)
   }
   
-  private func didTapBlock(tag: String) {
+  fileprivate func didTapBlock(_ tag: String) {
     let nodes = options.filter { $0.tag == tag }
     nodes.forEach { $0.handler() }
   }
   
-  private func createNode(color: UIColor, size: CGSize = GameToolbar.defaultNodeSize) -> SKSpriteNode {
+  fileprivate func createNode(_ color: UIColor, size: CGSize = GameToolbar.defaultNodeSize) -> SKSpriteNode {
     return SKSpriteNode(color: color, size: size)
   }
   
-  private func createNode(texture: SKTexture, size: CGSize = GameToolbar.defaultNodeSize) -> SKSpriteNode {
+  fileprivate func createNode(_ texture: SKTexture, size: CGSize = GameToolbar.defaultNodeSize) -> SKSpriteNode {
     return SKSpriteNode(texture: texture, size: size)
   }
   
   class func buildRoomTouch() -> Void {
         
-    Game.sharedInstance.gameStateMachine.enterState(GSBuildRoom)
-    Game.sharedInstance.buildRoomStateMachine.enterState(BRSPrePlan)
+    Game.sharedInstance.gameStateMachine.enter(GSBuildRoom)
+    Game.sharedInstance.buildRoomStateMachine.enter(BRSPrePlan)
     print("gamestate is...")
     print(Game.sharedInstance.gameStateMachine.currentState)
 //    Game.sharedInstance.buildStateMachine.enterState(BRSPlan)
@@ -102,8 +102,8 @@ class GameToolbar: HLToolbarNode {
 //      Game.sharedInstance.gameStateMachine.enterState(GSGeneral)
 //      Game.sharedInstance.buildStateMachine
     } else {
-      Game.sharedInstance.gameStateMachine.enterState(GSBuildItem)
-      Game.sharedInstance.buildItemStateMachine.enterState(BISPlan)
+      Game.sharedInstance.gameStateMachine.enter(GSBuildItem)
+      Game.sharedInstance.buildItemStateMachine.enter(BISPlan)
       Game.sharedInstance.placingObjectsQueue.append(ReceptionDesk)
       
     }

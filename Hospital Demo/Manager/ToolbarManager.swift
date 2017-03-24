@@ -19,24 +19,24 @@ class ToolbarManager {
   var existingToolbars: [Game.rotation : Array<HLToolbarNode>]
   var currentToolbars: [Game.rotation : HLToolbarNode] = [:]
   
-  let locations = [Game.rotation.North, Game.rotation.East, Game.rotation.South, Game.rotation.West]
+  let locations = [Game.rotation.north, Game.rotation.east, Game.rotation.south, Game.rotation.west]
   
   init(scene: HLScene) {
     print("TOOLBAR MANAGER")
     self.scene = scene
     self.existingToolbars = [
-      Game.rotation.North: [],
-      Game.rotation.South: [],
-      Game.rotation.East: [],
-      Game.rotation.West: [],
+      Game.rotation.north: [],
+      Game.rotation.south: [],
+      Game.rotation.east: [],
+      Game.rotation.west: [],
     ]
   }
   
   
-  func addToolbar(toolbar: HLToolbarNode, location: Game.rotation, shown: Bool = false) -> Void{
+  func addToolbar(_ toolbar: HLToolbarNode, location: Game.rotation, shown: Bool = false) -> Void{
     print("Adding toolbar")
 //    Extend this when needed to work for all rotations
-    if (location == Game.rotation.South) {
+    if (location == Game.rotation.south) {
       
       toolbar.position = CGPoint(x: 0, y: -64)
       toolbar.zPosition = CGFloat(ZPositionManager.WorldLayer.ui.zpos)
@@ -45,42 +45,42 @@ class ToolbarManager {
     toolbar.hlSetGestureTarget(toolbar)
 //    Hide toolbars at location
     for tb in self.existingToolbars[location]! {
-      tb.hideAnimated(false)
+      tb.hide(animated: false)
     }
     self.existingToolbars[location]?.append(toolbar)
     if (shown) {
-      toolbar.hidden = true
+      toolbar.isHidden = true
       self.show(toolbar)
     }
     
   }
   
   
-  func hideAnimated(side: Game.rotation, animated: Bool) {
+  func hideAnimated(_ side: Game.rotation, animated: Bool) {
     
     if (existingToolbars[side] != nil) {
       for toolbar in existingToolbars[side]! {
-        toolbar.hideAnimated(animated)
-        toolbar.hidden = true
+        toolbar.hide(animated: animated)
+        toolbar.isHidden = true
       }
     }
   }
   
-  func show(toolbar: HLToolbarNode) -> Void{
+  func show(_ toolbar: HLToolbarNode) -> Void{
     
     for location in self.locations {
       if (((self.existingToolbars[location]?.contains(toolbar))) == true){
         print("set as current toolbar")
         if (self.currentToolbars[location] != nil) {
-          self.currentToolbars[location]!.hidden = true
+          self.currentToolbars[location]!.isHidden = true
         }
         self.currentToolbars[location] = toolbar
       }
     }
     
-    if (toolbar.hidden) {
-      toolbar.showWithOrigin(CGPoint(x: 0, y: -64), finalPosition: CGPoint(x: 0, y: 0), fullScale: 1.0, animated: true)
-      toolbar.hidden = false
+    if (toolbar.isHidden) {
+      toolbar.show(withOrigin: CGPoint(x: 0, y: -64), finalPosition: CGPoint(x: 0, y: 0), fullScale: 1.0, animated: true)
+      toolbar.isHidden = false
       if ((toolbar.parent) == nil){
         self.scene.addChild(toolbar)
         self.scene.registerDescendant(toolbar, withOptions: Set(arrayLiteral: HLSceneChildGestureTarget))
@@ -102,19 +102,19 @@ class ToolbarManager {
     }
   }
   
-  func remove(location: Game.rotation, toolbar: HLToolbarNode) {
-    toolbar.hideAnimated(true)
-    self.existingToolbars[location]!.removeAtIndex(self.existingToolbars[location]!.indexOf(toolbar)!)
-    self.existingToolbars[location]!.last!.hidden = true
+  func remove(_ location: Game.rotation, toolbar: HLToolbarNode) {
+    toolbar.hide(animated: true)
+    self.existingToolbars[location]!.remove(at: self.existingToolbars[location]!.index(of: toolbar)!)
+    self.existingToolbars[location]!.last!.isHidden = true
     self.show(self.existingToolbars[location]!.last!)
 //    Get the last toolbar and show.
   }
   
   //  Removes all toolbars but the first one for a side.
-  func resetSide(side: Game.rotation) {
+  func resetSide(_ side: Game.rotation) {
     if (currentToolbars[side] != nil) {
-      currentToolbars[side]?.hideAnimated(true)
-      currentToolbars[side]?.hidden = true
+      currentToolbars[side]?.hide(animated: true)
+      currentToolbars[side]?.isHidden = true
       let newExistingToolbars = existingToolbars[side]?.first
       existingToolbars[side] = [newExistingToolbars!]
       self.show(existingToolbars[side]!.first!)

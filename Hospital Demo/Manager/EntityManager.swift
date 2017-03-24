@@ -26,23 +26,23 @@ class EntityManager {
     self.node = node
   }
 
-  func add(entity: GKEntity, layer: ZPositionManager.WorldLayer) {
+  func add(_ entity: GKEntity, layer: ZPositionManager.WorldLayer) {
     print("adding entity")
     entities.insert(entity)
 
-    if var spriteNode = entity.componentForClass(SpriteComponent.self)?.node {
+    if let spriteNode = entity.component(ofType: SpriteComponent.self)?.node {
       spriteNode.zPosition = CGFloat(layer.zpos)
 //      spriteNode.zPosition = 1
       node.addChild(spriteNode)
     }
 
     for componentSystem in componentSystems {
-      componentSystem.addComponentWithEntity(entity)
+      componentSystem.addComponent(foundIn: entity)
     }
   }
 
-  func remove(entity: GKEntity) {
-    if let spriteNode = entity.componentForClass(SpriteComponent.self)?.node {
+  func remove(_ entity: GKEntity) {
+    if let spriteNode = entity.component(ofType: SpriteComponent.self)?.node {
       spriteNode.removeFromParent()
     }
 
@@ -50,14 +50,14 @@ class EntityManager {
     toRemove.insert(entity)
   }
 
-  func update(deltaTime: CFTimeInterval) {
+  func update(_ deltaTime: CFTimeInterval) {
     for componentSystem in componentSystems {
-      componentSystem.updateWithDeltaTime(deltaTime)
+      componentSystem.update(deltaTime: deltaTime)
     }
 
     for curRemove in toRemove {
       for componentSystem in componentSystems {
-        componentSystem.removeComponentWithEntity(curRemove)
+        componentSystem.removeComponent(foundIn: curRemove)
       }
     }
     toRemove.removeAll()

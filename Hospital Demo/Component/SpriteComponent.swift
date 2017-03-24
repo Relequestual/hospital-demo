@@ -14,7 +14,7 @@ class SpriteComponent: GKComponent {
   let node: SKSpriteNode
 
   init(texture: SKTexture) {
-    node = SKSpriteNode(texture: texture, color: SKColor.whiteColor(), size: texture.size())
+    node = SKSpriteNode(texture: texture, color: SKColor.white, size: texture.size())
     super.init()
   }
   
@@ -25,7 +25,7 @@ class SpriteComponent: GKComponent {
   func addToNodeKey() {
     self.node.userData = NSMutableDictionary()
     guard self.entity != nil else {return}
-    self.node.userData?.setObject(self.entity!, forKey: "entity")
+    self.node.userData?.setObject(self.entity!, forKey: "entity" as NSCopying)
   }
   
 }

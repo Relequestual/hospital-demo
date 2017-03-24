@@ -21,7 +21,7 @@ class DraggableSpriteComponent: GKComponent {
   
   var draggable: Bool = true
   
-  init(start:(CGPoint) -> Void, move:(CGPoint) -> Void, end:(CGPoint) -> Void) {
+  init(start:@escaping (CGPoint) -> Void, move:@escaping (CGPoint) -> Void, end:@escaping (CGPoint) -> Void) {
     
 //    Working here.
 //    Calling these directly rather than through this classes function accessors!! duh!
@@ -35,7 +35,7 @@ class DraggableSpriteComponent: GKComponent {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func touchStart(point: CGPoint) {
+  func touchStart(_ point: CGPoint) {
     if (!(self.draggable)){
       return
     }
@@ -43,7 +43,7 @@ class DraggableSpriteComponent: GKComponent {
     self.entityTouchStart(point)
   }
   
-  func touchMove(point: CGPoint) {
+  func touchMove(_ point: CGPoint) {
     print("draggable?")
     print(self.draggable)
     if (!(self.draggable)){
@@ -53,7 +53,7 @@ class DraggableSpriteComponent: GKComponent {
     self.entityTouchMove(point)
   }
   
-  func touchEnd(point: CGPoint) {
+  func touchEnd(_ point: CGPoint) {
     if (!(self.draggable)){
       return
     }

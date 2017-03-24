@@ -31,17 +31,17 @@ class BuildRoomComponent: GKComponent {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func planAtPoint(gridPosition: CGPoint) {
+  func planAtPoint(_ gridPosition: CGPoint) {
     self.roomBlueprint.addComponent(PositionComponent(gridPosition: gridPosition))
     guard let tile = Game.sharedInstance.tilesAtCoords[Int(gridPosition.x)]![Int(gridPosition.y)] else {
       // No tile at this position
       return
     }
-    let spritePosition = (tile.componentForClass(PositionComponent)?.spritePosition)!
+    let spritePosition = (tile.component(ofType: PositionComponent)?.spritePosition)!
     print("mod check")
-    print(self.size.width % 2 == 0)
+    print(self.size.width.truncatingRemainder(dividingBy: 2) == 0)
 //    self.roomBlueprint.componentForClass(SpriteComponent)?.node.position = CGPoint(x: spritePosition.x + (self.size.width % 2 == 0 ? 32 : 0), y: spritePosition.y + (self.size.height % 2 == 0 ? 32 : 0))
-      self.roomBlueprint.componentForClass(SpriteComponent)?.node.position = self.getPointForSize(spritePosition)
+      self.roomBlueprint.component(ofType: SpriteComponent)?.node.position = self.getPointForSize(spritePosition)
 
 //    let sprite = self.roomBlueprint.componentForClass(SpriteComponent)
     
@@ -61,25 +61,25 @@ class BuildRoomComponent: GKComponent {
     confirmToolbar.confirm = {
       print("OK TO BUILD ROOM");
       //remove handles from plan
-      Game.sharedInstance.buildRoomStateMachine.roomBuilding?.componentForClass(BuildRoomComponent)?.roomBlueprint.removeResizeHandles()
+      Game.sharedInstance.buildRoomStateMachine.roomBuilding?.component(ofType: BuildRoomComponent)?.roomBlueprint.removeResizeHandles()
       //make plan non moveable
-      Game.sharedInstance.buildRoomStateMachine.roomBuilding?.componentForClass(BuildRoomComponent)?.roomBlueprint.componentForClass(DraggableSpriteComponent)?.draggable = false
+      Game.sharedInstance.buildRoomStateMachine.roomBuilding?.component(ofType: BuildRoomComponent)?.roomBlueprint.component(ofType: DraggableSpriteComponent)?.draggable = false
       
       //    Set state to BRSDoor
-      Game.sharedInstance.buildRoomStateMachine.enterState(BRSDoor)
+      Game.sharedInstance.buildRoomStateMachine.enter(BRSDoor)
       //    create function to allow for placement of door
       self.roomBlueprint.allowToPlaceDoor()
       
     }
 //    replace current toolbar with confirm toolbar.
-    Game.sharedInstance.toolbarManager?.addToolbar(confirmToolbar, location: Game.rotation.South, shown: true)
+    Game.sharedInstance.toolbarManager?.addToolbar(confirmToolbar, location: Game.rotation.south, shown: true)
     
 
   }
 
   
   func clearPlan() {
-    Game.sharedInstance.entityManager.node.enumerateChildNodesWithName("planning_room_blueprint", usingBlock: { (node, stop) -> Void in
+    Game.sharedInstance.entityManager.node.enumerateChildNodes(withName: "planning_room_blueprint", using: { (node, stop) -> Void in
       if let entity = node.userData?["entity"]as? GKEntity {
         Game.sharedInstance.entityManager.remove(entity)
       } else {
@@ -94,12 +94,12 @@ class BuildRoomComponent: GKComponent {
   func cancelBuild() {
     self.clearPlan()
 //    re set game and build states.
-    Game.sharedInstance.gameStateMachine.enterState(GSGeneral)
+    Game.sharedInstance.gameStateMachine.enter(GSGeneral)
     
   }
   
-  func getPointForSize (point: CGPoint) -> CGPoint {
-    return CGPoint(x: point.x + (self.size.width % 2 == 0 ? 32 : 0), y: point.y + (self.size.height % 2 == 0 ? 32 : 0))
+  func getPointForSize (_ point: CGPoint) -> CGPoint {
+    return CGPoint(x: point.x + (self.size.width.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0), y: point.y + (self.size.height.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0))
   }
   
 }

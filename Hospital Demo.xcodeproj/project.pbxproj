@@ -285,6 +285,7 @@
 					13C7652B1BF61B2D00AC0223 = {
 						CreatedOnToolsVersion = 7.1.1;
 						DevelopmentTeam = PF4KKVLGFM;
+						LastSwiftMigration = 0820;
 					};
 				};
 			};
@@ -526,7 +527,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Relequestual.Hospital-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -544,7 +545,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Relequestual.Hospital-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

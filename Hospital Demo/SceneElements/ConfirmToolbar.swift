@@ -16,7 +16,7 @@ import HLSpriteKit
 class ConfirmToolbar: HLToolbarNode {
   static let defaultNodeSize = CGSize(width: 20, height: 20)
   
-  private var options = [GameToolbarOption]()
+  fileprivate var options = [GameToolbarOption]()
   var confirm: (()->Void)?
   var cancel: (()->Void)?
   
@@ -29,11 +29,11 @@ class ConfirmToolbar: HLToolbarNode {
     self.zPosition = CGFloat(ZPositionManager.WorldLayer.ui.zpos)
     
     // add default options
-    addOption("ok", node: createNode(.greenColor()), handler: self.okTouch)
-    addOption("cancel", node: createNode(.redColor()), handler: self.cancelTouch)
+    addOption("ok", node: createNode(.green), handler: self.okTouch)
+    addOption("cancel", node: createNode(.red), handler: self.cancelTouch)
 
     
-    self.toolTappedBlock = { tag in self.didTapBlock(tag) }
+    self.toolTappedBlock = { tag in self.didTapBlock(tag!) }
     
     let tags = options.reduce([String]()) { (tags, option) in
       return tags + [option.tag]
@@ -43,7 +43,7 @@ class ConfirmToolbar: HLToolbarNode {
       return nodes + [option.node]
     }
     
-    self.setTools(nodes, tags: tags, animation:HLToolbarNodeAnimation.SlideUp)
+    self.setTools(nodes, tags: tags, animation:HLToolbarNodeAnimation.slideUp)
     
     //self.registerDescendant(toolbarNode, withOptions: Set<AnyObject>.setWithObject(HLSceneChildGestureTarget))
     //baseScene.registerDescendant(self, withOptions: Set(arrayLiteral: HLSceneChildGestureTarget))
@@ -54,21 +54,21 @@ class ConfirmToolbar: HLToolbarNode {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func addOption(tag: String, node: SKSpriteNode, handler: () -> Void) {
+  func addOption(_ tag: String, node: SKSpriteNode, handler: () -> Void) {
     let option = GameToolbarOption(tag: tag, node: node, handler: handler)
     options.append(option)
   }
   
-  private func didTapBlock(tag: String) {
+  fileprivate func didTapBlock(_ tag: String) {
     let nodes = options.filter { $0.tag == tag }
     nodes.forEach { $0.handler() }
   }
   
-  private func createNode(color: UIColor, size: CGSize = GameToolbar.defaultNodeSize) -> SKSpriteNode {
+  fileprivate func createNode(_ color: UIColor, size: CGSize = GameToolbar.defaultNodeSize) -> SKSpriteNode {
     return SKSpriteNode(color: color, size: size)
   }
   
-  private func createNode(texture: SKTexture, size: CGSize = GameToolbar.defaultNodeSize) -> SKSpriteNode {
+  fileprivate func createNode(_ texture: SKTexture, size: CGSize = GameToolbar.defaultNodeSize) -> SKSpriteNode {
     return SKSpriteNode(texture: texture, size: size)
   }
   

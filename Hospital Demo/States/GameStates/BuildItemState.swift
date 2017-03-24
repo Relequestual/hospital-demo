@@ -29,13 +29,13 @@ class BuildItemState : GKStateMachine{
 }
 
 class BISPlan: GKState {
-  override func isValidNextState(stateClass: AnyClass) -> Bool {
+  override func isValidNextState(_ stateClass: AnyClass) -> Bool {
     return stateClass == BISPlace.self
   }
 }
 
 class BISPlace: GKState {
-  override func didEnterWithPreviousState(previousState: GKState?) {
+  override func didEnter(from previousState: GKState?) {
     print(previousState)
     print("In Place Item State")
   }

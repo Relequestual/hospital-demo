@@ -10,9 +10,9 @@ import SpriteKit
 
 class GameScene: BaseScene {
 
-  override func didMoveToView(view: SKView) {
+  override func didMove(to view: SKView) {
 
-    super.didMoveToView(view)
+    super.didMove(to: view)
 
     //        /* Setup your scene here */
     //        let myLabel = SKLabelNode(fontNamed:"Chalkduster")

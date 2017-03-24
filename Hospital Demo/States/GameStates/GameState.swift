@@ -28,13 +28,13 @@ class GameState : GKStateMachine{
 
 class GSBuildItem: GKState {
 
-  override func didEnterWithPreviousState(previousState: GKState?) {
+  override func didEnter(from previousState: GKState?) {
     print(previousState)
     print("In game state build state")
     Game.sharedInstance.canAutoScroll = true
   }
   
-  override func willExitWithNextState(nextState: GKState) {
+  override func willExit(to nextState: GKState) {
     Game.sharedInstance.canAutoScroll = false
   }
 
@@ -42,12 +42,12 @@ class GSBuildItem: GKState {
 
 class GSBuildRoom: GKState {
   
-  override func didEnterWithPreviousState(previousState: GKState?) {
+  override func didEnter(from previousState: GKState?) {
     print(previousState)
     Game.sharedInstance.canAutoScroll = true
   }
   
-  override func willExitWithNextState(nextState: GKState) {
+  override func willExit(to nextState: GKState) {
     Game.sharedInstance.canAutoScroll = false
   }
   
@@ -55,8 +55,8 @@ class GSBuildRoom: GKState {
 
 class GSGeneral: GKState {
   
-  override func didEnterWithPreviousState(previousState: GKState?) {
-    Game.sharedInstance.toolbarManager?.resetSide(Game.rotation.South)
+  override func didEnter(from previousState: GKState?) {
+    Game.sharedInstance.toolbarManager?.resetSide(Game.rotation.south)
     Game.sharedInstance.buildRoomStateMachine.resetState()
     Game.sharedInstance.buildItemStateMachine.resetState()
 

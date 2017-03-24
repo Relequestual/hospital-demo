@@ -13,7 +13,7 @@ class TouchableSpriteComponent: GKComponent {
   
   var entityTouched: ()->Void;
   
-  init(f:() -> Void) {
+  init(f:@escaping () -> Void) {
     self.entityTouched = f
     super.init()
   }

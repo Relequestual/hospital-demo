@@ -11,6 +11,30 @@ import Foundation
 import SpriteKit
 import GameplayKit
 import HLSpriteKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 /**
  A base class for all of the scenes in the app.
@@ -18,9 +42,9 @@ import HLSpriteKit
 class BaseScene: HLScene {
 
   // Update time
-  var lastUpdateTimeInterval: NSTimeInterval = 0
+  var lastUpdateTimeInterval: TimeInterval = 0
 
-  var updateLastTime: NSTimeInterval = 0
+  var updateLastTime: TimeInterval = 0
   
   /**
    The native size for this scene. This is the height at which the scene
@@ -40,8 +64,8 @@ class BaseScene: HLScene {
 
   // MARK: SKScene Life Cycle
 
-  override func didMoveToView(view: SKView) {
-    super.didMoveToView(view)
+  override func didMove(to view: SKView) {
+    super.didMove(to: view)
 
 
     updateCameraScale()
@@ -66,18 +90,18 @@ class BaseScene: HLScene {
     let bottomleft = CGPoint(x: 0.0, y: 0.0)
     let center = CGPoint(x: 0.5, y: 0.5)
 
-    let myContentNode = SKSpriteNode(color: UIColor.blueColor(), size: CGSize(width:2000, height:2000))
+    let myContentNode = SKSpriteNode(color: UIColor.blue, size: CGSize(width:2000, height:2000))
 
     myContentNode.anchorPoint = bottomleft
 
-    let red1Node = SKSpriteNode(color: UIColor.redColor(), size: CGSize(width:500, height: 500))
+    let red1Node = SKSpriteNode(color: UIColor.red, size: CGSize(width:500, height: 500))
     red1Node.position = CGPoint(x: 500, y: 500)
     red1Node.anchorPoint = center
 
-    let red2Node = SKSpriteNode(color: UIColor.redColor(), size: CGSize(width:1000, height: 1000))
+    let red2Node = SKSpriteNode(color: UIColor.red, size: CGSize(width:1000, height: 1000))
     red2Node.position = CGPoint(x: 1500.0, y: 1500.0)
     red2Node.anchorPoint = center
-    let greenNode = SKSpriteNode(color: UIColor.greenColor(), size: CGSize(width:100, height: 100))
+    let greenNode = SKSpriteNode(color: UIColor.green, size: CGSize(width:100, height: 100))
     greenNode.position = CGPoint(x: 1000.0, y: 1000.0)
     greenNode.anchorPoint = center
 
@@ -112,7 +136,7 @@ class BaseScene: HLScene {
     createTiles()
     
     let debugLayer = SpriteDebugComponent.debugLayer
-    let debugTexture = view.textureFromNode(debugLayer)
+    let debugTexture = view.texture(from: debugLayer)
     let debugNode = SKSpriteNode(texture: debugTexture)
     debugNode.zPosition = 100
     debugNode.anchorPoint = CGPoint(x: 0,y: 0)
@@ -130,7 +154,7 @@ class BaseScene: HLScene {
     Game.sharedInstance.toolbarManager = ToolbarManager(scene: self)
     
     let gameToolbar = GameToolbar(size: CGSize(width: view.bounds.width, height: 64))
-    Game.sharedInstance.toolbarManager?.addToolbar(gameToolbar, location: Game.rotation.South, shown: true)
+    Game.sharedInstance.toolbarManager?.addToolbar(gameToolbar, location: Game.rotation.south, shown: true)
 //    Only temp
 //    Game.sharedInstance.gameToolbar = gameToolbar
     
@@ -150,9 +174,9 @@ class BaseScene: HLScene {
 //    myScrollNode.position = CGPoint(x: 0, y: 64)
 
 
-    myScrollNode.contentClipped = true
+    myScrollNode.isContentClipped = true
 
-    self.gestureTargetHitTestMode = HLSceneGestureTargetHitTestMode.ZPositionThenParent
+    self.gestureTargetHitTestMode = HLSceneGestureTargetHitTestMode.zPositionThenParent
     
     self.addChild(myScrollNode)
     
@@ -160,11 +184,11 @@ class BaseScene: HLScene {
     
     self.HL_showMessage("testing!")
 
-    self.paused = false
+    self.isPaused = false
 
   }
 
-  override func didChangeSize(oldSize: CGSize) {
+  override func didChangeSize(_ oldSize: CGSize) {
     super.didChangeSize(oldSize)
 
     updateCameraScale()
@@ -172,7 +196,7 @@ class BaseScene: HLScene {
   }
 
   /// Centers the scene's camera on a given point.
-  func centerCameraOnPoint(point: CGPoint) {
+  func centerCameraOnPoint(_ point: CGPoint) {
     if let camera = camera {
       camera.position = point
     }
@@ -194,9 +218,9 @@ class BaseScene: HLScene {
 
     let initSize: [Int] = [10, 10]
 
-    for var x: Int = 0; x < initSize[0]; x++ {
+    for x: Int in 0 ..< initSize[0] {
       Game.sharedInstance.tilesAtCoords[x] = [:]
-      for var y: Int = 0; y < initSize[1]; y++ {
+      for y: Int in 0 ..< initSize[1] {
 
         let tile = Tile(imageName: "Graphics/Tile.png", x: x, y: y)
 
@@ -211,7 +235,7 @@ class BaseScene: HLScene {
 
 
   // Taken from entity component example artcile...
-  override func update(currentTime: CFTimeInterval) {
+  override func update(_ currentTime: TimeInterval) {
 
     super.update(currentTime)
 
@@ -244,7 +268,7 @@ class BaseScene: HLScene {
 
 
 
-  func updateAutoScroll(time: CFTimeInterval) {
+  func updateAutoScroll(_ time: CFTimeInterval) {
 
       let scrollXDistance = Game.sharedInstance.autoScrollVelocityX * CGFloat(time);
       let scrollYDistance = Game.sharedInstance.autoScrollVelocityY * CGFloat(time);
@@ -261,31 +285,31 @@ class BaseScene: HLScene {
   }
 
 
-  func HL_showMessage(message: NSString) {
+  func HL_showMessage(_ message: NSString) {
 
     
-    let _messageNode = HLMessageNode(color: UIColor.blackColor(), size: CGSizeZero)
+    let _messageNode = HLMessageNode(color: UIColor.black, size: CGSize.zero)
 
-    _messageNode.zPosition = 10000
-    _messageNode.fontName = "Helvetica"
-    _messageNode.fontSize = 12.0
-    _messageNode.verticalAlignmentMode = HLLabelNodeVerticalAlignmentMode.AlignFont
+    _messageNode?.zPosition = 10000
+    _messageNode?.fontName = "Helvetica"
+    _messageNode?.fontSize = 12.0
+    _messageNode?.verticalAlignmentMode = HLLabelNodeVerticalAlignmentMode.alignFont
 
-    _messageNode.messageLingerDuration = 4.0
+    _messageNode?.messageLingerDuration = 4.0
 
-    _messageNode.size = CGSize(width: self.size.width, height: 20.0)
-    _messageNode.position = CGPoint(x: 0, y: 0 + self.size.height);
-    _messageNode.anchorPoint = CGPoint(x: 0, y: 1)
-    _messageNode.showMessage(message as String, parent: self)
+    _messageNode?.size = CGSize(width: self.size.width, height: 20.0)
+    _messageNode?.position = CGPoint(x: 0, y: 0 + self.size.height);
+    _messageNode?.anchorPoint = CGPoint(x: 0, y: 1)
+    _messageNode?.showMessage(message as String, parent: self)
   }
 
   
-  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 
     let touch = touches.first!
-    let positionInScene = touch.locationInNode(self)
-    let positionInWorldnodeContent = touches.first?.locationInNode(Game.sharedInstance.wolrdnode.contentNode)
-    let touchedNodes = self.nodesAtPoint(positionInScene)
+    let positionInScene = touch.location(in: self)
+    let positionInWorldnodeContent = touches.first?.location(in: Game.sharedInstance.wolrdnode.contentNode)
+    let touchedNodes = self.nodes(at: positionInScene)
     _panLastNodeLocation = positionInScene
     
     var draggingDraggableNode = false
@@ -300,20 +324,20 @@ class BaseScene: HLScene {
     for node in touchedNodes {
       guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else {continue}
       
-      if (entity.componentForClass(DraggableSpriteComponent) != nil) {
-        topDraggableNodeEntity = node.zPosition > topDraggableNodeEntity.componentForClass(SpriteComponent)?.node.zPosition ? entity : topDraggableNodeEntity
+      if (entity.component(ofType: DraggableSpriteComponent) != nil) {
+        topDraggableNodeEntity = node.zPosition > topDraggableNodeEntity.component(ofType: SpriteComponent)?.node.zPosition ? entity : topDraggableNodeEntity
 
         Game.sharedInstance.draggingEntiy = topDraggableNodeEntity
         draggingDraggableNode = true
         Game.sharedInstance.toolbarManager?.hideAll()
       }
 
-      if (entity.componentForClass(TouchableSpriteComponent) != nil) {
-        topTappableNodeEntity = node.zPosition > topTappableNodeEntity.componentForClass(SpriteComponent)?.node.zPosition ? entity : topTappableNodeEntity
+      if (entity.component(ofType: TouchableSpriteComponent) != nil) {
+        topTappableNodeEntity = node.zPosition > topTappableNodeEntity.component(ofType: SpriteComponent)?.node.zPosition ? entity : topTappableNodeEntity
       }
       
     }
-    topDraggableNodeEntity.componentForClass(DraggableSpriteComponent)?.touchStart(positionInWorldnodeContent!)
+    topDraggableNodeEntity.component(ofType: DraggableSpriteComponent)?.touchStart(positionInWorldnodeContent!)
     
     Game.sharedInstance.tappableEntity = topTappableNodeEntity
 
@@ -321,20 +345,20 @@ class BaseScene: HLScene {
 
   }
 
-  override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+  override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
     print("touches moved ------------")
 
-    let positionInSceneView = touches.first?.locationInView(self.view)
+    let positionInSceneView = touches.first?.location(in: self.view)
     Game.sharedInstance.touchDidMove = true
 
     if (Game.sharedInstance.panningWold) {
       panWold(touches)
     }
     
-    let positionInWorldnodeContent = touches.first?.locationInNode(Game.sharedInstance.wolrdnode.contentNode)
+    let positionInWorldnodeContent = touches.first?.location(in: Game.sharedInstance.wolrdnode.contentNode)
     
     if (Game.sharedInstance.draggingEntiy != nil) {
-      Game.sharedInstance.draggingEntiy?.componentForClass(DraggableSpriteComponent)?.touchMove(positionInWorldnodeContent!)
+      Game.sharedInstance.draggingEntiy?.component(ofType: DraggableSpriteComponent)?.touchMove(positionInWorldnodeContent!)
     }
 
     if (Game.sharedInstance.canAutoScroll && !Game.sharedInstance.panningWold) {
@@ -346,24 +370,24 @@ class BaseScene: HLScene {
 
   }
   
-  override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+  override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
      print("touches ended")
 //    Game.sharedInstance.gameToolbar?.hidden = false
     
     Game.sharedInstance.toolbarManager?.showAll()
     
     if (Game.sharedInstance.tappableEntity != nil) {
-      Game.sharedInstance.tappableEntity?.componentForClass(TouchableSpriteComponent)?.callFunction()
+      Game.sharedInstance.tappableEntity?.component(ofType: TouchableSpriteComponent)?.callFunction()
     }
     let touch = touches.first!
-    let positionInScene = touch.locationInNode(self)
+    let positionInScene = touch.location(in: self)
 
     if (Game.sharedInstance.touchDidMove) {
 
       Game.sharedInstance.autoScrollVelocityX = 0;
       Game.sharedInstance.autoScrollVelocityY = 0;
      
-      Game.sharedInstance.draggingEntiy?.componentForClass(DraggableSpriteComponent)?.touchEnd(positionInScene)
+      Game.sharedInstance.draggingEntiy?.component(ofType: DraggableSpriteComponent)?.touchEnd(positionInScene)
       Game.sharedInstance.draggingEntiy = nil
     }
     
@@ -372,12 +396,12 @@ class BaseScene: HLScene {
   }
   
   
-  func panWold(touches: Set<UITouch>) {
-    let positionInScene = touches.first?.locationInNode(self)
-    let nodeLocation = convertPoint(positionInScene!, fromNode: self)
+  func panWold(_ touches: Set<UITouch>) {
+    let positionInScene = touches.first?.location(in: self)
+    let nodeLocation = convert(positionInScene!, from: self)
     
     let contentNodeLocation = Game.sharedInstance.wolrdnode.contentOffset
-    let translationInNode = CGPointMake(nodeLocation.x - _panLastNodeLocation.x, nodeLocation.y - _panLastNodeLocation.y)
+    let translationInNode = CGPoint(x: nodeLocation.x - _panLastNodeLocation.x, y: nodeLocation.y - _panLastNodeLocation.y)
     
     let currentScale = Game.sharedInstance.wolrdnode.contentScale
     Game.sharedInstance.wolrdnode.setContentOffset(CGPoint(x: contentNodeLocation.x + translationInNode.x, y: contentNodeLocation.y + translationInNode.y), contentScale: currentScale)
@@ -387,7 +411,7 @@ class BaseScene: HLScene {
   
   
   
-  func checkAutoScroll(point: CGPoint) {
+  func checkAutoScroll(_ point: CGPoint) {
     
     
 //    let FLWorldAutoScrollMarginSizeMax = CGFloat(96.0)
@@ -398,7 +422,7 @@ class BaseScene: HLScene {
 //      marginSize = FLWorldAutoScrollMarginSizeMax
 //    }
 
-    var marginSize = CGFloat(64)
+    let marginSize = CGFloat(64)
 
     
     
@@ -412,9 +436,9 @@ class BaseScene: HLScene {
 //    Remove this at some point!
     let additionalYMargin = CGFloat(0)
 
-    let sceneXMin = CGFloat(scorllNode.size.width * -1.0 * scorllNode.anchorPoint.x)
+    let sceneXMin = CGFloat((scorllNode?.size.width)! * -1.0 * (scorllNode?.anchorPoint.x)!)
     let sceneXMax = CGFloat(sceneXMin + self.size.width)
-    let sceneYMin = CGFloat(scorllNode.size.height * -1.0 * scorllNode.anchorPoint.y)
+    let sceneYMin = CGFloat((scorllNode?.size.height)! * -1.0 * (scorllNode?.anchorPoint.y)!)
     let sceneYMax = CGFloat(sceneYMin + self.size.height)
 
 

@@ -16,7 +16,7 @@ class Button: GKEntity {
   
 //  var entityTouch: ()->Void
 
-  init(texture: SKTexture, touch_f:() -> Void) {
+  init(texture: SKTexture, touch_f:@escaping () -> Void) {
     super.init()
     
     let spriteComponent = SpriteComponent(texture: texture)
@@ -32,7 +32,7 @@ class Button: GKEntity {
   }
   
   
-  init(texture: SKTexture, touch_start_f:(CGPoint) -> Void, touch_move_f:(CGPoint) -> Void, touch_end_f:(CGPoint) -> Void) {
+  init(texture: SKTexture, touch_start_f:@escaping (CGPoint) -> Void, touch_move_f:@escaping (CGPoint) -> Void, touch_end_f:@escaping (CGPoint) -> Void) {
     super.init()
     
     let spriteComponent = SpriteComponent(texture: texture)

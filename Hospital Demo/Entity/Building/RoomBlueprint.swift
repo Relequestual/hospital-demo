@@ -15,22 +15,22 @@ class RoomBlueprint: GKEntity {
   var size:CGSize = CGSize(width: 1, height: 1) {
     didSet {
       print("==== didset size")
-      let previousPosition = self.componentForClass(SpriteComponent)?.node.position
+      let previousPosition = self.component(ofType: SpriteComponent)?.node.position
       Game.sharedInstance.entityManager.remove(self)
-      self.removeComponentForClass(SpriteComponent)
+      self.removeComponent(ofType: SpriteComponent)
       self.addComponent(SpriteComponent(texture: self.createFloorplanTexture(size)))
-      self.componentForClass(SpriteComponent)?.node.name = "planning_room_blueprint"
-      self.componentForClass(SpriteComponent)?.node.position = previousPosition!
-      self.componentForClass(SpriteComponent)!.addToNodeKey()
+      self.component(ofType: SpriteComponent)?.node.name = "planning_room_blueprint"
+      self.component(ofType: SpriteComponent)?.node.position = previousPosition!
+      self.component(ofType: SpriteComponent)!.addToNodeKey()
       Game.sharedInstance.entityManager.add(self, layer: ZPositionManager.WorldLayer.world)
     }
   }
   
-  static var square = SKShapeNode(rectOfSize: CGSize(width: 64, height: 64))
-  static var innerSquare = SKShapeNode(rectOfSize: CGSize(width: 55, height: 55))
+  static var square = SKShapeNode(rectOf: CGSize(width: 64, height: 64))
+  static var innerSquare = SKShapeNode(rectOf: CGSize(width: 55, height: 55))
 
   static var pattern : [CGFloat] = [4.0, 4.0]
-  static let dashed = CGPathCreateCopyByDashingPath (square.path!, nil, 0, pattern, 2)
+  static let dashed = CGPath (__byDashing: square.path!, transform: nil, phase: 0, lengths: pattern, count: 2)
   static var dashedSquare = SKShapeNode(path: dashed!)
   
   
@@ -56,46 +56,46 @@ class RoomBlueprint: GKEntity {
         self.dragMoveHandler(point)
         print("move drag room")
       }, end: { (point: CGPoint) in
-        self.dragOffset = CGPointZero
+        self.dragOffset = CGPoint.zero
         print("end drag room")
     }))
 
     self.addComponent(SpriteComponent(texture: self.createFloorplanTexture(self.size)))
-    self.componentForClass(SpriteComponent)?.node.name = "planning_room_blueprint"
+    self.component(ofType: SpriteComponent)?.node.name = "planning_room_blueprint"
     
-    self.componentForClass(SpriteComponent)!.addToNodeKey()
+    self.component(ofType: SpriteComponent)!.addToNodeKey()
     
-    self.addComponent(PositionComponent(gridPosition: CGPointZero))
+    self.addComponent(PositionComponent(gridPosition: CGPoint.zero))
   }
   
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func dragStartHandler(point:CGPoint) {
-    let spritePos = self.componentForClass(SpriteComponent)?.node.position
+  func dragStartHandler(_ point:CGPoint) {
+    let spritePos = self.component(ofType: SpriteComponent)?.node.position
     self.dragOffset = CGPoint(x: spritePos!.x - point.x, y: spritePos!.y - point.y)
     
-    let tile = getTileAtPoint(CGPoint(x: spritePos!.x - (self.size.width % 2 == 0 ? 32 : 0), y: spritePos!.y - (self.size.height % 2 == 0 ? 32 : 0)))
+    let tile = getTileAtPoint(CGPoint(x: spritePos!.x - (self.size.width.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0), y: spritePos!.y - (self.size.height.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0)))
     self.anchorTile = tile
   }
   
-  func dragMoveHandler(point:CGPoint) {
-    let spritePos = self.componentForClass(SpriteComponent)?.node.position
+  func dragMoveHandler(_ point:CGPoint) {
+    let spritePos = self.component(ofType: SpriteComponent)?.node.position
     
-    let tile = getTileAtPoint(CGPoint(x: point.x + self.dragOffset!.x - (self.size.width % 2 == 0 ? 32 : 0), y: point.y + self.dragOffset!.y - (self.size.height % 2 == 0 ? 32 : 0)))
+    let tile = getTileAtPoint(CGPoint(x: point.x + self.dragOffset!.x - (self.size.width.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0), y: point.y + self.dragOffset!.y - (self.size.height.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0)))
 //    print(self.anchorTile)
 //    print(tile)
     if (self.anchorTile !== tile) {
-      if (tile == nil || !tile!.isKindOfClass(Tile)) {
+      if (tile == nil || !tile!.isKind(of: Tile.self)) {
         return
       }
       self.anchorTile = tile
-      let tilePosition = tile?.componentForClass(PositionComponent)?.spritePosition
+      let tilePosition = tile?.component(ofType: PositionComponent)?.spritePosition
 //      Later, make genertic north south east west actions... maybe
-      let moveAction = SKAction.moveTo(self.getPointForSize(tilePosition!), duration: NSTimeInterval(0.1))
-      moveAction.timingMode = SKActionTimingMode.EaseInEaseOut
-      self.componentForClass(SpriteComponent)?.node.runAction(moveAction, completion: {})
+      let moveAction = SKAction.move(to: self.getPointForSize(tilePosition!), duration: TimeInterval(0.1))
+      moveAction.timingMode = SKActionTimingMode.easeInEaseOut
+      self.component(ofType: SpriteComponent)?.node.run(moveAction, completion: {})
     }
     
   }
@@ -118,7 +118,7 @@ class RoomBlueprint: GKEntity {
   
   
   func createResizeHandles() {
-    let spritePosition = CGPointZero
+    let spritePosition = CGPoint.zero
     let edgeYT = Int(spritePosition.y + size.height * 64 / 2)
     let edgeYB = Int(spritePosition.y - size.height * 64 / 2)
     
@@ -134,19 +134,19 @@ class RoomBlueprint: GKEntity {
     
 //    array of dictionaries needed for button creation
     
-    let southEdge = resizeHandleDrawingInstruction(axis: Game.axis.Vert, start: edgeXL, end: edgeXR, face: edgeYB, side: Game.rotation.South)
-    let northEdge = resizeHandleDrawingInstruction(axis: Game.axis.Vert, start: edgeXL, end: edgeXR, face: edgeYT, side: Game.rotation.North)
+    let southEdge = resizeHandleDrawingInstruction(axis: Game.axis.vert, start: edgeXL, end: edgeXR, face: edgeYB, side: Game.rotation.south)
+    let northEdge = resizeHandleDrawingInstruction(axis: Game.axis.vert, start: edgeXL, end: edgeXR, face: edgeYT, side: Game.rotation.north)
     
-    let eastEdge = resizeHandleDrawingInstruction(axis: Game.axis.Hroiz, start: edgeYB, end: edgeYT, face: edgeXR, side: Game.rotation.East)
-    let westEdge = resizeHandleDrawingInstruction(axis: Game.axis.Hroiz, start: edgeYB, end: edgeYT, face: edgeXL, side: Game.rotation.West)
+    let eastEdge = resizeHandleDrawingInstruction(axis: Game.axis.hroiz, start: edgeYB, end: edgeYT, face: edgeXR, side: Game.rotation.east)
+    let westEdge = resizeHandleDrawingInstruction(axis: Game.axis.hroiz, start: edgeYB, end: edgeYT, face: edgeXL, side: Game.rotation.west)
 
 
     let edgeInstructions = [southEdge, northEdge, eastEdge, westEdge]
     
     for edgeInstruct in edgeInstructions {
       
-      for x in edgeInstruct.start.stride(to:edgeInstruct.end, by: 64) {
-        let texture_vert = SKTexture(imageNamed: edgeInstruct.axis == Game.axis.Vert ? "Graphics/drag_vert" : "Graphics/drag_hroz")
+      for x in stride(from: edgeInstruct.start, to:edgeInstruct.end, by: 64) {
+        let texture_vert = SKTexture(imageNamed: edgeInstruct.axis == Game.axis.vert ? "Graphics/drag_vert" : "Graphics/drag_hroz")
         let vertButton = Button(texture: texture_vert, touch_start_f: { (point: CGPoint) in
           self.handleDragStart(point, axis: edgeInstruct.axis)
           print("handle drag start")
@@ -156,22 +156,22 @@ class RoomBlueprint: GKEntity {
           }, touch_end_f: { (point) in
             //          handleDragend(point: point)
         })
-        let buttonVertSprite = vertButton.componentForClass(SpriteComponent)!.node
+        let buttonVertSprite = vertButton.component(ofType: SpriteComponent)!.node
         
-        buttonVertSprite.zPosition = (self.componentForClass(SpriteComponent)?.node.zPosition)! + 1
+        buttonVertSprite.zPosition = (self.component(ofType: SpriteComponent)?.node.zPosition)! + 1
         buttonVertSprite.setScale(0.5)
         buttonVertSprite.name = "planning_room_blueprint_handles"
-        buttonVertSprite.position = edgeInstruct.axis == Game.axis.Vert ? CGPoint(x: x + 32, y: edgeInstruct.face) : CGPoint(x: edgeInstruct.face, y: x + 32 )
-        buttonVertSprite.color = SKColor.blueColor()
+        buttonVertSprite.position = edgeInstruct.axis == Game.axis.vert ? CGPoint(x: x + 32, y: edgeInstruct.face) : CGPoint(x: edgeInstruct.face, y: x + 32 )
+        buttonVertSprite.color = SKColor.blue
         buttonVertSprite.colorBlendFactor = 1
         let circle = SKShapeNode(circleOfRadius: 32)
-        circle.strokeColor = SKColor.blueColor()
+        circle.strokeColor = SKColor.blue
         circle.lineWidth = 2
         
         //TODO: make this button a single image sometime
         buttonVertSprite.addChild(circle)
-        vertButton.componentForClass(SpriteComponent)?.addToNodeKey()
-        self.componentForClass(SpriteComponent)?.node.addChild((vertButton.componentForClass(SpriteComponent)?.node)!)
+        vertButton.component(ofType: SpriteComponent)?.addToNodeKey()
+        self.component(ofType: SpriteComponent)?.node.addChild((vertButton.component(ofType: SpriteComponent)?.node)!)
         //      Game.sharedInstance.entityManager.add(vertButton, layer: ZPositionManager.WorldLayer.interaction)
       }
     }
@@ -179,32 +179,32 @@ class RoomBlueprint: GKEntity {
   
 
 //  Not really happy about this, but...
-  var handleDragAxis: Game.axis = Game.axis.Hroiz
+  var handleDragAxis: Game.axis = Game.axis.hroiz
   var handleDragXSign: Game.numericalSignage = Game.numericalSignage.positive
   var handleDragYSign: Game.numericalSignage = Game.numericalSignage.positive
-  var handleDragEdge: Game.rotation = Game.rotation.North
-  var handleDragPreviousMovePoint: CGPoint = CGPointZero
+  var handleDragEdge: Game.rotation = Game.rotation.north
+  var handleDragPreviousMovePoint: CGPoint = CGPoint.zero
   
-  func handleDragStart (point: CGPoint, axis: Game.axis) {
+  func handleDragStart (_ point: CGPoint, axis: Game.axis) {
     self.handleDragAxis = axis
     self.handleDragPreviousMovePoint = point
 //    Determine edge is being dragged
-    let centerOfRoom = self.componentForClass(SpriteComponent)?.node.position
+    let centerOfRoom = self.component(ofType: SpriteComponent)?.node.position
     self.handleDragXSign = (point.x < centerOfRoom!.x) ? Game.numericalSignage.negative : Game.numericalSignage.positive
     self.handleDragYSign = (point.y < centerOfRoom!.y) ? Game.numericalSignage.negative : Game.numericalSignage.positive
     
     switch (self.handleDragAxis, self.handleDragXSign, self.handleDragYSign) {
-    case (Game.axis.Vert, _, Game.numericalSignage.negative):
-      self.handleDragEdge = Game.rotation.South
+    case (Game.axis.vert, _, Game.numericalSignage.negative):
+      self.handleDragEdge = Game.rotation.south
       self.anchorTile = self.getTileAtPoint(CGPoint(x: point.x, y: point.y + 32))
-    case (Game.axis.Vert, _, Game.numericalSignage.positive):
-      self.handleDragEdge = Game.rotation.North
+    case (Game.axis.vert, _, Game.numericalSignage.positive):
+      self.handleDragEdge = Game.rotation.north
       self.anchorTile = self.getTileAtPoint(CGPoint(x: point.x, y: point.y - 32))
-    case (Game.axis.Hroiz, Game.numericalSignage.positive, _):
-      self.handleDragEdge = Game.rotation.East
+    case (Game.axis.hroiz, Game.numericalSignage.positive, _):
+      self.handleDragEdge = Game.rotation.east
       self.anchorTile = self.getTileAtPoint(CGPoint(x: point.x - 32, y: point.y))
-    case (Game.axis.Hroiz, Game.numericalSignage.negative, _):
-      self.handleDragEdge = Game.rotation.West
+    case (Game.axis.hroiz, Game.numericalSignage.negative, _):
+      self.handleDragEdge = Game.rotation.west
       self.anchorTile = self.getTileAtPoint(CGPoint(x: point.x + 32, y: point.y))
     default:
       print("huh")
@@ -216,7 +216,7 @@ class RoomBlueprint: GKEntity {
   //  I realised that the function enumerateChildNodesWithName only does child and not descendant nodes. Not a deep action.
   func removeResizeHandles() {
     print("remvoing resize handles")
-      self.componentForClass(SpriteComponent)?.node.enumerateChildNodesWithName("planning_room_blueprint_handles", usingBlock: { (node, stop) -> Void in
+      self.component(ofType: SpriteComponent)?.node.enumerateChildNodes(withName: "planning_room_blueprint_handles", using: { (node, stop) -> Void in
       node.removeFromParent()
     });
   }
@@ -224,16 +224,16 @@ class RoomBlueprint: GKEntity {
   let pointSprite = SKShapeNode(circleOfRadius: 5)
   //    pointSprite.fillColor = UIColor.redColor()
 
-  func handleDragMove (point: CGPoint, edge: Game.rotation) {
+  func handleDragMove (_ point: CGPoint, edge: Game.rotation) {
     print("___handleDragMove point is")
     print(point)
     print(edge)
-    let currentTile = self.getTileAtPoint(CGPoint(x: point.x + ((edge == Game.rotation.East) ? -32 : edge == Game.rotation.West ? 32 : 0), y: point.y + ((edge == Game.rotation.North) ? -32 : edge == Game.rotation.South ? 32 : 0)) )
-    if (currentTile == nil || !currentTile!.isKindOfClass(Tile)) {
+    let currentTile = self.getTileAtPoint(CGPoint(x: point.x + ((edge == Game.rotation.east) ? -32 : edge == Game.rotation.west ? 32 : 0), y: point.y + ((edge == Game.rotation.north) ? -32 : edge == Game.rotation.south ? 32 : 0)) )
+    if (currentTile == nil || !currentTile!.isKind(of: Tile.self)) {
       return
     }
 
-    pointSprite.strokeColor = UIColor.redColor()
+    pointSprite.strokeColor = UIColor.red
 //    (currentTile as! Tile).highlight((currentTile!.componentForClass(SpriteComponent)?.node.position)!)
     pointSprite.position = CGPoint(x: point.x, y: point.y + 32)
     pointSprite.zPosition = 100000
@@ -244,13 +244,13 @@ class RoomBlueprint: GKEntity {
 
     if (self.anchorTile !== currentTile) {
       
-      let currentNodePosition = self.componentForClass(SpriteComponent)?.node.position
+      let currentNodePosition = self.component(ofType: SpriteComponent)?.node.position
       
 //      Check  what direction was dragged when tile was changed
-      var direction: Game.rotation = Game.rotation.North
-      let anchorTileGridPos = self.anchorTile?.componentForClass(PositionComponent)?.gridPosition
-      let currentTileGridPos = currentTile!.componentForClass(PositionComponent)?.gridPosition
-      if (self.handleDragAxis == Game.axis.Vert){
+      var direction: Game.rotation = Game.rotation.north
+      let anchorTileGridPos = self.anchorTile?.component(ofType: PositionComponent)?.gridPosition
+      let currentTileGridPos = currentTile!.component(ofType: PositionComponent)?.gridPosition
+      if (self.handleDragAxis == Game.axis.vert){
         if (anchorTileGridPos!.y == currentTileGridPos!.y) {
           return
         }
@@ -258,14 +258,14 @@ class RoomBlueprint: GKEntity {
           if (anchorTileGridPos!.y - 1 != currentTileGridPos!.y) {
             return
           }
-          direction = Game.rotation.South
+          direction = Game.rotation.south
         } else {
           if (anchorTileGridPos!.y + 1 != currentTileGridPos!.y) {
             return
           }
-          direction = Game.rotation.North
+          direction = Game.rotation.north
         }
-      } else if (self.handleDragAxis == Game.axis.Hroiz) {
+      } else if (self.handleDragAxis == Game.axis.hroiz) {
         if (anchorTileGridPos!.x == currentTileGridPos!.x) {
           return
         }
@@ -273,38 +273,38 @@ class RoomBlueprint: GKEntity {
           if (anchorTileGridPos!.x - 1 != currentTileGridPos!.x) {
             return
           }
-          direction = Game.rotation.West
+          direction = Game.rotation.west
         } else {
           if (anchorTileGridPos!.x + 1 != currentTileGridPos!.x) {
             return
           }
-          direction = Game.rotation.East
+          direction = Game.rotation.east
         }
       }
       
       print("direction is")
       print(direction)
 
-      var newSize = CGSizeZero
+      var newSize = CGSize.zero
       
       
       switch self.handleDragEdge {
-      case .South:
-        newSize = CGSize(width: self.size.width, height: self.size.height + (direction == Game.rotation.South ? 1 : direction == Game.rotation.North ? -1 : 0))
-      case .North:
-        newSize = CGSize(width: self.size.width, height: self.size.height + (direction == Game.rotation.North ? 1 : direction == Game.rotation.South ? -1 : 0))
-      case .East:
-        newSize = CGSize(width: self.size.width + (direction == Game.rotation.East ? 1 : direction == Game.rotation.West ? -1 : 0), height: self.size.height)
-      case .West:
-        newSize = CGSize(width: self.size.width + (direction == Game.rotation.West ? 1 : direction == Game.rotation.East ? -1 : 0), height: self.size.height)
+      case .south:
+        newSize = CGSize(width: self.size.width, height: self.size.height + (direction == Game.rotation.south ? 1 : direction == Game.rotation.north ? -1 : 0))
+      case .north:
+        newSize = CGSize(width: self.size.width, height: self.size.height + (direction == Game.rotation.north ? 1 : direction == Game.rotation.south ? -1 : 0))
+      case .east:
+        newSize = CGSize(width: self.size.width + (direction == Game.rotation.east ? 1 : direction == Game.rotation.west ? -1 : 0), height: self.size.height)
+      case .west:
+        newSize = CGSize(width: self.size.width + (direction == Game.rotation.west ? 1 : direction == Game.rotation.east ? -1 : 0), height: self.size.height)
       }
       
       if (newSize.width != 0 && newSize.height != 0) {
         
-        if (self.handleDragAxis == Game.axis.Vert) {
-          self.componentForClass(SpriteComponent)?.node.position = CGPoint(x: currentNodePosition!.x, y: currentNodePosition!.y + ( direction == Game.rotation.South ? -32 : direction == Game.rotation.North ? 32 : 0))
-        } else if (self.handleDragAxis == Game.axis.Hroiz) {
-          self.componentForClass(SpriteComponent)?.node.position = CGPoint(x: currentNodePosition!.x + ( (direction == Game.rotation.West) ? -32 : direction == Game.rotation.East ? 32 : 0), y: currentNodePosition!.y)
+        if (self.handleDragAxis == Game.axis.vert) {
+          self.component(ofType: SpriteComponent)?.node.position = CGPoint(x: currentNodePosition!.x, y: currentNodePosition!.y + ( direction == Game.rotation.south ? -32 : direction == Game.rotation.north ? 32 : 0))
+        } else if (self.handleDragAxis == Game.axis.hroiz) {
+          self.component(ofType: SpriteComponent)?.node.position = CGPoint(x: currentNodePosition!.x + ( (direction == Game.rotation.west) ? -32 : direction == Game.rotation.east ? 32 : 0), y: currentNodePosition!.y)
         }
         
         self.size = newSize
@@ -325,7 +325,7 @@ class RoomBlueprint: GKEntity {
     
     // The code at the start of this function is almost identical to that found in RoomBlueprint, and the two should be refactored
     
-    let spritePosition = CGPointZero
+    let spritePosition = CGPoint.zero
     let edgeYT = Int(spritePosition.y + self.size.height * 64 / 2)
     let edgeYB = Int(spritePosition.y - self.size.height * 64 / 2)
     
@@ -340,22 +340,22 @@ class RoomBlueprint: GKEntity {
     
     //    array of dictionaries needed for button creation
     
-    let southEdge = possibleDoorLocationDrawingInstruction(axis: Game.axis.Vert, start: edgeXL, end: edgeXR, face: edgeYB, side: Game.rotation.South)
-    let northEdge = possibleDoorLocationDrawingInstruction(axis: Game.axis.Vert, start: edgeXL, end: edgeXR, face: edgeYT, side: Game.rotation.North)
+    let southEdge = possibleDoorLocationDrawingInstruction(axis: Game.axis.vert, start: edgeXL, end: edgeXR, face: edgeYB, side: Game.rotation.south)
+    let northEdge = possibleDoorLocationDrawingInstruction(axis: Game.axis.vert, start: edgeXL, end: edgeXR, face: edgeYT, side: Game.rotation.north)
     
-    let eastEdge = possibleDoorLocationDrawingInstruction(axis: Game.axis.Hroiz, start: edgeYB, end: edgeYT, face: edgeXR, side: Game.rotation.East)
-    let westEdge = possibleDoorLocationDrawingInstruction(axis: Game.axis.Hroiz, start: edgeYB, end: edgeYT, face: edgeXL, side: Game.rotation.West)
+    let eastEdge = possibleDoorLocationDrawingInstruction(axis: Game.axis.hroiz, start: edgeYB, end: edgeYT, face: edgeXR, side: Game.rotation.east)
+    let westEdge = possibleDoorLocationDrawingInstruction(axis: Game.axis.hroiz, start: edgeYB, end: edgeYT, face: edgeXL, side: Game.rotation.west)
     
     
     let edgeInstructions = [southEdge, northEdge, eastEdge, westEdge]
     
     for edgeInstruct in edgeInstructions {
       
-      for x in edgeInstruct.start.stride(to:edgeInstruct.end, by: 64) {
-        let texture = Game.sharedInstance.mainView?.textureFromNode(SKShapeNode(circleOfRadius: 32))
+      for x in stride(from: edgeInstruct.start, to:edgeInstruct.end, by: 64) {
+        let texture = Game.sharedInstance.mainView?.texture(from: SKShapeNode(circleOfRadius: 32))
         let doorButton = Button(texture: texture!, touch_f: {
           print("door button touch")
-          Game.sharedInstance.buildRoomStateMachine.enterState(BRSDone)
+          Game.sharedInstance.buildRoomStateMachine.enter(BRSDone)
 
           let doorPosition = CGPoint(x: x, y: edgeInstruct.face)
           
@@ -369,32 +369,32 @@ class RoomBlueprint: GKEntity {
           
         })
         
-        let doorButtonSprite = doorButton.componentForClass(SpriteComponent)!.node
+        let doorButtonSprite = doorButton.component(ofType: SpriteComponent)!.node
         
-        doorButtonSprite.zPosition = (self.componentForClass(SpriteComponent)?.node.zPosition)! + 1
+        doorButtonSprite.zPosition = (self.component(ofType: SpriteComponent)?.node.zPosition)! + 1
         doorButtonSprite.setScale(0.5)
         doorButtonSprite.name = "planning_room_door"
         
-        doorButtonSprite.position = edgeInstruct.axis == Game.axis.Vert ? CGPoint(x: x + 32, y: edgeInstruct.face) : CGPoint(x: edgeInstruct.face, y: x + 32 )
-        doorButtonSprite.color = SKColor.orangeColor()
+        doorButtonSprite.position = edgeInstruct.axis == Game.axis.vert ? CGPoint(x: x + 32, y: edgeInstruct.face) : CGPoint(x: edgeInstruct.face, y: x + 32 )
+        doorButtonSprite.color = SKColor.orange
         doorButtonSprite.colorBlendFactor = 1
         
-        doorButton.componentForClass(SpriteComponent)?.addToNodeKey()
-        self.componentForClass(SpriteComponent)?.node.addChild((doorButton.componentForClass(SpriteComponent)?.node)!)
+        doorButton.component(ofType: SpriteComponent)?.addToNodeKey()
+        self.component(ofType: SpriteComponent)?.node.addChild((doorButton.component(ofType: SpriteComponent)?.node)!)
         // Game.sharedInstance.entityManager.add(doorButton, layer: ZPositionManager.WorldLayer.interaction)
       }
       
     }
   }
   
-  func getTileAtPoint(point: CGPoint) -> GKEntity? {
-    let nodesAtPoint = Game.sharedInstance.wolrdnode.contentNode.nodesAtPoint(point)
+  func getTileAtPoint(_ point: CGPoint) -> GKEntity? {
+    let nodesAtPoint = Game.sharedInstance.wolrdnode.contentNode.nodes(at: point)
     var tile: GKEntity?
     
     for node in nodesAtPoint {
       guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else {continue}
       
-      if (entity.isKindOfClass(Tile)) {
+      if (entity.isKind(of: Tile.self)) {
         tile = entity
       }
     }
@@ -402,7 +402,7 @@ class RoomBlueprint: GKEntity {
     return tile
   }
   
-  func createFloorplanTexture(roomSize: CGSize) -> SKTexture {
+  func createFloorplanTexture(_ roomSize: CGSize) -> SKTexture {
     let blueprintNode = SKSpriteNode()
     let base = 32
     let width = 64
@@ -415,20 +415,20 @@ class RoomBlueprint: GKEntity {
       }
     }
     blueprintNode.alpha = 0.5
-    return SKView().textureFromNode(blueprintNode)!
+    return SKView().texture(from: blueprintNode)!
   }
 
   
   static func compileAssets() -> SKSpriteNode {
     
-    innerSquare.fillColor = UIColor.blueColor()
+    innerSquare.fillColor = UIColor.blue
     innerSquare.strokeColor = UIColor.init(white: 0, alpha: 0)
-    dashedSquare.fillColor = UIColor.blueColor()
-    dashedSquare.strokeColor = UIColor.blueColor()
+    dashedSquare.fillColor = UIColor.blue
+    dashedSquare.strokeColor = UIColor.blue
     
     let view = SKView()
-    let squareSprite = SKSpriteNode(texture: view.textureFromNode(innerSquare))
-    let squareBorderSprite = SKSpriteNode(texture: view.textureFromNode(dashedSquare))
+    let squareSprite = SKSpriteNode(texture: view.texture(from: innerSquare))
+    let squareBorderSprite = SKSpriteNode(texture: view.texture(from: dashedSquare))
     
     let combinedNode = SKSpriteNode()
     combinedNode.addChild(squareSprite)
@@ -437,8 +437,8 @@ class RoomBlueprint: GKEntity {
     return combinedNode
   }
   
-  func getPointForSize (point: CGPoint) -> CGPoint {
-    return CGPoint(x: point.x + (self.size.width % 2 == 0 ? 32 : 0), y: point.y + (self.size.height % 2 == 0 ? 32 : 0))
+  func getPointForSize (_ point: CGPoint) -> CGPoint {
+    return CGPoint(x: point.x + (self.size.width.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0), y: point.y + (self.size.height.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0))
   }
 
 }

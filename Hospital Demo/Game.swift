@@ -47,23 +47,23 @@ class Game {
   var touchDidMove = false
   
   enum rotation: Int {
-    case North = 1, East = 2, South = 3, West = 4
+    case north = 1, east = 2, south = 3, west = 4
     mutating func next() {
       switch self {
-      case North:
-        self = East
-      case East:
-        self = South
-      case South:
-        self = West
-      case West:
-        self = North
+      case .north:
+        self = .east
+      case .east:
+        self = .south
+      case .south:
+        self = .west
+      case .west:
+        self = .north
       }
     }
   }
   
   enum axis {
-    case Vert, Hroiz
+    case vert, hroiz
   }
   
   enum numericalSignage {
@@ -72,7 +72,7 @@ class Game {
   
   var mainView: SKView?
 
-  private init(view: SKView?) {
+  fileprivate init(view: SKView?) {
 //    self.gameStateMachine.enterState(GSGeneral)
 //    self.buildStateMachine.enterState(BSInitial)
     

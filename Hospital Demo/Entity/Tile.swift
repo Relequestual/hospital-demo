@@ -12,9 +12,9 @@ import GameplayKit
 class Tile: GKEntity {
 
   enum tileTypes {
-    case Tile
-    case Grass
-    case Path
+    case tile
+    case grass
+    case path
   }
   var tileType: tileTypes
   
@@ -29,16 +29,16 @@ class Tile: GKEntity {
     }
   }
 
-  init(imageName: String, initType: tileTypes = tileTypes.Tile , x: Int, y: Int) {
+  init(imageName: String, initType: tileTypes = tileTypes.tile , x: Int, y: Int) {
 
     self.realPosition = CGPoint(x: x, y: y)
     self.tileType = initType
     
     switch initType {
-    case tileTypes.Tile:
+    case tileTypes.tile:
       self.unbuildable = false
       self.blocked = false
-    case _ where (initType == tileTypes.Grass || initType == tileTypes.Path) :
+    case _ where (initType == tileTypes.grass || initType == tileTypes.path) :
       self.unbuildable = true
       self.blocked = true
     default:
@@ -113,7 +113,7 @@ class Tile: GKEntity {
       }
       let plannedObject = placingObject.init()
       Game.sharedInstance.draggingEntiy = plannedObject
-      plannedObject.componentForClass(BlueprintComponent)?.planFunctionCall((self.componentForClass(PositionComponent)?.gridPosition)!)
+      plannedObject.component(ofType: BlueprintComponent)?.planFunctionCall((self.component(ofType: PositionComponent)?.gridPosition)!)
       
       
     //      Game.sharedInstance.buildStateMachine.enterState(BISPlaned)
@@ -136,10 +136,10 @@ class Tile: GKEntity {
       let plannedRoom = buildingRoom.init()
       print("planned room is")
       print(plannedRoom)
-      plannedRoom.componentForClass(BuildRoomComponent)?.clearPlan()
-      plannedRoom.componentForClass(BuildRoomComponent)?.planAtPoint((self.componentForClass(PositionComponent)?.gridPosition)!)
-      plannedRoom.componentForClass(BuildRoomComponent)?.needConfirmBounds()
-      Game.sharedInstance.buildRoomStateMachine.enterState(BRSPlan)
+      plannedRoom.component(ofType: BuildRoomComponent)?.clearPlan()
+      plannedRoom.component(ofType: BuildRoomComponent)?.planAtPoint((self.component(ofType: PositionComponent)?.gridPosition)!)
+      plannedRoom.component(ofType: BuildRoomComponent)?.needConfirmBounds()
+      Game.sharedInstance.buildRoomStateMachine.enter(BRSPlan)
       Game.sharedInstance.buildRoomStateMachine.roomBuilding = plannedRoom
       
     default:
@@ -152,10 +152,10 @@ class Tile: GKEntity {
   
   var debugNode: SKShapeNode?
   
-  func highlight (position: CGPoint, colour: UIColor = UIColor.yellowColor()) {
+  func highlight (_ position: CGPoint, colour: UIColor = UIColor.yellow) {
     
 //    let position = self.componentForClass(PositionComponent)?.spritePosition
-    self.debugNode = SKShapeNode(rectOfSize: CGSize(width: 50, height: 50))
+    self.debugNode = SKShapeNode(rectOf: CGSize(width: 50, height: 50))
     self.debugNode!.position = position
     self.debugNode!.strokeColor = colour
     self.debugNode!.zPosition = 1000000

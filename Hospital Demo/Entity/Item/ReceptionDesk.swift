@@ -32,10 +32,10 @@ class ReceptionDesk: GKEntity {
     self.addComponent(draggableComponent)
     self.addComponent(BuildComponent())
 
-    let graphicNode = SKShapeNode(rectOfSize: CGSize(width:128, height:64), cornerRadius: 0.2)
-    graphicNode.fillColor = UIColor.purpleColor()
+    let graphicNode = SKShapeNode(rectOf: CGSize(width:128, height:64), cornerRadius: 0.2)
+    graphicNode.fillColor = UIColor.purple
     let view = SKView()
-    let graphicTexture: SKTexture = view.textureFromNode(graphicNode)!
+    let graphicTexture: SKTexture = view.texture(from: graphicNode)!
     
     let spriteComponent = SpriteComponent(texture: graphicTexture)
     addComponent(spriteComponent)
@@ -47,39 +47,39 @@ class ReceptionDesk: GKEntity {
     fatalError("init(coder:) has not been implemented")
   }
 
-  func dragStartHandler(point: CGPoint) {
+  func dragStartHandler(_ point: CGPoint) {
     print("RD Start drag")
   }
   
-  func dragMoveHandler(point: CGPoint) {
+  func dragMoveHandler(_ point: CGPoint) {
     print("RD Move drag")
     
-    if (self.componentForClass(BlueprintComponent)?.status == BlueprintComponent.Status.Built) {
+    if (self.component(ofType: BlueprintComponent)?.status == BlueprintComponent.Status.built) {
       print("No dragging built items")
       return
     }
     
 //    self.componentForClass(SpriteComponent)?.node.position = point
-    let nodesAtPoint = Game.sharedInstance.wolrdnode.contentNode.nodesAtPoint(point)
+    let nodesAtPoint = Game.sharedInstance.wolrdnode.contentNode.nodes(at: point)
         
     for node in nodesAtPoint {
       guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else {continue}
       
-      if (entity.isKindOfClass(Tile)) {
-        self.componentForClass(BlueprintComponent)?.planFunctionCall((entity.componentForClass(PositionComponent)?.gridPosition)!)
+      if (entity.isKind(of: Tile.self)) {
+        self.component(ofType: BlueprintComponent)?.planFunctionCall((entity.component(ofType: PositionComponent)?.gridPosition)!)
       }
 
     }
   }
   
-  func dragEndHandler(point: CGPoint) {
-    if( self.componentForClass(BlueprintComponent)?.status != BlueprintComponent.Status.Built ){
-      self.componentForClass(BlueprintComponent)?.displayBuildObjectConfirm()
+  func dragEndHandler(_ point: CGPoint) {
+    if( self.component(ofType: BlueprintComponent)?.status != BlueprintComponent.Status.built ){
+      self.component(ofType: BlueprintComponent)?.displayBuildObjectConfirm()
     }
     print("RD End drag")
   }
   
-  func planAtPoint(position: CGPoint){
+  func planAtPoint(_ position: CGPoint){
     
 //    Do function from build component
   }
