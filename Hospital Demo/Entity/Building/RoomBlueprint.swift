@@ -15,13 +15,13 @@ class RoomBlueprint: GKEntity {
   var size:CGSize = CGSize(width: 1, height: 1) {
     didSet {
       print("==== didset size")
-      let previousPosition = self.component(ofType: SpriteComponent)?.node.position
+      let previousPosition = self.component(ofType: SpriteComponent.self)?.node.position
       Game.sharedInstance.entityManager.remove(self)
-      self.removeComponent(ofType: SpriteComponent)
+      self.removeComponent(ofType: SpriteComponent.self)
       self.addComponent(SpriteComponent(texture: self.createFloorplanTexture(size)))
-      self.component(ofType: SpriteComponent)?.node.name = "planning_room_blueprint"
-      self.component(ofType: SpriteComponent)?.node.position = previousPosition!
-      self.component(ofType: SpriteComponent)!.addToNodeKey()
+      self.component(ofType: SpriteComponent.self)?.node.name = "planning_room_blueprint"
+      self.component(ofType: SpriteComponent.self)?.node.position = previousPosition!
+      self.component(ofType: SpriteComponent.self)!.addToNodeKey()
       Game.sharedInstance.entityManager.add(self, layer: ZPositionManager.WorldLayer.world)
     }
   }
@@ -61,9 +61,9 @@ class RoomBlueprint: GKEntity {
     }))
 
     self.addComponent(SpriteComponent(texture: self.createFloorplanTexture(self.size)))
-    self.component(ofType: SpriteComponent)?.node.name = "planning_room_blueprint"
+    self.component(ofType: SpriteComponent.self)?.node.name = "planning_room_blueprint"
     
-    self.component(ofType: SpriteComponent)!.addToNodeKey()
+    self.component(ofType: SpriteComponent.self)!.addToNodeKey()
     
     self.addComponent(PositionComponent(gridPosition: CGPoint.zero))
   }
@@ -73,7 +73,7 @@ class RoomBlueprint: GKEntity {
   }
   
   func dragStartHandler(_ point:CGPoint) {
-    let spritePos = self.component(ofType: SpriteComponent)?.node.position
+    let spritePos = self.component(ofType: SpriteComponent.self)?.node.position
     self.dragOffset = CGPoint(x: spritePos!.x - point.x, y: spritePos!.y - point.y)
     
     let tile = getTileAtPoint(CGPoint(x: spritePos!.x - (self.size.width.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0), y: spritePos!.y - (self.size.height.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0)))
@@ -81,7 +81,7 @@ class RoomBlueprint: GKEntity {
   }
   
   func dragMoveHandler(_ point:CGPoint) {
-    let spritePos = self.component(ofType: SpriteComponent)?.node.position
+    let spritePos = self.component(ofType: SpriteComponent.self)?.node.position
     
     let tile = getTileAtPoint(CGPoint(x: point.x + self.dragOffset!.x - (self.size.width.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0), y: point.y + self.dragOffset!.y - (self.size.height.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0)))
 //    print(self.anchorTile)
@@ -91,11 +91,11 @@ class RoomBlueprint: GKEntity {
         return
       }
       self.anchorTile = tile
-      let tilePosition = tile?.component(ofType: PositionComponent)?.spritePosition
+      let tilePosition = tile?.component(ofType: PositionComponent.self)?.spritePosition
 //      Later, make genertic north south east west actions... maybe
       let moveAction = SKAction.move(to: self.getPointForSize(tilePosition!), duration: TimeInterval(0.1))
       moveAction.timingMode = SKActionTimingMode.easeInEaseOut
-      self.component(ofType: SpriteComponent)?.node.run(moveAction, completion: {})
+      self.component(ofType: SpriteComponent.self)?.node.run(moveAction, completion: {})
     }
     
   }
@@ -156,9 +156,9 @@ class RoomBlueprint: GKEntity {
           }, touch_end_f: { (point) in
             //          handleDragend(point: point)
         })
-        let buttonVertSprite = vertButton.component(ofType: SpriteComponent)!.node
+        let buttonVertSprite = vertButton.component(ofType: SpriteComponent.self)!.node
         
-        buttonVertSprite.zPosition = (self.component(ofType: SpriteComponent)?.node.zPosition)! + 1
+        buttonVertSprite.zPosition = (self.component(ofType: SpriteComponent.self)?.node.zPosition)! + 1
         buttonVertSprite.setScale(0.5)
         buttonVertSprite.name = "planning_room_blueprint_handles"
         buttonVertSprite.position = edgeInstruct.axis == Game.axis.vert ? CGPoint(x: x + 32, y: edgeInstruct.face) : CGPoint(x: edgeInstruct.face, y: x + 32 )
@@ -170,8 +170,8 @@ class RoomBlueprint: GKEntity {
         
         //TODO: make this button a single image sometime
         buttonVertSprite.addChild(circle)
-        vertButton.component(ofType: SpriteComponent)?.addToNodeKey()
-        self.component(ofType: SpriteComponent)?.node.addChild((vertButton.component(ofType: SpriteComponent)?.node)!)
+        vertButton.component(ofType: SpriteComponent.self)?.addToNodeKey()
+        self.component(ofType: SpriteComponent.self)?.node.addChild((vertButton.component(ofType: SpriteComponent.self)?.node)!)
         //      Game.sharedInstance.entityManager.add(vertButton, layer: ZPositionManager.WorldLayer.interaction)
       }
     }
@@ -189,7 +189,7 @@ class RoomBlueprint: GKEntity {
     self.handleDragAxis = axis
     self.handleDragPreviousMovePoint = point
 //    Determine edge is being dragged
-    let centerOfRoom = self.component(ofType: SpriteComponent)?.node.position
+    let centerOfRoom = self.component(ofType: SpriteComponent.self)?.node.position
     self.handleDragXSign = (point.x < centerOfRoom!.x) ? Game.numericalSignage.negative : Game.numericalSignage.positive
     self.handleDragYSign = (point.y < centerOfRoom!.y) ? Game.numericalSignage.negative : Game.numericalSignage.positive
     
@@ -216,7 +216,7 @@ class RoomBlueprint: GKEntity {
   //  I realised that the function enumerateChildNodesWithName only does child and not descendant nodes. Not a deep action.
   func removeResizeHandles() {
     print("remvoing resize handles")
-      self.component(ofType: SpriteComponent)?.node.enumerateChildNodes(withName: "planning_room_blueprint_handles", using: { (node, stop) -> Void in
+      self.component(ofType: SpriteComponent.self)?.node.enumerateChildNodes(withName: "planning_room_blueprint_handles", using: { (node, stop) -> Void in
       node.removeFromParent()
     });
   }
@@ -234,7 +234,7 @@ class RoomBlueprint: GKEntity {
     }
 
     pointSprite.strokeColor = UIColor.red
-//    (currentTile as! Tile).highlight((currentTile!.componentForClass(SpriteComponent)?.node.position)!)
+//    (currentTile as! Tile).highlight((currentTile!.componentForClass(SpriteComponent.self)?.node.position)!)
     pointSprite.position = CGPoint(x: point.x, y: point.y + 32)
     pointSprite.zPosition = 100000
     pointSprite.removeFromParent()
@@ -244,12 +244,12 @@ class RoomBlueprint: GKEntity {
 
     if (self.anchorTile !== currentTile) {
       
-      let currentNodePosition = self.component(ofType: SpriteComponent)?.node.position
+      let currentNodePosition = self.component(ofType: SpriteComponent.self)?.node.position
       
 //      Check  what direction was dragged when tile was changed
       var direction: Game.rotation = Game.rotation.north
-      let anchorTileGridPos = self.anchorTile?.component(ofType: PositionComponent)?.gridPosition
-      let currentTileGridPos = currentTile!.component(ofType: PositionComponent)?.gridPosition
+      let anchorTileGridPos = self.anchorTile?.component(ofType: PositionComponent.self)?.gridPosition
+      let currentTileGridPos = currentTile!.component(ofType: PositionComponent.self)?.gridPosition
       if (self.handleDragAxis == Game.axis.vert){
         if (anchorTileGridPos!.y == currentTileGridPos!.y) {
           return
@@ -302,9 +302,9 @@ class RoomBlueprint: GKEntity {
       if (newSize.width != 0 && newSize.height != 0) {
         
         if (self.handleDragAxis == Game.axis.vert) {
-          self.component(ofType: SpriteComponent)?.node.position = CGPoint(x: currentNodePosition!.x, y: currentNodePosition!.y + ( direction == Game.rotation.south ? -32 : direction == Game.rotation.north ? 32 : 0))
+          self.component(ofType: SpriteComponent.self)?.node.position = CGPoint(x: currentNodePosition!.x, y: currentNodePosition!.y + ( direction == Game.rotation.south ? -32 : direction == Game.rotation.north ? 32 : 0))
         } else if (self.handleDragAxis == Game.axis.hroiz) {
-          self.component(ofType: SpriteComponent)?.node.position = CGPoint(x: currentNodePosition!.x + ( (direction == Game.rotation.west) ? -32 : direction == Game.rotation.east ? 32 : 0), y: currentNodePosition!.y)
+          self.component(ofType: SpriteComponent.self)?.node.position = CGPoint(x: currentNodePosition!.x + ( (direction == Game.rotation.west) ? -32 : direction == Game.rotation.east ? 32 : 0), y: currentNodePosition!.y)
         }
         
         self.size = newSize
@@ -369,9 +369,9 @@ class RoomBlueprint: GKEntity {
           
         })
         
-        let doorButtonSprite = doorButton.component(ofType: SpriteComponent)!.node
+        let doorButtonSprite = doorButton.component(ofType: SpriteComponent.self)!.node
         
-        doorButtonSprite.zPosition = (self.component(ofType: SpriteComponent)?.node.zPosition)! + 1
+        doorButtonSprite.zPosition = (self.component(ofType: SpriteComponent.self)?.node.zPosition)! + 1
         doorButtonSprite.setScale(0.5)
         doorButtonSprite.name = "planning_room_door"
         
@@ -379,8 +379,8 @@ class RoomBlueprint: GKEntity {
         doorButtonSprite.color = SKColor.orange
         doorButtonSprite.colorBlendFactor = 1
         
-        doorButton.component(ofType: SpriteComponent)?.addToNodeKey()
-        self.component(ofType: SpriteComponent)?.node.addChild((doorButton.component(ofType: SpriteComponent)?.node)!)
+        doorButton.component(ofType: SpriteComponent.self)?.addToNodeKey()
+        self.component(ofType: SpriteComponent.self)?.node.addChild((doorButton.component(ofType: SpriteComponent.self)?.node)!)
         // Game.sharedInstance.entityManager.add(doorButton, layer: ZPositionManager.WorldLayer.interaction)
       }
       

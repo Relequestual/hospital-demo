@@ -324,20 +324,20 @@ class BaseScene: HLScene {
     for node in touchedNodes {
       guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else {continue}
       
-      if (entity.component(ofType: DraggableSpriteComponent) != nil) {
-        topDraggableNodeEntity = node.zPosition > topDraggableNodeEntity.component(ofType: SpriteComponent)?.node.zPosition ? entity : topDraggableNodeEntity
+      if (entity.component(ofType: DraggableSpriteComponent.self) != nil) {
+        topDraggableNodeEntity = node.zPosition > topDraggableNodeEntity.component(ofType: SpriteComponent.self)?.node.zPosition ? entity : topDraggableNodeEntity
 
         Game.sharedInstance.draggingEntiy = topDraggableNodeEntity
         draggingDraggableNode = true
         Game.sharedInstance.toolbarManager?.hideAll()
       }
 
-      if (entity.component(ofType: TouchableSpriteComponent) != nil) {
-        topTappableNodeEntity = node.zPosition > topTappableNodeEntity.component(ofType: SpriteComponent)?.node.zPosition ? entity : topTappableNodeEntity
+      if (entity.component(ofType: TouchableSpriteComponent.self) != nil) {
+        topTappableNodeEntity = node.zPosition > topTappableNodeEntity.component(ofType: SpriteComponent.self)?.node.zPosition ? entity : topTappableNodeEntity
       }
       
     }
-    topDraggableNodeEntity.component(ofType: DraggableSpriteComponent)?.touchStart(positionInWorldnodeContent!)
+    topDraggableNodeEntity.component(ofType: DraggableSpriteComponent.self)?.touchStart(positionInWorldnodeContent!)
     
     Game.sharedInstance.tappableEntity = topTappableNodeEntity
 
@@ -358,7 +358,7 @@ class BaseScene: HLScene {
     let positionInWorldnodeContent = touches.first?.location(in: Game.sharedInstance.wolrdnode.contentNode)
     
     if (Game.sharedInstance.draggingEntiy != nil) {
-      Game.sharedInstance.draggingEntiy?.component(ofType: DraggableSpriteComponent)?.touchMove(positionInWorldnodeContent!)
+      Game.sharedInstance.draggingEntiy?.component(ofType: DraggableSpriteComponent.self)?.touchMove(positionInWorldnodeContent!)
     }
 
     if (Game.sharedInstance.canAutoScroll && !Game.sharedInstance.panningWold) {
@@ -377,7 +377,7 @@ class BaseScene: HLScene {
     Game.sharedInstance.toolbarManager?.showAll()
     
     if (Game.sharedInstance.tappableEntity != nil) {
-      Game.sharedInstance.tappableEntity?.component(ofType: TouchableSpriteComponent)?.callFunction()
+      Game.sharedInstance.tappableEntity?.component(ofType: TouchableSpriteComponent.self)?.callFunction()
     }
     let touch = touches.first!
     let positionInScene = touch.location(in: self)
@@ -387,7 +387,7 @@ class BaseScene: HLScene {
       Game.sharedInstance.autoScrollVelocityX = 0;
       Game.sharedInstance.autoScrollVelocityY = 0;
      
-      Game.sharedInstance.draggingEntiy?.component(ofType: DraggableSpriteComponent)?.touchEnd(positionInScene)
+      Game.sharedInstance.draggingEntiy?.component(ofType: DraggableSpriteComponent.self)?.touchEnd(positionInScene)
       Game.sharedInstance.draggingEntiy = nil
     }
     

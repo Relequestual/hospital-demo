@@ -37,13 +37,13 @@ class BuildRoomComponent: GKComponent {
       // No tile at this position
       return
     }
-    let spritePosition = (tile.component(ofType: PositionComponent)?.spritePosition)!
+    let spritePosition = (tile.component(ofType: PositionComponent.self)?.spritePosition)!
     print("mod check")
     print(self.size.width.truncatingRemainder(dividingBy: 2) == 0)
-//    self.roomBlueprint.componentForClass(SpriteComponent)?.node.position = CGPoint(x: spritePosition.x + (self.size.width % 2 == 0 ? 32 : 0), y: spritePosition.y + (self.size.height % 2 == 0 ? 32 : 0))
-      self.roomBlueprint.component(ofType: SpriteComponent)?.node.position = self.getPointForSize(spritePosition)
+//    self.roomBlueprint.componentForClass(SpriteComponent.self)?.node.position = CGPoint(x: spritePosition.x + (self.size.width % 2 == 0 ? 32 : 0), y: spritePosition.y + (self.size.height % 2 == 0 ? 32 : 0))
+      self.roomBlueprint.component(ofType: SpriteComponent.self)?.node.position = self.getPointForSize(spritePosition)
 
-//    let sprite = self.roomBlueprint.componentForClass(SpriteComponent)
+//    let sprite = self.roomBlueprint.componentForClass(SpriteComponent.self)
     
     Game.sharedInstance.entityManager.add(self.roomBlueprint, layer: ZPositionManager.WorldLayer.world)
     self.roomBlueprint.createResizeHandles()
@@ -61,9 +61,9 @@ class BuildRoomComponent: GKComponent {
     confirmToolbar.confirm = {
       print("OK TO BUILD ROOM");
       //remove handles from plan
-      Game.sharedInstance.buildRoomStateMachine.roomBuilding?.component(ofType: BuildRoomComponent)?.roomBlueprint.removeResizeHandles()
+      Game.sharedInstance.buildRoomStateMachine.roomBuilding?.component(ofType: BuildRoomComponent.self)?.roomBlueprint.removeResizeHandles()
       //make plan non moveable
-      Game.sharedInstance.buildRoomStateMachine.roomBuilding?.component(ofType: BuildRoomComponent)?.roomBlueprint.component(ofType: DraggableSpriteComponent)?.draggable = false
+      Game.sharedInstance.buildRoomStateMachine.roomBuilding?.component(ofType: BuildRoomComponent.self)?.roomBlueprint.component(ofType: DraggableSpriteComponent.self)?.draggable = false
       
       //    Set state to BRSDoor
       Game.sharedInstance.buildRoomStateMachine.enter(BRSDoor)

@@ -54,27 +54,27 @@ class ReceptionDesk: GKEntity {
   func dragMoveHandler(_ point: CGPoint) {
     print("RD Move drag")
     
-    if (self.component(ofType: BlueprintComponent)?.status == BlueprintComponent.Status.built) {
+    if (self.component(ofType: BlueprintComponent.self)?.status == BlueprintComponent.Status.built) {
       print("No dragging built items")
       return
     }
     
-//    self.componentForClass(SpriteComponent)?.node.position = point
+//    self.componentForClass(SpriteComponent.self)?.node.position = point
     let nodesAtPoint = Game.sharedInstance.wolrdnode.contentNode.nodes(at: point)
         
     for node in nodesAtPoint {
       guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else {continue}
       
       if (entity.isKind(of: Tile.self)) {
-        self.component(ofType: BlueprintComponent)?.planFunctionCall((entity.component(ofType: PositionComponent)?.gridPosition)!)
+        self.component(ofType: BlueprintComponent.self)?.planFunctionCall((entity.component(ofType: PositionComponent.self)?.gridPosition)!)
       }
 
     }
   }
   
   func dragEndHandler(_ point: CGPoint) {
-    if( self.component(ofType: BlueprintComponent)?.status != BlueprintComponent.Status.built ){
-      self.component(ofType: BlueprintComponent)?.displayBuildObjectConfirm()
+    if( self.component(ofType: BlueprintComponent.self)?.status != BlueprintComponent.Status.built ){
+      self.component(ofType: BlueprintComponent.self)?.displayBuildObjectConfirm()
     }
     print("RD End drag")
   }

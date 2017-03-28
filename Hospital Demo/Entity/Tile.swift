@@ -113,7 +113,7 @@ class Tile: GKEntity {
       }
       let plannedObject = placingObject.init()
       Game.sharedInstance.draggingEntiy = plannedObject
-      plannedObject.component(ofType: BlueprintComponent)?.planFunctionCall((self.component(ofType: PositionComponent)?.gridPosition)!)
+      plannedObject.component(ofType: BlueprintComponent.self)?.planFunctionCall((self.component(ofType: PositionComponent.self)?.gridPosition)!)
       
       
     //      Game.sharedInstance.buildStateMachine.enterState(BISPlaned)
@@ -136,9 +136,9 @@ class Tile: GKEntity {
       let plannedRoom = buildingRoom.init()
       print("planned room is")
       print(plannedRoom)
-      plannedRoom.component(ofType: BuildRoomComponent)?.clearPlan()
-      plannedRoom.component(ofType: BuildRoomComponent)?.planAtPoint((self.component(ofType: PositionComponent)?.gridPosition)!)
-      plannedRoom.component(ofType: BuildRoomComponent)?.needConfirmBounds()
+      plannedRoom.component(ofType: BuildRoomComponent.self)?.clearPlan()
+      plannedRoom.component(ofType: BuildRoomComponent.self)?.planAtPoint((self.component(ofType: PositionComponent.self)?.gridPosition)!)
+      plannedRoom.component(ofType: BuildRoomComponent.self)?.needConfirmBounds()
       Game.sharedInstance.buildRoomStateMachine.enter(BRSPlan)
       Game.sharedInstance.buildRoomStateMachine.roomBuilding = plannedRoom
       
@@ -154,7 +154,7 @@ class Tile: GKEntity {
   
   func highlight (_ position: CGPoint, colour: UIColor = UIColor.yellow) {
     
-//    let position = self.componentForClass(PositionComponent)?.spritePosition
+//    let position = self.componentForClass(PositionComponent.self)?.spritePosition
     self.debugNode = SKShapeNode(rectOf: CGSize(width: 50, height: 50))
     self.debugNode!.position = position
     self.debugNode!.strokeColor = colour

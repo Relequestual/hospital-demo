@@ -31,8 +31,8 @@ class BuildComponent: GKComponent {
     }
     Game.sharedInstance.canAutoScroll = true
 
-    var area = (entity.component(ofType: BlueprintComponent)?.area)!
-    var pous = (entity.component(ofType: BlueprintComponent)?.pous)!
+    let area = (entity.component(ofType: BlueprintComponent.self)?.area)!
+    let pous = (entity.component(ofType: BlueprintComponent.self)?.pous)!
 
 
     let positionComponent = PositionComponent(gridPosition: CGPoint(x: position.x, y: position.y))
@@ -48,7 +48,7 @@ class BuildComponent: GKComponent {
       }
       let node = SKSpriteNode(texture: createPlannedTexture(tile.unbuildable))
       node.alpha = 0.6
-      node.position = (tile.component(ofType: PositionComponent)?.spritePosition)!
+      node.position = (tile.component(ofType: PositionComponent.self)?.spritePosition.self)!
 
       node.zPosition = CGFloat(ZPositionManager.WorldLayer.interaction.zpos)
       node.name = "planned_object"
@@ -70,7 +70,7 @@ class BuildComponent: GKComponent {
       }
       let node = SKSpriteNode(texture: createPlannedPOUTexture(tile.unbuildable))
       node.alpha = 0.4
-      node.position = (tile.component(ofType: PositionComponent)?.spritePosition)!
+      node.position = (tile.component(ofType: PositionComponent.self)?.spritePosition.self)!
 
       node.zPosition = CGFloat(ZPositionManager.WorldLayer.interaction.zpos)
       node.name = "planned_object"
@@ -88,10 +88,10 @@ class BuildComponent: GKComponent {
       return
     }
 
-    let area = (entity.component(ofType: BlueprintComponent)?.area)!
-    let pous = (entity.component(ofType: BlueprintComponent)?.pous)!
+    let area = (entity.component(ofType: BlueprintComponent.self)?.area)!
+    let pous = (entity.component(ofType: BlueprintComponent.self)?.pous)!
 
-    let positionComponent = entity.component(ofType: PositionComponent)!
+    let positionComponent = entity.component(ofType: PositionComponent.self)!
 
     for blueprint in area {
       let x = Int(positionComponent.gridPosition.x) + blueprint[0]

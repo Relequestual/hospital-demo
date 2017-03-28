@@ -54,7 +54,7 @@ class ConfirmToolbar: HLToolbarNode {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func addOption(_ tag: String, node: SKSpriteNode, handler: () -> Void) {
+  func addOption(_ tag: String, node: SKSpriteNode, handler: @escaping () -> Void) {
     let option = GameToolbarOption(tag: tag, node: node, handler: handler)
     options.append(option)
   }
