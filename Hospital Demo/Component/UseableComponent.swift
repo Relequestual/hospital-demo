@@ -15,8 +15,8 @@ struct UsePoint {
   enum usePointTypes { case patient, staff, any }
   var type: usePointTypes
   var realPosition: CGPoint
-  var direction: Game.rotation.Type
-  var f:() -> Void
+  var direction: Game.rotation
+  var use:() -> Void
 }
 
 class UseableComponent: GKComponent {
@@ -40,7 +40,7 @@ class UseableComponent: GKComponent {
       return
     }
     
-    self.usePoints[index].f()
+    self.usePoints[index].use()
     
   }
   

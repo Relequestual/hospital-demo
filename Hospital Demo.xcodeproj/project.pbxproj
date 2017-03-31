@@ -34,6 +34,7 @@
 		914650CE1E729E6B00DBF123 /* Door.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914650CD1E729E6B00DBF123 /* Door.swift */; };
 		914667E11C5937D800560251 /* TouchableSpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914667E01C5937D800560251 /* TouchableSpriteComponent.swift */; };
 		9175E2D31D47CACE0026BA8F /* zPositionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9175E2D21D47CACE0026BA8F /* zPositionManager.swift */; };
+		918968401E8BA06B005EB38D /* Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9189683F1E8BA06B005EB38D /* Convert.swift */; };
 		91C3E3571C6BB1E900E8CBD8 /* BlueprintComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3E3561C6BB1E900E8CBD8 /* BlueprintComponent.swift */; };
 		91C836831C649978008ECABF /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C836821C649978008ECABF /* GameState.swift */; };
 		91DF14CF1C2A958D003E813F /* PositionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DF14CE1C2A958D003E813F /* PositionComponent.swift */; };
@@ -74,6 +75,7 @@
 		914650CD1E729E6B00DBF123 /* Door.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Door.swift; sourceTree = "<group>"; };
 		914667E01C5937D800560251 /* TouchableSpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TouchableSpriteComponent.swift; path = Component/TouchableSpriteComponent.swift; sourceTree = "<group>"; };
 		9175E2D21D47CACE0026BA8F /* zPositionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = zPositionManager.swift; sourceTree = "<group>"; };
+		9189683F1E8BA06B005EB38D /* Convert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Convert.swift; sourceTree = "<group>"; };
 		91C3E3561C6BB1E900E8CBD8 /* BlueprintComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlueprintComponent.swift; path = Component/BlueprintComponent.swift; sourceTree = "<group>"; };
 		91C836821C649978008ECABF /* GameState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		91DF14CE1C2A958D003E813F /* PositionComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PositionComponent.swift; path = Component/PositionComponent.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 		13C7652E1BF61B2D00AC0223 /* Hospital Demo */ = {
 			isa = PBXGroup;
 			children = (
+				9189683E1E8B9FFD005EB38D /* Utils */,
 				91158CBA1D47C94600CD423D /* Manager */,
 				13B6A1B11C255B070087649C /* Entity */,
 				13B6A1B21C255B110087649C /* Component */,
@@ -209,6 +212,14 @@
 			);
 			name = Building;
 			path = Entity/Building;
+			sourceTree = "<group>";
+		};
+		9189683E1E8B9FFD005EB38D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				9189683F1E8BA06B005EB38D /* Convert.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		91C836811C64991A008ECABF /* GameStates */ = {
@@ -379,6 +390,7 @@
 				13DFA17B1C6806F4003289E9 /* BuildItemState.swift in Sources */,
 				13C765361BF61B2D00AC0223 /* GameViewController.swift in Sources */,
 				91C836831C649978008ECABF /* GameState.swift in Sources */,
+				918968401E8BA06B005EB38D /* Convert.swift in Sources */,
 				137F2E161CDF8D4600665C17 /* DraggableSpriteComponent.swift in Sources */,
 				9119835E1E72D3D100E6D2A2 /* UseableComponent.swift in Sources */,
 				91F7F0E71D2FDA2D00331878 /* BuildComponent.swift in Sources */,

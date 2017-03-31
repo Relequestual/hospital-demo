@@ -34,7 +34,7 @@ class Game {
   
   var toolbarManager: ToolbarManager?
   
-  var tilesAtCoords = [Int: [Int: Tile]]()
+  var tilesAtCoords: [Int: [Int: Tile]] = [:]
   
   var placingObjectsQueue = Array<GKEntity.Type>()
   
