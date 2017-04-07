@@ -358,14 +358,9 @@ class RoomBlueprint: GKEntity {
           Game.sharedInstance.buildRoomStateMachine.enter(BRSDone)
 
           let doorPosition = CGPoint(x: x, y: edgeInstruct.face)
+          let doorDirection = edgeInstruct.side
           
-          /*switch (edgeInstruct.side) {
-          case Game.rotation.North:
-          case Game.rotation.South:
-          case Game.rotation.East:
-          case Game.rotation.West:
-
-          }*/
+          
           
         })
         

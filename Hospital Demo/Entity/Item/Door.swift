@@ -12,17 +12,15 @@ import SpriteKit
 class Door: GKEntity {
   
   var room: GKEntity
-  var position: PositionComponent
-  var usePoints: UseableComponent?
   var stateMachine = DoorState()
   
   init(room: GKEntity, gridPosition: CGPoint, direction: Game.rotation) {
     self.room = room
+    super.init()
+    
     let realPosition = UtilConvert.gridToSpritePosition(gridPosition: gridPosition)
     
-//    Make this a component and see where it's used
-//    Then investigate using the build component for the door... maybe
-    self.position = PositionComponent(gridPosition: gridPosition, spritePosition: realPosition)
+    self.addComponent(PositionComponent(gridPosition: gridPosition, spritePosition: realPosition))
     
     let realPositionA = CGPoint(x: (realPosition?.x)!, y: (realPosition?.y)!)
     let realPositionB: CGPoint
@@ -43,7 +41,6 @@ class Door: GKEntity {
 
     }
     
-    super.init()
 //    For position A, need to invert `direction` because it will be the direction they need to face to use
     let usePoints = [
       UsePoint(
@@ -59,7 +56,7 @@ class Door: GKEntity {
         use: self.use
       )
     ]
-    self.usePoints = UseableComponent(usePoints: usePoints)
+    self.addComponent(UseableComponent(usePoints: usePoints))
   }
   
   required init?(coder aDecoder: NSCoder) {
