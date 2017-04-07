@@ -14,14 +14,22 @@ class Door: GKEntity {
   var room: GKEntity
   var position: PositionComponent
   var usePoints: UseableComponent?
+  var stateMachine = DoorState()
   
   init(room: GKEntity, gridPosition: CGPoint, direction: Game.rotation) {
     self.room = room
     let realPosition = UtilConvert.gridToSpritePosition(gridPosition: gridPosition)
+    
+//    Make this a component and see where it's used
+//    Then investigate using the build component for the door... maybe
     self.position = PositionComponent(gridPosition: gridPosition, spritePosition: realPosition)
     
     let realPositionA = CGPoint(x: (realPosition?.x)!, y: (realPosition?.y)!)
     let realPositionB: CGPoint
+    var directionB = direction
+    directionB.next()
+    directionB.next()
+    
     
     switch direction {
     case Game.rotation.north:
@@ -43,9 +51,15 @@ class Door: GKEntity {
         realPosition: realPositionA,
         direction: direction,
         use: self.use
+      ),
+      UsePoint(
+        type: UsePoint.usePointTypes.any,
+        realPosition: realPositionB,
+        direction: directionB,
+        use: self.use
       )
     ]
-    self.usePoints = UseableComponent(usePoints: [])
+    self.usePoints = UseableComponent(usePoints: usePoints)
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -53,15 +67,8 @@ class Door: GKEntity {
   }
   
   func use() -> Void {
-    
+    self.stateMachine.nextState()
   }
-  
-  
-//  Usable component
-//  has function hook for use action
-//  requires pou or staffpou. Guard to require at least one of.
-//  Door has statemachine for closed / opening / open / closing.
-//
   
   
 }
