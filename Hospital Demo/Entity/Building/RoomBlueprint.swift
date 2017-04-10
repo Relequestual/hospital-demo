@@ -26,6 +26,8 @@ class RoomBlueprint: GKEntity {
     }
   }
   
+  var room: GKEntity
+  
   static var square = SKShapeNode(rectOf: CGSize(width: 64, height: 64))
   static var innerSquare = SKShapeNode(rectOf: CGSize(width: 55, height: 55))
 
@@ -42,12 +44,11 @@ class RoomBlueprint: GKEntity {
   var dragOffset: CGPoint?
   var anchorTile: GKEntity?
   
-  init(size: CGSize?) {
+  init(size: CGSize, room: GKEntity) {
+    self.room = room
     super.init()
 //    self.dynamicType.dashedSquare.lineWidth = 2
-    if (size != nil) {
-      self.size = size!
-    }
+    
     self.addComponent(DraggableSpriteComponent(
       start: { (point: CGPoint) in
         print("start drag room")
@@ -355,12 +356,12 @@ class RoomBlueprint: GKEntity {
         let texture = Game.sharedInstance.mainView?.texture(from: SKShapeNode(circleOfRadius: 32))
         let doorButton = Button(texture: texture!, touch_f: {
           print("door button touch")
-          Game.sharedInstance.buildRoomStateMachine.enter(BRSDone)
+          Game.sharedInstance.buildRoomStateMachine.enter(BRSDone.self)
 
           let doorPosition = CGPoint(x: x, y: edgeInstruct.face)
           let doorDirection = edgeInstruct.side
           
-          
+          let door = Door(room: self.room, gridPosition: doorPosition, direction: doorDirection)
           
         })
         

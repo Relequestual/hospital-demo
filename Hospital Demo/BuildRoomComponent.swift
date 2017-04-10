@@ -14,17 +14,17 @@ class BuildRoomComponent: GKComponent {
 
   var minSize: CGSize
   var size: CGSize = CGSize(width: 1, height: 1)
-  var roomBlueprint: RoomBlueprint
+  var roomBlueprint: RoomBlueprint?
 //  Relocate this at some point
   enum doorTypes { case single, double }
   
   var requiredDoor: doorTypes = doorTypes.single
 
-  init(minSize: CGSize) {
+ init(minSize: CGSize) {
     self.minSize = minSize
     self.size = minSize
-    self.roomBlueprint = RoomBlueprint(size: minSize)
     super.init()
+    self.roomBlueprint = RoomBlueprint(size: minSize, room: self.entity!)
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -32,7 +32,7 @@ class BuildRoomComponent: GKComponent {
   }
   
   func planAtPoint(_ gridPosition: CGPoint) {
-    self.roomBlueprint.addComponent(PositionComponent(gridPosition: gridPosition))
+    self.roomBlueprint?.addComponent(PositionComponent(gridPosition: gridPosition))
     guard let tile = Game.sharedInstance.tilesAtCoords[Int(gridPosition.x)]![Int(gridPosition.y)] else {
       // No tile at this position
       return
@@ -41,12 +41,12 @@ class BuildRoomComponent: GKComponent {
     print("mod check")
     print(self.size.width.truncatingRemainder(dividingBy: 2) == 0)
 //    self.roomBlueprint.componentForClass(SpriteComponent.self)?.node.position = CGPoint(x: spritePosition.x + (self.size.width % 2 == 0 ? 32 : 0), y: spritePosition.y + (self.size.height % 2 == 0 ? 32 : 0))
-      self.roomBlueprint.component(ofType: SpriteComponent.self)?.node.position = self.getPointForSize(spritePosition)
+      self.roomBlueprint?.component(ofType: SpriteComponent.self)?.node.position = self.getPointForSize(spritePosition)
 
 //    let sprite = self.roomBlueprint.componentForClass(SpriteComponent.self)
     
-    Game.sharedInstance.entityManager.add(self.roomBlueprint, layer: ZPositionManager.WorldLayer.world)
-    self.roomBlueprint.createResizeHandles()
+    Game.sharedInstance.entityManager.add(self.roomBlueprint!, layer: ZPositionManager.WorldLayer.world)
+    self.roomBlueprint?.createResizeHandles()
   }
   
 //  Called after initial placemet. Show confirmation toolbar
@@ -61,14 +61,14 @@ class BuildRoomComponent: GKComponent {
     confirmToolbar.confirm = {
       print("OK TO BUILD ROOM");
       //remove handles from plan
-      Game.sharedInstance.buildRoomStateMachine.roomBuilding?.component(ofType: BuildRoomComponent.self)?.roomBlueprint.removeResizeHandles()
+      Game.sharedInstance.buildRoomStateMachine.roomBuilding?.component(ofType: BuildRoomComponent.self)?.roomBlueprint?.removeResizeHandles()
       //make plan non moveable
-      Game.sharedInstance.buildRoomStateMachine.roomBuilding?.component(ofType: BuildRoomComponent.self)?.roomBlueprint.component(ofType: DraggableSpriteComponent.self)?.draggable = false
+      Game.sharedInstance.buildRoomStateMachine.roomBuilding?.component(ofType: BuildRoomComponent.self)?.roomBlueprint?.component(ofType: DraggableSpriteComponent.self)?.draggable = false
       
       //    Set state to BRSDoor
-      Game.sharedInstance.buildRoomStateMachine.enter(BRSDoor)
+      Game.sharedInstance.buildRoomStateMachine.enter(BRSDoor.self)
       //    create function to allow for placement of door
-      self.roomBlueprint.allowToPlaceDoor()
+      self.roomBlueprint?.allowToPlaceDoor()
       
     }
 //    replace current toolbar with confirm toolbar.
@@ -94,7 +94,7 @@ class BuildRoomComponent: GKComponent {
   func cancelBuild() {
     self.clearPlan()
 //    re set game and build states.
-    Game.sharedInstance.gameStateMachine.enter(GSGeneral)
+    Game.sharedInstance.gameStateMachine.enter(GSGeneral.self)
     
   }
   
