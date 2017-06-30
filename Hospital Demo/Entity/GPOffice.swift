@@ -19,7 +19,8 @@ class GPOffice: GKEntity {
 
   override init() {
     super.init()
-    self.addComponent(BuildRoomComponent(minSize: minDimentions))
+    let roomBPComponent = RoomBlueprint(size: minDimentions, room: self)
+    self.addComponent(BuildRoomComponent(minSize: minDimentions, roomBlueprint: roomBPComponent))
 
   }
   

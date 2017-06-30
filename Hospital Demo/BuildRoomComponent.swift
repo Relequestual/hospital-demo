@@ -20,10 +20,10 @@ class BuildRoomComponent: GKComponent {
   
   var requiredDoor: doorTypes = doorTypes.single
 
-  init(minSize: CGSize) {
+  init(minSize: CGSize, roomBlueprint: RoomBlueprint) {
     self.minSize = minSize
     self.size = minSize
-    self.roomBlueprint = RoomBlueprint(size: minSize, room: self.entity!)
+    self.roomBlueprint = roomBlueprint
     super.init()
   }
   
