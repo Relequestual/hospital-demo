@@ -14,15 +14,13 @@ class Door: GKEntity {
   var room: GKEntity
   var stateMachine = DoorState()
   
-  init(room: GKEntity, gridPosition: CGPoint, direction: Game.rotation) {
+  init(room: GKEntity, realPosition: CGPoint, direction: Game.rotation) {
     self.room = room
     super.init()
     
-    let realPosition = UtilConvert.gridToSpritePosition(gridPosition: gridPosition)
+    self.addComponent(PositionComponent(realPosition: realPosition))
     
-    self.addComponent(PositionComponent(gridPosition: gridPosition, spritePosition: realPosition))
-    
-    let realPositionA = CGPoint(x: (realPosition?.x)!, y: (realPosition?.y)!)
+    let realPositionA = CGPoint(x: (realPosition.x), y: (realPosition.y))
     let realPositionB: CGPoint
     var directionB = direction
     directionB.next()
@@ -31,13 +29,13 @@ class Door: GKEntity {
     
     switch direction {
     case Game.rotation.north:
-      realPositionB = CGPoint(x: (realPosition?.x)! - 64, y: (realPosition?.y)!)
+      realPositionB = CGPoint(x: (realPosition.x) - 64, y: (realPosition.y))
     case Game.rotation.east:
-      realPositionB = CGPoint(x: (realPosition?.x)!, y: (realPosition?.y)! - 64)
+      realPositionB = CGPoint(x: (realPosition.x), y: (realPosition.y) - 64)
     case Game.rotation.south:
-      realPositionB = CGPoint(x: (realPosition?.x)! + 64, y: (realPosition?.y)!)
+      realPositionB = CGPoint(x: (realPosition.x) + 64, y: (realPosition.y))
     case Game.rotation.west:
-      realPositionB = CGPoint(x: (realPosition?.x)!, y: (realPosition?.y)! + 64)
+      realPositionB = CGPoint(x: (realPosition.x), y: (realPosition.y) + 64)
 
     }
     

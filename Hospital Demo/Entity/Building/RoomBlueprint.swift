@@ -358,10 +358,12 @@ class RoomBlueprint: GKEntity {
           print("door button touch")
           Game.sharedInstance.buildRoomStateMachine.enter(BRSDone.self)
 
-          let doorPosition = CGPoint(x: x, y: edgeInstruct.face)
+//          This is only a reletive position. need the absolute position
+//          let doorPosition = CGPoint(x: x, y: edgeInstruct.face)
+          let doorPosition = self.component(ofType: SpriteComponent.self)?.node.position
           let doorDirection = edgeInstruct.side
           
-          let door = Door(room: self.room, gridPosition: doorPosition, direction: doorDirection)
+          let door = Door(room: self.room, realPosition: doorPosition!, direction: doorDirection)
           
         })
         
