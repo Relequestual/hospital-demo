@@ -88,7 +88,6 @@ class GameToolbar: HLToolbarNode {
     print("gamestate is...")
     print(Game.sharedInstance.gameStateMachine.currentState)
 //    Game.sharedInstance.buildStateMachine.enterState(BRSPlan)
-    Game.sharedInstance.buildRoomStateMachine.roomType = GPOffice.self
     
   }
   

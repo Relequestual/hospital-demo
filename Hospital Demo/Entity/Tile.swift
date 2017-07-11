@@ -126,14 +126,10 @@ class Tile: GKEntity {
   
   func buildRoomStateTouch() {
     print("-- Gets to room state touch")
-    guard let buildingRoom: GKEntity.Type = Game.sharedInstance.buildRoomStateMachine.roomType else {
-      //Cry
-      return
-    }
     
     switch Game.sharedInstance.buildRoomStateMachine.currentState {
     case is BRSPrePlan:
-      let plannedRoom = buildingRoom.init()
+      let plannedRoom = Room.init()
       print("planned room is")
       print(plannedRoom)
       plannedRoom.component(ofType: BuildRoomComponent.self)?.clearPlan()

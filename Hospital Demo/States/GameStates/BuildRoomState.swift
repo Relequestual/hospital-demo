@@ -11,7 +11,6 @@ import GameplayKit
 
 class BuildRoomState : GKStateMachine {
   
-  var roomType: GKEntity.Type?
   var roomBuilding: GKEntity?
 
   init() {
@@ -25,7 +24,6 @@ class BuildRoomState : GKStateMachine {
   }
   
   func resetState() {
-    roomType = nil
     roomBuilding = nil
   }
 

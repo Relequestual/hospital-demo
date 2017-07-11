@@ -26,7 +26,7 @@ class RoomBlueprint: GKEntity {
     }
   }
   
-  var room: GKEntity
+  var room: Room
   
   static var square = SKShapeNode(rectOf: CGSize(width: 64, height: 64))
   static var innerSquare = SKShapeNode(rectOf: CGSize(width: 55, height: 55))
@@ -44,7 +44,7 @@ class RoomBlueprint: GKEntity {
   var dragOffset: CGPoint?
   var anchorTile: GKEntity?
   
-  init(size: CGSize, room: GKEntity) {
+  init(size: CGSize, room: Room) {
     self.room = room
     super.init()
 //    self.dynamicType.dashedSquare.lineWidth = 2
@@ -353,18 +353,24 @@ class RoomBlueprint: GKEntity {
     for edgeInstruct in edgeInstructions {
       
       for x in stride(from: edgeInstruct.start, to:edgeInstruct.end, by: 64) {
+        let doorPosition = edgeInstruct.axis == Game.axis.vert ? CGPoint(x: x + 32, y: edgeInstruct.face) : CGPoint(x: edgeInstruct.face, y: x + 32 )
         let texture = Game.sharedInstance.mainView?.texture(from: SKShapeNode(circleOfRadius: 32))
         let doorButton = Button(texture: texture!, touch_f: {
           print("door button touch")
           Game.sharedInstance.buildRoomStateMachine.enter(BRSDone.self)
 
+//          WORKING ON THIS
 //          This is only a reletive position. need the absolute position
 //          let doorPosition = CGPoint(x: x, y: edgeInstruct.face)
-          let doorPosition = self.component(ofType: SpriteComponent.self)?.node.position
+//          let doorPosition = self.component(ofType: SpriteComponent.self)?.node.position
           let doorDirection = edgeInstruct.side
-          
-          let door = Door(room: self.room, realPosition: doorPosition!, direction: doorDirection)
-          
+
+          let door = Door(room: self.room, realPosition: doorPosition, direction: doorDirection)
+
+
+          self.room.addDoor(door: door)
+
+
         })
         
         let doorButtonSprite = doorButton.component(ofType: SpriteComponent.self)!.node
@@ -373,7 +379,7 @@ class RoomBlueprint: GKEntity {
         doorButtonSprite.setScale(0.5)
         doorButtonSprite.name = "planning_room_door"
         
-        doorButtonSprite.position = edgeInstruct.axis == Game.axis.vert ? CGPoint(x: x + 32, y: edgeInstruct.face) : CGPoint(x: edgeInstruct.face, y: x + 32 )
+        doorButtonSprite.position = doorPosition
         doorButtonSprite.color = SKColor.orange
         doorButtonSprite.colorBlendFactor = 1
         

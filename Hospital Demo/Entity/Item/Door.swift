@@ -38,7 +38,20 @@ class Door: GKEntity {
       realPositionB = CGPoint(x: (realPosition.x), y: (realPosition.y) + 64)
 
     }
-    
+
+    let texture = Game.sharedInstance.mainView?.texture(from: SKShapeNode(circleOfRadius: 32))
+
+    let spriteComponent = SpriteComponent(texture: texture!)
+    let node = spriteComponent.node
+    node.colorBlendFactor = 1
+    node.color = SKColor.green
+//    This position is wrong
+    node.position = realPosition
+    node.setScale(0.5)
+
+    self.addComponent(spriteComponent)
+
+
 //    For position A, need to invert `direction` because it will be the direction they need to face to use
     let usePoints = [
       UsePoint(
@@ -54,7 +67,10 @@ class Door: GKEntity {
         use: self.use
       )
     ]
+
     self.addComponent(UseableComponent(usePoints: usePoints))
+
+    Game.sharedInstance.entityManager.add(self, layer: ZPositionManager.WorldLayer.world)
   }
   
   required init?(coder aDecoder: NSCoder) {

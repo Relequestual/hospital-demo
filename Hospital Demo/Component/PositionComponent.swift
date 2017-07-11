@@ -9,6 +9,7 @@
 import SpriteKit
 import GameplayKit
 
+
 class PositionComponent: GKComponent {
 
   var gridPosition: CGPoint

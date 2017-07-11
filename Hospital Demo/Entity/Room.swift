@@ -1,5 +1,5 @@
 //
-//  GPOffice.swift
+//  Room.swift
 //  Hospital Demo
 //
 //  Created by Ben Hutton on 06/08/2016.
@@ -9,11 +9,9 @@
 import SpriteKit
 import GameplayKit
 
-class GPOffice: GKEntity {
+class Room: GKEntity {
 
   let minDimentions = CGSize(width: 3, height: 4)
-  
-//  Let's not have a room component yet, and in stead have props here
   
   var doors: [Door] = []
 
@@ -26,6 +24,10 @@ class GPOffice: GKEntity {
   
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+
+  func addDoor(door:Door) {
+    self.doors.append(door)
   }
   
 
