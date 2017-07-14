@@ -349,42 +349,36 @@ class RoomBlueprint: GKEntity {
     
     
     let edgeInstructions = [southEdge, northEdge, eastEdge, westEdge]
+    let roomPosition = self.component(ofType: SpriteComponent.self)?.node.position
     
     for edgeInstruct in edgeInstructions {
       
+      let doorDirection = edgeInstruct.side
+      
       for x in stride(from: edgeInstruct.start, to:edgeInstruct.end, by: 64) {
         let doorPosition = edgeInstruct.axis == Game.axis.vert ? CGPoint(x: x + 32, y: edgeInstruct.face) : CGPoint(x: edgeInstruct.face, y: x + 32 )
-        let texture = Game.sharedInstance.mainView?.texture(from: SKShapeNode(circleOfRadius: 32))
-        let doorButton = Button(texture: texture!, touch_f: {
-          print("door button touch")
-          Game.sharedInstance.buildRoomStateMachine.enter(BRSDone.self)
-
-//          WORKING ON THIS
-//          This is only a reletive position. need the absolute position
-//          let doorPosition = CGPoint(x: x, y: edgeInstruct.face)
-//          let doorPosition = self.component(ofType: SpriteComponent.self)?.node.position
-          let doorDirection = edgeInstruct.side
-
-          let door = Door(room: self.room, realPosition: doorPosition, direction: doorDirection)
-
-
-          self.room.addDoor(door: door)
-
-
-        })
+//        let texture = Game.sharedInstance.mainView?.texture(from: SKShapeNode(circleOfRadius: 32))
         
-        let doorButtonSprite = doorButton.component(ofType: SpriteComponent.self)!.node
+        let realPosition = CGPoint(x: (roomPosition?.x)! + doorPosition.x, y: (roomPosition?.y)! + doorPosition.y)
         
-        doorButtonSprite.zPosition = (self.component(ofType: SpriteComponent.self)?.node.zPosition)! + 1
-        doorButtonSprite.setScale(0.5)
-        doorButtonSprite.name = "planning_room_door"
         
-        doorButtonSprite.position = doorPosition
-        doorButtonSprite.color = SKColor.orange
-        doorButtonSprite.colorBlendFactor = 1
+        let door = Door(room: self.room, realPosition: realPosition, direction: doorDirection)
         
-        doorButton.component(ofType: SpriteComponent.self)?.addToNodeKey()
-        self.component(ofType: SpriteComponent.self)?.node.addChild((doorButton.component(ofType: SpriteComponent.self)?.node)!)
+        self.room.addDoor(door: door)
+        
+        
+//        let doorButtonSprite = doorButton.component(ofType: SpriteComponent.self)!.node
+//        
+//        doorButtonSprite.zPosition = (self.component(ofType: SpriteComponent.self)?.node.zPosition)! + 1
+//        doorButtonSprite.setScale(0.5)
+//        doorButtonSprite.name = "planning_room_door"
+//        
+//        doorButtonSprite.position = doorPosition
+//        doorButtonSprite.color = SKColor.orange
+//        doorButtonSprite.colorBlendFactor = 1
+//        
+//        doorButton.component(ofType: SpriteComponent.self)?.addToNodeKey()
+//        self.component(ofType: SpriteComponent.self)?.node.addChild((doorButton.component(ofType: SpriteComponent.self)?.node)!)
         // Game.sharedInstance.entityManager.add(doorButton, layer: ZPositionManager.WorldLayer.interaction)
       }
       

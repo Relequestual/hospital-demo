@@ -68,7 +68,8 @@ class BuildRoomComponent: GKComponent {
       //    Set state to BRSDoor
       Game.sharedInstance.buildRoomStateMachine.enter(BRSDoor.self)
       //    create function to allow for placement of door
-      self.roomBlueprint.allowToPlaceDoor()
+//      NOPE, now we will allow a room without doors, and doors are addable later
+//      self.roomBlueprint.allowToPlaceDoor()
       
     }
 //    replace current toolbar with confirm toolbar.

@@ -30,5 +30,12 @@ class Room: GKEntity {
     self.doors.append(door)
   }
   
+  func createFloorTexture(color: UIColor = UIColor.init(red: 150, green: 20, blue: 20, alpha: 0)) -> SKTexture {
+    let node = SKShapeNode(rectOf: CGSize(width: 32, height: 32))
+    node.lineWidth = 0
+    node.fillColor = color
+    return SKView().texture(from: node)!
+  }
+
 
 }
