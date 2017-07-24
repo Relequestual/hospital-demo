@@ -107,7 +107,7 @@ class BlueprintComponent: GKComponent {
     let y = may! + miy!
 
     var nodePosition = Game.sharedInstance.tilesAtCoords[Int(position.x)]![Int(position.y)]!.component(ofType: PositionComponent.self)?.spritePosition
-    nodePosition = CGPoint(x: Int(nodePosition!.x) + 32 * x, y: Int(nodePosition!.y) + 32 * y)
+//    nodePosition = CGPoint(x: Int(nodePosition!.x) + 32 * x, y: Int(nodePosition!.y) + 32 * y)
     
     
     graphicNode?.position = nodePosition!

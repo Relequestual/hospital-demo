@@ -48,6 +48,8 @@ class GSBuildRoom: GKState {
   }
   
   override func willExit(to nextState: GKState) {
+    Game.sharedInstance.draggingEntiy = nil
+    Game.sharedInstance.buildRoomStateMachine.resetState()
     Game.sharedInstance.canAutoScroll = false
   }
   

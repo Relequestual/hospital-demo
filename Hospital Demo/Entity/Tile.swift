@@ -18,7 +18,6 @@ class Tile: GKEntity {
   }
   var tileType: tileTypes
   
-  var realPosition: CGPoint
   var isBuildingOn = false
   var unbuildable: Bool
   var blocked: Bool {
@@ -31,7 +30,6 @@ class Tile: GKEntity {
 
   init(imageName: String, initType: tileTypes = tileTypes.tile , x: Int, y: Int) {
 
-    self.realPosition = CGPoint(x: x, y: y)
     self.tileType = initType
     
     switch initType {
@@ -54,10 +52,10 @@ class Tile: GKEntity {
 
 
     let width = Int((spriteComponent.node.texture?.size().width)!)
-    let x = width * x + width / 2
-    let y = width * y + width / 2
+    let sx = width * x + width / 2
+    let sy = width * y + width / 2
 
-    let positionComponent = PositionComponent(gridPosition: self.realPosition, spritePosition: CGPoint(x: x, y: y))
+    let positionComponent = PositionComponent(gridPosition: CGPoint(x: x, y: y), spritePosition: CGPoint(x: sx, y: sy))
 
     addComponent(positionComponent)
     
@@ -135,7 +133,7 @@ class Tile: GKEntity {
       plannedRoom.component(ofType: BuildRoomComponent.self)?.clearPlan()
       plannedRoom.component(ofType: BuildRoomComponent.self)?.planAtPoint((self.component(ofType: PositionComponent.self)?.gridPosition)!)
       plannedRoom.component(ofType: BuildRoomComponent.self)?.needConfirmBounds()
-      Game.sharedInstance.buildRoomStateMachine.enter(BRSPlan)
+      Game.sharedInstance.buildRoomStateMachine.enter(BRSPlan.self)
       Game.sharedInstance.buildRoomStateMachine.roomBuilding = plannedRoom
       
     default:

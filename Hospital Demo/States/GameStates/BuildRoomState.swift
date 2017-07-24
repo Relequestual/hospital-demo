@@ -17,8 +17,6 @@ class BuildRoomState : GKStateMachine {
     super.init(states:[
       BRSPrePlan(),
       BRSPlan(),
-      BRSDoor(),
-      BRSItems(),
       BRSDone(),
       ])
   }
@@ -32,10 +30,6 @@ class BuildRoomState : GKStateMachine {
 class BRSPrePlan: GKState {}
 
 class BRSPlan: GKState {}
-
-class BRSDoor: GKState {}
-
-class BRSItems: GKState {}
 
 class BRSDone: GKState {}
 

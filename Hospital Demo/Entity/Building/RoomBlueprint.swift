@@ -17,7 +17,6 @@ class RoomBlueprint: GKEntity {
       print("==== didset size")
       let previousPosition = self.component(ofType: SpriteComponent.self)?.node.position
       Game.sharedInstance.entityManager.remove(self)
-      self.removeComponent(ofType: SpriteComponent.self)
       self.addComponent(SpriteComponent(texture: self.createFloorplanTexture(size)))
       self.component(ofType: SpriteComponent.self)?.node.name = "planning_room_blueprint"
       self.component(ofType: SpriteComponent.self)?.node.position = previousPosition!
@@ -77,14 +76,13 @@ class RoomBlueprint: GKEntity {
     let spritePos = self.component(ofType: SpriteComponent.self)?.node.position
     self.dragOffset = CGPoint(x: spritePos!.x - point.x, y: spritePos!.y - point.y)
     
-    let tile = getTileAtPoint(CGPoint(x: spritePos!.x - (self.size.width.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0), y: spritePos!.y - (self.size.height.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0)))
+    let tile = PositionComponent.getTileAtPoint(CGPoint(x: spritePos!.x - (self.size.width.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0), y: spritePos!.y - (self.size.height.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0)))
     self.anchorTile = tile
   }
   
   func dragMoveHandler(_ point:CGPoint) {
-    let spritePos = self.component(ofType: SpriteComponent.self)?.node.position
     
-    let tile = getTileAtPoint(CGPoint(x: point.x + self.dragOffset!.x - (self.size.width.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0), y: point.y + self.dragOffset!.y - (self.size.height.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0)))
+    let tile = PositionComponent.getTileAtPoint(CGPoint(x: point.x + self.dragOffset!.x - (self.size.width.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0), y: point.y + self.dragOffset!.y - (self.size.height.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0)))
 //    print(self.anchorTile)
 //    print(tile)
     if (self.anchorTile !== tile) {
@@ -197,16 +195,16 @@ class RoomBlueprint: GKEntity {
     switch (self.handleDragAxis, self.handleDragXSign, self.handleDragYSign) {
     case (Game.axis.vert, _, Game.numericalSignage.negative):
       self.handleDragEdge = Game.rotation.south
-      self.anchorTile = self.getTileAtPoint(CGPoint(x: point.x, y: point.y + 32))
+      self.anchorTile = PositionComponent.getTileAtPoint(CGPoint(x: point.x, y: point.y + 32))
     case (Game.axis.vert, _, Game.numericalSignage.positive):
       self.handleDragEdge = Game.rotation.north
-      self.anchorTile = self.getTileAtPoint(CGPoint(x: point.x, y: point.y - 32))
+      self.anchorTile = PositionComponent.getTileAtPoint(CGPoint(x: point.x, y: point.y - 32))
     case (Game.axis.hroiz, Game.numericalSignage.positive, _):
       self.handleDragEdge = Game.rotation.east
-      self.anchorTile = self.getTileAtPoint(CGPoint(x: point.x - 32, y: point.y))
+      self.anchorTile = PositionComponent.getTileAtPoint(CGPoint(x: point.x - 32, y: point.y))
     case (Game.axis.hroiz, Game.numericalSignage.negative, _):
       self.handleDragEdge = Game.rotation.west
-      self.anchorTile = self.getTileAtPoint(CGPoint(x: point.x + 32, y: point.y))
+      self.anchorTile = PositionComponent.getTileAtPoint(CGPoint(x: point.x + 32, y: point.y))
     default:
       print("huh")
     }
@@ -229,7 +227,7 @@ class RoomBlueprint: GKEntity {
     print("___handleDragMove point is")
     print(point)
     print(edge)
-    let currentTile = self.getTileAtPoint(CGPoint(x: point.x + ((edge == Game.rotation.east) ? -32 : edge == Game.rotation.west ? 32 : 0), y: point.y + ((edge == Game.rotation.north) ? -32 : edge == Game.rotation.south ? 32 : 0)) )
+    let currentTile = PositionComponent.getTileAtPoint(CGPoint(x: point.x + ((edge == Game.rotation.east) ? -32 : edge == Game.rotation.west ? 32 : 0), y: point.y + ((edge == Game.rotation.north) ? -32 : edge == Game.rotation.south ? 32 : 0)) )
     if (currentTile == nil || !currentTile!.isKind(of: Tile.self)) {
       return
     }
@@ -308,13 +306,15 @@ class RoomBlueprint: GKEntity {
           self.component(ofType: SpriteComponent.self)?.node.position = CGPoint(x: currentNodePosition!.x + ( (direction == Game.rotation.west) ? -32 : direction == Game.rotation.east ? 32 : 0), y: currentNodePosition!.y)
         }
         
+        self.addComponent(PositionComponent(realPosition: (self.component(ofType: SpriteComponent.self)?.node.position)!))
         self.size = newSize
         
         self.anchorTile = currentTile
       }
 
       self.createResizeHandles()
-
+      
+//      Maybe move this to above setting of new size
 
     }
     
@@ -324,7 +324,7 @@ class RoomBlueprint: GKEntity {
   
   func allowToPlaceDoor() {
     
-    // The code at the start of this function is almost identical to that found in RoomBlueprint, and the two should be refactored
+    //TODO: The code at the start of this function is almost identical to createResizeHandles, and the two should be refactored to use the same code
     
     let spritePosition = CGPoint.zero
     let edgeYT = Int(spritePosition.y + self.size.height * 64 / 2)
@@ -383,21 +383,6 @@ class RoomBlueprint: GKEntity {
       }
       
     }
-  }
-  
-  func getTileAtPoint(_ point: CGPoint) -> GKEntity? {
-    let nodesAtPoint = Game.sharedInstance.wolrdnode.contentNode.nodes(at: point)
-    var tile: GKEntity?
-    
-    for node in nodesAtPoint {
-      guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else {continue}
-      
-      if (entity.isKind(of: Tile.self)) {
-        tile = entity
-      }
-    }
-    
-    return tile
   }
   
   func createFloorplanTexture(_ roomSize: CGSize) -> SKTexture {

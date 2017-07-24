@@ -11,14 +11,17 @@ import GameplayKit
 
 class Room: GKEntity {
 
-  let minDimentions = CGSize(width: 3, height: 4)
+  let minDimentions = CGSize(width: 1, height: 1)
   
   var doors: [Door] = []
+  
+  static let floorNode: SKSpriteNode = Room.createFloorNode()
 
   override init() {
     super.init()
-    let roomBPComponent = RoomBlueprint(size: minDimentions, room: self)
-    self.addComponent(BuildRoomComponent(minSize: minDimentions, roomBlueprint: roomBPComponent))
+//    This is wrong. It's not a component, but an entity.
+//    let roomBPComponent = RoomBlueprint(size: minDimentions, room: self)
+    self.addComponent(BuildRoomComponent(minSize: minDimentions, room: self))
 
   }
   
@@ -30,10 +33,30 @@ class Room: GKEntity {
     self.doors.append(door)
   }
   
-  func createFloorTexture(color: UIColor = UIColor.init(red: 150, green: 20, blue: 20, alpha: 0)) -> SKTexture {
-    let node = SKShapeNode(rectOf: CGSize(width: 32, height: 32))
+//  static func createFloorNode(color: UIColor = UIColor.init(red: 150, green: 20, blue: 20, alpha: 0)) -> SKSpriteNode {
+    static func createFloorNode() -> SKSpriteNode {
+
+    let node = SKShapeNode(rectOf: CGSize(width: 60, height: 60))
+    let color = UIColor.red
     node.lineWidth = 0
     node.fillColor = color
+    node.strokeColor = color
+    return SKSpriteNode(texture: SKView().texture(from: node))
+  }
+  
+  
+  func createFloorTexture(_ roomSize: CGSize) -> SKTexture {
+    let node = SKSpriteNode()
+    let base = 32
+    let width = 64
+    
+    for x in 1...Int(roomSize.width) {
+      for y in 1...Int(roomSize.height) {
+        let squareNode = Room.floorNode.copy() as! SKSpriteNode
+        squareNode.position = CGPoint(x: x * width + base, y: y * width + base)
+        node.addChild(squareNode)
+      }
+    }
     return SKView().texture(from: node)!
   }
 

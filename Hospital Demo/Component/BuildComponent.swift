@@ -29,7 +29,6 @@ class BuildComponent: GKComponent {
       // Nope
       return
     }
-    Game.sharedInstance.canAutoScroll = true
 
     let area = (entity.component(ofType: BlueprintComponent.self)?.area)!
     let pous = (entity.component(ofType: BlueprintComponent.self)?.pous)!

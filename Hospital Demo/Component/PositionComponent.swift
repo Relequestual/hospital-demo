@@ -22,12 +22,28 @@ class PositionComponent: GKComponent {
   }
   
   init(realPosition: CGPoint) {
-    self.gridPosition = CGPoint(x: realPosition.x / 32, y: realPosition.y / 32)
+    self.gridPosition = (PositionComponent.getTileAtPoint(realPosition)?.component(ofType: PositionComponent.self)?.gridPosition)!
     self.spritePosition = realPosition
     super.init()
   }
   
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+  
+  
+  static func getTileAtPoint(_ point: CGPoint) -> Tile? {
+    let nodesAtPoint = Game.sharedInstance.wolrdnode.contentNode.nodes(at: point)
+    var tile: GKEntity?
+    
+    for node in nodesAtPoint {
+      guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else {continue}
+      
+      if (entity.isKind(of: Tile.self)) {
+        tile = entity
+      }
+    }
+    
+    return tile as! Tile
   }
 }
