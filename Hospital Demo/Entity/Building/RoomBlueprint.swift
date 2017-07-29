@@ -81,7 +81,6 @@ class RoomBlueprint: GKEntity {
   }
   
   func dragMoveHandler(_ point:CGPoint) {
-    
     let tile = PositionComponent.getTileAtPoint(CGPoint(x: point.x + self.dragOffset!.x - (self.size.width.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0), y: point.y + self.dragOffset!.y - (self.size.height.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0)))
 //    print(self.anchorTile)
 //    print(tile)
@@ -94,7 +93,10 @@ class RoomBlueprint: GKEntity {
 //      Later, make genertic north south east west actions... maybe
       let moveAction = SKAction.move(to: self.getPointForSize(tilePosition!), duration: TimeInterval(0.1))
       moveAction.timingMode = SKActionTimingMode.easeInEaseOut
-      self.component(ofType: SpriteComponent.self)?.node.run(moveAction, completion: {})
+      self.component(ofType: SpriteComponent.self)?.node.run(moveAction) {
+        self.addComponent(PositionComponent(realPosition: self.getPointForSize(tilePosition!)))
+      }
+
     }
     
   }
@@ -421,7 +423,9 @@ class RoomBlueprint: GKEntity {
   }
   
   func getPointForSize (_ point: CGPoint) -> CGPoint {
-    return CGPoint(x: point.x + (self.size.width.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0), y: point.y + (self.size.height.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0))
+    let x = point.x + (self.size.width.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0)
+    let y = point.y + (self.size.height.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0)
+    return CGPoint(x:x , y:y)
   }
 
 }

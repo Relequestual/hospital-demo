@@ -131,7 +131,7 @@ class BuildRoomComponent: GKComponent {
     self.room.addComponent(self.roomBlueprint.component(ofType: PositionComponent.self)!)
     
     self.room.addComponent(SpriteComponent(texture: SKView().texture(from: floorNode)!))
-    Game.sharedInstance.entityManager.add(self.room, layer: ZPositionManager.WorldLayer.ground)
+    Game.sharedInstance.entityManager.add(self.room, layer: ZPositionManager.WorldLayer.world)
   }
   
   func getPointForSize (_ point: CGPoint) -> CGPoint {
