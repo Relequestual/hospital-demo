@@ -13,7 +13,7 @@ import GameplayKit
 class BuildRoomComponent: GKComponent {
 
   let minSize: CGSize
-  var size: CGSize = CGSize(width: 1, height: 1)
+  var size: CGSize 
   
   var room: Room!
   
@@ -38,17 +38,17 @@ class BuildRoomComponent: GKComponent {
   }
   
   func planAtPoint(_ gridPosition: CGPoint) {
-    self.roomBlueprint.addComponent(PositionComponent(gridPosition: gridPosition))
+//    self.roomBlueprint.addComponent(PositionComponent(gridPosition: gridPosition))
     guard let tile = Game.sharedInstance.tilesAtCoords[Int(gridPosition.x)]![Int(gridPosition.y)] else {
       // No tile at this position
       return
     }
-//    let spritePosition = (tile.component(ofType: PositionComponent.self)?.spritePosition)!
-    let spritePosition = (tile.component(ofType: SpriteComponent.self)?.node.position)!
+
+    let spritePosition = tile.component(ofType: PositionComponent.self)?.spritePosition
     print("mod check")
-    print(self.size.width.truncatingRemainder(dividingBy: 2) == 0)
+//    print(self.size.width.truncatingRemainder(dividingBy: 2) == 0)
 //    self.roomBlueprint.componentForClass(SpriteComponent.self)?.node.position = CGPoint(x: spritePosition.x + (self.size.width % 2 == 0 ? 32 : 0), y: spritePosition.y + (self.size.height % 2 == 0 ? 32 : 0))
-      self.roomBlueprint.component(ofType: SpriteComponent.self)?.node.position = self.getPointForSize(spritePosition)
+    self.roomBlueprint.component(ofType: PositionComponent.self)?.spritePosition = self.getPointForSize(spritePosition!)
 
 //    let sprite = self.roomBlueprint.componentForClass(SpriteComponent.self)
     
@@ -99,15 +99,8 @@ class BuildRoomComponent: GKComponent {
   }
   
   func confirmBuild() {
-    //remove handles from plan
-//    self.roomBlueprint.removeResizeHandles()
-    //make plan non moveable
-//    self.roomBlueprint.component(ofType: DraggableSpriteComponent.self)?.draggable = false
-    
-    self.entity?.addComponent(PositionComponent(gridPosition: CGPoint(), spritePosition: self.roomBlueprint.component(ofType: SpriteComponent.self)?.node.position))
-    
-    Game.sharedInstance.entityManager.remove(self.roomBlueprint)
-    
+    self.clearPlan()
+        
 //    Make the room built somehow
     self.entity?.addComponent(self.roomBlueprint.component(ofType: PositionComponent.self)!)
     
@@ -118,24 +111,26 @@ class BuildRoomComponent: GKComponent {
     self.build()
   }
   
-  func cancelBuild() {
-    self.clearPlan()
-    Game.sharedInstance.gameStateMachine.enter(GSGeneral.self)
-  }
-  
   func build () {
     let texture = self.room.createFloorTexture(self.roomBlueprint.size)
     
     let floorNode = SKSpriteNode(texture: texture)
     
-    self.room.addComponent(self.roomBlueprint.component(ofType: PositionComponent.self)!)
+//    Position Component set for room in confirm build function above
+//    let position = self.room.component(ofType: PositionComponent.self)!
+//    self.room.addComponent(self.room.component(ofType: PositionComponent.self)!)
     
     self.room.addComponent(SpriteComponent(texture: SKView().texture(from: floorNode)!))
     Game.sharedInstance.entityManager.add(self.room, layer: ZPositionManager.WorldLayer.world)
   }
   
+  func cancelBuild() {
+    self.clearPlan()
+    Game.sharedInstance.gameStateMachine.enter(GSGeneral.self)
+  }
+  
   func getPointForSize (_ point: CGPoint) -> CGPoint {
-    return CGPoint(x: point.x + (self.size.width.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0), y: point.y + (self.size.height.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0))
+    return CGPoint(x: point.x + (self.roomBlueprint.size.width.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0), y: point.y + (self.roomBlueprint.size.height.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0))
   }
   
 }
