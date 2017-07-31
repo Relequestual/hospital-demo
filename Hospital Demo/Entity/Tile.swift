@@ -102,13 +102,13 @@ class Tile: GKEntity {
   }
   
   func buildItemStateTouch() {
-
     switch Game.sharedInstance.buildItemStateMachine.currentState {
     case is BISPlan:
-      print("touch with BISPlan")
-      guard let placingObject: GKEntity.Type = Game.sharedInstance.placingObjectsQueue[0] else {
-        //Cry
+
+      guard let placingObject: GKEntity.Type = Game.sharedInstance.placingObjectsQueue.first else {
+        return
       }
+
       let plannedObject = placingObject.init()
       Game.sharedInstance.draggingEntiy = plannedObject
       plannedObject.component(ofType: BlueprintComponent.self)?.planFunctionCall((self.component(ofType: PositionComponent.self)?.gridPosition)!)
@@ -138,7 +138,7 @@ class Tile: GKEntity {
       
     default:
       print("Some state that's not accounted for yet")
-      print(Game.sharedInstance.buildRoomStateMachine.currentState)
+      print(Game.sharedInstance.buildRoomStateMachine.currentState ?? "No current state")
     }
     
     

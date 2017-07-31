@@ -44,6 +44,6 @@ class PositionComponent: GKComponent {
       }
     }
     
-    return tile as! Tile
+    return tile as? Tile
   }
 }

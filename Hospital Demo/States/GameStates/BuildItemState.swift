@@ -36,7 +36,7 @@ class BISPlan: GKState {
 
 class BISPlace: GKState {
   override func didEnter(from previousState: GKState?) {
-    print(previousState)
+    print(previousState as Any)
     print("In Place Item State")
   }
 }

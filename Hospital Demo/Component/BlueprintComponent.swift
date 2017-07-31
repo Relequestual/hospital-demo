@@ -73,47 +73,26 @@ class BlueprintComponent: GKComponent {
     self.planFunction(position)
     self.entity?.component(ofType: BuildComponent.self)?.planAtPoint(position)
     
-    var plannedObject = self.entity!
+    let plannedObject = self.entity!
 
 //    print("removing planned_object nodes")
 //    Game.sharedInstance.entityManager.node.enumerateChildNodesWithName("planned_object", usingBlock: { (node, stop) -> Void in
 //      node.removeFromParent()
 //    });
 
-    var graphicNode = plannedObject.component(ofType: SpriteComponent.self)?.node
+    let graphicNode = plannedObject.component(ofType: SpriteComponent.self)?.node
     graphicNode?.zPosition = CGFloat(ZPositionManager.WorldLayer.interaction.zpos - 1)
     graphicNode?.name = "planned_object"
     graphicNode?.alpha = 0.6
     
-    let nodeArea = plannedObject.component(ofType: BlueprintComponent.self)?.area
-        
-    let max = nodeArea?.map({ ( coord: [Int] ) -> Int in
-      return coord[0]
-    }).max()
-    
-    let may = nodeArea?.map({ ( coord: [Int] ) -> Int in
-      return coord[1]
-    }).max()
-    
-    let mix = nodeArea?.map({ ( coord: [Int] ) -> Int in
-      return coord[0]
-    }).min()
-    
-    let miy = nodeArea?.map({ ( coord: [Int] ) -> Int in
-      return coord[1]
-    }).min()
-    
-    let x = max! + mix!
-    let y = may! + miy!
-
-    var nodePosition = Game.sharedInstance.tilesAtCoords[Int(position.x)]![Int(position.y)]!.component(ofType: PositionComponent.self)?.spritePosition
+    let nodePosition = Game.sharedInstance.tilesAtCoords[Int(position.x)]![Int(position.y)]!.component(ofType: PositionComponent.self)?.spritePosition
 //    nodePosition = CGPoint(x: Int(nodePosition!.x) + 32 * x, y: Int(nodePosition!.y) + 32 * y)
     
     
     graphicNode?.position = nodePosition!
     if (graphicNode!.parent != nil) {
 //      Don't touch this one!
-      print(graphicNode);
+      print(graphicNode!);
     } else {
       Game.sharedInstance.wolrdnode.contentNode.addChild(graphicNode!)
     }
@@ -128,7 +107,7 @@ class BlueprintComponent: GKComponent {
     var previousRotation = previousRotation
     previousRotation.next()
 
-    var action = SKAction.rotate(toAngle: CGFloat(self.baring.rawValue) * -CGFloat(M_PI / 2) , duration: TimeInterval(0.1))
+    let action = SKAction.rotate(toAngle: CGFloat(self.baring.rawValue) * -CGFloat(Double.pi / 2) , duration: TimeInterval(0.1))
 
 
     self.entity?.component(ofType: SpriteComponent.self)?.node.run(action, withKey: "rotate")
@@ -178,7 +157,7 @@ class BlueprintComponent: GKComponent {
   
   func displayBuildObjectConfirm() {
     guard let gridPosition = self.entity?.component(ofType: PositionComponent.self)?.gridPosition else {
-      print(self.entity)
+      print(self.entity as Any)
       return
     }
 
@@ -219,7 +198,7 @@ class BlueprintComponent: GKComponent {
       node.name = ""
       print("confirming plan!")
       
-      print(Game.sharedInstance.buildRoomStateMachine.roomBuilding)
+      print(Game.sharedInstance.buildRoomStateMachine.roomBuilding as Any)
       plannedObject.component(ofType: BuildComponent.self)?.build()
       Game.sharedInstance.buildRoomStateMachine.roomBuilding = nil
       Game.sharedInstance.entityManager.add(self.entity!, layer: ZPositionManager.WorldLayer.world)
