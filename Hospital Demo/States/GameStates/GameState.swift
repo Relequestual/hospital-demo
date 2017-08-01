@@ -43,7 +43,7 @@ class GSBuildItem: GKState {
 class GSBuildRoom: GKState {
   
   override func didEnter(from previousState: GKState?) {
-    print(previousState!)
+    print(previousState ?? "No previous state")
     Game.sharedInstance.canAutoScroll = true
   }
   
