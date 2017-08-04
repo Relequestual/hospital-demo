@@ -98,16 +98,15 @@ class BuildRoomComponent: GKComponent {
     
   }
   
+//  Set the room entity to have the same position and size as the room blueprint
   func confirmBuild() {
     self.clearPlan()
-        
 //    Make the room built somehow
     self.entity?.addComponent(self.roomBlueprint.component(ofType: PositionComponent.self)!)
-    
+    self.size = self.roomBlueprint.size
 //    Any tidy up?
     Game.sharedInstance.buildRoomStateMachine.enter(BRSDone.self)
     Game.sharedInstance.gameStateMachine.enter(GSGeneral.self)
-    self.size = self.roomBlueprint.size
     self.build()
   }
   
@@ -116,12 +115,9 @@ class BuildRoomComponent: GKComponent {
     
     let floorNode = SKSpriteNode(texture: texture)
     
-//    Position Component set for room in confirm build function above
-//    let position = self.room.component(ofType: PositionComponent.self)!
-//    self.room.addComponent(self.room.component(ofType: PositionComponent.self)!)
-    
     self.room.addComponent(SpriteComponent(texture: SKView().texture(from: floorNode)!))
     Game.sharedInstance.entityManager.add(self.room, layer: ZPositionManager.WorldLayer.world)
+    self.setTileWalls()
   }
   
   func cancelBuild() {
@@ -132,5 +128,40 @@ class BuildRoomComponent: GKComponent {
   func getPointForSize (_ point: CGPoint) -> CGPoint {
     return CGPoint(x: point.x + (self.roomBlueprint.size.width.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0), y: point.y + (self.roomBlueprint.size.height.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0))
   }
+  
+  func setTileWalls () {
+    let position = self.room.component(ofType: PositionComponent.self)!.spritePosition!
+  
+    let bottomLeftX = position.x - (self.roomBlueprint.size.width * 64) / 2
+    let bottomLeftY = position.y - (self.roomBlueprint.size.height * 64) / 2
+    
+    let bottomLeftTilePosition = CGPoint(x: bottomLeftX / 64, y: bottomLeftY / 64)
+
+    
+    for x in stride(from: Int(bottomLeftTilePosition.x), to: Int(bottomLeftTilePosition.x + self.roomBlueprint.size.width), by: 1){
+      for y in stride(from: Int(bottomLeftTilePosition.y), to: Int(bottomLeftTilePosition.y + self.roomBlueprint.size.height), by: 1) {
+        let tile = Game.sharedInstance.tilesAtCoords[Int(x)]![Int(y)]
+        if (x == Int(bottomLeftTilePosition.x)) {
+          tile?.addWall(ofBaring: Game.rotation.west)
+        }
+        if (y == Int(bottomLeftTilePosition.y)) {
+          tile?.addWall(ofBaring: Game.rotation.south)
+        }
+        if (x == Int(bottomLeftTilePosition.x + self.roomBlueprint.size.width - 1 )) {
+          tile?.addWall(ofBaring: Game.rotation.east)
+        }
+        if (y == Int(bottomLeftTilePosition.y + self.roomBlueprint.size.height - 1)) {
+          tile?.addWall(ofBaring: Game.rotation.north)
+        }
+      }
+    }
+    
+  }
+  
+  
+  
+  
+  
+  
   
 }

@@ -16,6 +16,7 @@ class Tile: GKEntity {
     case grass
     case path
   }
+
   var tileType: tileTypes
   
   var isBuildingOn = false
@@ -24,9 +25,79 @@ class Tile: GKEntity {
     didSet {
       if (blocked == true) {
         self.unbuildable = true
+        walls.setAll(toBool: true)
       }
     }
   }
+  
+  var walls = sides_blocked_status()
+  
+  struct sides_blocked_status {
+    
+    var index = [
+      Game.rotation.north: false,
+      Game.rotation.east: false,
+      Game.rotation.south: false,
+      Game.rotation.west: false
+    ]
+    
+    var sprites: Dictionary<Game.rotation, SKShapeNode?> = [:]
+    
+    mutating func addWall(ofBaring: Game.rotation) {
+      index[ofBaring] = true
+      
+    }
+    
+    mutating func removeWall(ofBaring: Game.rotation) {
+      index[ofBaring] = false
+    }
+    
+    
+    func get(baring: Game.rotation) -> Bool {
+      return index[baring]!
+    }
+    
+    mutating func setAll(toBool: Bool) {
+      for i in index.keys {
+        index[i] = toBool
+      }
+    }
+    
+    func anyBlocked() -> Bool {
+      return index.values.contains(true)
+    }
+  }
+
+  let wallVert = SKShapeNode(rect: CGRect(x: 0, y: 0, width: 5, height: 64))
+  let wallHoriz = SKShapeNode(rect: CGRect(x: 0, y: 0, width: 64, height: 5))
+
+
+  func addWall(ofBaring: Game.rotation) {
+    self.walls.addWall(ofBaring: ofBaring)
+    let sprite: SKShapeNode
+    if (ofBaring == .north || ofBaring == .south) {
+      sprite = wallHoriz.copy() as! SKShapeNode
+    }else{
+      sprite = wallVert.copy() as! SKShapeNode
+    }
+    sprite.fillColor = UIColor.black
+    sprite.position = (self.component(ofType: PositionComponent.self)?.spritePosition)!
+    switch ofBaring {
+    case .north:
+      sprite.position = CGPoint(x: sprite.position.x - 32, y: sprite.position.y + 32 - 5)
+    case .south:
+      sprite.position = CGPoint(x: sprite.position.x - 32, y: sprite.position.y - 32)
+    case .east:
+      sprite.position = CGPoint(x: sprite.position.x + 32 - 5, y: sprite.position.y - 32)
+    case .west:
+      sprite.position = CGPoint(x: sprite.position.x - 32, y: sprite.position.y - 32)
+    }
+    
+    sprite.zPosition = CGFloat(ZPositionManager.WorldLayer.world.zpos + 1)
+    self.walls.sprites[ofBaring] = sprite
+    Game.sharedInstance.entityManager.node.addChild(sprite)
+  }
+
 
   init(imageName: String, initType: tileTypes = tileTypes.tile , x: Int, y: Int) {
 
@@ -117,14 +188,17 @@ class Tile: GKEntity {
     //      Game.sharedInstance.buildStateMachine.enterState(BISPlaned)
     default:
       print("State that we aren't interested in!")
-      print(Game.sharedInstance.buildItemStateMachine.currentState)
+      print(Game.sharedInstance.buildItemStateMachine.currentState!)
     }
     
   }
   
   func buildRoomStateTouch() {
+    print("Tile#buildRoomStateTouch")
     print("-- Gets to room state touch")
-    
+
+
+
     switch Game.sharedInstance.buildRoomStateMachine.currentState {
     case is BRSPrePlan:
       let plannedRoom = Room.init()
