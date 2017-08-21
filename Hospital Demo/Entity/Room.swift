@@ -11,7 +11,7 @@ import GameplayKit
 
 class Room: GKEntity {
 
-  let minDimentions = CGSize(width: 1, height: 1)
+  let minDimentions = CGSize(width: 2, height: 2)
   
   var doors: [Door] = []
   
@@ -34,7 +34,7 @@ class Room: GKEntity {
   }
   
 //  static func createFloorNode(color: UIColor = UIColor.init(red: 150, green: 20, blue: 20, alpha: 0)) -> SKSpriteNode {
-    static func createFloorNode() -> SKSpriteNode {
+  static func createFloorNode() -> SKSpriteNode {
 
     let node = SKShapeNode(rectOf: CGSize(width: 60, height: 60))
     let color = UIColor.red

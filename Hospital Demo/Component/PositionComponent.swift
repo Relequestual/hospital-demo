@@ -12,7 +12,7 @@ import GameplayKit
 
 class PositionComponent: GKComponent {
 
-  var gridPosition: CGPoint
+  var gridPosition: CGPoint?
   var spritePosition: CGPoint?
 
   init(gridPosition: CGPoint, spritePosition: CGPoint?=nil) {
@@ -22,7 +22,6 @@ class PositionComponent: GKComponent {
   }
   
   init(realPosition: CGPoint) {
-    self.gridPosition = (PositionComponent.getTileAtPoint(realPosition)?.component(ofType: PositionComponent.self)?.gridPosition)!
     self.spritePosition = realPosition
     super.init()
   }

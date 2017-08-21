@@ -12,18 +12,7 @@ import GameplayKit
 
 class RoomBlueprint: GKEntity {
   
-  var size:CGSize = CGSize(width: 1, height: 1) {
-    didSet {
-      print("==== didset size")
-      let previousPosition = self.component(ofType: SpriteComponent.self)?.node.position
-      Game.sharedInstance.entityManager.remove(self)
-      self.addComponent(SpriteComponent(texture: self.createFloorplanTexture(size)))
-      self.component(ofType: SpriteComponent.self)?.node.name = "planning_room_blueprint"
-      self.component(ofType: SpriteComponent.self)?.node.position = previousPosition!
-      self.component(ofType: SpriteComponent.self)!.addToNodeKey()
-      Game.sharedInstance.entityManager.add(self, layer: ZPositionManager.WorldLayer.world)
-    }
-  }
+  var size:CGSize
   
   var room: Room
   
@@ -35,7 +24,8 @@ class RoomBlueprint: GKEntity {
   static var dashedSquare = SKShapeNode(path: dashed!)
   
   
-  static let combinedSqaure: SKSpriteNode = RoomBlueprint.compileAssets()
+  static let combinedSqaure: SKSpriteNode = RoomBlueprint.compileAssets(color: nil)
+  static let combinedSqaureRed: SKSpriteNode = RoomBlueprint.compileAssets(color: UIColor.green)
   static var assetsCompiled = false
   
   let tileOffset = CGPoint(x: 32, y: 32)
@@ -45,6 +35,7 @@ class RoomBlueprint: GKEntity {
   
   init(size: CGSize, room: Room) {
     self.room = room
+    self.size = size
     super.init()
 //    self.dynamicType.dashedSquare.lineWidth = 2
     
@@ -60,7 +51,7 @@ class RoomBlueprint: GKEntity {
         print("end drag room")
     }))
 
-    self.addComponent(SpriteComponent(texture: self.createFloorplanTexture(self.size)))
+    self.addComponent(SpriteComponent(texture: self.createFloorplanTexture(roomSize: self.size)))
     self.component(ofType: SpriteComponent.self)?.node.name = "planning_room_blueprint"
     
     self.component(ofType: SpriteComponent.self)!.addToNodeKey()
@@ -73,33 +64,36 @@ class RoomBlueprint: GKEntity {
   }
   
   func dragStartHandler(_ point:CGPoint) {
-    let spritePos = self.component(ofType: SpriteComponent.self)?.node.position
-    self.dragOffset = CGPoint(x: spritePos!.x - point.x, y: spritePos!.y - point.y)
+  
+    let gridPos = self.component(ofType: PositionComponent.self)?.gridPosition
+    let roomTileAnchor = Game.sharedInstance.tilesAtCoords[Int(gridPos!.x)]![Int(gridPos!.y)]
+   
+    let tileSpritePos = roomTileAnchor?.component(ofType: PositionComponent.self)?.spritePosition
+    self.dragOffset = CGPoint(x: (tileSpritePos?.x)! - point.x, y: (tileSpritePos?.y)! - point.y)
     
-    let tile = PositionComponent.getTileAtPoint(CGPoint(x: spritePos!.x - (self.size.width.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0), y: spritePos!.y - (self.size.height.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0)))
-    self.anchorTile = tile
+    self.anchorTile = roomTileAnchor
+
+    Game.sharedInstance.initDebugNode(name: "offset")
+    Game.sharedInstance.updateDebugNode(name: "offset", position: dragOffset!)
+    
   }
   
   func dragMoveHandler(_ point:CGPoint) {
-    let tile = PositionComponent.getTileAtPoint(CGPoint(x: point.x + self.dragOffset!.x - (self.size.width.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0), y: point.y + self.dragOffset!.y - (self.size.height.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0)))
-//    print(self.anchorTile)
-//    print(tile)
+    let offsetPoint = CGPoint(x: point.x + (dragOffset?.x)!, y: point.y + (dragOffset?.y)!)
+    let tile = PositionComponent.getTileAtPoint(offsetPoint)
+    
+    Game.sharedInstance.updateDebugNode(name: "offset", position: offsetPoint)
+
     if (self.anchorTile !== tile) {
       if (tile == nil || !tile!.isKind(of: Tile.self)) {
         return
       }
       self.anchorTile = tile
-      let tilePosition = tile?.component(ofType: PositionComponent.self)?.spritePosition
-//      Later, make genertic north south east west actions... maybe
-      let moveAction = SKAction.move(to: self.getPointForSize(tilePosition!), duration: TimeInterval(0.1))
-      moveAction.timingMode = SKActionTimingMode.easeInEaseOut
-      self.component(ofType: SpriteComponent.self)?.node.run(moveAction) {
-        self.addComponent(PositionComponent(realPosition: self.getPointForSize(tilePosition!)))
-      }
-
+      
+      self.room.component(ofType: BuildRoomComponent.self)?.planAtPoint((tile?.component(ofType: PositionComponent.self)?.gridPosition)!, true)
     }
-    
   }
+  
   
   struct resizeHandleDrawingInstruction {
     var axis: Game.axis
@@ -119,6 +113,7 @@ class RoomBlueprint: GKEntity {
   
   
   func createResizeHandles() {
+    self.removeResizeHandles()
     let spritePosition = CGPoint.zero
     let edgeYT = Int(spritePosition.y + size.height * 64 / 2)
     let edgeYB = Int(spritePosition.y - size.height * 64 / 2)
@@ -130,8 +125,6 @@ class RoomBlueprint: GKEntity {
     print(edgeXR)
     print(edgeYT)
     print(edgeYB)
-    
-    
     
 //    array of dictionaries needed for button creation
     
@@ -235,7 +228,6 @@ class RoomBlueprint: GKEntity {
     }
 
     pointSprite.strokeColor = UIColor.red
-//    (currentTile as! Tile).highlight((currentTile!.componentForClass(SpriteComponent.self)?.node.position)!)
     pointSprite.position = CGPoint(x: point.x, y: point.y + 32)
     pointSprite.zPosition = 100000
     pointSprite.removeFromParent()
@@ -244,8 +236,6 @@ class RoomBlueprint: GKEntity {
 
 
     if (self.anchorTile !== currentTile) {
-      
-      let currentNodePosition = self.component(ofType: SpriteComponent.self)?.node.position
       
 //      Check  what direction was dragged when tile was changed
       var direction: Game.rotation = Game.rotation.north
@@ -301,23 +291,25 @@ class RoomBlueprint: GKEntity {
       }
       
       if (newSize.width != 0 && newSize.height != 0) {
-        
-        if (self.handleDragAxis == Game.axis.vert) {
-          self.component(ofType: SpriteComponent.self)?.node.position = CGPoint(x: currentNodePosition!.x, y: currentNodePosition!.y + ( direction == Game.rotation.south ? -32 : direction == Game.rotation.north ? 32 : 0))
-        } else if (self.handleDragAxis == Game.axis.hroiz) {
-          self.component(ofType: SpriteComponent.self)?.node.position = CGPoint(x: currentNodePosition!.x + ( (direction == Game.rotation.west) ? -32 : direction == Game.rotation.east ? 32 : 0), y: currentNodePosition!.y)
+
+        let oldGridPos = self.component(ofType: PositionComponent.self)?.gridPosition
+        let newGridPos: CGPoint
+        if(self.handleDragEdge == .south || self.handleDragEdge == .west) {
+          let sizeChange = CGSize(width: self.size.width - newSize.width, height: self.size.height - newSize.height)
+          newGridPos = CGPoint(x: (oldGridPos?.x)! + sizeChange.width, y: (oldGridPos?.y)! + sizeChange.height)
+        } else {
+          newGridPos = oldGridPos!
         }
         
-        self.addComponent(PositionComponent(realPosition: (self.component(ofType: SpriteComponent.self)?.node.position)!))
         self.size = newSize
+        
+        self.room.component(ofType: BuildRoomComponent.self)?.planAtPoint(newGridPos)
         
         self.anchorTile = currentTile
       }
 
       self.createResizeHandles()
       
-//      Maybe move this to above setting of new size
-
     }
     
     self.handleDragPreviousMovePoint = point
@@ -387,14 +379,25 @@ class RoomBlueprint: GKEntity {
     }
   }
   
-  func createFloorplanTexture(_ roomSize: CGSize) -> SKTexture {
+
+  
+  func createFloorplanTexture(roomSize: CGSize, blockedTiles: [(x: Int,y: Int)]?=[]) -> SKTexture {
     let blueprintNode = SKSpriteNode()
     let base = 32
     let width = 64
     
     for x in 1...Int(roomSize.width) {
       for y in 1...Int(roomSize.height) {
-        let squareNode = RoomBlueprint.combinedSqaure.copy() as! SKSpriteNode
+        var squareNode: SKSpriteNode
+        
+        if (blockedTiles?.contains(where: { (coords: (x: Int, y: Int)) -> Bool in
+          return Bool(x == coords.x && y == coords.y)
+        }))! {
+          squareNode = RoomBlueprint.combinedSqaureRed.copy() as! SKSpriteNode
+        } else {
+          squareNode = RoomBlueprint.combinedSqaure.copy() as! SKSpriteNode
+        }
+        
         squareNode.position = CGPoint(x: x * width + base, y: y * width + base)
         blueprintNode.addChild(squareNode)
       }
@@ -404,12 +407,14 @@ class RoomBlueprint: GKEntity {
   }
 
   
-  static func compileAssets() -> SKSpriteNode {
+  static func compileAssets(color: UIColor?) -> SKSpriteNode {
     
-    innerSquare.fillColor = UIColor.blue
+    let mycolor: UIColor! = (color != nil) ? color : UIColor.blue
+    
+    innerSquare.fillColor = mycolor
     innerSquare.strokeColor = UIColor.init(white: 0, alpha: 0)
-    dashedSquare.fillColor = UIColor.blue
-    dashedSquare.strokeColor = UIColor.blue
+    dashedSquare.fillColor = mycolor
+    dashedSquare.strokeColor = mycolor
     
     let view = SKView()
     let squareSprite = SKSpriteNode(texture: view.texture(from: innerSquare))
@@ -422,10 +427,6 @@ class RoomBlueprint: GKEntity {
     return combinedNode
   }
   
-  func getPointForSize (_ point: CGPoint) -> CGPoint {
-    let x = point.x + (self.size.width.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0)
-    let y = point.y + (self.size.height.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0)
-    return CGPoint(x:x , y:y)
-  }
+
 
 }

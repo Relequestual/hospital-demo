@@ -79,5 +79,28 @@ class Game {
     let zPositionManager = ZPositionManager()
     print(zPositionManager.topMost)
   }
+  
+  func initDebugNode(name: String?) {
+    let pointSprite = SKShapeNode(circleOfRadius: 2)
+    pointSprite.strokeColor = UIColor.red
+    //    (currentTile as! Tile).highlight((currentTile!.componentForClass(SpriteComponent.self)?.node.position)!)
+    pointSprite.zPosition = 100000
+    pointSprite.removeFromParent()
+    pointSprite.name = name != nil ? name : ""
+    Game.sharedInstance.entityManager.node.addChild(pointSprite)
+  }
+  
+  func updateDebugNode(name: String, position: CGPoint) {
+    Game.sharedInstance.entityManager.node.enumerateChildNodes(withName: name) { (node, stop) in
+      node.position = position
+    }
+  }
+  
+  func removeDebugNode(name: String) {
+    Game.sharedInstance.entityManager.node.enumerateChildNodes(withName: name) { (node, stop) in
+      node.removeFromParent()
+    }
+
+  }
 
 }

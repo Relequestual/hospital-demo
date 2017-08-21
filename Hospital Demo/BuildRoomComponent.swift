@@ -37,24 +37,80 @@ class BuildRoomComponent: GKComponent {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func planAtPoint(_ gridPosition: CGPoint) {
+  func planAtPoint(_ gridPosition: CGPoint, _ animated: Bool = false) {
 //    self.roomBlueprint.addComponent(PositionComponent(gridPosition: gridPosition))
     guard let tile = Game.sharedInstance.tilesAtCoords[Int(gridPosition.x)]![Int(gridPosition.y)] else {
       // No tile at this position
       return
     }
-
-    let spritePosition = tile.component(ofType: PositionComponent.self)?.spritePosition
-    print("mod check")
-//    print(self.size.width.truncatingRemainder(dividingBy: 2) == 0)
-//    self.roomBlueprint.componentForClass(SpriteComponent.self)?.node.position = CGPoint(x: spritePosition.x + (self.size.width % 2 == 0 ? 32 : 0), y: spritePosition.y + (self.size.height % 2 == 0 ? 32 : 0))
-    self.roomBlueprint.component(ofType: PositionComponent.self)?.spritePosition = self.getPointForSize(spritePosition!)
-
-//    let sprite = self.roomBlueprint.componentForClass(SpriteComponent.self)
+    let tileSpritePosition = tile.component(ofType: PositionComponent.self)?.spritePosition
+    self.size = self.roomBlueprint.size
     
-    Game.sharedInstance.entityManager.add(self.roomBlueprint, layer: ZPositionManager.WorldLayer.world)
-    self.roomBlueprint.createResizeHandles()
+    let newSpritePosition = CGPoint(x: (tileSpritePosition?.x)! - 32 + self.size.width * 32, y: (tileSpritePosition?.y)! - 32 + self.size.height * 32)
+    
+    self.roomBlueprint.addComponent(PositionComponent(gridPosition: gridPosition, spritePosition: newSpritePosition))
+    
+    let blockedTiles = self.getBlockedTiles(inRect: self.size, atPoint: newSpritePosition)
+    let newSprite = self.roomBlueprint.createFloorplanTexture(roomSize: self.size, blockedTiles: blockedTiles)
+    self.roomBlueprint.component(ofType: SpriteComponent.self)?.node.size = newSprite.size()
+    self.roomBlueprint.component(ofType: SpriteComponent.self)?.node.texture =  newSprite
+    
+    if (animated) {
+      
+      //      Later, make genertic north south east west actions... maybe
+      let moveAction = SKAction.move(to: newSpritePosition, duration: TimeInterval(0.1))
+      moveAction.timingMode = SKActionTimingMode.easeInEaseOut
+      
+      
+      self.roomBlueprint.component(ofType: SpriteComponent.self)?.node.run(moveAction)
+      
+    } else {
+
+      Game.sharedInstance.entityManager.remove(self.roomBlueprint)
+
+      Game.sharedInstance.entityManager.add(self.roomBlueprint, layer: ZPositionManager.WorldLayer.planning)
+      
+      self.roomBlueprint.createResizeHandles()
+    }
+
   }
+  
+  
+//  The below functions, roomBlueprint needs to be changed to roomBlueprint
+  
+//  Given a point, return a modified point which accounts for the size of thr room blueprint, as sprite position is based on the middle point
+  func getPointForSize (_ point: CGPoint) -> CGPoint {
+    let x = point.x + (self.roomBlueprint.size.width.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0)
+    let y = point.y + (self.roomBlueprint.size.height.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0)
+    return CGPoint(x:x , y:y)
+  }
+  
+  
+//  Given a size and a point, return an array of relative coodinates of tiles that are blocked.
+  func getBlockedTiles(inRect: CGSize, atPoint: CGPoint) -> [(x: Int, y: Int)] {
+    
+    let position = roomBlueprint.component(ofType: PositionComponent.self)!.spritePosition!
+    
+    let bottomLeftX = position.x - (roomBlueprint.size.width * 64) / 2
+    let bottomLeftY = position.y - (roomBlueprint.size.height * 64) / 2
+    
+    let bottomLeftTilePosition = CGPoint(x: bottomLeftX / 64, y: bottomLeftY / 64)
+    
+    var blockedTiles: [(x: Int,y: Int)] = []
+    
+    for x in stride(from: Int(bottomLeftTilePosition.x), to: Int(bottomLeftTilePosition.x + roomBlueprint.size.width), by: 1){
+      for y in stride(from: Int(bottomLeftTilePosition.y), to: Int(bottomLeftTilePosition.y + roomBlueprint.size.height), by: 1) {
+        let tile = Game.sharedInstance.tilesAtCoords[Int(x)]![Int(y)]!
+        //        Check tile is blocked or has walls. if so, add coords to array as tuple
+        if (tile.blocked || tile.walls.anyBlocked()) {
+          blockedTiles.append((x: x - Int(bottomLeftTilePosition.x) + 1, y: y - Int(bottomLeftTilePosition.y) + 1))
+        }
+      }
+    }
+    
+    return blockedTiles
+  }
+  
   
 //  Called after initial placemet. Show confirmation toolbar
   func needConfirmBounds() {
@@ -125,11 +181,10 @@ class BuildRoomComponent: GKComponent {
     Game.sharedInstance.gameStateMachine.enter(GSGeneral.self)
   }
   
-  func getPointForSize (_ point: CGPoint) -> CGPoint {
-    return CGPoint(x: point.x + (self.roomBlueprint.size.width.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0), y: point.y + (self.roomBlueprint.size.height.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0))
-  }
   
   func setTileWalls () {
+    
+//    TODO: replace this with call to getGridPosForSpritePos
     let position = self.room.component(ofType: PositionComponent.self)!.spritePosition!
   
     let bottomLeftX = position.x - (self.roomBlueprint.size.width * 64) / 2
@@ -155,6 +210,25 @@ class BuildRoomComponent: GKComponent {
         }
       }
     }
+    
+  }
+  
+  func getGridPosForSpritePos(_ position: CGPoint) -> CGPoint? {
+//    This position needs to be passed in from roomBlueprint
+//    let position = self.room.component(ofType: PositionComponent.self)!.spritePosition!
+//    let position = self.roomBlueprint.component(ofType: PositionComponent.self)?.spritePosition
+
+    
+    let bottomLeftX = position.x - (self.roomBlueprint.size.width * 64) / 2
+    let bottomLeftY = position.y - (self.roomBlueprint.size.height * 64) / 2
+    
+    let bottomLeftGridPosition = CGPoint(x: bottomLeftX / 64, y: bottomLeftY / 64)
+    
+    if( bottomLeftGridPosition.x.truncatingRemainder(dividingBy: 1) != 0 && bottomLeftGridPosition.y.truncatingRemainder(dividingBy: 1) != 0 ) {
+      return nil
+    }
+    
+    return bottomLeftGridPosition
     
   }
   
