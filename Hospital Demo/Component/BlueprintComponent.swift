@@ -25,6 +25,8 @@ class BlueprintComponent: GKComponent {
   var rotateButton: Button!
   
   var baring = Game.rotation.north
+  
+  var spriteOffset: CGPoint
 
   var planFunction: (_ position: CGPoint)->Void;
   
@@ -45,7 +47,9 @@ class BlueprintComponent: GKComponent {
     let tickTexture = SKTexture(imageNamed: "Graphics/tick.png")
     let crossTexture = SKTexture(imageNamed: "Graphics/cross.png")
     let rotateTexture = SKTexture(imageNamed: "Graphics/rotate.png")
-
+    
+    self.spriteOffset = BlueprintComponent.calculateSpritePos(area: area)
+    
     super.init()
     
     self.confirmButton = createConfirmButtons(tickTexture, f: {
@@ -85,11 +89,11 @@ class BlueprintComponent: GKComponent {
     graphicNode?.name = "planned_object"
     graphicNode?.alpha = 0.6
     
-    let nodePosition = Game.sharedInstance.tilesAtCoords[Int(position.x)]![Int(position.y)]!.component(ofType: PositionComponent.self)?.spritePosition
+    let nodePosition = Game.sharedInstance.tilesAtCoords[Int(position.x)]![Int(position.y)]!.component(ofType: PositionComponent.self)!.spritePosition!
 //    nodePosition = CGPoint(x: Int(nodePosition!.x) + 32 * x, y: Int(nodePosition!.y) + 32 * y)
     
     
-    graphicNode?.position = nodePosition!
+    graphicNode?.position = CGPoint(x: nodePosition.x + self.spriteOffset.x, y: nodePosition.y + self.spriteOffset.y)
     if (graphicNode!.parent != nil) {
 //      Don't touch this one!
       print(graphicNode!);
@@ -132,6 +136,8 @@ class BlueprintComponent: GKComponent {
     self.baring = newRotation
     print("--- new baring set")
     
+    self.updateSpritePos()
+    
     self.entity?.component(ofType: BlueprintComponent.self)?.planFunctionCall((self.entity?.component(ofType: PositionComponent.self)?.gridPosition)!)
 //    self.entity?.componentForClass(BlueprintComponent.self)?.displayBuildObjectConfirm()
   }
@@ -153,6 +159,23 @@ class BlueprintComponent: GKComponent {
     }
     
     return true
+  }
+  
+  func updateSpritePos() {
+    self.spriteOffset = BlueprintComponent.calculateSpritePos(area: self.area)
+  }
+  
+  static func calculateSpritePos(area: [[Int]]) -> CGPoint {
+    let x = area.flatMap{ $0[0] }
+    let y = area.flatMap{ $0[1] }
+    
+    let minx = x.min()
+    let maxx = x.max()
+    let miny = y.min()
+    let maxy = y.max()
+    
+    //    DOING: check if this is right and if so,use when planning at point
+    return CGPoint(x: (minx! + maxx!) * 32, y: (miny! + maxy!) * 32)
   }
   
   func displayBuildObjectConfirm() {

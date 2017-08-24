@@ -76,16 +76,6 @@ class BuildRoomComponent: GKComponent {
   }
   
   
-//  The below functions, roomBlueprint needs to be changed to roomBlueprint
-  
-//  Given a point, return a modified point which accounts for the size of thr room blueprint, as sprite position is based on the middle point
-  func getPointForSize (_ point: CGPoint) -> CGPoint {
-    let x = point.x + (self.roomBlueprint.size.width.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0)
-    let y = point.y + (self.roomBlueprint.size.height.truncatingRemainder(dividingBy: 2) == 0 ? 32 : 0)
-    return CGPoint(x:x , y:y)
-  }
-  
-  
 //  Given a size and a point, return an array of relative coodinates of tiles that are blocked.
   func getBlockedTiles(inRect: CGSize, atPoint: CGPoint) -> [(x: Int, y: Int)] {
     
