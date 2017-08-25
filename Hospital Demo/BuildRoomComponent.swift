@@ -174,13 +174,7 @@ class BuildRoomComponent: GKComponent {
   
   func setTileWalls () {
     
-//    TODO: replace this with call to getGridPosForSpritePos
-    let position = self.room.component(ofType: PositionComponent.self)!.spritePosition!
-  
-    let bottomLeftX = position.x - (self.roomBlueprint.size.width * 64) / 2
-    let bottomLeftY = position.y - (self.roomBlueprint.size.height * 64) / 2
-    
-    let bottomLeftTilePosition = CGPoint(x: bottomLeftX / 64, y: bottomLeftY / 64)
+    let bottomLeftTilePosition = self.room.component(ofType: PositionComponent.self)!.gridPosition!
 
     
     for x in stride(from: Int(bottomLeftTilePosition.x), to: Int(bottomLeftTilePosition.x + self.roomBlueprint.size.width), by: 1){
