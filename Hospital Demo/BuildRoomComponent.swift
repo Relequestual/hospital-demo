@@ -39,6 +39,9 @@ class BuildRoomComponent: GKComponent {
   
   func planAtPoint(_ gridPosition: CGPoint, _ animated: Bool = false) {
 //    self.roomBlueprint.addComponent(PositionComponent(gridPosition: gridPosition))
+    guard self.canPlanAtPoint(gridPosition) else {
+      return
+    }
     guard let tile = Game.sharedInstance.tilesAtCoords[Int(gridPosition.x)]![Int(gridPosition.y)] else {
       // No tile at this position
       return
@@ -46,11 +49,12 @@ class BuildRoomComponent: GKComponent {
     let tileSpritePosition = tile.component(ofType: PositionComponent.self)?.spritePosition
     self.size = self.roomBlueprint.size
     
+    
     let newSpritePosition = CGPoint(x: (tileSpritePosition?.x)! - 32 + self.size.width * 32, y: (tileSpritePosition?.y)! - 32 + self.size.height * 32)
     
     self.roomBlueprint.addComponent(PositionComponent(gridPosition: gridPosition, spritePosition: newSpritePosition))
     
-    let blockedTiles = self.getBlockedTiles(inRect: self.size, atPoint: newSpritePosition)
+    let blockedTiles = self.getBlockedTiles(inRect: self.size, atPoint: gridPosition)
     let newSprite = self.roomBlueprint.createFloorplanTexture(roomSize: self.size, blockedTiles: blockedTiles)
     self.roomBlueprint.component(ofType: SpriteComponent.self)?.node.size = newSprite.size()
     self.roomBlueprint.component(ofType: SpriteComponent.self)?.node.texture =  newSprite
@@ -79,27 +83,27 @@ class BuildRoomComponent: GKComponent {
 //  Given a size and a point, return an array of relative coodinates of tiles that are blocked.
   func getBlockedTiles(inRect: CGSize, atPoint: CGPoint) -> [(x: Int, y: Int)] {
     
-    let position = roomBlueprint.component(ofType: PositionComponent.self)!.spritePosition!
-    
-    let bottomLeftX = position.x - (roomBlueprint.size.width * 64) / 2
-    let bottomLeftY = position.y - (roomBlueprint.size.height * 64) / 2
-    
-    let bottomLeftTilePosition = CGPoint(x: bottomLeftX / 64, y: bottomLeftY / 64)
+//    let bottomLeftX = atPoint.x - (roomBlueprint.size.width * 64) / 2
+//    let bottomLeftY = atPoint.y - (roomBlueprint.size.height * 64) / 2
+//    
+//    let bottomLeftTilePosition = CGPoint(x: bottomLeftX / 64, y: bottomLeftY / 64)
     
     var blockedTiles: [(x: Int,y: Int)] = []
     
-    for x in stride(from: Int(bottomLeftTilePosition.x), to: Int(bottomLeftTilePosition.x + roomBlueprint.size.width), by: 1){
-      for y in stride(from: Int(bottomLeftTilePosition.y), to: Int(bottomLeftTilePosition.y + roomBlueprint.size.height), by: 1) {
+    for x in stride(from: Int(atPoint.x), to: Int(atPoint.x + roomBlueprint.size.width), by: 1){
+      for y in stride(from: Int(atPoint.y), to: Int(atPoint.y + roomBlueprint.size.height), by: 1) {
         let tile = Game.sharedInstance.tilesAtCoords[Int(x)]![Int(y)]!
         //        Check tile is blocked or has walls. if so, add coords to array as tuple
         if (tile.blocked || tile.walls.anyBlocked()) {
-          blockedTiles.append((x: x - Int(bottomLeftTilePosition.x) + 1, y: y - Int(bottomLeftTilePosition.y) + 1))
+          blockedTiles.append((x: x - Int(atPoint.x) + 1, y: y - Int(atPoint.y) + 1))
         }
       }
     }
     
     return blockedTiles
   }
+  
+//  func getBottomLeftTilePos (point)
   
   
 //  Called after initial placemet. Show confirmation toolbar
@@ -146,6 +150,9 @@ class BuildRoomComponent: GKComponent {
   
 //  Set the room entity to have the same position and size as the room blueprint
   func confirmBuild() {
+    if self.canBuildAtPoint((self.roomBlueprint.component(ofType: PositionComponent.self)?.gridPosition)!) == false {
+      return
+    }
     self.clearPlan()
 //    Make the room built somehow
     self.entity?.addComponent(self.roomBlueprint.component(ofType: PositionComponent.self)!)
@@ -217,8 +224,34 @@ class BuildRoomComponent: GKComponent {
   }
   
   
+  func canPlanAtPoint(_ point: CGPoint) -> Bool {
+    
+    for x in stride(from: Int(point.x), to: Int(point.x + self.roomBlueprint.size.width), by: 1){
+      for y in stride(from: Int(point.y), to: Int(point.y + self.roomBlueprint.size.height), by: 1) {
+        if (Game.sharedInstance.tilesAtCoords[Int(x)]![Int(y)] == nil) {
+          return false
+        }
+      }
+    }
+    
+    return true
+  }
   
-  
+  func canBuildAtPoint(_ point: CGPoint) -> Bool {
+
+    for x in stride(from: Int(point.x), to: Int(point.x + self.roomBlueprint.size.width), by: 1){
+      for y in stride(from: Int(point.y), to: Int(point.y + self.roomBlueprint.size.height), by: 1) {
+        guard let tile = Game.sharedInstance.tilesAtCoords[Int(x)]![Int(y)] else {
+          return false
+        }
+        if (tile.walls.anyBlocked()) {
+          return false
+        }
+      }
+    }
+    
+    return true
+  }
   
   
   

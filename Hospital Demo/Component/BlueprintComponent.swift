@@ -231,6 +231,7 @@ class BlueprintComponent: GKComponent {
     }
   }
   
+//  This should be in the build item component?
   func canBuildAtPoint(_ point: CGPoint) -> Bool {
     
       for coord in self.area + self.pous {
