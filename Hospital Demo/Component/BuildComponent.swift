@@ -38,8 +38,8 @@ class BuildComponent: GKComponent {
     entity.addComponent(positionComponent)
 
     for blueprint in area {
-      let x = Int(positionComponent.gridPosition!.x) + blueprint[0]
-      let y = Int(positionComponent.gridPosition!.y) + blueprint[1]
+      let x = Int(positionComponent.gridPosition!.x + blueprint.x)
+      let y = Int(positionComponent.gridPosition!.y + blueprint.y)
 
       guard let tile = Game.sharedInstance.tilesAtCoords[x]![y] else {
         // No tile at this position
@@ -59,8 +59,8 @@ class BuildComponent: GKComponent {
     }
 
     for blueprint in pous {
-      let x = Int(positionComponent.gridPosition!.x) + blueprint[0]
-      let y = Int(positionComponent.gridPosition!.y) + blueprint[1]
+      let x = Int(positionComponent.gridPosition!.x + blueprint.x)
+      let y = Int(positionComponent.gridPosition!.y + blueprint.y)
 
 //      This is how we get the spriteposition from grid position!
       guard let tile = Game.sharedInstance.tilesAtCoords[x]![y] else {
@@ -93,9 +93,9 @@ class BuildComponent: GKComponent {
     let positionComponent = entity.component(ofType: PositionComponent.self)!
 
     for blueprint in area {
-      let x = Int(positionComponent.gridPosition!.x) + blueprint[0]
-      let y = Int(positionComponent.gridPosition!.y) + blueprint[1]
-
+      let x = Int(positionComponent.gridPosition!.x + blueprint.x)
+      let y = Int(positionComponent.gridPosition!.y + blueprint.y)
+      
       guard let tile = Game.sharedInstance.tilesAtCoords[x]![y] else {
         // No tile at this position
         return
@@ -105,8 +105,8 @@ class BuildComponent: GKComponent {
       print("blocking tile")
     }
     for blueprint in pous {
-      let x = Int(positionComponent.gridPosition!.x) + blueprint[0]
-      let y = Int(positionComponent.gridPosition!.y) + blueprint[1]
+      let x = Int(positionComponent.gridPosition!.x + blueprint.x)
+      let y = Int(positionComponent.gridPosition!.y + blueprint.y)
       
       guard let tile = Game.sharedInstance.tilesAtCoords[x]![y] else {
         // No tile at this position

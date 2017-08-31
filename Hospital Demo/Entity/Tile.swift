@@ -21,6 +21,7 @@ class Tile: GKEntity {
   
   var isBuildingOn = false
   var unbuildable: Bool
+  var isRoomFloor = false
   var blocked: Bool {
     didSet {
       if (blocked == true) {

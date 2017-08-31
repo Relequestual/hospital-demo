@@ -12,9 +12,9 @@ import GameplayKit
 
 class BlueprintComponent: GKComponent {
   
-  var area : [[Int]]
-  var pous : [[Int]]
-  var staffPous : [[Int]]
+  var area : [CGPoint]
+  var pous : [CGPoint]
+  var staffPous : [CGPoint]
 
   var confirmPosition = CGPoint(x: 0, y: 1)
   var rejectPosition = CGPoint(x: 1, y: 1)
@@ -38,7 +38,7 @@ class BlueprintComponent: GKComponent {
 
   var status = Status.planning
   
-  init(area: [[Int]], pous: [[Int]], staffPous: [[Int]], pf:@escaping (_ position: CGPoint) -> Void) {
+  init(area: [CGPoint], pous: [CGPoint], staffPous: [CGPoint], pf:@escaping (_ position: CGPoint) -> Void) {
     self.area = area
     self.pous = pous
     self.staffPous = staffPous
@@ -119,17 +119,8 @@ class BlueprintComponent: GKComponent {
 
     let newRotation = previousRotation
     
-
-      for i in 0 ..< self.area.count {
-        var coord = self.area[i]
-        coord = [coord[1], -coord[0]]
-        self.area[i] = coord
-      }
-      for i in 0 ..< self.pous.count {
-        var coord = self.pous[i]
-        coord = [coord[1], -coord[0]]
-        self.pous[i] = coord
-      }
+    self.area = self.rotatePoints(points: self.area)
+    self.pous = self.rotatePoints(points: self.pous)
 //        print(self.area)
 
 
@@ -142,13 +133,21 @@ class BlueprintComponent: GKComponent {
 //    self.entity?.componentForClass(BlueprintComponent.self)?.displayBuildObjectConfirm()
   }
   
+  func rotatePoints(points: [CGPoint]) -> [CGPoint] {
+    var newPoints: [CGPoint] = []
+    points.forEach { (point: CGPoint) in
+      newPoints.append(CGPoint(x: point.y, y: -point.x))
+    }
+    return newPoints
+  }
+  
   func canPlanAtPoint(_ point: CGPoint) -> Bool {
     
     for coord in self.area + self.pous {
-      guard (Game.sharedInstance.tilesAtCoords[Int(point.x) + coord[0]] != nil) else {
+      guard (Game.sharedInstance.tilesAtCoords[Int(point.x + coord.x)] != nil) else {
         return false
       }
-      guard let tile = Game.sharedInstance.tilesAtCoords[Int(point.x) + coord[0]]![Int(point.y) + coord[1]] else {
+      guard Game.sharedInstance.tilesAtCoords[Int(point.x + coord.x)]![Int(point.y + coord.y)] != nil else {
         return false
       }
 
@@ -165,9 +164,9 @@ class BlueprintComponent: GKComponent {
     self.spriteOffset = BlueprintComponent.calculateSpritePos(area: self.area)
   }
   
-  static func calculateSpritePos(area: [[Int]]) -> CGPoint {
-    let x = area.flatMap{ $0[0] }
-    let y = area.flatMap{ $0[1] }
+  static func calculateSpritePos(area: [CGPoint]) -> CGPoint {
+    let x = area.flatMap{ $0.x }
+    let y = area.flatMap{ $0.y }
     
     let minx = x.min()
     let maxx = x.max()
@@ -233,17 +232,36 @@ class BlueprintComponent: GKComponent {
   
 //  This should be in the build item component?
   func canBuildAtPoint(_ point: CGPoint) -> Bool {
-    
-      for coord in self.area + self.pous {
-        guard (Game.sharedInstance.tilesAtCoords[Int(point.x) + coord[0]] != nil) else {
+    let totalArea = self.area + self.pous
+      for coord in totalArea {
+        guard (Game.sharedInstance.tilesAtCoords[Int(point.x + coord.x)] != nil) else {
           return false
         }
-        guard let tile = Game.sharedInstance.tilesAtCoords[Int(point.x) + coord[0]]![Int(point.y) + coord[1]] else {
+        guard let tile = Game.sharedInstance.tilesAtCoords[Int(point.x + coord.x)]![Int(point.y + coord.y)] else {
           return false
         }
         
         if (tile.unbuildable) {
           return false
+        }
+        
+        if (tile.walls.anyBlocked()) {
+//          filter returns an array even when given a dictoary in swift 3. fixed in 4 =/
+          let sides = tile.walls.index.keys.filter({ (rotation: Game.rotation) -> Bool in
+            return tile.walls.get(baring: rotation) == true
+          })
+          for side : Game.rotation in sides {
+            
+            let checkFor = CGPoint(x: coord.x + ((side == .east) ? 1 : side == .west ? -1 : 0), y: coord.y + ((side == .north) ? 1 : side == .south ? -1 : 0))
+            
+            if totalArea.contains(where: { (point: CGPoint) -> Bool in
+              return point == checkFor
+            }) {
+              return false
+            }
+            
+          }
+          
         }
       }
       

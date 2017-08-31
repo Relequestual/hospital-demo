@@ -94,7 +94,7 @@ class BuildRoomComponent: GKComponent {
       for y in stride(from: Int(atPoint.y), to: Int(atPoint.y + roomBlueprint.size.height), by: 1) {
         let tile = Game.sharedInstance.tilesAtCoords[Int(x)]![Int(y)]!
         //        Check tile is blocked or has walls. if so, add coords to array as tuple
-        if (tile.blocked || tile.walls.anyBlocked()) {
+        if (tile.blocked || tile.walls.anyBlocked() || tile.isRoomFloor) {
           blockedTiles.append((x: x - Int(atPoint.x) + 1, y: y - Int(atPoint.y) + 1))
         }
       }
@@ -178,7 +178,6 @@ class BuildRoomComponent: GKComponent {
     Game.sharedInstance.gameStateMachine.enter(GSGeneral.self)
   }
   
-  
   func setTileWalls () {
     
     let bottomLeftTilePosition = self.room.component(ofType: PositionComponent.self)!.gridPosition!
@@ -187,6 +186,8 @@ class BuildRoomComponent: GKComponent {
     for x in stride(from: Int(bottomLeftTilePosition.x), to: Int(bottomLeftTilePosition.x + self.roomBlueprint.size.width), by: 1){
       for y in stride(from: Int(bottomLeftTilePosition.y), to: Int(bottomLeftTilePosition.y + self.roomBlueprint.size.height), by: 1) {
         let tile = Game.sharedInstance.tilesAtCoords[Int(x)]![Int(y)]
+        // Also set tile room floor
+        tile?.isRoomFloor = true
         if (x == Int(bottomLeftTilePosition.x)) {
           tile?.addWall(ofBaring: Game.rotation.west)
         }
@@ -244,7 +245,7 @@ class BuildRoomComponent: GKComponent {
         guard let tile = Game.sharedInstance.tilesAtCoords[Int(x)]![Int(y)] else {
           return false
         }
-        if (tile.walls.anyBlocked()) {
+        if (tile.blocked || tile.walls.anyBlocked() || tile.isRoomFloor) {
           return false
         }
       }

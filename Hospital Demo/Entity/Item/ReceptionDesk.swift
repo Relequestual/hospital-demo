@@ -11,11 +11,11 @@ import GameplayKit
 
 class ReceptionDesk: GKEntity {
 
-  var area = [[0,0], [1,0]]
+  var area = [CGPoint(x:0,y:0), CGPoint(x:1,y:0)]
   
-  var pous = [[0,-1], [1,-1]]
+  var pous = [CGPoint(x:0,y:-1), CGPoint(x:1,y:-1)]
 
-  var staffPous = [[0, 1], [1, 1]]
+  var staffPous = [CGPoint(x:0,y:1), CGPoint(x:1,y:1)]
 
   override init() {
     super.init()
