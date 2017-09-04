@@ -30,7 +30,7 @@ class ReceptionDesk: GKEntity {
       end: self.dragEndHandler
     )
     self.addComponent(draggableComponent)
-    self.addComponent(BuildComponent())
+    self.addComponent(BuildItemComponent())
 
     let graphicNode = SKShapeNode(rectOf: CGSize(width:128, height:64), cornerRadius: 0.2)
     graphicNode.fillColor = UIColor.purple

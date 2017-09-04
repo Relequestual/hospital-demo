@@ -42,7 +42,7 @@
 		91EEAE2F1E93BB7F001C4AC1 /* DoorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EEAE2E1E93BB7F001C4AC1 /* DoorState.swift */; };
 		91F052661DD35031002F8B19 /* ToolbarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F052651DD35031002F8B19 /* ToolbarManager.swift */; };
 		91F72CF31DC9E00E00210C71 /* ConfirmToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F72CF21DC9E00E00210C71 /* ConfirmToolbar.swift */; };
-		91F7F0E71D2FDA2D00331878 /* BuildComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F7F0E61D2FDA2D00331878 /* BuildComponent.swift */; };
+		91F7F0E71D2FDA2D00331878 /* BuildItemComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F7F0E61D2FDA2D00331878 /* BuildItemComponent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,7 +84,7 @@
 		91EEAE2E1E93BB7F001C4AC1 /* DoorState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoorState.swift; sourceTree = "<group>"; };
 		91F052651DD35031002F8B19 /* ToolbarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ToolbarManager.swift; path = Manager/ToolbarManager.swift; sourceTree = "<group>"; };
 		91F72CF21DC9E00E00210C71 /* ConfirmToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfirmToolbar.swift; path = SceneElements/ConfirmToolbar.swift; sourceTree = "<group>"; };
-		91F7F0E61D2FDA2D00331878 /* BuildComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BuildComponent.swift; path = Component/BuildComponent.swift; sourceTree = "<group>"; };
+		91F7F0E61D2FDA2D00331878 /* BuildItemComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BuildItemComponent.swift; path = Component/BuildItemComponent.swift; sourceTree = "<group>"; };
 		FE6259AC48982DC954389865 /* Pods-Hospital Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hospital Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hospital Demo/Pods-Hospital Demo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -138,7 +138,7 @@
 				914667E01C5937D800560251 /* TouchableSpriteComponent.swift */,
 				137F2E151CDF8D4600665C17 /* DraggableSpriteComponent.swift */,
 				91C3E3561C6BB1E900E8CBD8 /* BlueprintComponent.swift */,
-				91F7F0E61D2FDA2D00331878 /* BuildComponent.swift */,
+				91F7F0E61D2FDA2D00331878 /* BuildItemComponent.swift */,
 				13388CF31D57B6C50080234A /* BuildRoomComponent.swift */,
 				9119835D1E72D3D100E6D2A2 /* UseableComponent.swift */,
 			);
@@ -404,7 +404,7 @@
 				918968401E8BA06B005EB38D /* Convert.swift in Sources */,
 				137F2E161CDF8D4600665C17 /* DraggableSpriteComponent.swift in Sources */,
 				9119835E1E72D3D100E6D2A2 /* UseableComponent.swift in Sources */,
-				91F7F0E71D2FDA2D00331878 /* BuildComponent.swift in Sources */,
+				91F7F0E71D2FDA2D00331878 /* BuildItemComponent.swift in Sources */,
 				13B6A1B41C255C940087649C /* Tile.swift in Sources */,
 				130AFEAF1D0494B1002F266D /* Button.swift in Sources */,
 				13C765301BF61B2D00AC0223 /* AppDelegate.swift in Sources */,

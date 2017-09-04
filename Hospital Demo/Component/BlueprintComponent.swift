@@ -75,7 +75,7 @@ class BlueprintComponent: GKComponent {
 
   func planFunctionCall(_ position: CGPoint) {
     self.planFunction(position)
-    self.entity?.component(ofType: BuildComponent.self)?.planAtPoint(position)
+    self.entity?.component(ofType: BuildItemComponent.self)?.planAtPoint(position)
     
     let plannedObject = self.entity!
 
@@ -221,7 +221,7 @@ class BlueprintComponent: GKComponent {
       print("confirming plan!")
       
       print(Game.sharedInstance.buildRoomStateMachine.roomBuilding as Any)
-      plannedObject.component(ofType: BuildComponent.self)?.build()
+      plannedObject.component(ofType: BuildItemComponent.self)?.build()
       Game.sharedInstance.buildRoomStateMachine.roomBuilding = nil
       Game.sharedInstance.entityManager.add(self.entity!, layer: ZPositionManager.WorldLayer.item)
       self.status = Status.built

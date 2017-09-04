@@ -1,5 +1,5 @@
 //
-//  BuildComponent.swift
+//  BuildItemComponent.swift
 //  Hospital Demo
 //
 //  Created by Ben Hutton on 08/07/2016.
@@ -10,7 +10,7 @@
 import SpriteKit
 import GameplayKit
 
-class BuildComponent: GKComponent {
+class BuildItemComponent: GKComponent {
 
   func planAtPoint(_ position: CGPoint) {
 
