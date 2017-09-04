@@ -1,5 +1,5 @@
 //
-//  BlueprintComponent.swift
+//  ItemBlueprintComponent.swift
 //  Hospital Demo
 //
 //  Created by Ben Hutton on 10/02/2016.
@@ -10,7 +10,7 @@
 import SpriteKit
 import GameplayKit
 
-class BlueprintComponent: GKComponent {
+class ItemBlueprintComponent: GKComponent {
   
   var area : [CGPoint]
   var pous : [CGPoint]
@@ -48,7 +48,7 @@ class BlueprintComponent: GKComponent {
     let crossTexture = SKTexture(imageNamed: "Graphics/cross.png")
     let rotateTexture = SKTexture(imageNamed: "Graphics/rotate.png")
     
-    self.spriteOffset = BlueprintComponent.calculateSpritePos(area: area)
+    self.spriteOffset = ItemBlueprintComponent.calculateSpritePos(area: area)
     
     super.init()
     
@@ -101,8 +101,8 @@ class BlueprintComponent: GKComponent {
       Game.sharedInstance.wolrdnode.contentNode.addChild(graphicNode!)
     }
     
-    if( plannedObject.component(ofType: BlueprintComponent.self)?.status != BlueprintComponent.Status.built ){
-      plannedObject.component(ofType: BlueprintComponent.self)?.displayBuildObjectConfirm()
+    if( plannedObject.component(ofType: ItemBlueprintComponent.self)?.status != ItemBlueprintComponent.Status.built ){
+      plannedObject.component(ofType: ItemBlueprintComponent.self)?.displayBuildObjectConfirm()
     }
 
   }
@@ -129,7 +129,7 @@ class BlueprintComponent: GKComponent {
     
     self.updateSpritePos()
     
-    self.entity?.component(ofType: BlueprintComponent.self)?.planFunctionCall((self.entity?.component(ofType: PositionComponent.self)?.gridPosition)!)
+    self.entity?.component(ofType: ItemBlueprintComponent.self)?.planFunctionCall((self.entity?.component(ofType: PositionComponent.self)?.gridPosition)!)
 //    self.entity?.componentForClass(BlueprintComponent.self)?.displayBuildObjectConfirm()
   }
   
@@ -161,7 +161,7 @@ class BlueprintComponent: GKComponent {
   }
   
   func updateSpritePos() {
-    self.spriteOffset = BlueprintComponent.calculateSpritePos(area: self.area)
+    self.spriteOffset = ItemBlueprintComponent.calculateSpritePos(area: self.area)
   }
   
   static func calculateSpritePos(area: [CGPoint]) -> CGPoint {

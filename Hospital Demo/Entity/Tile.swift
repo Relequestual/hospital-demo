@@ -183,7 +183,7 @@ class Tile: GKEntity {
 
       let plannedObject = placingObject.init()
       Game.sharedInstance.draggingEntiy = plannedObject
-      plannedObject.component(ofType: BlueprintComponent.self)?.planFunctionCall((self.component(ofType: PositionComponent.self)?.gridPosition)!)
+      plannedObject.component(ofType: ItemBlueprintComponent.self)?.planFunctionCall((self.component(ofType: PositionComponent.self)?.gridPosition)!)
       
       
     //      Game.sharedInstance.buildStateMachine.enterState(BISPlaned)

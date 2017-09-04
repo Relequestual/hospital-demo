@@ -19,7 +19,7 @@ class ReceptionDesk: GKEntity {
 
   override init() {
     super.init()
-    let blueprint = BlueprintComponent(area: area, pous: pous, staffPous: staffPous, pf: { position in
+    let blueprint = ItemBlueprintComponent(area: area, pous: pous, staffPous: staffPous, pf: { position in
       self.planAtPoint(position)
     })
     self.addComponent(blueprint)
@@ -32,7 +32,7 @@ class ReceptionDesk: GKEntity {
     self.addComponent(draggableComponent)
     self.addComponent(BuildItemComponent())
 
-    let graphicNode = SKShapeNode(rectOf: CGSize(width:128, height:64), cornerRadius: 0.2)
+    let graphicNode = SKShapeNode(rectOf: CGSize(width:110, height:55), cornerRadius: 0.2)
     graphicNode.fillColor = UIColor.purple
     let view = SKView()
     let graphicTexture: SKTexture = view.texture(from: graphicNode)!
@@ -54,7 +54,7 @@ class ReceptionDesk: GKEntity {
   func dragMoveHandler(_ point: CGPoint) {
     print("RD Move drag")
     
-    if (self.component(ofType: BlueprintComponent.self)?.status == BlueprintComponent.Status.built) {
+    if (self.component(ofType: ItemBlueprintComponent.self)?.status == ItemBlueprintComponent.Status.built) {
       print("No dragging built items")
       return
     }
@@ -66,15 +66,15 @@ class ReceptionDesk: GKEntity {
       guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else {continue}
       
       if (entity.isKind(of: Tile.self)) {
-        self.component(ofType: BlueprintComponent.self)?.planFunctionCall((entity.component(ofType: PositionComponent.self)?.gridPosition)!)
+        self.component(ofType: ItemBlueprintComponent.self)?.planFunctionCall((entity.component(ofType: PositionComponent.self)?.gridPosition)!)
       }
 
     }
   }
   
   func dragEndHandler(_ point: CGPoint) {
-    if( self.component(ofType: BlueprintComponent.self)?.status != BlueprintComponent.Status.built ){
-      self.component(ofType: BlueprintComponent.self)?.displayBuildObjectConfirm()
+    if( self.component(ofType: ItemBlueprintComponent.self)?.status != ItemBlueprintComponent.Status.built ){
+      self.component(ofType: ItemBlueprintComponent.self)?.displayBuildObjectConfirm()
     }
     print("RD End drag")
   }

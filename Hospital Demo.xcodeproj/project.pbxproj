@@ -35,7 +35,7 @@
 		914667E11C5937D800560251 /* TouchableSpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914667E01C5937D800560251 /* TouchableSpriteComponent.swift */; };
 		9175E2D31D47CACE0026BA8F /* zPositionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9175E2D21D47CACE0026BA8F /* zPositionManager.swift */; };
 		918968401E8BA06B005EB38D /* Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9189683F1E8BA06B005EB38D /* Convert.swift */; };
-		91C3E3571C6BB1E900E8CBD8 /* BlueprintComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3E3561C6BB1E900E8CBD8 /* BlueprintComponent.swift */; };
+		91C3E3571C6BB1E900E8CBD8 /* ItemBlueprintComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3E3561C6BB1E900E8CBD8 /* ItemBlueprintComponent.swift */; };
 		91C836831C649978008ECABF /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C836821C649978008ECABF /* GameState.swift */; };
 		91DF14CF1C2A958D003E813F /* PositionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DF14CE1C2A958D003E813F /* PositionComponent.swift */; };
 		91ED91971D01A34300A9D536 /* Graphics in Resources */ = {isa = PBXBuildFile; fileRef = 91ED91961D01A34300A9D536 /* Graphics */; };
@@ -77,7 +77,7 @@
 		914667E01C5937D800560251 /* TouchableSpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TouchableSpriteComponent.swift; path = Component/TouchableSpriteComponent.swift; sourceTree = "<group>"; };
 		9175E2D21D47CACE0026BA8F /* zPositionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = zPositionManager.swift; sourceTree = "<group>"; };
 		9189683F1E8BA06B005EB38D /* Convert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Convert.swift; sourceTree = "<group>"; };
-		91C3E3561C6BB1E900E8CBD8 /* BlueprintComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlueprintComponent.swift; path = Component/BlueprintComponent.swift; sourceTree = "<group>"; };
+		91C3E3561C6BB1E900E8CBD8 /* ItemBlueprintComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ItemBlueprintComponent.swift; path = Component/ItemBlueprintComponent.swift; sourceTree = "<group>"; };
 		91C836821C649978008ECABF /* GameState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		91DF14CE1C2A958D003E813F /* PositionComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PositionComponent.swift; path = Component/PositionComponent.swift; sourceTree = "<group>"; };
 		91ED91961D01A34300A9D536 /* Graphics */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Graphics; sourceTree = "<group>"; };
@@ -137,7 +137,7 @@
 				13CCF1561C34088D00297EF3 /* SpriteDebugComponent.swift */,
 				914667E01C5937D800560251 /* TouchableSpriteComponent.swift */,
 				137F2E151CDF8D4600665C17 /* DraggableSpriteComponent.swift */,
-				91C3E3561C6BB1E900E8CBD8 /* BlueprintComponent.swift */,
+				91C3E3561C6BB1E900E8CBD8 /* ItemBlueprintComponent.swift */,
 				91F7F0E61D2FDA2D00331878 /* BuildItemComponent.swift */,
 				13388CF31D57B6C50080234A /* BuildRoomComponent.swift */,
 				9119835D1E72D3D100E6D2A2 /* UseableComponent.swift */,
@@ -425,7 +425,7 @@
 				914650CE1E729E6B00DBF123 /* Door.swift in Sources */,
 				13CBAB641D6A0CBB004561CB /* BuildRoomState.swift in Sources */,
 				91F052661DD35031002F8B19 /* ToolbarManager.swift in Sources */,
-				91C3E3571C6BB1E900E8CBD8 /* BlueprintComponent.swift in Sources */,
+				91C3E3571C6BB1E900E8CBD8 /* ItemBlueprintComponent.swift in Sources */,
 				13388CF21D5672190080234A /* Room.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

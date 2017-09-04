@@ -25,13 +25,13 @@ class BuildItemComponent: GKComponent {
     });
 
     // Check can place object at location
-    guard entity.component(ofType: BlueprintComponent.self)!.canPlanAtPoint(position) else {
+    guard entity.component(ofType: ItemBlueprintComponent.self)!.canPlanAtPoint(position) else {
       // Nope
       return
     }
 
-    let area = (entity.component(ofType: BlueprintComponent.self)?.area)!
-    let pous = (entity.component(ofType: BlueprintComponent.self)?.pous)!
+    let area = (entity.component(ofType: ItemBlueprintComponent.self)?.area)!
+    let pous = (entity.component(ofType: ItemBlueprintComponent.self)?.pous)!
 
 
     let positionComponent = PositionComponent(gridPosition: CGPoint(x: position.x, y: position.y))
@@ -87,8 +87,8 @@ class BuildItemComponent: GKComponent {
       return
     }
 
-    let area = (entity.component(ofType: BlueprintComponent.self)?.area)!
-    let pous = (entity.component(ofType: BlueprintComponent.self)?.pous)!
+    let area = (entity.component(ofType: ItemBlueprintComponent.self)?.area)!
+    let pous = (entity.component(ofType: ItemBlueprintComponent.self)?.pous)!
 
     let positionComponent = entity.component(ofType: PositionComponent.self)!
 
