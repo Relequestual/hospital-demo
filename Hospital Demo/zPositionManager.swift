@@ -17,6 +17,8 @@ class ZPositionManager {
   enum WorldLayer: Int {
     case ground = 1
     case world
+    case room
+    case item
     case planning
     case interaction
     case ui

@@ -169,7 +169,7 @@ class BuildRoomComponent: GKComponent {
     let floorNode = SKSpriteNode(texture: texture)
     
     self.room.addComponent(SpriteComponent(texture: SKView().texture(from: floorNode)!))
-    Game.sharedInstance.entityManager.add(self.room, layer: ZPositionManager.WorldLayer.world)
+    Game.sharedInstance.entityManager.add(self.room, layer: ZPositionManager.WorldLayer.room)
     self.setTileWalls()
   }
   

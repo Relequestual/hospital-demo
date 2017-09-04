@@ -223,7 +223,7 @@ class BlueprintComponent: GKComponent {
       print(Game.sharedInstance.buildRoomStateMachine.roomBuilding as Any)
       plannedObject.component(ofType: BuildComponent.self)?.build()
       Game.sharedInstance.buildRoomStateMachine.roomBuilding = nil
-      Game.sharedInstance.entityManager.add(self.entity!, layer: ZPositionManager.WorldLayer.world)
+      Game.sharedInstance.entityManager.add(self.entity!, layer: ZPositionManager.WorldLayer.item)
       self.status = Status.built
     } else {
       print("can't build like that!")

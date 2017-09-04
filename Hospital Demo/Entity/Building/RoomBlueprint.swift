@@ -25,7 +25,7 @@ class RoomBlueprint: GKEntity {
   
   
   static let combinedSqaure: SKSpriteNode = RoomBlueprint.compileAssets(color: nil)
-  static let combinedSqaureRed: SKSpriteNode = RoomBlueprint.compileAssets(color: UIColor.green)
+  static let combinedSqaureRed: SKSpriteNode = RoomBlueprint.compileAssets(color: UIColor.red)
   static var assetsCompiled = false
   
   let tileOffset = CGPoint(x: 32, y: 32)
@@ -402,7 +402,7 @@ class RoomBlueprint: GKEntity {
         blueprintNode.addChild(squareNode)
       }
     }
-    blueprintNode.alpha = 0.5
+    blueprintNode.alpha = 0.6
     return SKView().texture(from: blueprintNode)!
   }
 
@@ -423,7 +423,7 @@ class RoomBlueprint: GKEntity {
     let combinedNode = SKSpriteNode()
     combinedNode.addChild(squareSprite)
     combinedNode.addChild(squareBorderSprite)
-    combinedNode.alpha = 0.5
+    combinedNode.alpha = 0.6
     return combinedNode
   }
   
