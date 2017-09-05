@@ -30,7 +30,7 @@
 		13DFA17B1C6806F4003289E9 /* BuildItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DFA17A1C6806F4003289E9 /* BuildItemState.swift */; };
 		58B51067ED2966DA1F5E3564 /* Pods_Hospital_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 119B22F354B724D95C8C9719 /* Pods_Hospital_Demo.framework */; };
 		9119835E1E72D3D100E6D2A2 /* UseableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9119835D1E72D3D100E6D2A2 /* UseableComponent.swift */; };
-		9122FA441D61AC4000F92958 /* RoomBlueprint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9122FA431D61AC4000F92958 /* RoomBlueprint.swift */; };
+		9122FA441D61AC4000F92958 /* RoomBlueprintComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9122FA431D61AC4000F92958 /* RoomBlueprintComponent.swift */; };
 		914650CE1E729E6B00DBF123 /* Door.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914650CD1E729E6B00DBF123 /* Door.swift */; };
 		914667E11C5937D800560251 /* TouchableSpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914667E01C5937D800560251 /* TouchableSpriteComponent.swift */; };
 		9175E2D31D47CACE0026BA8F /* zPositionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9175E2D21D47CACE0026BA8F /* zPositionManager.swift */; };
@@ -72,7 +72,7 @@
 		13DFA17A1C6806F4003289E9 /* BuildItemState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildItemState.swift; sourceTree = "<group>"; };
 		457F6EC4CF57C614C89AFCF5 /* Pods-Hospital Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hospital Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hospital Demo/Pods-Hospital Demo.release.xcconfig"; sourceTree = "<group>"; };
 		9119835D1E72D3D100E6D2A2 /* UseableComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UseableComponent.swift; path = Component/UseableComponent.swift; sourceTree = "<group>"; };
-		9122FA431D61AC4000F92958 /* RoomBlueprint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomBlueprint.swift; sourceTree = "<group>"; };
+		9122FA431D61AC4000F92958 /* RoomBlueprintComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RoomBlueprintComponent.swift; path = Entity/Building/RoomBlueprintComponent.swift; sourceTree = "<group>"; };
 		914650CD1E729E6B00DBF123 /* Door.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Door.swift; sourceTree = "<group>"; };
 		914667E01C5937D800560251 /* TouchableSpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TouchableSpriteComponent.swift; path = Component/TouchableSpriteComponent.swift; sourceTree = "<group>"; };
 		9175E2D21D47CACE0026BA8F /* zPositionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = zPositionManager.swift; sourceTree = "<group>"; };
@@ -138,6 +138,7 @@
 				914667E01C5937D800560251 /* TouchableSpriteComponent.swift */,
 				137F2E151CDF8D4600665C17 /* DraggableSpriteComponent.swift */,
 				91C3E3561C6BB1E900E8CBD8 /* ItemBlueprintComponent.swift */,
+				9122FA431D61AC4000F92958 /* RoomBlueprintComponent.swift */,
 				91F7F0E61D2FDA2D00331878 /* BuildItemComponent.swift */,
 				13388CF31D57B6C50080234A /* BuildRoomComponent.swift */,
 				9119835D1E72D3D100E6D2A2 /* UseableComponent.swift */,
@@ -211,7 +212,6 @@
 			isa = PBXGroup;
 			children = (
 				13388CF11D5672190080234A /* Room.swift */,
-				9122FA431D61AC4000F92958 /* RoomBlueprint.swift */,
 			);
 			name = Building;
 			path = Entity/Building;
@@ -413,7 +413,7 @@
 				9175E2D31D47CACE0026BA8F /* zPositionManager.swift in Sources */,
 				13B223011C6407D300567B0E /* Game.swift in Sources */,
 				13388CF41D57B6C50080234A /* BuildRoomComponent.swift in Sources */,
-				9122FA441D61AC4000F92958 /* RoomBlueprint.swift in Sources */,
+				9122FA441D61AC4000F92958 /* RoomBlueprintComponent.swift in Sources */,
 				914667E11C5937D800560251 /* TouchableSpriteComponent.swift in Sources */,
 				13CCF1551C2F47FF00297EF3 /* EntityManager.swift in Sources */,
 				13DFA1791C65ECE8003289E9 /* GameToolbar.swift in Sources */,

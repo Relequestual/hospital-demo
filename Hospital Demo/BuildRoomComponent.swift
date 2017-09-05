@@ -17,9 +17,6 @@ class BuildRoomComponent: GKComponent {
   
   var room: Room!
   
-  var roomBlueprint: RoomBlueprint!
-  
-  
 //  Relocate this at some point
   enum doorTypes { case single, double }
   
@@ -30,11 +27,14 @@ class BuildRoomComponent: GKComponent {
     self.size = minSize
     self.room = room
     super.init()
-    self.roomBlueprint = RoomBlueprint(size: self.minSize, room: room)
   }
   
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+  
+  override func didAddToEntity() {
+    self.entity?.addComponent(RoomBlueprintComponent(size: self.minSize, room: self.room))
   }
   
   func planAtPoint(_ gridPosition: CGPoint, _ animated: Bool = false) {
@@ -47,17 +47,17 @@ class BuildRoomComponent: GKComponent {
       return
     }
     let tileSpritePosition = tile.component(ofType: PositionComponent.self)?.spritePosition
-    self.size = self.roomBlueprint.size
+    self.size = (self.entity?.component(ofType: RoomBlueprintComponent.self)?.size)!
     
     
     let newSpritePosition = CGPoint(x: (tileSpritePosition?.x)! - 32 + self.size.width * 32, y: (tileSpritePosition?.y)! - 32 + self.size.height * 32)
     
-    self.roomBlueprint.addComponent(PositionComponent(gridPosition: gridPosition, spritePosition: newSpritePosition))
+    self.entity?.addComponent(PositionComponent(gridPosition: gridPosition, spritePosition: newSpritePosition))
     
     let blockedTiles = self.getBlockedTiles(inRect: self.size, atPoint: gridPosition)
-    let newSprite = self.roomBlueprint.createFloorplanTexture(roomSize: self.size, blockedTiles: blockedTiles)
-    self.roomBlueprint.component(ofType: SpriteComponent.self)?.node.size = newSprite.size()
-    self.roomBlueprint.component(ofType: SpriteComponent.self)?.node.texture =  newSprite
+    let newSprite = self.entity?.component(ofType: RoomBlueprintComponent.self)?.createFloorplanTexture(roomSize: self.size, blockedTiles: blockedTiles)
+    self.entity?.component(ofType: SpriteComponent.self)?.node.size = (newSprite?.size())!
+    self.entity?.component(ofType: SpriteComponent.self)?.node.texture =  newSprite
     
     if (animated) {
       
@@ -66,15 +66,15 @@ class BuildRoomComponent: GKComponent {
       moveAction.timingMode = SKActionTimingMode.easeInEaseOut
       
       
-      self.roomBlueprint.component(ofType: SpriteComponent.self)?.node.run(moveAction)
+      self.entity?.component(ofType: SpriteComponent.self)?.node.run(moveAction)
       
     } else {
 
-      Game.sharedInstance.entityManager.remove(self.roomBlueprint)
+      Game.sharedInstance.entityManager.remove(self.entity!)
 
-      Game.sharedInstance.entityManager.add(self.roomBlueprint, layer: ZPositionManager.WorldLayer.planning)
+      Game.sharedInstance.entityManager.add(self.entity!, layer: ZPositionManager.WorldLayer.planning)
       
-      self.roomBlueprint.createResizeHandles()
+      self.entity?.component(ofType: RoomBlueprintComponent.self)?.createResizeHandles()
     }
 
   }
@@ -90,8 +90,10 @@ class BuildRoomComponent: GKComponent {
     
     var blockedTiles: [(x: Int,y: Int)] = []
     
-    for x in stride(from: Int(atPoint.x), to: Int(atPoint.x + roomBlueprint.size.width), by: 1){
-      for y in stride(from: Int(atPoint.y), to: Int(atPoint.y + roomBlueprint.size.height), by: 1) {
+    let size = self.entity!.component(ofType: RoomBlueprintComponent.self)!.size
+    
+    for x in stride(from: Int(atPoint.x), to: Int(atPoint.x + size.width), by: 1){
+      for y in stride(from: Int(atPoint.y), to: Int(atPoint.y + size.height), by: 1) {
         let tile = Game.sharedInstance.tilesAtCoords[Int(x)]![Int(y)]!
         //        Check tile is blocked or has walls. if so, add coords to array as tuple
         if (tile.blocked || tile.walls.anyBlocked() || tile.isRoomFloor) {
@@ -133,7 +135,7 @@ class BuildRoomComponent: GKComponent {
   
   func clearPlan() {
     
-    Game.sharedInstance.entityManager.remove(self.roomBlueprint)
+    Game.sharedInstance.entityManager.remove(self.entity!)
 //    Game.sharedInstance.gameStateMachine.enter(GSGeneral.self)
     
 //    Game.sharedInstance.entityManager.node.enumerateChildNodes(withName: "planning_room_blueprint", using: { (node, stop) -> Void in
@@ -150,13 +152,14 @@ class BuildRoomComponent: GKComponent {
   
 //  Set the room entity to have the same position and size as the room blueprint
   func confirmBuild() {
-    if self.canBuildAtPoint((self.roomBlueprint.component(ofType: PositionComponent.self)?.gridPosition)!) == false {
+    if self.canBuildAtPoint((self.entity?.component(ofType: PositionComponent.self)?.gridPosition)!) == false {
       return
     }
     self.clearPlan()
 //    Make the room built somehow
-    self.entity?.addComponent(self.roomBlueprint.component(ofType: PositionComponent.self)!)
-    self.size = self.roomBlueprint.size
+    self.entity?.addComponent((self.entity?.component(ofType: PositionComponent.self)!)!)
+    // The below line probably needs to go
+    //    self.size = self.roomBlueprint.size
 //    Any tidy up?
     Game.sharedInstance.buildRoomStateMachine.enter(BRSDone.self)
     Game.sharedInstance.gameStateMachine.enter(GSGeneral.self)
@@ -164,7 +167,7 @@ class BuildRoomComponent: GKComponent {
   }
   
   func build () {
-    let texture = self.room.createFloorTexture(self.roomBlueprint.size)
+    let texture = self.room.createFloorTexture((self.entity?.component(ofType: RoomBlueprintComponent.self)?.size)!)
     
     let floorNode = SKSpriteNode(texture: texture)
     
@@ -181,10 +184,11 @@ class BuildRoomComponent: GKComponent {
   func setTileWalls () {
     
     let bottomLeftTilePosition = self.room.component(ofType: PositionComponent.self)!.gridPosition!
+    let size = (self.entity?.component(ofType: RoomBlueprintComponent.self)?.size)!
 
     
-    for x in stride(from: Int(bottomLeftTilePosition.x), to: Int(bottomLeftTilePosition.x + self.roomBlueprint.size.width), by: 1){
-      for y in stride(from: Int(bottomLeftTilePosition.y), to: Int(bottomLeftTilePosition.y + self.roomBlueprint.size.height), by: 1) {
+    for x in stride(from: Int(bottomLeftTilePosition.x), to: Int(bottomLeftTilePosition.x + size.width), by: 1){
+      for y in stride(from: Int(bottomLeftTilePosition.y), to: Int(bottomLeftTilePosition.y + size.height), by: 1) {
         let tile = Game.sharedInstance.tilesAtCoords[Int(x)]![Int(y)]
         // Also set tile room floor
         tile?.isRoomFloor = true
@@ -194,10 +198,10 @@ class BuildRoomComponent: GKComponent {
         if (y == Int(bottomLeftTilePosition.y)) {
           tile?.addWall(ofBaring: Game.rotation.south)
         }
-        if (x == Int(bottomLeftTilePosition.x + self.roomBlueprint.size.width - 1 )) {
+        if (x == Int(bottomLeftTilePosition.x + size.width - 1 )) {
           tile?.addWall(ofBaring: Game.rotation.east)
         }
-        if (y == Int(bottomLeftTilePosition.y + self.roomBlueprint.size.height - 1)) {
+        if (y == Int(bottomLeftTilePosition.y + size.height - 1)) {
           tile?.addWall(ofBaring: Game.rotation.north)
         }
       }
@@ -210,9 +214,11 @@ class BuildRoomComponent: GKComponent {
 //    let position = self.room.component(ofType: PositionComponent.self)!.spritePosition!
 //    let position = self.roomBlueprint.component(ofType: PositionComponent.self)?.spritePosition
 
+    let size = (self.entity?.component(ofType: RoomBlueprintComponent.self)?.size)!
+
     
-    let bottomLeftX = position.x - (self.roomBlueprint.size.width * 64) / 2
-    let bottomLeftY = position.y - (self.roomBlueprint.size.height * 64) / 2
+    let bottomLeftX = position.x - (size.width * 64) / 2
+    let bottomLeftY = position.y - (size.height * 64) / 2
     
     let bottomLeftGridPosition = CGPoint(x: bottomLeftX / 64, y: bottomLeftY / 64)
     
@@ -226,9 +232,11 @@ class BuildRoomComponent: GKComponent {
   
   
   func canPlanAtPoint(_ point: CGPoint) -> Bool {
+    let size = (self.entity?.component(ofType: RoomBlueprintComponent.self)?.size)!
+
     
-    for x in stride(from: Int(point.x), to: Int(point.x + self.roomBlueprint.size.width), by: 1){
-      for y in stride(from: Int(point.y), to: Int(point.y + self.roomBlueprint.size.height), by: 1) {
+    for x in stride(from: Int(point.x), to: Int(point.x + size.width), by: 1){
+      for y in stride(from: Int(point.y), to: Int(point.y + size.height), by: 1) {
         if (Game.sharedInstance.tilesAtCoords[Int(x)]![Int(y)] == nil) {
           return false
         }
@@ -239,9 +247,11 @@ class BuildRoomComponent: GKComponent {
   }
   
   func canBuildAtPoint(_ point: CGPoint) -> Bool {
+    let size = (self.entity?.component(ofType: RoomBlueprintComponent.self)?.size)!
 
-    for x in stride(from: Int(point.x), to: Int(point.x + self.roomBlueprint.size.width), by: 1){
-      for y in stride(from: Int(point.y), to: Int(point.y + self.roomBlueprint.size.height), by: 1) {
+
+    for x in stride(from: Int(point.x), to: Int(point.x + size.width), by: 1){
+      for y in stride(from: Int(point.y), to: Int(point.y + size.height), by: 1) {
         guard let tile = Game.sharedInstance.tilesAtCoords[Int(x)]![Int(y)] else {
           return false
         }
