@@ -37,7 +37,7 @@ class Room: GKEntity {
   static func createFloorNode() -> SKSpriteNode {
 
     let node = SKShapeNode(rectOf: CGSize(width: 60, height: 60))
-    let color = SKColor(red: 100, green: 0, blue: 0, alpha: 1)
+    let color = SKColor(red: 238/255, green: 102/255, blue: 101/255, alpha: 1)
     node.lineWidth = 0
     node.fillColor = color
     node.strokeColor = color
