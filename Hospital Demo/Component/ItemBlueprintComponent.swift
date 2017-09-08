@@ -74,8 +74,10 @@ class ItemBlueprintComponent: GKComponent {
   }
 
   func planFunctionCall(_ position: CGPoint) {
+    guard let entity = self.entity else {return}
+    
     self.planFunction(position)
-    self.entity?.component(ofType: BuildItemComponent.self)?.planAtPoint(position)
+    entity.component(ofType: BuildItemComponent.self)!.planAtPoint(position)
     
     let plannedObject = self.entity!
 
@@ -108,6 +110,8 @@ class ItemBlueprintComponent: GKComponent {
   }
   
   func rotate(_ previousRotation: Game.rotation) {
+    guard let entity = self.entity else {return}
+
     var previousRotation = previousRotation
     previousRotation.next()
 
@@ -129,7 +133,7 @@ class ItemBlueprintComponent: GKComponent {
     
     self.updateSpritePos()
     
-    self.entity?.component(ofType: ItemBlueprintComponent.self)?.planFunctionCall((self.entity?.component(ofType: PositionComponent.self)?.gridPosition)!)
+    entity.component(ofType: ItemBlueprintComponent.self)!.planFunctionCall(entity.component(ofType: PositionComponent.self)!.gridPosition!)
 //    self.entity?.componentForClass(BlueprintComponent.self)?.displayBuildObjectConfirm()
   }
   
@@ -208,20 +212,21 @@ class ItemBlueprintComponent: GKComponent {
   }
   
   func confirmPlan() {
-    let plannedObject = self.entity!
-    guard (entity?.component(ofType: PositionComponent.self)?.gridPosition != nil) else {
+    guard let entity = self.entity else {return}
+
+    guard (entity.component(ofType: PositionComponent.self)?.gridPosition != nil) else {
       return
     }
-    if (self.canBuildAtPoint((entity?.component(ofType: PositionComponent.self)?.gridPosition)!)) {
+    if (self.canBuildAtPoint((entity.component(ofType: PositionComponent.self)!.gridPosition)!)) {
       self.clearPlan()
       
-      let node: SKSpriteNode = (plannedObject.component(ofType: SpriteComponent.self)?.node)!
+      let node: SKSpriteNode = entity.component(ofType: SpriteComponent.self)!.node
       node.alpha = 1
       node.name = ""
       print("confirming plan!")
       
       print(Game.sharedInstance.buildRoomStateMachine.roomBuilding as Any)
-      plannedObject.component(ofType: BuildItemComponent.self)?.build()
+      entity.component(ofType: BuildItemComponent.self)!.build()
       Game.sharedInstance.buildRoomStateMachine.roomBuilding = nil
       Game.sharedInstance.entityManager.add(self.entity!, layer: ZPositionManager.WorldLayer.item)
       self.status = Status.built

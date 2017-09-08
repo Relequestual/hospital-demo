@@ -13,11 +13,7 @@ import GameplayKit
 class BuildItemComponent: GKComponent {
 
   func planAtPoint(_ position: CGPoint) {
-
-    guard let entity = self.entity else {
-      // WOAH there
-      return
-    }
+    guard let entity = self.entity else {return}
 
     print("removing planned_object nodes")
     Game.sharedInstance.entityManager.node.enumerateChildNodes(withName: "planned_object", using: { (node, stop) -> Void in
@@ -82,10 +78,7 @@ class BuildItemComponent: GKComponent {
   }
 
   func build() {
-    guard let entity = self.entity else {
-      // WOAH there
-      return
-    }
+    guard let entity = self.entity else {return}
 
     let area = (entity.component(ofType: ItemBlueprintComponent.self)?.area)!
     let pous = (entity.component(ofType: ItemBlueprintComponent.self)?.pous)!

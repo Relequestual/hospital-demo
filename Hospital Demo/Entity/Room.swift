@@ -21,7 +21,7 @@ class Room: GKEntity {
     super.init()
 //    This is wrong. It's not a component, but an entity.
 //    let roomBPComponent = RoomBlueprint(size: minDimentions, room: self)
-    self.addComponent(BuildRoomComponent(minSize: minDimentions, room: self))
+    self.addComponent(BuildRoomComponent(minSize: minDimentions))
 
   }
   
@@ -45,7 +45,7 @@ class Room: GKEntity {
   }
   
   
-  func createFloorTexture(_ roomSize: CGSize) -> SKTexture {
+  static func createFloorTexture(_ roomSize: CGSize) -> SKTexture {
     let node = SKSpriteNode()
     let base = 32
     let width = 64

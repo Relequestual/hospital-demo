@@ -14,8 +14,6 @@ class RoomBlueprintComponent: GKComponent {
   
   var size:CGSize
   
-  var room: Room
-  
   static var square = SKShapeNode(rectOf: CGSize(width: 64, height: 64))
   static var innerSquare = SKShapeNode(rectOf: CGSize(width: 55, height: 55))
 
@@ -33,8 +31,7 @@ class RoomBlueprintComponent: GKComponent {
   var dragOffset: CGPoint?
   var anchorTile: GKEntity?
   
-  init(size: CGSize, room: Room) {
-    self.room = room
+  init(size: CGSize) {
     self.size = size
     super.init()
 //    self.dynamicType.dashedSquare.lineWidth = 2
@@ -47,7 +44,9 @@ class RoomBlueprintComponent: GKComponent {
   }
   
   override func didAddToEntity() {
-    self.entity?.addComponent(DraggableSpriteComponent(
+    let entity = self.entity!
+
+    entity.addComponent(DraggableSpriteComponent(
       start: { (point: CGPoint) in
         print("start drag room")
         self.dragStartHandler(point)
@@ -59,20 +58,21 @@ class RoomBlueprintComponent: GKComponent {
       print("end drag room")
     }))
     
-    self.entity?.addComponent(SpriteComponent(texture: self.createFloorplanTexture(roomSize: self.size)))
-    self.entity?.component(ofType: SpriteComponent.self)?.node.name = "planning_room_blueprint"
+    entity.addComponent(SpriteComponent(texture: self.createFloorplanTexture(roomSize: self.size)))
+    entity.component(ofType: SpriteComponent.self)!.node.name = "planning_room_blueprint"
     
-    self.entity?.component(ofType: SpriteComponent.self)!.addToNodeKey()
+    entity.component(ofType: SpriteComponent.self)!.addToNodeKey()
     
-    self.entity?.addComponent(PositionComponent(gridPosition: CGPoint.zero))
+    entity.addComponent(PositionComponent(gridPosition: CGPoint.zero))
   }
   
   func dragStartHandler(_ point:CGPoint) {
+    guard let entity = self.entity else {return}
   
-    let gridPos = self.entity?.component(ofType: PositionComponent.self)?.gridPosition
+    let gridPos = entity.component(ofType: PositionComponent.self)!.gridPosition
     let roomTileAnchor = Game.sharedInstance.tilesAtCoords[Int(gridPos!.x)]![Int(gridPos!.y)]
    
-    let tileSpritePos = roomTileAnchor?.component(ofType: PositionComponent.self)?.spritePosition
+    let tileSpritePos = roomTileAnchor?.component(ofType: PositionComponent.self)!.spritePosition
     self.dragOffset = CGPoint(x: (tileSpritePos?.x)! - point.x, y: (tileSpritePos?.y)! - point.y)
     
     self.anchorTile = roomTileAnchor
@@ -83,6 +83,8 @@ class RoomBlueprintComponent: GKComponent {
   }
   
   func dragMoveHandler(_ point:CGPoint) {
+    guard let entity = self.entity else {return}
+
     let offsetPoint = CGPoint(x: point.x + (dragOffset?.x)!, y: point.y + (dragOffset?.y)!)
     let tile = PositionComponent.getTileAtPoint(offsetPoint)
     
@@ -94,7 +96,7 @@ class RoomBlueprintComponent: GKComponent {
       }
       self.anchorTile = tile
       
-      self.room.component(ofType: BuildRoomComponent.self)?.planAtPoint((tile?.component(ofType: PositionComponent.self)?.gridPosition)!, true)
+      entity.component(ofType: BuildRoomComponent.self)!.planAtPoint((tile?.component(ofType: PositionComponent.self)!.gridPosition)!, true)
     }
   }
   
@@ -117,6 +119,8 @@ class RoomBlueprintComponent: GKComponent {
   
   
   func createResizeHandles() {
+    guard let entity = self.entity else {return}
+
     self.removeResizeHandles()
     let spritePosition = CGPoint.zero
     let edgeYT = Int(spritePosition.y + size.height * 64 / 2)
@@ -156,7 +160,7 @@ class RoomBlueprintComponent: GKComponent {
         })
         let buttonVertSprite = vertButton.component(ofType: SpriteComponent.self)!.node
         
-        buttonVertSprite.zPosition = (self.entity?.component(ofType: SpriteComponent.self)?.node.zPosition)! + 1
+        buttonVertSprite.zPosition = entity.component(ofType: SpriteComponent.self)!.node.zPosition + 1
         buttonVertSprite.setScale(0.5)
         buttonVertSprite.name = "planning_room_blueprint_handles"
         buttonVertSprite.position = edgeInstruct.axis == Game.axis.vert ? CGPoint(x: x + 32, y: edgeInstruct.face) : CGPoint(x: edgeInstruct.face, y: x + 32 )
@@ -169,7 +173,7 @@ class RoomBlueprintComponent: GKComponent {
         //TODO: make this button a single image sometime
         buttonVertSprite.addChild(circle)
         vertButton.component(ofType: SpriteComponent.self)?.addToNodeKey()
-        self.entity?.component(ofType: SpriteComponent.self)?.node.addChild((vertButton.component(ofType: SpriteComponent.self)?.node)!)
+        entity.component(ofType: SpriteComponent.self)!.node.addChild(vertButton.component(ofType: SpriteComponent.self)!.node)
         //      Game.sharedInstance.entityManager.add(vertButton, layer: ZPositionManager.WorldLayer.interaction)
       }
     }
@@ -184,12 +188,14 @@ class RoomBlueprintComponent: GKComponent {
   var handleDragPreviousMovePoint: CGPoint = CGPoint.zero
   
   func handleDragStart (_ point: CGPoint, axis: Game.axis) {
+    guard let entity = self.entity else {return}
+
     self.handleDragAxis = axis
     self.handleDragPreviousMovePoint = point
 //    Determine edge is being dragged
-    let centerOfRoom = self.entity?.component(ofType: SpriteComponent.self)?.node.position
-    self.handleDragXSign = (point.x < centerOfRoom!.x) ? Game.numericalSignage.negative : Game.numericalSignage.positive
-    self.handleDragYSign = (point.y < centerOfRoom!.y) ? Game.numericalSignage.negative : Game.numericalSignage.positive
+    let centerOfRoom = entity.component(ofType: SpriteComponent.self)!.node.position
+    self.handleDragXSign = (point.x < centerOfRoom.x) ? Game.numericalSignage.negative : Game.numericalSignage.positive
+    self.handleDragYSign = (point.y < centerOfRoom.y) ? Game.numericalSignage.negative : Game.numericalSignage.positive
     
     switch (self.handleDragAxis, self.handleDragXSign, self.handleDragYSign) {
     case (Game.axis.vert, _, Game.numericalSignage.negative):
@@ -213,8 +219,10 @@ class RoomBlueprintComponent: GKComponent {
   //  Remove child nodes from the sprite of this node that are the planning handles
   //  I realised that the function enumerateChildNodesWithName only does child and not descendant nodes. Not a deep action.
   func removeResizeHandles() {
+    guard let entity = self.entity else {return}
+
     print("remvoing resize handles")
-      self.entity?.component(ofType: SpriteComponent.self)?.node.enumerateChildNodes(withName: "planning_room_blueprint_handles", using: { (node, stop) -> Void in
+      entity.component(ofType: SpriteComponent.self)!.node.enumerateChildNodes(withName: "planning_room_blueprint_handles", using: { (node, stop) -> Void in
       node.removeFromParent()
     });
   }
@@ -223,6 +231,8 @@ class RoomBlueprintComponent: GKComponent {
   //    pointSprite.fillColor = UIColor.redColor()
 
   func handleDragMove (_ point: CGPoint, edge: Game.rotation) {
+    guard let entity = self.entity else {return}
+
     print("___handleDragMove point is")
     print(point)
     print(edge)
@@ -296,7 +306,7 @@ class RoomBlueprintComponent: GKComponent {
       
       if (newSize.width != 0 && newSize.height != 0) {
 
-        let oldGridPos = self.entity?.component(ofType: PositionComponent.self)?.gridPosition
+        let oldGridPos = entity.component(ofType: PositionComponent.self)!.gridPosition
         let newGridPos: CGPoint
         if(self.handleDragEdge == .south || self.handleDragEdge == .west) {
           let sizeChange = CGSize(width: self.size.width - newSize.width, height: self.size.height - newSize.height)
@@ -307,7 +317,7 @@ class RoomBlueprintComponent: GKComponent {
         
         self.size = newSize
         
-        self.room.component(ofType: BuildRoomComponent.self)?.planAtPoint(newGridPos)
+        entity.component(ofType: BuildRoomComponent.self)!.planAtPoint(newGridPos)
         
         self.anchorTile = currentTile
       }
@@ -321,6 +331,7 @@ class RoomBlueprintComponent: GKComponent {
   }
   
   func allowToPlaceDoor() {
+    guard let entity = self.entity else {return}
     
     //TODO: The code at the start of this function is almost identical to createResizeHandles, and the two should be refactored to use the same code
     
@@ -347,7 +358,7 @@ class RoomBlueprintComponent: GKComponent {
     
     
     let edgeInstructions = [southEdge, northEdge, eastEdge, westEdge]
-    let roomPosition = self.entity?.component(ofType: SpriteComponent.self)?.node.position
+    let roomPosition = entity.component(ofType: SpriteComponent.self)!.node.position
     
     for edgeInstruct in edgeInstructions {
       
@@ -357,12 +368,13 @@ class RoomBlueprintComponent: GKComponent {
         let doorPosition = edgeInstruct.axis == Game.axis.vert ? CGPoint(x: x + 32, y: edgeInstruct.face) : CGPoint(x: edgeInstruct.face, y: x + 32 )
 //        let texture = Game.sharedInstance.mainView?.texture(from: SKShapeNode(circleOfRadius: 32))
         
-        let realPosition = CGPoint(x: (roomPosition?.x)! + doorPosition.x, y: (roomPosition?.y)! + doorPosition.y)
+        let realPosition = CGPoint(x: roomPosition.x + doorPosition.x, y: roomPosition.y + doorPosition.y)
         
         
-        let door = Door(room: self.room, realPosition: realPosition, direction: doorDirection)
+        let door = Door(room: entity, realPosition: realPosition, direction: doorDirection)
         
-        self.room.addDoor(door: door)
+//        THIS code is being rewritten soon anyway...
+//        self.room.addDoor(door: door)
         
         
 //        let doorButtonSprite = doorButton.component(ofType: SpriteComponent.self)!.node
