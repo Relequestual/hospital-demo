@@ -374,7 +374,6 @@ class BaseScene: HLScene {
      print("touches ended")
 //    Game.sharedInstance.gameToolbar?.hidden = false
     
-    Game.sharedInstance.toolbarManager?.showAll()
     
     if (Game.sharedInstance.tappableEntity != nil) {
       Game.sharedInstance.tappableEntity?.component(ofType: TouchableSpriteComponent.self)?.callFunction()
@@ -383,6 +382,9 @@ class BaseScene: HLScene {
     let positionInScene = touch.location(in: self)
 
     if (Game.sharedInstance.touchDidMove) {
+      if (Game.sharedInstance.draggingEntiy != nil) {
+        Game.sharedInstance.toolbarManager?.showAll()
+      }
 
       Game.sharedInstance.autoScrollVelocityX = 0;
       Game.sharedInstance.autoScrollVelocityY = 0;
