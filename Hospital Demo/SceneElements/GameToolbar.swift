@@ -36,8 +36,8 @@ class GameToolbar: HLToolbarNode {
     
     // add default options
     addOption("build_room", node: createNode(SKTexture(imageNamed: "Graphics/build_room")), handler: GameToolbar.buildRoomTouch)
-    addOption("build", node: createNode(SKTexture(imageNamed: "Graphics/build_item")), handler: GameToolbar.buildTouch)
-    addOption("green", node: createNode(.green), handler: GameToolbar.greenTouch)
+    addOption("build", node: createNode(SKTexture(imageNamed: "Graphics/build_item")), handler: GameToolbar.buildItemTouch)
+    addOption("green", node: createNode(SKTexture(imageNamed: "Graphics/door")), handler: GameToolbar.buildDoorTouch)
     // can also pass a closure
     
     
@@ -81,7 +81,7 @@ class GameToolbar: HLToolbarNode {
     return SKSpriteNode(texture: texture, size: size)
   }
   
-  class func buildRoomTouch() -> Void {
+  static func buildRoomTouch() -> Void {
         
     Game.sharedInstance.gameStateMachine.enter(GSBuildRoom.self)
     Game.sharedInstance.buildRoomStateMachine.enter(BRSPrePlan.self)
@@ -91,11 +91,7 @@ class GameToolbar: HLToolbarNode {
     
   }
   
-  class func greenTouch() -> Void {
-
-  }
-  
-  class func buildTouch() -> Void {
+  static func buildItemTouch() -> Void {
 
     if ( Game.sharedInstance.buildItemStateMachine.currentState is BISPlace ) {
 //      Game.sharedInstance.gameStateMachine.enterState(GSGeneral)
@@ -106,6 +102,10 @@ class GameToolbar: HLToolbarNode {
       Game.sharedInstance.placingObjectsQueue.append(ReceptionDesk.self)
       
     }
+  }
+  
+  static func buildDoorTouch() -> Void {
+    Game.sharedInstance.gameStateMachine.enter(GSBuildDoor.self)
   }
   
 }

@@ -109,15 +109,6 @@ class RoomBlueprintComponent: GKComponent {
     var side: Game.rotation
   }
   
-  struct possibleDoorLocationDrawingInstruction {
-    var axis: Game.axis
-    var start: Int
-    var end: Int
-    var face: Int
-    var side: Game.rotation
-  }
-  
-  
   func createResizeHandles() {
     guard let entity = self.entity else {return}
 
@@ -330,73 +321,7 @@ class RoomBlueprintComponent: GKComponent {
     
   }
   
-  func allowToPlaceDoor() {
-    guard let entity = self.entity else {return}
-    
-    //TODO: The code at the start of this function is almost identical to createResizeHandles, and the two should be refactored to use the same code
-    
-    let spritePosition = CGPoint.zero
-    let edgeYT = Int(spritePosition.y + self.size.height * 64 / 2)
-    let edgeYB = Int(spritePosition.y - self.size.height * 64 / 2)
-    
-    let edgeXL = Int(spritePosition.x - self.size.width * 64 / 2)
-    let edgeXR = Int(spritePosition.x + self.size.width * 64 / 2)
-    
-    print(edgeXL)
-    print(edgeXR)
-    print(edgeYT)
-    print(edgeYB)
-    
-    
-    //    array of dictionaries needed for button creation
-    
-    let southEdge = possibleDoorLocationDrawingInstruction(axis: Game.axis.vert, start: edgeXL, end: edgeXR, face: edgeYB, side: Game.rotation.south)
-    let northEdge = possibleDoorLocationDrawingInstruction(axis: Game.axis.vert, start: edgeXL, end: edgeXR, face: edgeYT, side: Game.rotation.north)
-    
-    let eastEdge = possibleDoorLocationDrawingInstruction(axis: Game.axis.hroiz, start: edgeYB, end: edgeYT, face: edgeXR, side: Game.rotation.east)
-    let westEdge = possibleDoorLocationDrawingInstruction(axis: Game.axis.hroiz, start: edgeYB, end: edgeYT, face: edgeXL, side: Game.rotation.west)
-    
-    
-    let edgeInstructions = [southEdge, northEdge, eastEdge, westEdge]
-    let roomPosition = entity.component(ofType: SpriteComponent.self)!.node.position
-    
-    for edgeInstruct in edgeInstructions {
-      
-      let doorDirection = edgeInstruct.side
-      
-      for x in stride(from: edgeInstruct.start, to:edgeInstruct.end, by: 64) {
-        let doorPosition = edgeInstruct.axis == Game.axis.vert ? CGPoint(x: x + 32, y: edgeInstruct.face) : CGPoint(x: edgeInstruct.face, y: x + 32 )
-//        let texture = Game.sharedInstance.mainView?.texture(from: SKShapeNode(circleOfRadius: 32))
-        
-        let realPosition = CGPoint(x: roomPosition.x + doorPosition.x, y: roomPosition.y + doorPosition.y)
-        
-        
-        let door = Door(room: entity, realPosition: realPosition, direction: doorDirection)
-        
-//        THIS code is being rewritten soon anyway...
-//        self.room.addDoor(door: door)
-        
-        
-//        let doorButtonSprite = doorButton.component(ofType: SpriteComponent.self)!.node
-//        
-//        doorButtonSprite.zPosition = (self.component(ofType: SpriteComponent.self)?.node.zPosition)! + 1
-//        doorButtonSprite.setScale(0.5)
-//        doorButtonSprite.name = "planning_room_door"
-//        
-//        doorButtonSprite.position = doorPosition
-//        doorButtonSprite.color = SKColor.orange
-//        doorButtonSprite.colorBlendFactor = 1
-//        
-//        doorButton.component(ofType: SpriteComponent.self)?.addToNodeKey()
-//        self.component(ofType: SpriteComponent.self)?.node.addChild((doorButton.component(ofType: SpriteComponent.self)?.node)!)
-        // Game.sharedInstance.entityManager.add(doorButton, layer: ZPositionManager.WorldLayer.interaction)
-      }
-      
-    }
-  }
-  
 
-  
   func createFloorplanTexture(roomSize: CGSize, blockedTiles: [(x: Int,y: Int)]?=[]) -> SKTexture {
     let blueprintNode = SKSpriteNode()
     let base = 32

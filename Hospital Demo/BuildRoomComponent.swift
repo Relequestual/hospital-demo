@@ -109,11 +109,6 @@ class BuildRoomComponent: GKComponent {
     confirmToolbar.confirm = {
       print("OK TO BUILD ROOM");
       self.confirmBuild()
-      
-            //    create function to allow for placement of door
-//      NOPE, now we will allow a room without doors, and doors are addable later
-//      self.roomBlueprint.allowToPlaceDoor()
-      
     }
     
     Game.sharedInstance.toolbarManager?.addToolbar(confirmToolbar, location: Game.rotation.south, shown: true)
@@ -186,16 +181,16 @@ class BuildRoomComponent: GKComponent {
         // Also set tile room floor
         tile?.isRoomFloor = true
         if (x == Int(bottomLeftTilePosition.x)) {
-          tile?.addWall(ofBaring: Game.rotation.west)
+          tile?.addWall(ofBaring: Game.rotation.west, room: entity as! Room)
         }
         if (y == Int(bottomLeftTilePosition.y)) {
-          tile?.addWall(ofBaring: Game.rotation.south)
+          tile?.addWall(ofBaring: Game.rotation.south, room: entity as! Room)
         }
         if (x == Int(bottomLeftTilePosition.x + size.width - 1 )) {
-          tile?.addWall(ofBaring: Game.rotation.east)
+          tile?.addWall(ofBaring: Game.rotation.east, room: entity as! Room)
         }
         if (y == Int(bottomLeftTilePosition.y + size.height - 1)) {
-          tile?.addWall(ofBaring: Game.rotation.north)
+          tile?.addWall(ofBaring: Game.rotation.north, room: entity as! Room)
         }
       }
     }
@@ -257,6 +252,79 @@ class BuildRoomComponent: GKComponent {
     return true
   }
   
+  struct possibleDoorLocationDrawingInstruction {
+    var axis: Game.axis
+    var start: Int
+    var end: Int
+    var face: Int
+    var side: Game.rotation
+  }
+  
+  
+  func showPossibleDoorLocation() -> Set<Door> {
+    guard let entity = self.entity else {return []}
+    
+    var doors: Set<Door> = []
+    
+    print("showPossibleDoorLocation")
+    
+    //TODO: The code at the start of this function is almost identical to createResizeHandles, and the two should be refactored to use the same code
+    
+    let spritePosition = CGPoint.zero
+    let edgeYT = Int(spritePosition.y + self.size.height * 64 / 2)
+    let edgeYB = Int(spritePosition.y - self.size.height * 64 / 2)
+    
+    let edgeXL = Int(spritePosition.x - self.size.width * 64 / 2)
+    let edgeXR = Int(spritePosition.x + self.size.width * 64 / 2)
+    
+    print(edgeXL)
+    print(edgeXR)
+    print(edgeYT)
+    print(edgeYB)
+    
+    
+    //    array of dictionaries needed for button creation
+    
+    let southEdge = possibleDoorLocationDrawingInstruction(axis: Game.axis.vert, start: edgeXL, end: edgeXR, face: edgeYB, side: Game.rotation.south)
+    let northEdge = possibleDoorLocationDrawingInstruction(axis: Game.axis.vert, start: edgeXL, end: edgeXR, face: edgeYT, side: Game.rotation.north)
+    
+    let eastEdge = possibleDoorLocationDrawingInstruction(axis: Game.axis.hroiz, start: edgeYB, end: edgeYT, face: edgeXR, side: Game.rotation.east)
+    let westEdge = possibleDoorLocationDrawingInstruction(axis: Game.axis.hroiz, start: edgeYB, end: edgeYT, face: edgeXL, side: Game.rotation.west)
+    
+    
+    let edgeInstructions = [southEdge, northEdge, eastEdge, westEdge]
+    let roomPosition = entity.component(ofType: SpriteComponent.self)!.node.position
+    
+    for edgeInstruct in edgeInstructions {
+      
+      let doorDirection = edgeInstruct.side
+      
+      for x in stride(from: edgeInstruct.start, to:edgeInstruct.end, by: 64) {
+        let relativeDoorPosition = edgeInstruct.axis == Game.axis.vert ? CGPoint(x: x + 32, y: edgeInstruct.face) : CGPoint(x: edgeInstruct.face, y: x + 32 )
+        
+        /*let circle = SKShapeNode(circleOfRadius: 32)
+        circle.fillColor = SKColor.white
+        let texture = SKView().texture(from: circle)
+        */
+        let realPosition = CGPoint(x: roomPosition.x + relativeDoorPosition.x, y: roomPosition.y + relativeDoorPosition.y)
+        
+        let door = Door(room: entity, realPosition: realPosition, direction: doorDirection)
+        
+        door.addComponent(TouchableSpriteComponent(f: {
+          print("door touched")
+          door.planStatus?.toggle()
+          
+//          Working here: Need to set toolbar to confirm toolbar, on confirm will set door status to built for those planned and remove the rest
+          
+        }))
+        
+        doors.insert(door)
+        
+      }
+      
+    }
+    return doors
+  }
   
   
 }

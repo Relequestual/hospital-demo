@@ -18,6 +18,7 @@ class GameState : GKStateMachine{
       GSGeneral(),
       GSBuildItem(),
       GSBuildRoom(),
+      GSBuildDoor(),
       GSLevelEdit(),
     ])
   }
@@ -35,6 +36,7 @@ class GSBuildItem: GKState {
   }
   
   override func willExit(to nextState: GKState) {
+    Game.sharedInstance.buildItemStateMachine.resetState()
     Game.sharedInstance.canAutoScroll = false
   }
 
@@ -55,13 +57,61 @@ class GSBuildRoom: GKState {
   
 }
 
+class GSBuildDoor: GKState {
+  
+  var doors: Set<Door> = []
+  
+  override func didEnter(from previousState: GKState?) {
+    let rooms = Game.sharedInstance.entityManager.entities.filter { $0.isKind(of: Room.self) }
+    
+    for room in rooms {
+      let newDoors = room.component(ofType: BuildRoomComponent.self)?.showPossibleDoorLocation()
+      for door in newDoors! {
+        self.doors.insert(door)
+      }
+    }
+    
+//    Confirm toolbar needs to be here
+//    Should return a set of rooms from func call, and collect them here, so can be removed easily.
+    
+    let confirmToolbar = ConfirmToolbar(size: CGSize(width: Game.sharedInstance.mainView!.bounds.width , height: 64))
+    //    set callbacks for confirm toolbar
+    confirmToolbar.cancel = {
+      for door in self.doors.filter({ (door: Door) -> Bool in
+        door.planStatus != nil
+      }) {
+        Game.sharedInstance.entityManager.remove(door)
+      }
+      Game.sharedInstance.gameStateMachine.enter(GSGeneral.self)
+    }
+    confirmToolbar.confirm = {
+      for door in self.doors.filter({ (door) -> Bool in
+        door.planStatus == Door.plan.planned
+      }) {
+        door.completeDoor()
+        Game.sharedInstance.gameStateMachine.enter(GSGeneral.self)
+      }
+//      Game.sharedInstance.gameStateMachine.enter(GSGeneral.self)
+    }
+    
+    Game.sharedInstance.toolbarManager?.addToolbar(confirmToolbar, location: Game.rotation.south, shown: true)
+    
+    
+  }
+  
+  override func willExit(to nextState: GKState) {
+    for door in self.doors.filter({ (door: Door) -> Bool in
+      door.planStatus != nil
+    }) {
+      Game.sharedInstance.entityManager.remove(door)
+    }
+  }
+}
+
 class GSGeneral: GKState {
   
   override func didEnter(from previousState: GKState?) {
     Game.sharedInstance.toolbarManager?.resetSide(Game.rotation.south)
-    Game.sharedInstance.buildRoomStateMachine.resetState()
-    Game.sharedInstance.buildItemStateMachine.resetState()
-
   }
 
 }
