@@ -52,15 +52,15 @@ class ItemBlueprintComponent: GKComponent {
     
     super.init()
     
-    self.confirmButton = createConfirmButtons(tickTexture, f: {
+    self.confirmButton = createConfirmButtons(tickTexture, f: {_ in
       self.confirmPlan()
     })
     
-    self.cancelButton = createConfirmButtons(crossTexture, f: {
+    self.cancelButton = createConfirmButtons(crossTexture, f: {_ in
       self.cancelPlan()
     })
     
-    self.rotateButton = createConfirmButtons(rotateTexture, f: ({
+    self.rotateButton = createConfirmButtons(rotateTexture, f: ({_ in
       self.rotate(self.baring)
     }))
 
@@ -292,7 +292,7 @@ class ItemBlueprintComponent: GKComponent {
 
   }
   
-  func createConfirmButtons(_ texture: SKTexture, f: @escaping ()->(Void)) -> Button {
+  func createConfirmButtons(_ texture: SKTexture, f: @escaping (GKEntity)->(Void)) -> Button {
 
     let entity = Button(texture: texture, touch_f: f)
     
