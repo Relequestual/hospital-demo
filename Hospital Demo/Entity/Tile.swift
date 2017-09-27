@@ -69,8 +69,8 @@ class Tile: GKEntity {
     }
   }
 
-  let wallVert = SKShapeNode(rect: CGRect(x: 0, y: 0, width: 5, height: 64))
-  let wallHoriz = SKShapeNode(rect: CGRect(x: 0, y: 0, width: 64, height: 5))
+  let wallVert = SKShapeNode(rect: CGRect(x: 0, y: 0, width: 4, height: 64))
+  let wallHoriz = SKShapeNode(rect: CGRect(x: 0, y: 0, width: 64, height: 4))
 
 
   func addWall(ofBaring: Game.rotation, room: Room) {
@@ -83,18 +83,20 @@ class Tile: GKEntity {
     }
     sprite.fillColor = UIColor.black
     sprite.position = (self.component(ofType: PositionComponent.self)?.spritePosition)!
+    sprite.strokeColor = UIColor.clear
+    
     switch ofBaring {
     case .north:
-      sprite.position = CGPoint(x: sprite.position.x - 32, y: sprite.position.y + 32 - 5)
+      sprite.position = CGPoint(x: sprite.position.x - 32, y: sprite.position.y + 32 - 4)
     case .south:
       sprite.position = CGPoint(x: sprite.position.x - 32, y: sprite.position.y - 32)
     case .east:
-      sprite.position = CGPoint(x: sprite.position.x + 32 - 5, y: sprite.position.y - 32)
+      sprite.position = CGPoint(x: sprite.position.x + 32 - 4, y: sprite.position.y - 32)
     case .west:
       sprite.position = CGPoint(x: sprite.position.x - 32, y: sprite.position.y - 32)
     }
     
-    sprite.zPosition = CGFloat(ZPositionManager.WorldLayer.world.zpos + 1)
+    sprite.zPosition = CGFloat(ZPositionManager.WorldLayer.room.zpos + 1)
     self.walls.sprites[ofBaring] = sprite
     Game.sharedInstance.entityManager.node.addChild(sprite)
     room.walls.append(sprite)
