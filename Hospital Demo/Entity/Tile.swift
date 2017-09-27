@@ -73,7 +73,7 @@ class Tile: GKEntity {
   let wallHoriz = SKShapeNode(rect: CGRect(x: 0, y: 0, width: 64, height: 5))
 
 
-  func addWall(ofBaring: Game.rotation) {
+  func addWall(ofBaring: Game.rotation, room: Room) {
     self.walls.addWall(ofBaring: ofBaring)
     let sprite: SKShapeNode
     if (ofBaring == .north || ofBaring == .south) {
@@ -97,6 +97,7 @@ class Tile: GKEntity {
     sprite.zPosition = CGFloat(ZPositionManager.WorldLayer.world.zpos + 1)
     self.walls.sprites[ofBaring] = sprite
     Game.sharedInstance.entityManager.node.addChild(sprite)
+    room.walls.append(sprite)
   }
 
 
@@ -197,8 +198,6 @@ class Tile: GKEntity {
   func buildRoomStateTouch() {
     print("Tile#buildRoomStateTouch")
     print("-- Gets to room state touch")
-
-
 
     switch Game.sharedInstance.buildRoomStateMachine.currentState {
     case is BRSPrePlan:

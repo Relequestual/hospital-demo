@@ -14,6 +14,7 @@ class Room: GKEntity {
   let minDimentions = CGSize(width: 2, height: 2)
   
   var doors: [Door] = []
+  var walls: [SKShapeNode] = []
   
   static let floorNode: SKSpriteNode = Room.createFloorNode()
 
