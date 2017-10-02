@@ -36,8 +36,10 @@ class GameToolbar: HLToolbarNode {
     
     // add default options
     addOption("build_room", node: createNode(SKTexture(imageNamed: "Graphics/build_room")), handler: GameToolbar.buildRoomTouch)
-    addOption("build", node: createNode(SKTexture(imageNamed: "Graphics/build_item")), handler: GameToolbar.buildItemTouch)
-    addOption("green", node: createNode(SKTexture(imageNamed: "Graphics/door")), handler: GameToolbar.buildDoorTouch)
+    addOption("build_item", node: createNode(SKTexture(imageNamed: "Graphics/build_item")), handler: GameToolbar.buildItemTouch)
+    addOption("build_door", node: createNode(SKTexture(imageNamed: "Graphics/door")), handler: GameToolbar.buildDoorTouch)
+    addOption("debug",      node: createNode(SKTexture(imageNamed: "Graphics/debug")), handler: {})
+
     // can also pass a closure
     
     
