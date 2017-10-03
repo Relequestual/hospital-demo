@@ -45,7 +45,7 @@ class BaseScene: HLScene {
   var lastUpdateTimeInterval: TimeInterval = 0
 
   var updateLastTime: TimeInterval = 0
-  
+
   /**
    The native size for this scene. This is the height at which the scene
    would be rendered if it did not need to be scaled to fit a window or device.
@@ -55,7 +55,7 @@ class BaseScene: HLScene {
 
 
   var staticObjects = SKSpriteNode()
-  
+
   let cam = SKCameraNode()
 
 
@@ -83,9 +83,9 @@ class BaseScene: HLScene {
 
 
     //        self.anchorPoint = CGPoint(x: 0.0, y: 0.0)
-    
+
 //    Set Game view so bounds are accessible elsewhere
-    
+
     self.camera = cam
     Game.sharedInstance.mainView = view
 
@@ -146,12 +146,12 @@ class BaseScene: HLScene {
 //    myContentNode.addChild(debugNode)
 
     Game.sharedInstance.toolbarManager = ToolbarManager(scene: self)
-    
+
     let gameToolbar = GameToolbar(size: CGSize(width: view.bounds.width, height: 64))
     Game.sharedInstance.toolbarManager?.addToolbar(gameToolbar, location: Game.rotation.south, shown: true)
 //    Only temp
 //    Game.sharedInstance.gameToolbar = gameToolbar
-    
+
 //    Change this to work same as above
 //    let confirmToolbar = ConfirmToolbar(size: CGSize(width: view.bounds.width, height: 64))
 //    Game.sharedInstance.toolbarManager?.addToolbar(confirmToolbar)
@@ -159,7 +159,7 @@ class BaseScene: HLScene {
 //    Game.sharedInstance.confirmToolbar!.hlSetGestureTarget(Game.sharedInstance.confirmToolbar)
 //    self.addChild(Game.sharedInstance.confirmToolbar!)
 //    Game.sharedInstance.confirmToolbar?.hideAnimated(true)
-//    
+//
 //    self.registerDescendant(Game.sharedInstance.confirmToolbar, withOptions: Set(arrayLiteral: HLSceneChildGestureTarget))
 
 
@@ -288,26 +288,26 @@ class BaseScene: HLScene {
     _messageNode?.showMessage(message as String, parent: self)
   }
 
-  
+
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 
     let touch = touches.first!
     let positionInScene = touch.location(in: self)
     let positionInWorldnodeContent = touches.first?.location(in: Game.sharedInstance.wolrdnode)
     let touchedNodes = self.nodes(at: positionInScene)
-    
+
     var draggingDraggableNode = false
     Game.sharedInstance.touchDidMove = false
     //    Also check if buildbale and possible to have position
     if (Game.sharedInstance.buildItemStateMachine.currentState is BISPlace) {
       draggingDraggableNode = true
     }
-    
+
     var topTappableNodeEntity = GKEntity()
     var topDraggableNodeEntity = GKEntity()
     for node in touchedNodes {
       guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else {continue}
-      
+
       if (entity.component(ofType: DraggableSpriteComponent.self) != nil) {
         topDraggableNodeEntity = node.zPosition > topDraggableNodeEntity.component(ofType: SpriteComponent.self)?.node.zPosition ? entity : topDraggableNodeEntity
 
@@ -319,10 +319,10 @@ class BaseScene: HLScene {
       if (entity.component(ofType: TouchableSpriteComponent.self) != nil) {
         topTappableNodeEntity = node.zPosition > topTappableNodeEntity.component(ofType: SpriteComponent.self)?.node.zPosition ? entity : topTappableNodeEntity
       }
-      
+
     }
     topDraggableNodeEntity.component(ofType: DraggableSpriteComponent.self)?.touchStart(positionInWorldnodeContent!)
-    
+
     Game.sharedInstance.tappableEntity = topTappableNodeEntity
 
     Game.sharedInstance.panningWold = !draggingDraggableNode
@@ -353,12 +353,12 @@ class BaseScene: HLScene {
     Game.sharedInstance.tappableEntity = nil
 
   }
-  
+
   override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
      print("touches ended")
 //    Game.sharedInstance.gameToolbar?.hidden = false
-    
-    
+
+
     if (Game.sharedInstance.tappableEntity != nil) {
       Game.sharedInstance.tappableEntity?.component(ofType: TouchableSpriteComponent.self)?.callFunction()
     }
@@ -372,49 +372,48 @@ class BaseScene: HLScene {
 
       Game.sharedInstance.autoScrollVelocityX = 0;
       Game.sharedInstance.autoScrollVelocityY = 0;
-     
+
       Game.sharedInstance.draggingEntiy?.component(ofType: DraggableSpriteComponent.self)?.touchEnd(positionInScene)
       Game.sharedInstance.draggingEntiy = nil
     }
-    
+
 
 
   }
-  
-  
+
+
   func panWold(_ touches: Set<UITouch>) {
     let positionInScene = touches.first!.location(in: self)
     let previousLocation = touches.first!.previousLocation(in: self)
-    
+
     self.camera?.position.x -= positionInScene.x - previousLocation.x
     self.camera?.position.y -= positionInScene.y - previousLocation.y
-    
   }
-  
-  
-  
+
+
+
   func checkAutoScroll(_ point: CGPoint) {
-    
-    
+
+
 //    let FLWorldAutoScrollMarginSizeMax = CGFloat(96.0)
-//    
+//
 //    var marginSize = min(self.size.width, self.size.height) / 7.0
-//    
+//
 //    if (marginSize > FLWorldAutoScrollMarginSizeMax) {
 //      marginSize = FLWorldAutoScrollMarginSizeMax
 //    }
 
     let marginSize = CGFloat(64)
 
-    
-    
+
+
     let FLAutoScrollVelocityMin = CGFloat(4.0)
     let FLAutoScrollVelocityLinear = CGFloat(800.0)
 
     let scorllNode = Game.sharedInstance.wolrdnode
 
     var autoScroll = false
-    
+
 //    Remove this at some point!
     let additionalYMargin = CGFloat(0)
 
@@ -469,8 +468,8 @@ class BaseScene: HLScene {
       Game.sharedInstance.autoScrollVelocityY = 0;
     }
 
-    
-    
+
+
   }
 
 
