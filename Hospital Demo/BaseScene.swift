@@ -225,7 +225,7 @@ class BaseScene: HLScene {
     super.update(currentTime)
 
     lastUpdateTimeInterval = currentTime
-    let deltaTime = currentTime - lastUpdateTimeInterval
+    //    let deltaTime = currentTime - lastUpdateTimeInterval
     //    Game.sharedInstance.entityManager.update(deltaTime)
 
 
