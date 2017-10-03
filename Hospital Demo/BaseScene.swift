@@ -57,6 +57,9 @@ class BaseScene: HLScene {
   var staticObjects = SKSpriteNode()
 
   var _panLastNodeLocation = CGPoint()
+  
+  
+  let cam = SKCameraNode()
 
 
   /// A reference to the scene manager for scene progression.
@@ -85,6 +88,8 @@ class BaseScene: HLScene {
     //        self.anchorPoint = CGPoint(x: 0.0, y: 0.0)
     
 //    Set Game view so bounds are accessible elsewhere
+    
+    self.camera = cam
     Game.sharedInstance.mainView = view
 
     let bottomleft = CGPoint(x: 0.0, y: 0.0)
@@ -399,16 +404,13 @@ class BaseScene: HLScene {
   
   
   func panWold(_ touches: Set<UITouch>) {
-    let positionInScene = touches.first?.location(in: self)
-    let nodeLocation = convert(positionInScene!, from: self)
+    let positionInScene = touches.first!.location(in: self)
+    let previousLocation = touches.first!.previousLocation(in: self)
     
-    let contentNodeLocation = Game.sharedInstance.wolrdnode.contentOffset
-    let translationInNode = CGPoint(x: nodeLocation.x - _panLastNodeLocation.x, y: nodeLocation.y - _panLastNodeLocation.y)
+    self.camera?.position.x -= positionInScene.x - previousLocation.x
+    self.camera?.position.y -= positionInScene.y - previousLocation.y
     
-    let currentScale = Game.sharedInstance.wolrdnode.contentScale
-    Game.sharedInstance.wolrdnode.setContentOffset(CGPoint(x: contentNodeLocation.x + translationInNode.x, y: contentNodeLocation.y + translationInNode.y), contentScale: currentScale)
-    
-    _panLastNodeLocation = nodeLocation
+    _panLastNodeLocation = previousLocation
   }
   
   
