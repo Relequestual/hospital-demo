@@ -60,7 +60,7 @@ class ReceptionDesk: GKEntity {
     }
     
 //    self.componentForClass(SpriteComponent.self)?.node.position = point
-    let nodesAtPoint = Game.sharedInstance.wolrdnode.contentNode.nodes(at: point)
+    let nodesAtPoint = Game.sharedInstance.wolrdnode.nodes(at: point)
         
     for node in nodesAtPoint {
       guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else {continue}

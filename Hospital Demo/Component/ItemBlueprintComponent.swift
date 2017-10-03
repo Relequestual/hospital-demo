@@ -100,7 +100,7 @@ class ItemBlueprintComponent: GKComponent {
 //      Don't touch this one!
       print(graphicNode!);
     } else {
-      Game.sharedInstance.wolrdnode.contentNode.addChild(graphicNode!)
+      Game.sharedInstance.wolrdnode.addChild(graphicNode!)
     }
     
     if( plannedObject.component(ofType: ItemBlueprintComponent.self)?.status != ItemBlueprintComponent.Status.built ){

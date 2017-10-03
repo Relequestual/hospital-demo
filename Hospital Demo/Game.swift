@@ -30,7 +30,7 @@ class Game {
 
   var entityManager: EntityManager!
   
-  var wolrdnode: HLScrollNode!
+  var wolrdnode: SKSpriteNode!
   
   var toolbarManager: ToolbarManager?
   

@@ -32,7 +32,7 @@ class PositionComponent: GKComponent {
   
   
   static func getTileAtPoint(_ point: CGPoint) -> Tile? {
-    let nodesAtPoint = Game.sharedInstance.wolrdnode.contentNode.nodes(at: point)
+    let nodesAtPoint = Game.sharedInstance.wolrdnode.nodes(at: point)
     var tile: GKEntity?
     
     for node in nodesAtPoint {
