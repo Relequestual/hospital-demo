@@ -33,6 +33,7 @@
 		9122FA441D61AC4000F92958 /* RoomBlueprintComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9122FA431D61AC4000F92958 /* RoomBlueprintComponent.swift */; };
 		914650CE1E729E6B00DBF123 /* Door.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914650CD1E729E6B00DBF123 /* Door.swift */; };
 		914667E11C5937D800560251 /* TouchableSpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914667E01C5937D800560251 /* TouchableSpriteComponent.swift */; };
+		91494DE51F87D8BF00817B45 /* DebugToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91494DE41F87D8BF00817B45 /* DebugToolbar.swift */; };
 		9175E2D31D47CACE0026BA8F /* zPositionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9175E2D21D47CACE0026BA8F /* zPositionManager.swift */; };
 		918968401E8BA06B005EB38D /* Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9189683F1E8BA06B005EB38D /* Convert.swift */; };
 		91C3E3571C6BB1E900E8CBD8 /* ItemBlueprintComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3E3561C6BB1E900E8CBD8 /* ItemBlueprintComponent.swift */; };
@@ -75,6 +76,7 @@
 		9122FA431D61AC4000F92958 /* RoomBlueprintComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RoomBlueprintComponent.swift; path = Entity/Building/RoomBlueprintComponent.swift; sourceTree = "<group>"; };
 		914650CD1E729E6B00DBF123 /* Door.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Door.swift; sourceTree = "<group>"; };
 		914667E01C5937D800560251 /* TouchableSpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TouchableSpriteComponent.swift; path = Component/TouchableSpriteComponent.swift; sourceTree = "<group>"; };
+		91494DE41F87D8BF00817B45 /* DebugToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DebugToolbar.swift; path = SceneElements/DebugToolbar.swift; sourceTree = "<group>"; };
 		9175E2D21D47CACE0026BA8F /* zPositionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = zPositionManager.swift; sourceTree = "<group>"; };
 		9189683F1E8BA06B005EB38D /* Convert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Convert.swift; sourceTree = "<group>"; };
 		91C3E3561C6BB1E900E8CBD8 /* ItemBlueprintComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ItemBlueprintComponent.swift; path = Component/ItemBlueprintComponent.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 			children = (
 				13DFA1781C65ECE8003289E9 /* GameToolbar.swift */,
 				91F72CF21DC9E00E00210C71 /* ConfirmToolbar.swift */,
+				91494DE41F87D8BF00817B45 /* DebugToolbar.swift */,
 			);
 			name = Elements;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13C765341BF61B2D00AC0223 /* GameScene.swift in Sources */,
+				91494DE51F87D8BF00817B45 /* DebugToolbar.swift in Sources */,
 				13DFA17B1C6806F4003289E9 /* BuildItemState.swift in Sources */,
 				13C765361BF61B2D00AC0223 /* GameViewController.swift in Sources */,
 				91C836831C649978008ECABF /* GameState.swift in Sources */,
@@ -490,12 +494,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -532,11 +536,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -552,7 +556,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = PF4KKVLGFM;
 				INFOPLIST_FILE = "Hospital Demo/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Relequestual.Hospital-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -571,7 +575,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = PF4KKVLGFM;
 				INFOPLIST_FILE = "Hospital Demo/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Relequestual.Hospital-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";

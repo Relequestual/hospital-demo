@@ -36,12 +36,10 @@ class ToolbarManager {
   func addToolbar(_ toolbar: HLToolbarNode, location: Game.rotation, shown: Bool = false) -> Void{
     print("Adding toolbar")
 //    Extend this when needed to work for all rotations
-    if (location == Game.rotation.south) {
-      
-      toolbar.position = CGPoint(x: 0, y: -64)
-      toolbar.zPosition = CGFloat(ZPositionManager.WorldLayer.ui.zpos)
-    }
-    
+//    toolbar.position = CGPoint(x: 0, y: -64)
+    toolbar.position = self.positionForSide(side: location, shown: shown)
+    toolbar.zPosition = CGFloat(ZPositionManager.WorldLayer.ui.zpos)
+
     toolbar.hlSetGestureTarget(toolbar)
 //    Hide toolbars at location
     for tb in self.existingToolbars[location]! {
@@ -65,11 +63,17 @@ class ToolbarManager {
       }
     }
   }
+
+  func hideAnimated(toolbar: HLToolbarNode, animated: Bool = true) {
+    toolbar.hide(animated: animated)
+    toolbar.isHidden = true
+  }
   
   func show(_ toolbar: HLToolbarNode) -> Void{
-    
+    var toolbarLocation : Game.rotation?
     for location in self.locations {
       if (((self.existingToolbars[location]?.contains(toolbar))) == true){
+        toolbarLocation = location
         print("set as current toolbar")
         if (self.currentToolbars[location] != nil) {
           self.currentToolbars[location]!.isHidden = true
@@ -79,7 +83,10 @@ class ToolbarManager {
     }
     
     if (toolbar.isHidden) {
-      toolbar.show(withOrigin: CGPoint(x: 0, y: -64), finalPosition: CGPoint(x: 0, y: 0), fullScale: 1.0, animated: true)
+      toolbar.show(
+        withOrigin: self.positionForSide(side: toolbarLocation!, shown: false),
+        finalPosition: self.positionForSide(side: toolbarLocation!, shown: true),
+        fullScale: 1.0, animated: true)
       toolbar.isHidden = false
       if ((toolbar.parent) == nil){
         self.scene.addChild(toolbar)
@@ -119,6 +126,25 @@ class ToolbarManager {
       existingToolbars[side] = [newExistingToolbars!]
       self.show(existingToolbars[side]!.first!)
     }
+  }
+
+  func positionForSide (side: Game.rotation, shown: Bool = false) -> CGPoint {
+    switch side {
+      case .north:
+        return CGPoint(x: 0, y: 0)
+      case .east:
+        return CGPoint(x: Game.sharedInstance.mainView!.bounds.width - (shown ? 64 : 0), y: 0)
+      case .south:
+        return CGPoint(x: 0, y: shown ? 0 : -64)
+      case .west:
+        return CGPoint(x: 0, y: 0)
+    }
+  }
+
+  func getDebugToolbar () -> HLToolbarNode? {
+    return self.existingToolbars[.east]?.first( where: { (toolbar: HLToolbarNode) -> Bool in
+      return toolbar.isKind(of: DebugToolbar.self)
+    })
   }
   
 }

@@ -88,6 +88,7 @@ class BaseScene: HLScene {
 
     self.camera = cam
     Game.sharedInstance.mainView = view
+    let skView = view
 
     let bottomleft = CGPoint(x: 0.0, y: 0.0)
     let center = CGPoint(x: 0.5, y: 0.5)
@@ -149,6 +150,12 @@ class BaseScene: HLScene {
 
     let gameToolbar = GameToolbar(size: CGSize(width: view.bounds.width, height: 64))
     Game.sharedInstance.toolbarManager?.addToolbar(gameToolbar, location: Game.rotation.south, shown: true)
+
+    let debugToolbar = DebugToolbar(size: CGSize(width: 64, height: view.bounds.height - 64))
+    Game.sharedInstance.toolbarManager?.addToolbar(debugToolbar, location: Game.rotation.east, shown: false)
+    debugToolbar.isHidden = true
+
+
 //    Only temp
 //    Game.sharedInstance.gameToolbar = gameToolbar
 

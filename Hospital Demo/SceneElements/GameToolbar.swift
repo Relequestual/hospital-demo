@@ -38,7 +38,7 @@ class GameToolbar: HLToolbarNode {
     addOption("build_room", node: createNode(SKTexture(imageNamed: "Graphics/build_room")), handler: GameToolbar.buildRoomTouch)
     addOption("build_item", node: createNode(SKTexture(imageNamed: "Graphics/build_item")), handler: GameToolbar.buildItemTouch)
     addOption("build_door", node: createNode(SKTexture(imageNamed: "Graphics/door")), handler: GameToolbar.buildDoorTouch)
-    addOption("debug",      node: createNode(SKTexture(imageNamed: "Graphics/debug")), handler: {})
+    addOption("debug",      node: createNode(SKTexture(imageNamed: "Graphics/debug")), handler: GameToolbar.debugToolbar)
 
     // can also pass a closure
     
@@ -108,6 +108,12 @@ class GameToolbar: HLToolbarNode {
   
   static func buildDoorTouch() -> Void {
     Game.sharedInstance.gameStateMachine.enter(GSBuildDoor.self)
+  }
+
+  static func debugToolbar() {
+    print("debug toolbar tap")
+    let debugToolbar = (Game.sharedInstance.toolbarManager?.getDebugToolbar())!
+    debugToolbar.isHidden ? Game.sharedInstance.toolbarManager?.show(debugToolbar) : Game.sharedInstance.toolbarManager?.hideAnimated(toolbar: debugToolbar)
   }
   
 }
