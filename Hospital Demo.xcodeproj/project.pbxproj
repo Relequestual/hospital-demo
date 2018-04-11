@@ -28,7 +28,6 @@
 		13CCF1571C34088D00297EF3 /* SpriteDebugComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF1561C34088D00297EF3 /* SpriteDebugComponent.swift */; };
 		13DFA1791C65ECE8003289E9 /* GameToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DFA1781C65ECE8003289E9 /* GameToolbar.swift */; };
 		13DFA17B1C6806F4003289E9 /* BuildItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DFA17A1C6806F4003289E9 /* BuildItemState.swift */; };
-		58B51067ED2966DA1F5E3564 /* Pods_Hospital_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 119B22F354B724D95C8C9719 /* Pods_Hospital_Demo.framework */; };
 		9119835E1E72D3D100E6D2A2 /* UseableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9119835D1E72D3D100E6D2A2 /* UseableComponent.swift */; };
 		9122FA441D61AC4000F92958 /* RoomBlueprintComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9122FA431D61AC4000F92958 /* RoomBlueprintComponent.swift */; };
 		914650CE1E729E6B00DBF123 /* Door.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914650CD1E729E6B00DBF123 /* Door.swift */; };
@@ -44,10 +43,10 @@
 		91F052661DD35031002F8B19 /* ToolbarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F052651DD35031002F8B19 /* ToolbarManager.swift */; };
 		91F72CF31DC9E00E00210C71 /* ConfirmToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F72CF21DC9E00E00210C71 /* ConfirmToolbar.swift */; };
 		91F7F0E71D2FDA2D00331878 /* BuildItemComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F7F0E61D2FDA2D00331878 /* BuildItemComponent.swift */; };
+		F3D455D640491C94CB65285D /* Pods_Hospital_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B49E688970A02F603E960AA7 /* Pods_Hospital_Demo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		119B22F354B724D95C8C9719 /* Pods_Hospital_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hospital_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		130AFEAE1D0494B1002F266D /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Button.swift; path = Entity/Button.swift; sourceTree = "<group>"; };
 		13388CF11D5672190080234A /* Room.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Room.swift; path = ../Room.swift; sourceTree = "<group>"; };
 		13388CF31D57B6C50080234A /* BuildRoomComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildRoomComponent.swift; sourceTree = "<group>"; };
@@ -71,7 +70,7 @@
 		13CCF1561C34088D00297EF3 /* SpriteDebugComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpriteDebugComponent.swift; path = Component/SpriteDebugComponent.swift; sourceTree = "<group>"; };
 		13DFA1781C65ECE8003289E9 /* GameToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameToolbar.swift; path = SceneElements/GameToolbar.swift; sourceTree = "<group>"; };
 		13DFA17A1C6806F4003289E9 /* BuildItemState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildItemState.swift; sourceTree = "<group>"; };
-		457F6EC4CF57C614C89AFCF5 /* Pods-Hospital Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hospital Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hospital Demo/Pods-Hospital Demo.release.xcconfig"; sourceTree = "<group>"; };
+		6E729F281F280152765F1F6C /* Pods-Hospital Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hospital Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hospital Demo/Pods-Hospital Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		9119835D1E72D3D100E6D2A2 /* UseableComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UseableComponent.swift; path = Component/UseableComponent.swift; sourceTree = "<group>"; };
 		9122FA431D61AC4000F92958 /* RoomBlueprintComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RoomBlueprintComponent.swift; path = Entity/Building/RoomBlueprintComponent.swift; sourceTree = "<group>"; };
 		914650CD1E729E6B00DBF123 /* Door.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Door.swift; sourceTree = "<group>"; };
@@ -87,7 +86,8 @@
 		91F052651DD35031002F8B19 /* ToolbarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ToolbarManager.swift; path = Manager/ToolbarManager.swift; sourceTree = "<group>"; };
 		91F72CF21DC9E00E00210C71 /* ConfirmToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfirmToolbar.swift; path = SceneElements/ConfirmToolbar.swift; sourceTree = "<group>"; };
 		91F7F0E61D2FDA2D00331878 /* BuildItemComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BuildItemComponent.swift; path = Component/BuildItemComponent.swift; sourceTree = "<group>"; };
-		FE6259AC48982DC954389865 /* Pods-Hospital Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hospital Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hospital Demo/Pods-Hospital Demo.debug.xcconfig"; sourceTree = "<group>"; };
+		ABE58657E036ED2E7C7C0A00 /* Pods-Hospital Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hospital Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hospital Demo/Pods-Hospital Demo.release.xcconfig"; sourceTree = "<group>"; };
+		B49E688970A02F603E960AA7 /* Pods_Hospital_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hospital_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,7 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				58B51067ED2966DA1F5E3564 /* Pods_Hospital_Demo.framework in Frameworks */,
+				F3D455D640491C94CB65285D /* Pods_Hospital_Demo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,8 +153,8 @@
 			children = (
 				13C7652E1BF61B2D00AC0223 /* Hospital Demo */,
 				13C7652D1BF61B2D00AC0223 /* Products */,
-				D9D473466C91A2DBC577D2DD /* Pods */,
-				DB3B59A34D3C34780422EEFE /* Frameworks */,
+				354E56E916C56E37C6A5AFBD /* Pods */,
+				7F3A9630C3C5D50D156C77A4 /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -199,6 +199,23 @@
 				91494DE41F87D8BF00817B45 /* DebugToolbar.swift */,
 			);
 			name = Elements;
+			sourceTree = "<group>";
+		};
+		354E56E916C56E37C6A5AFBD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6E729F281F280152765F1F6C /* Pods-Hospital Demo.debug.xcconfig */,
+				ABE58657E036ED2E7C7C0A00 /* Pods-Hospital Demo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		7F3A9630C3C5D50D156C77A4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B49E688970A02F603E960AA7 /* Pods_Hospital_Demo.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		91158CBA1D47C94600CD423D /* Manager */ = {
@@ -258,23 +275,6 @@
 			path = "Hospital Demo/States/ItemStates";
 			sourceTree = SOURCE_ROOT;
 		};
-		D9D473466C91A2DBC577D2DD /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				FE6259AC48982DC954389865 /* Pods-Hospital Demo.debug.xcconfig */,
-				457F6EC4CF57C614C89AFCF5 /* Pods-Hospital Demo.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		DB3B59A34D3C34780422EEFE /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				119B22F354B724D95C8C9719 /* Pods_Hospital_Demo.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -282,12 +282,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13C765421BF61B2D00AC0223 /* Build configuration list for PBXNativeTarget "Hospital Demo" */;
 			buildPhases = (
-				F1BEBF1B64C1BFFCB6E1E9F1 /* Check Pods Manifest.lock */,
+				997788AF31539E360D8F42EB /* [CP] Check Pods Manifest.lock */,
 				13C765281BF61B2D00AC0223 /* Sources */,
 				13C765291BF61B2D00AC0223 /* Frameworks */,
 				13C7652A1BF61B2D00AC0223 /* Resources */,
-				625ED48A54126D9CFB7CA0FF /* Embed Pods Frameworks */,
-				13E1461F6BC5573CA7CD27DE /* Copy Pods Resources */,
+				12FE9B68AB3B4BB287138B7D /* [CP] Embed Pods Frameworks */,
+				08C3733D0E47572E08E696A6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -348,14 +348,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		13E1461F6BC5573CA7CD27DE /* Copy Pods Resources */ = {
+		08C3733D0E47572E08E696A6 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -363,14 +363,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Hospital Demo/Pods-Hospital Demo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		625ED48A54126D9CFB7CA0FF /* Embed Pods Frameworks */ = {
+		12FE9B68AB3B4BB287138B7D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,19 +378,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Hospital Demo/Pods-Hospital Demo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F1BEBF1B64C1BFFCB6E1E9F1 /* Check Pods Manifest.lock */ = {
+		997788AF31539E360D8F42EB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -548,7 +548,7 @@
 		};
 		13C765431BF61B2D00AC0223 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FE6259AC48982DC954389865 /* Pods-Hospital Demo.debug.xcconfig */;
+			baseConfigurationReference = 6E729F281F280152765F1F6C /* Pods-Hospital Demo.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -567,7 +567,7 @@
 		};
 		13C765441BF61B2D00AC0223 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 457F6EC4CF57C614C89AFCF5 /* Pods-Hospital Demo.release.xcconfig */;
+			baseConfigurationReference = ABE58657E036ED2E7C7C0A00 /* Pods-Hospital Demo.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
