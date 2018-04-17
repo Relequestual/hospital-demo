@@ -23,9 +23,7 @@ class ConfirmToolbar: HLToolbarNode {
   init(size: CGSize) {
     super.init()
     
-    self.anchorPoint = CGPoint(x: 0, y: 0)
     self.size = size
-    self.position = CGPoint(x: 0, y: 0)
     self.zPosition = CGFloat(ZPositionManager.WorldLayer.ui.zpos)
     
     // add default options

@@ -20,7 +20,6 @@ class DebugToolbar: HLToolbarNode {
   init(size: CGSize) {
     super.init()
 
-    self.anchorPoint = CGPoint(x: 0, y: 0)
     self.size = size
 //    self.position = CGPoint(x: Game.sharedInstance.mainView!.bounds.width, y: 0)
 //    self.position = CGPoint(x: 50, y: 0)
@@ -32,6 +31,8 @@ class DebugToolbar: HLToolbarNode {
 
     // add default options
     addOption("showDoorPOUs", node: createNode(.orange), handler: self.showPOUs)
+    addOption("clearBackground", node: createNode(.darkGray), handler: self.clearBK)
+
 
     self.toolTappedBlock = { tag in self.didTapBlock(tag!) }
 
@@ -47,6 +48,8 @@ class DebugToolbar: HLToolbarNode {
 
     //self.registerDescendant(toolbarNode, withOptions: Set<AnyObject>.setWithObject(HLSceneChildGestureTarget))
     //baseScene.registerDescendant(self, withOptions: Set(arrayLiteral: HLSceneChildGestureTarget))
+
+//    self.backgroundColor = UIColor.clear
 
   }
 
@@ -77,6 +80,8 @@ class DebugToolbar: HLToolbarNode {
     
   }
 
-
+  func clearBK() {
+    self.backgroundColor = UIColor.clear
+  }
 
 }

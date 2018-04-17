@@ -174,6 +174,7 @@ class BaseScene: HLScene {
 
     Game.sharedInstance.wolrdnode = myContentNode
 
+    self.addChild(camera!)
     self.camera?.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
 
     self.HL_showMessage("testing!")

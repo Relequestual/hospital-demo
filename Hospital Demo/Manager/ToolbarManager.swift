@@ -89,7 +89,7 @@ class ToolbarManager {
         fullScale: 1.0, animated: true)
       toolbar.isHidden = false
       if ((toolbar.parent) == nil){
-        self.scene.addChild(toolbar)
+        self.scene.camera!.addChild(toolbar)
         self.scene.registerDescendant(toolbar, withOptions: Set(arrayLiteral: HLSceneChildGestureTarget))
       }
     }
@@ -129,13 +129,16 @@ class ToolbarManager {
   }
 
   func positionForSide (side: Game.rotation, shown: Bool = false) -> CGPoint {
+    let frameHeight = Game.sharedInstance.mainView!.bounds.height
+    let frameWidth = Game.sharedInstance.mainView!.bounds.width
+    let tbsize = 64
     switch side {
       case .north:
         return CGPoint(x: 0, y: 0)
       case .east:
-        return CGPoint(x: Game.sharedInstance.mainView!.bounds.width - (shown ? 64 : 0), y: 0)
+        return CGPoint(x: shown ? 0 + frameWidth / 2 - tbsize / 2 : 0 + frameWidth / 2, y: 0 + tbsize / 2)
       case .south:
-        return CGPoint(x: 0, y: shown ? 0 : -64)
+        return CGPoint(x: 0, y: shown ? 0 - frameHeight / 2 + tbsize / 2 : 0 - frameHeight / 2)
       case .west:
         return CGPoint(x: 0, y: 0)
     }

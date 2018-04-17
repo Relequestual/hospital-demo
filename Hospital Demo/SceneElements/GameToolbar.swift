@@ -32,8 +32,7 @@ class GameToolbar: HLToolbarNode {
     super.init()
     
     self.size = size
-    self.anchorPoint = CGPoint(x: 0, y: 0)
-    
+
     // add default options
     addOption("build_room", node: createNode(SKTexture(imageNamed: "Graphics/build_room")), handler: GameToolbar.buildRoomTouch)
     addOption("build_item", node: createNode(SKTexture(imageNamed: "Graphics/build_item")), handler: GameToolbar.buildItemTouch)
