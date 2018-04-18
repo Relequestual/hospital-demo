@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -103,12 +103,12 @@
 		42AF6CB8349CE05E289BAC5714E97BAD /* HLTiledNode.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HLTiledNode.m; path = HLSpriteKit/HLTiledNode.m; sourceTree = "<group>"; };
 		4EAB3F21C58EF27872113ADAE93A5286 /* HLTableLayoutManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLTableLayoutManager.h; path = HLSpriteKit/HLTableLayoutManager.h; sourceTree = "<group>"; };
 		52250412E7FDB798D70F353556705E4C /* HLLayoutManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HLLayoutManager.m; path = HLSpriteKit/HLLayoutManager.m; sourceTree = "<group>"; };
-		53A98CFE3E2B674123803E5F80352891 /* HLSpriteKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = HLSpriteKit.modulemap; sourceTree = "<group>"; };
+		53A98CFE3E2B674123803E5F80352891 /* HLSpriteKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = HLSpriteKit.modulemap; sourceTree = "<group>"; };
 		57603C058B7917CA5A719CB80E0963BA /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57AEAC59B06C3AB5F339AB023D8983E9 /* HLScrollNode.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HLScrollNode.m; path = HLSpriteKit/HLScrollNode.m; sourceTree = "<group>"; };
 		5811A8AD4C11DF9BAC97A7AA561478F3 /* HLItemsNode.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HLItemsNode.m; path = HLSpriteKit/HLItemsNode.m; sourceTree = "<group>"; };
 		59CEC45C245C40332DA3BF0C15E0FD3B /* HLGestureTarget.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLGestureTarget.h; path = HLSpriteKit/HLGestureTarget.h; sourceTree = "<group>"; };
-		5D319B1D9EFEFFA1354A97A6AEC4FCC0 /* Pods-Hospital Demo.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-Hospital Demo.modulemap"; sourceTree = "<group>"; };
+		5D319B1D9EFEFFA1354A97A6AEC4FCC0 /* Pods-Hospital Demo.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-Hospital Demo.modulemap"; sourceTree = "<group>"; };
 		5D7E163A74D650CACB7DF27277EE9EC7 /* Pods-Hospital Demo-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Hospital Demo-frameworks.sh"; sourceTree = "<group>"; };
 		6075A0784FA5C311AD00CD93B6929E94 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/SpriteKit.framework; sourceTree = DEVELOPER_DIR; };
 		6173F56E6564C47715ABEA4A6D304101 /* HLSpriteKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = HLSpriteKit.xcconfig; sourceTree = "<group>"; };
@@ -125,16 +125,16 @@
 		78F7EE8D66530BFC093DE7C711F1446B /* SKNode+HLLayoutManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "SKNode+HLLayoutManager.m"; path = "HLSpriteKit/SKNode+HLLayoutManager.m"; sourceTree = "<group>"; };
 		81C82C90FB54D71F2936746E8B5EF4CE /* HLSpriteKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "HLSpriteKit-umbrella.h"; sourceTree = "<group>"; };
 		82A8C536F475EC3FC7AEB69E2EAA497C /* HLSpriteKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLSpriteKit.h; path = HLSpriteKit/HLSpriteKit.h; sourceTree = "<group>"; };
-		83C0A9B003B42950EAA6A01927D27DB4 /* Pods_Hospital_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Hospital_Demo.framework; path = "Pods-Hospital Demo.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		83C0A9B003B42950EAA6A01927D27DB4 /* Pods_Hospital_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hospital_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		85C0E91A975BC1EF3EC39BB0946138B2 /* Pods-Hospital Demo-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Hospital Demo-acknowledgements.plist"; sourceTree = "<group>"; };
 		86821EC2D30F21E998F5DC2F79C35E70 /* HLScene.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLScene.h; path = HLSpriteKit/HLScene.h; sourceTree = "<group>"; };
 		8A1C4FCBDE41A92217F4E695C07DC56D /* HLGridNode.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HLGridNode.m; path = HLSpriteKit/HLGridNode.m; sourceTree = "<group>"; };
 		90C726C3158A298C0D494D176C0C3E65 /* Pods-Hospital Demo-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Hospital Demo-resources.sh"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		93D1C240FE68C5F5E88A1872862CC05E /* HLLabelButtonNode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLLabelButtonNode.h; path = HLSpriteKit/HLLabelButtonNode.h; sourceTree = "<group>"; };
 		95487C4644DD915B21E1114948AA946A /* HLLayoutManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLLayoutManager.h; path = HLSpriteKit/HLLayoutManager.h; sourceTree = "<group>"; };
 		9964186ED32663DABD9DB23FABA4813F /* HLComponentNode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLComponentNode.h; path = HLSpriteKit/HLComponentNode.h; sourceTree = "<group>"; };
-		A7B4628454CD1C742B8F9C1A6D3A73F3 /* HLSpriteKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = HLSpriteKit.framework; path = HLSpriteKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7B4628454CD1C742B8F9C1A6D3A73F3 /* HLSpriteKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HLSpriteKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A95E4F67A32EC1552E7BA6356E1F4C00 /* HLOutlineLayoutManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HLOutlineLayoutManager.h; path = HLSpriteKit/HLOutlineLayoutManager.h; sourceTree = "<group>"; };
 		AF452D257E19DD975D49C5C0E0CECD40 /* SKNode+HLGestureTarget.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "SKNode+HLGestureTarget.m"; path = "HLSpriteKit/SKNode+HLGestureTarget.m"; sourceTree = "<group>"; };
 		B38380C2E6C19A0FA913D0F76FD9A5EE /* SKSpriteNode+HLSpriteNodeAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SKSpriteNode+HLSpriteNodeAdditions.h"; path = "HLSpriteKit/SKSpriteNode+HLSpriteNodeAdditions.h"; sourceTree = "<group>"; };
@@ -287,7 +287,6 @@
 				D41C0F5E0E720AA305D4A91160028039 /* UIImage+HLImageAdditions.m */,
 				CD381D70405D1C4BFBDE5917549EC187 /* Support Files */,
 			);
-			name = HLSpriteKit;
 			path = HLSpriteKit;
 			sourceTree = "<group>";
 		};
@@ -423,7 +422,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0920;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -606,19 +605,29 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"POD_CONFIGURATION_RELEASE=1",
 					"$(inherited)",
@@ -681,20 +690,30 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"POD_CONFIGURATION_DEBUG=1",
