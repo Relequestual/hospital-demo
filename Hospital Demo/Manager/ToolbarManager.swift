@@ -129,16 +129,16 @@ class ToolbarManager {
   }
 
   func positionForSide (side: Game.rotation, shown: Bool = false) -> CGPoint {
-    let frameHeight = Game.sharedInstance.mainView!.bounds.height
-    let frameWidth = Game.sharedInstance.mainView!.bounds.width
-    let tbsize = 64
+    let halfFrameHeight = Int(Game.sharedInstance.mainView!.bounds.height / 2)
+    let halfFrameWidth = Int(Game.sharedInstance.mainView!.bounds.width / 2)
+    let halftbsize = 64 / 2
     switch side {
       case .north:
         return CGPoint(x: 0, y: 0)
       case .east:
-        return CGPoint(x: shown ? 0 + frameWidth / 2 - tbsize / 2 : 0 + frameWidth / 2, y: 0 + tbsize / 2)
+        return CGPoint(x: shown ? 0 + halfFrameWidth - halftbsize : 0 + halfFrameWidth, y: 0 + halftbsize)
       case .south:
-        return CGPoint(x: 0, y: shown ? 0 - frameHeight / 2 + tbsize / 2 : 0 - frameHeight / 2)
+        return CGPoint(x: 0, y: shown ? 0 - halfFrameHeight + halftbsize : 0 - halfFrameHeight)
       case .west:
         return CGPoint(x: 0, y: 0)
     }
