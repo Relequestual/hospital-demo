@@ -94,15 +94,17 @@ class GameToolbar: HLToolbarNode {
   
   static func buildItemTouch() -> Void {
 
-    if ( Game.sharedInstance.buildItemStateMachine.currentState is BISPlace ) {
-//      Game.sharedInstance.gameStateMachine.enterState(GSGeneral)
-//      Game.sharedInstance.buildStateMachine
-    } else {
-      Game.sharedInstance.gameStateMachine.enter(GSBuildItem.self)
-      Game.sharedInstance.buildItemStateMachine.enter(BISPlan.self)
-      Game.sharedInstance.placingObjectsQueue.append(ReceptionDesk.self)
-      
-    }
+      let menu = ItemMenu()
+
+//    if ( Game.sharedInstance.buildItemStateMachine.currentState is BISPlace ) {
+////      Game.sharedInstance.gameStateMachine.enterState(GSGeneral)
+////      Game.sharedInstance.buildStateMachine
+//    } else {
+//      Game.sharedInstance.gameStateMachine.enter(GSBuildItem.self)
+//      Game.sharedInstance.buildItemStateMachine.enter(BISPlan.self)
+//      Game.sharedInstance.placingObjectsQueue.append(ReceptionDesk.self)
+//
+//    }
   }
   
   static func buildDoorTouch() -> Void {
