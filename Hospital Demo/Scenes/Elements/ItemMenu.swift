@@ -10,15 +10,13 @@ import Foundation
 import GameplayKit
 
 class ItemMenu {
-
-  static let menuItems:Array<GKEntity.Type> = [ReceptionDesk.self]
+  static let menuItems: Array<GKEntity.Type> = [ReceptionDesk.self]
 
   var menuItems: Array<GKEntity.Type>
 
-  var graphics: [String:SKSpriteNode] = [:]
+  var graphics: [String: SKSpriteNode] = [:]
 
   init(menuItems: Array<GKEntity.Type> = ItemMenu.menuItems) {
-
     self.menuItems = menuItems
 
     for itemType in self.menuItems {
@@ -26,13 +24,9 @@ class ItemMenu {
 
       let graphicsNode = itemEntity.component(ofType: SpriteComponent.self)?.node
 
-      self.graphics.updateValue(graphicsNode ?? SKSpriteNode(), forKey: String(describing: itemType))
+      graphics.updateValue(graphicsNode ?? SKSpriteNode(), forKey: String(describing: itemType))
     }
 
-    print(self.graphics)
-
-
-
+    print(graphics)
   }
-
 }

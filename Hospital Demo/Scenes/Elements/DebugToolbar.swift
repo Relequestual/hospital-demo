@@ -7,10 +7,9 @@
 //
 
 import Foundation
-import SpriteKit
 import GameplayKit
 import HLSpriteKit
-
+import SpriteKit
 
 class DebugToolbar: HLToolbarNode {
   static let defaultNodeSize = CGSize(width: 20, height: 20)
@@ -25,35 +24,33 @@ class DebugToolbar: HLToolbarNode {
 //    self.position = CGPoint(x: 50, y: 0)
 
     print("debug toolbar position is")
-    print(self.position)
+    print(position)
     print("---")
-    self.zPosition = CGFloat(ZPositionManager.WorldLayer.ui.zpos) + 1.0
+    zPosition = CGFloat(ZPositionManager.WorldLayer.ui.zpos) + 1.0
 
     // add default options
-    addOption("showDoorPOUs", node: createNode(.orange), handler: self.showPOUs)
-    addOption("clearBackground", node: createNode(.darkGray), handler: self.clearBK)
+    addOption("showDoorPOUs", node: createNode(.orange), handler: showPOUs)
+    addOption("clearBackground", node: createNode(.darkGray), handler: clearBK)
 
+    toolTappedBlock = { tag in self.didTapBlock(tag!) }
 
-    self.toolTappedBlock = { tag in self.didTapBlock(tag!) }
-
-    let tags = options.reduce([String]()) { (tags, option) in
+    let tags = options.reduce([String]()) { tags, option in
       return tags + [option.tag]
     }
 
-    let nodes = options.reduce([SKSpriteNode]()) { (nodes, option) in
+    let nodes = options.reduce([SKSpriteNode]()) { nodes, option in
       return nodes + [option.node]
     }
 
-    self.setTools(nodes, tags: tags, animation:HLToolbarNodeAnimation.slideLeft)
+    setTools(nodes, tags: tags, animation: HLToolbarNodeAnimation.slideLeft)
 
-    //self.registerDescendant(toolbarNode, withOptions: Set<AnyObject>.setWithObject(HLSceneChildGestureTarget))
-    //baseScene.registerDescendant(self, withOptions: Set(arrayLiteral: HLSceneChildGestureTarget))
+    // self.registerDescendant(toolbarNode, withOptions: Set<AnyObject>.setWithObject(HLSceneChildGestureTarget))
+    // baseScene.registerDescendant(self, withOptions: Set(arrayLiteral: HLSceneChildGestureTarget))
 
 //    self.backgroundColor = UIColor.clear
-
   }
 
-  required init?(coder aDecoder: NSCoder) {
+  required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
@@ -75,13 +72,10 @@ class DebugToolbar: HLToolbarNode {
     return SKSpriteNode(texture: texture, size: size)
   }
 
-
   func showPOUs() {
-    
   }
 
   func clearBK() {
-    self.backgroundColor = UIColor.clear
+    backgroundColor = UIColor.clear
   }
-
 }

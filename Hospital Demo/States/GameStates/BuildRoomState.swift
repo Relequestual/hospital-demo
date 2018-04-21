@@ -9,22 +9,20 @@
 import Foundation
 import GameplayKit
 
-class BuildRoomState : GKStateMachine {
-  
+class BuildRoomState: GKStateMachine {
   var roomBuilding: GKEntity?
 
   init() {
-    super.init(states:[
+    super.init(states: [
       BRSPrePlan(),
       BRSPlan(),
       BRSDone(),
-      ])
+    ])
   }
-  
+
   func resetState() {
     roomBuilding = nil
   }
-
 }
 
 class BRSPrePlan: GKState {}
@@ -33,12 +31,9 @@ class BRSPlan: GKState {}
 
 class BRSDone: GKState {}
 
-
-
-//class BISPlaned: BuildItemState {
+// class BISPlaned: BuildItemState {
 //  override func didEnterWithPreviousState(previousState: GKState?) {
 //    print(previousState)
 //    print("In Planned Item State")
 //  }
-//}
-
+// }

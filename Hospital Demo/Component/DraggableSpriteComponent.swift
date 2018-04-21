@@ -10,55 +10,52 @@ import GameplayKit
 import SpriteKit
 
 class DraggableSpriteComponent: GKComponent {
-  
-  var entityTouchStart: (CGPoint)->Void
-  var entityTouchMove: (CGPoint)->Void
-  var entityTouchEnd: (CGPoint)->Void
-  
-  var startPoint:CGPoint?
-  var movedPoint:CGPoint?
-  var endPoint:CGPoint?
-  
+  var entityTouchStart: (CGPoint) -> Void
+  var entityTouchMove: (CGPoint) -> Void
+  var entityTouchEnd: (CGPoint) -> Void
+
+  var startPoint: CGPoint?
+  var movedPoint: CGPoint?
+  var endPoint: CGPoint?
+
   var draggable: Bool = true
-  
-  init(start:@escaping (CGPoint) -> Void, move:@escaping (CGPoint) -> Void, end:@escaping (CGPoint) -> Void) {
-    
+
+  init(start: @escaping (CGPoint) -> Void, move: @escaping (CGPoint) -> Void, end: @escaping (CGPoint) -> Void) {
 //    Working here.
 //    Calling these directly rather than through this classes function accessors!! duh!
-    self.entityTouchStart = start
-    self.entityTouchMove  = move
-    self.entityTouchEnd   = end
+    entityTouchStart = start
+    entityTouchMove = move
+    entityTouchEnd = end
     super.init()
   }
-  
-  required init?(coder aDecoder: NSCoder) {
+
+  required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
   func touchStart(_ point: CGPoint) {
-    if (!(self.draggable)){
+    if !(draggable) {
       return
     }
-    self.startPoint = point
-    self.entityTouchStart(point)
+    startPoint = point
+    entityTouchStart(point)
   }
-  
+
   func touchMove(_ point: CGPoint) {
     print("draggable?")
-    print(self.draggable)
-    if (!(self.draggable)){
+    print(draggable)
+    if !(draggable) {
       return
     }
-    self.movedPoint = point
-    self.entityTouchMove(point)
+    movedPoint = point
+    entityTouchMove(point)
   }
-  
+
   func touchEnd(_ point: CGPoint) {
-    if (!(self.draggable)){
+    if !(draggable) {
       return
     }
-    self.endPoint = point
-    self.entityTouchEnd(point)
+    endPoint = point
+    entityTouchEnd(point)
   }
-  
 }

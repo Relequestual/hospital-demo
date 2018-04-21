@@ -17,33 +17,33 @@ class Game {
   var gameStateMachine = GameState()
 
   var buildItemStateMachine = BuildItemState()
-  
+
   var buildRoomStateMachine = BuildRoomState()
-  
+
   var panningWold = true
 
   var canAutoScroll = false
 
-  var autoScrollVelocityX = CGFloat(0.0);
+  var autoScrollVelocityX = CGFloat(0.0)
 
-  var autoScrollVelocityY = CGFloat(0.0);
+  var autoScrollVelocityY = CGFloat(0.0)
 
   var entityManager: EntityManager!
-  
+
   var wolrdnode: SKSpriteNode!
-  
+
   var toolbarManager: ToolbarManager?
-  
+
   var tilesAtCoords: [Int: [Int: Tile]] = [:]
-  
+
   var placingObjectsQueue = Array<GKEntity.Type>()
-    
+
   var draggingEntiy: GKEntity?
 
   var tappableEntity: GKEntity?
 
   var touchDidMove = false
-  
+
   enum rotation: Int {
     case north = 1, east = 2, south = 3, west = 4
     mutating func next() {
@@ -59,48 +59,46 @@ class Game {
       }
     }
   }
-  
+
   enum axis {
     case vert, hroiz
   }
-  
+
   enum numericalSignage {
     case positive, negative
   }
-  
+
   var mainView: SKView?
 
   fileprivate init(view: SKView?) {
 //    self.gameStateMachine.enterState(GSGeneral)
 //    self.buildStateMachine.enterState(BSInitial)
-    
-    self.mainView = view
+
+    mainView = view
 
     let zPositionManager = ZPositionManager()
     print(zPositionManager.topMost)
   }
-  
+
   func initDebugNode(name: String?) {
     let pointSprite = SKShapeNode(circleOfRadius: 2)
     pointSprite.strokeColor = UIColor.red
     //    (currentTile as! Tile).highlight((currentTile!.componentForClass(SpriteComponent.self)?.node.position)!)
-    pointSprite.zPosition = 100000
+    pointSprite.zPosition = 100_000
     pointSprite.removeFromParent()
     pointSprite.name = name != nil ? name : ""
     Game.sharedInstance.entityManager.node.addChild(pointSprite)
   }
-  
+
   func updateDebugNode(name: String, position: CGPoint) {
-    Game.sharedInstance.entityManager.node.enumerateChildNodes(withName: name) { (node, stop) in
+    Game.sharedInstance.entityManager.node.enumerateChildNodes(withName: name) { node, _ in
       node.position = position
     }
   }
-  
+
   func removeDebugNode(name: String) {
-    Game.sharedInstance.entityManager.node.enumerateChildNodes(withName: name) { (node, stop) in
+    Game.sharedInstance.entityManager.node.enumerateChildNodes(withName: name) { node, _ in
       node.removeFromParent()
     }
-
   }
-
 }

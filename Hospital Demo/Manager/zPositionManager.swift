@@ -11,9 +11,8 @@ import GameplayKit
 import SpriteKit
 
 class ZPositionManager {
-  
   static let currentzPositionScale = 5000
-  
+
   enum WorldLayer: Int {
     case ground = 1
     case world
@@ -25,20 +24,17 @@ class ZPositionManager {
     case layerCount
 
     var zpos: Int {
-      return Int(self.rawValue * currentzPositionScale)
+      return Int(rawValue * currentzPositionScale)
     }
   }
-  
-  var topMost: [Int : Int] = [:]
-  
+
+  var topMost: [Int: Int] = [:]
+
   init() {
-    
     for layer in 1 ... WorldLayer.layerCount.rawValue {
-      self.topMost[WorldLayer.init(rawValue: layer)!.rawValue] = WorldLayer.init(rawValue: layer)!.zpos
+      topMost[WorldLayer(rawValue: layer)!.rawValue] = WorldLayer(rawValue: layer)!.zpos
     }
-    
+
     print(topMost)
-    
   }
-  
 }

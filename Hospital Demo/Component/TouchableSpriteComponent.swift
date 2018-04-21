@@ -10,20 +10,18 @@ import GameplayKit
 import SpriteKit
 
 class TouchableSpriteComponent: GKComponent {
-  
-  var entityTouched: ()->Void;
-  
-  init(f:@escaping () -> Void) {
-    self.entityTouched = f
+  var entityTouched: () -> Void
+
+  init(f: @escaping () -> Void) {
+    entityTouched = f
     super.init()
   }
-  
-  required init?(coder aDecoder: NSCoder) {
+
+  required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
   func callFunction() {
-    self.entityTouched()
+    entityTouched()
   }
-  
 }

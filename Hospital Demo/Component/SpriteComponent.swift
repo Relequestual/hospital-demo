@@ -10,22 +10,20 @@ import GameplayKit
 import SpriteKit
 
 class SpriteComponent: GKComponent {
-
   let node: SKSpriteNode
 
   init(texture: SKTexture) {
     node = SKSpriteNode(texture: texture, color: SKColor.white, size: texture.size())
     super.init()
   }
-  
-  required init?(coder aDecoder: NSCoder) {
+
+  required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
   func addToNodeKey() {
-    self.node.userData = NSMutableDictionary()
-    guard self.entity != nil else {return}
-    self.node.userData?.setObject(self.entity!, forKey: "entity" as NSCopying)
+    node.userData = NSMutableDictionary()
+    guard entity != nil else { return }
+    node.userData?.setObject(entity!, forKey: "entity" as NSCopying)
   }
-  
 }

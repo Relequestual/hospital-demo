@@ -9,23 +9,21 @@
 import Foundation
 import GameplayKit
 
-class BuildItemState : GKStateMachine{
-  
+class BuildItemState: GKStateMachine {
   var itemType: GKEntity.Type?
   var itemBuilding: GKEntity?
 
   init() {
-    super.init(states:[
+    super.init(states: [
       BISPlan(),
       BISPlace(),
     ])
   }
-  
+
   func resetState() {
     itemType = nil
     itemBuilding = nil
   }
-
 }
 
 class BISPlan: GKState {
@@ -41,10 +39,9 @@ class BISPlace: GKState {
   }
 }
 
-//class BISPlaned: BuildItemState {
+// class BISPlaned: BuildItemState {
 //  override func didEnterWithPreviousState(previousState: GKState?) {
 //    print(previousState)
 //    print("In Planned Item State")
 //  }
-//}
-
+// }

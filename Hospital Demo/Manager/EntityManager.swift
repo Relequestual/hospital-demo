@@ -7,11 +7,10 @@
 //
 
 import Foundation
-import SpriteKit
 import GameplayKit
+import SpriteKit
 
 class EntityManager {
-
   var entities = Set<GKEntity>()
   let node: SKNode
   var toRemove = Set<GKEntity>()
@@ -19,7 +18,7 @@ class EntityManager {
   lazy var componentSystems: [GKComponentSystem] = {
     //        When there are moveable entities, look at this again.
     //        let moveSystem = GKComponentSystem(componentClass: MoveComponent.self)
-    return []
+    []
   }()
 
   init(node: SKNode) {
@@ -32,7 +31,7 @@ class EntityManager {
 
     if let spriteNode = entity.component(ofType: SpriteComponent.self)?.node {
       spriteNode.zPosition = CGFloat(layer.zpos)
-      if ((entity.component(ofType: PositionComponent.self)?.spritePosition) != nil) {
+      if (entity.component(ofType: PositionComponent.self)?.spritePosition) != nil {
         spriteNode.position = entity.component(ofType: PositionComponent.self)!.spritePosition!
       }
 //      spriteNode.zPosition = 1
@@ -76,5 +75,4 @@ class EntityManager {
   //        }
   //        return moveComponents
   //    }
-
 }

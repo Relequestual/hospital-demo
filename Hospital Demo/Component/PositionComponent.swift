@@ -6,43 +6,40 @@
 //  Copyright © 2015 Ben Hutton. All rights reserved.
 //
 
-import SpriteKit
 import GameplayKit
-
+import SpriteKit
 
 class PositionComponent: GKComponent {
-
   var gridPosition: CGPoint?
   var spritePosition: CGPoint?
 
-  init(gridPosition: CGPoint, spritePosition: CGPoint?=nil) {
+  init(gridPosition: CGPoint, spritePosition: CGPoint? = nil) {
     self.gridPosition = gridPosition
     self.spritePosition = spritePosition
     super.init()
   }
-  
+
   init(realPosition: CGPoint) {
-    self.spritePosition = realPosition
+    spritePosition = realPosition
     super.init()
   }
-  
-  required init?(coder aDecoder: NSCoder) {
+
+  required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
-  
+
   static func getTileAtPoint(_ point: CGPoint) -> Tile? {
     let nodesAtPoint = Game.sharedInstance.wolrdnode.nodes(at: point)
     var tile: GKEntity?
-    
+
     for node in nodesAtPoint {
-      guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else {continue}
-      
-      if (entity.isKind(of: Tile.self)) {
+      guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else { continue }
+
+      if entity.isKind(of: Tile.self) {
         tile = entity
       }
     }
-    
+
     return tile as? Tile
   }
 }

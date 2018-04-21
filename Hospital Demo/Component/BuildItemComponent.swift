@@ -6,19 +6,17 @@
 //  Copyright © 2016 Ben Hutton. All rights reserved.
 //
 
-
-import SpriteKit
 import GameplayKit
+import SpriteKit
 
 class BuildItemComponent: GKComponent {
-
   func planAtPoint(_ position: CGPoint) {
-    guard let entity = self.entity else {return}
+    guard let entity = self.entity else { return }
 
     print("removing planned_object nodes")
-    Game.sharedInstance.entityManager.node.enumerateChildNodes(withName: "planned_object", using: { (node, stop) -> Void in
+    Game.sharedInstance.entityManager.node.enumerateChildNodes(withName: "planned_object", using: { (node, _) -> Void in
       node.removeFromParent()
-    });
+    })
 
     // Check can place object at location
     guard entity.component(ofType: ItemBlueprintComponent.self)!.canPlanAtPoint(position) else {
@@ -28,7 +26,6 @@ class BuildItemComponent: GKComponent {
 
     let area = (entity.component(ofType: ItemBlueprintComponent.self)?.area)!
     let pous = (entity.component(ofType: ItemBlueprintComponent.self)?.pous)!
-
 
     let positionComponent = PositionComponent(gridPosition: CGPoint(x: position.x, y: position.y))
     entity.addComponent(positionComponent)
@@ -48,10 +45,8 @@ class BuildItemComponent: GKComponent {
       node.zPosition = CGFloat(ZPositionManager.WorldLayer.interaction.zpos)
       node.name = "planned_object"
 
-
       Game.sharedInstance.entityManager.node.addChild(node)
       tile.isBuildingOn = true
-
     }
 
     for blueprint in pous {
@@ -70,7 +65,6 @@ class BuildItemComponent: GKComponent {
       node.zPosition = CGFloat(ZPositionManager.WorldLayer.interaction.zpos)
       node.name = "planned_object"
       Game.sharedInstance.entityManager.node.addChild(node)
-
     }
     Game.sharedInstance.buildItemStateMachine.itemBuilding = entity
     print("entity planned!")
@@ -78,7 +72,7 @@ class BuildItemComponent: GKComponent {
   }
 
   func build() {
-    guard let entity = self.entity else {return}
+    guard let entity = self.entity else { return }
 
     let area = (entity.component(ofType: ItemBlueprintComponent.self)?.area)!
     let pous = (entity.component(ofType: ItemBlueprintComponent.self)?.pous)!
@@ -88,7 +82,7 @@ class BuildItemComponent: GKComponent {
     for blueprint in area {
       let x = Int(positionComponent.gridPosition!.x + blueprint.x)
       let y = Int(positionComponent.gridPosition!.y + blueprint.y)
-      
+
       guard let tile = Game.sharedInstance.tilesAtCoords[x]![y] else {
         // No tile at this position
         return
@@ -100,15 +94,14 @@ class BuildItemComponent: GKComponent {
     for blueprint in pous {
       let x = Int(positionComponent.gridPosition!.x + blueprint.x)
       let y = Int(positionComponent.gridPosition!.y + blueprint.y)
-      
+
       guard let tile = Game.sharedInstance.tilesAtCoords[x]![y] else {
         // No tile at this position
         return
       }
-      
+
       tile.unbuildable = true
       tile.isBuildingOn = false
-      
     }
     Game.sharedInstance.gameStateMachine.enter(GSGeneral.self)
   }
@@ -116,18 +109,17 @@ class BuildItemComponent: GKComponent {
   //  Optimisation of these would require moving all generated textures to a graphics class.
   //  And checking that it would actually be worth it!
 
-  func createPlannedTexture(_ unbuildable:Bool = false) -> SKTexture {
+  func createPlannedTexture(_ unbuildable: Bool = false) -> SKTexture {
     let node = SKShapeNode(rectOf: CGSize(width: 32, height: 32))
     node.lineWidth = 0
     node.fillColor = unbuildable ? UIColor.red : UIColor.cyan
     return SKView().texture(from: node)!
   }
 
-  func createPlannedPOUTexture(_ unbuildable:Bool = false) -> SKTexture {
+  func createPlannedPOUTexture(_ unbuildable: Bool = false) -> SKTexture {
     let node = SKShapeNode(circleOfRadius: 24)
     node.lineWidth = 0
     node.fillColor = unbuildable ? UIColor.red : UIColor.orange
     return SKView().texture(from: node)!
   }
-
 }

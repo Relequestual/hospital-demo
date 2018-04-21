@@ -10,10 +10,9 @@ import GameplayKit
 import SpriteKit
 
 class SpriteDebugComponent: GKComponent {
-  
   static var debugLayer = SKNode()
 
-  init(node: SKSpriteNode ) {
+  init(node: SKSpriteNode) {
     super.init()
     let size = node.texture?.size()
     let position = node.position
@@ -34,7 +33,7 @@ class SpriteDebugComponent: GKComponent {
     let desc = SKLabelNode(text: NSStringFromCGPoint(CGPoint(x: (position.x - 32) / 64, y: (position.y - 32) / 64)))
     desc.fontColor = UIColor.black
     desc.zPosition = 100
-    desc.position = CGPoint(x: position.x-28, y: position.y-28)
+    desc.position = CGPoint(x: position.x - 28, y: position.y - 28)
     desc.fontSize = 10
     desc.fontName = "AvenirNext-Bold"
 
@@ -43,13 +42,12 @@ class SpriteDebugComponent: GKComponent {
 
     SpriteDebugComponent.debugLayer.addChild(desc)
   }
-  
-  required init?(coder aDecoder: NSCoder) {
+
+  required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-    
+
 //  static func getDebugNode() -> SKNode{
 //    return debugLayer
 //  }
-
 }

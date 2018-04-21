@@ -9,10 +9,5 @@
 import Foundation
 import SpriteKit
 
-
 class MenuManager {
-
-  
-
-
 }

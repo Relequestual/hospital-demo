@@ -9,9 +9,7 @@
 import SpriteKit
 
 class GameScene: BaseScene {
-
   override func didMove(to view: SKView) {
-
     super.didMove(to: view)
 
     //        /* Setup your scene here */
@@ -21,8 +19,6 @@ class GameScene: BaseScene {
     //        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame));
     //
     //        self.addChild(myLabel)
-
-
   }
 
 //  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -32,23 +28,22 @@ class GameScene: BaseScene {
 //      let location = touch.locationInNode(self)
 //      print(location)
 //
-////      let sprite = SKSpriteNode(imageNamed:"Grey Tile.png")
-////
-////      sprite.xScale = 0.5
-////      sprite.yScale = 0.5
-////      sprite.position = location
-////
-////      let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:1)
-////
-////      sprite.runAction(SKAction.repeatActionForever(action))
-////
-////      self.addChild(sprite)
+  ////      let sprite = SKSpriteNode(imageNamed:"Grey Tile.png")
+  ////
+  ////      sprite.xScale = 0.5
+  ////      sprite.yScale = 0.5
+  ////      sprite.position = location
+  ////
+  ////      let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:1)
+  ////
+  ////      sprite.runAction(SKAction.repeatActionForever(action))
+  ////
+  ////      self.addChild(sprite)
 //    }
 //
 //
 //
 //  }
-  
 
 //  override func update(currentTime: CFTimeInterval) {
 //    /* Called before each frame is rendered */
