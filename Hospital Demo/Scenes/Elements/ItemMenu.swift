@@ -10,22 +10,16 @@ import Foundation
 import GameplayKit
 
 class ItemMenu {
-  static let menuItems: Array<GKEntity.Type> = [ReceptionDesk.self]
+  let graphics: [String: SKSpriteNode]
 
-  var menuItems: Array<GKEntity.Type>
+  init(menuItems: [GKEntity.Type] = [ReceptionDesk.self]) {
+    print("ItemMenu#init")
 
-  var graphics: [String: SKSpriteNode] = [:]
-
-  init(menuItems: Array<GKEntity.Type> = ItemMenu.menuItems) {
-    self.menuItems = menuItems
-
-    for itemType in self.menuItems {
-      let itemEntity = itemType.init()
-
-      let graphicsNode = itemEntity.component(ofType: SpriteComponent.self)?.node
-
-      graphics.updateValue(graphicsNode ?? SKSpriteNode(), forKey: String(describing: itemType))
-    }
+    graphics = menuItems.reduce(into: [:], { graphics, itemType in
+      let item = itemType.init()
+      let node = item.component(ofType: SpriteComponent.self)?.node ?? SKSpriteNode()
+      graphics[String(describing: itemType)] = node
+    })
 
     print(graphics)
   }
