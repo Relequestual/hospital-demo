@@ -36,7 +36,7 @@ class ToolbarManager {
 //    Extend this when needed to work for all rotations
 //    toolbar.position = CGPoint(x: 0, y: -64)
     toolbar.position = positionForSide(side: location, shown: shown)
-    toolbar.zPosition = CGFloat(ZPositionManager.WorldLayer.ui.zpos)
+    toolbar.zPosition = CGFloat(ZPositionManager.WorldLayer.ui.zpos + 1000)
 
     toolbar.hlSetGestureTarget(toolbar)
 //    Hide toolbars at location
