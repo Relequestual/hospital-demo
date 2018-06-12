@@ -9,18 +9,41 @@
 import Foundation
 import GameplayKit
 
-class ItemMenu {
-  let graphics: [String: SKSpriteNode]
+class ItemMenu: MenuProtocol {
+  var menuNode: SKSpriteNode = Menu.makeMenuNode()
 
-  init(menuItems: [GKEntity.Type] = [ReceptionDesk.self]) {
+  var graphics: [String: SKTexture]
+  var menuItems: [Menu.menuItem] = []
+
+  init(menuItems: [GKEntity.Type] = [ReceptionDesk.self, ReceptionDesk.self, ReceptionDesk.self, ReceptionDesk.self]) {
     print("ItemMenu#init")
 
     graphics = menuItems.reduce(into: [:], { graphics, itemType in
       let item = itemType.init()
       let node = item.component(ofType: SpriteComponent.self)?.node ?? SKSpriteNode()
-      graphics[String(describing: itemType)] = node
+      let texture = SKView.init().texture(from: node)!
+//      texture = Menu.resizeToMax(texture: texture)
+
+      graphics[String(describing: itemType)] = texture
     })
 
-    print(graphics)
+    self.createMenuItems()
+    Menu.layoutItems(menu: self)
   }
+
+  func createMenuItems() {
+
+    self.graphics.forEach { (key: String, texture: SKTexture) in
+      let button = Button(texture: texture, touch_f: { (Button) in
+        print("menu button!!!")
+        Game.sharedInstance.gameStateMachine.enter(GSBuildItem.self)
+        Game.sharedInstance.buildItemStateMachine.enter(BISPlan.self)
+        Game.sharedInstance.placingObjectsQueue.append(ReceptionDesk.self)
+        Game.sharedInstance.menuManager?.openMenu!.remove()
+      })
+      let item = Menu.menuItem(button: button, color: UIColor.blue)
+      self.menuItems.append(item)
+    }
+  }
+
 }

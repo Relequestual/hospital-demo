@@ -147,6 +147,8 @@ class BaseScene: HLScene {
     Game.sharedInstance.toolbarManager?.addToolbar(debugToolbar, location: Game.rotation.east, shown: false)
     debugToolbar.isHidden = true
 
+    Game.sharedInstance.menuManager = MenuManager(scene: self)
+
 //    Only temp
 //    Game.sharedInstance.gameToolbar = gameToolbar
 

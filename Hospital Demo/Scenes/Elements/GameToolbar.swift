@@ -88,7 +88,16 @@ class GameToolbar: HLToolbarNode {
   }
 
   static func buildItemTouch() {
-    let menu = ItemMenu()
+
+//    let menu = Menu()
+    let itemMenu = ItemMenu()
+
+    if (Game.sharedInstance.menuManager?.openMenu == nil) {
+      Game.sharedInstance.menuManager?.show(itemMenu)
+    } else {
+      Game.sharedInstance.menuManager?.openMenu!.remove()
+    }
+
 
 //    if ( Game.sharedInstance.buildItemStateMachine.currentState is BISPlace ) {
     ////      Game.sharedInstance.gameStateMachine.enterState(GSGeneral)
