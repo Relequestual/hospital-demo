@@ -15,6 +15,18 @@ class Button: GKEntity {
   var toggle: Bool?
 
 //  var entityTouch: ()->Void
+  init(texture: SKTexture, touch_f: @escaping () -> Void) {
+    super.init()
+
+    let spriteComponent = SpriteComponent(texture: texture)
+    addComponent(spriteComponent)
+    spriteComponent.addToNodeKey()
+
+    let touchComponent = TouchableSpriteComponent {
+      touch_f()
+    }
+    addComponent(touchComponent)
+  }
 
   init(texture: SKTexture, touch_f: @escaping (Button) -> Void) {
     super.init()
