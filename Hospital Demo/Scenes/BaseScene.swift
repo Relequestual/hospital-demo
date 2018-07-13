@@ -259,19 +259,19 @@ class BaseScene: HLScene {
 //  }
 
   func HL_showMessage(_ message: NSString) {
-    let _messageNode = HLMessageNode(color: UIColor.black, size: CGSize.zero)
-
-    _messageNode?.zPosition = 10000
-    _messageNode?.fontName = "Helvetica"
-    _messageNode?.fontSize = 12.0
-    _messageNode?.verticalAlignmentMode = HLLabelNodeVerticalAlignmentMode.alignFont
-
-    _messageNode?.messageLingerDuration = 4.0
-
-    _messageNode?.size = CGSize(width: size.width, height: 20.0)
-    _messageNode?.position = CGPoint(x: 0, y: 0 + size.height)
-    _messageNode?.anchorPoint = CGPoint(x: 0, y: 1)
-    _messageNode?.showMessage(message as String, parent: self)
+//    let _messageNode = HLMessageNode(color: UIColor.black, size: CGSize.zero)
+//
+//    _messageNode?.zPosition = 10000
+//    _messageNode?.fontName = "Helvetica"
+//    _messageNode?.fontSize = 12.0
+//    _messageNode?.verticalAlignmentMode = HLLabelNodeVerticalAlignmentMode.alignFont
+//
+//    _messageNode?.messageLingerDuration = 4.0
+//
+//    _messageNode?.size = CGSize(width: size.width, height: 20.0)
+//    _messageNode?.position = CGPoint(x: 0, y: 0 + size.height)
+//    _messageNode?.anchorPoint = CGPoint(x: 0, y: 1)
+//    _messageNode?.showMessage(message as String, parent: self)
   }
 
   override func touchesBegan(_ touches: Set<UITouch>, with _: UIEvent?) {
