@@ -34,6 +34,7 @@
 		914650CE1E729E6B00DBF123 /* Door.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914650CD1E729E6B00DBF123 /* Door.swift */; };
 		914667E11C5937D800560251 /* TouchableSpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914667E01C5937D800560251 /* TouchableSpriteComponent.swift */; };
 		91494DE51F87D8BF00817B45 /* DebugToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91494DE41F87D8BF00817B45 /* DebugToolbar.swift */; };
+		9161209120EA87BF003705BF /* ToolbarProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9161209020EA87BF003705BF /* ToolbarProtocol.swift */; };
 		9175E2D31D47CACE0026BA8F /* zPositionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9175E2D21D47CACE0026BA8F /* zPositionManager.swift */; };
 		918968401E8BA06B005EB38D /* Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9189683F1E8BA06B005EB38D /* Convert.swift */; };
 		919232D92087AD3A003A31A0 /* MenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919232D82087AD3A003A31A0 /* MenuManager.swift */; };
@@ -47,7 +48,6 @@
 		91F052661DD35031002F8B19 /* ToolbarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F052651DD35031002F8B19 /* ToolbarManager.swift */; };
 		91F72CF31DC9E00E00210C71 /* ConfirmToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F72CF21DC9E00E00210C71 /* ConfirmToolbar.swift */; };
 		91F7F0E71D2FDA2D00331878 /* BuildItemComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F7F0E61D2FDA2D00331878 /* BuildItemComponent.swift */; };
-		F3D455D640491C94CB65285D /* Pods_Hospital_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B49E688970A02F603E960AA7 /* Pods_Hospital_Demo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +81,7 @@
 		914650CD1E729E6B00DBF123 /* Door.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Door.swift; sourceTree = "<group>"; };
 		914667E01C5937D800560251 /* TouchableSpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchableSpriteComponent.swift; sourceTree = "<group>"; };
 		91494DE41F87D8BF00817B45 /* DebugToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugToolbar.swift; sourceTree = "<group>"; };
+		9161209020EA87BF003705BF /* ToolbarProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolbarProtocol.swift; sourceTree = "<group>"; };
 		9175E2D21D47CACE0026BA8F /* zPositionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = zPositionManager.swift; sourceTree = "<group>"; };
 		9189683F1E8BA06B005EB38D /* Convert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Convert.swift; sourceTree = "<group>"; };
 		919232D82087AD3A003A31A0 /* MenuManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuManager.swift; sourceTree = "<group>"; };
@@ -95,7 +96,6 @@
 		91F72CF21DC9E00E00210C71 /* ConfirmToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmToolbar.swift; sourceTree = "<group>"; };
 		91F7F0E61D2FDA2D00331878 /* BuildItemComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildItemComponent.swift; sourceTree = "<group>"; };
 		ABE58657E036ED2E7C7C0A00 /* Pods-Hospital Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hospital Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hospital Demo/Pods-Hospital Demo.release.xcconfig"; sourceTree = "<group>"; };
-		B49E688970A02F603E960AA7 /* Pods_Hospital_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hospital_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +103,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3D455D640491C94CB65285D /* Pods_Hospital_Demo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,7 +161,6 @@
 				13C7652E1BF61B2D00AC0223 /* Hospital Demo */,
 				13C7652D1BF61B2D00AC0223 /* Products */,
 				354E56E916C56E37C6A5AFBD /* Pods */,
-				7F3A9630C3C5D50D156C77A4 /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -221,14 +219,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		7F3A9630C3C5D50D156C77A4 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				B49E688970A02F603E960AA7 /* Pods_Hospital_Demo.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		91158CBA1D47C94600CD423D /* Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -260,6 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				91C25B332098D0DC00E72865 /* MenuProtocol.swift */,
+				9161209020EA87BF003705BF /* ToolbarProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -321,7 +312,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Ben Hutton";
 				TargetAttributes = {
 					13C7652B1BF61B2D00AC0223 = {
@@ -417,6 +408,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13C765341BF61B2D00AC0223 /* GameScene.swift in Sources */,
+				9161209120EA87BF003705BF /* ToolbarProtocol.swift in Sources */,
 				91494DE51F87D8BF00817B45 /* DebugToolbar.swift in Sources */,
 				13DFA17B1C6806F4003289E9 /* BuildItemState.swift in Sources */,
 				13C765361BF61B2D00AC0223 /* GameViewController.swift in Sources */,
@@ -488,12 +480,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -542,12 +536,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

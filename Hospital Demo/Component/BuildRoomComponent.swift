@@ -92,7 +92,7 @@ class BuildRoomComponent: GKComponent {
   func needConfirmBounds() {
     print("confirm bounds?")
 //    create confirmation toolbar
-    let confirmToolbar = ConfirmToolbar(size: CGSize(width: Game.sharedInstance.mainView!.bounds.width, height: 64))
+    let confirmToolbar = ConfirmToolbar()
 //    set callbacks for confirm toolbar
     confirmToolbar.cancel = {
       print("Cancel room")
@@ -103,7 +103,7 @@ class BuildRoomComponent: GKComponent {
       self.confirmBuild()
     }
 
-    Game.sharedInstance.toolbarManager?.addToolbar(confirmToolbar, location: Game.rotation.south, shown: true)
+    Game.sharedInstance.toolbarManager?.add(toolbar: confirmToolbar, location: .south, shown: true)
   }
 
   func clearPlan() {

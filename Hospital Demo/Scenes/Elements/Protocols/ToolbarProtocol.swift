@@ -9,30 +9,21 @@
 import Foundation
 import SpriteKit
 
-protocol MenuProtocol {
+protocol ToolbarProtocol: MenuProtocol {
 
-  var menuNode: SKSpriteNode { get set }
-  var menuItems: [Menu.menuItem] { get set }
+  var location: Game.rotation? { get set }
 
-  func show()
-
-  func hide()
-
+  
 }
 
-extension MenuProtocol {
-
-  init() {
-    self.init()
-    self.menuNode.anchorPoint = CGPoint(x: 0, y: 1)
-  }
+extension ToolbarProtocol {
 
   func show() {
-    Game.sharedInstance.menuManager?.show(self)
+    Game.sharedInstance.toolbarManager?.show(self)
   }
 
   func hide() {
-    
+    Game.sharedInstance.toolbarManager?.hide(self)
   }
 
   func remove() {
@@ -43,6 +34,5 @@ extension MenuProtocol {
     return self.menuNode.isHidden
   }
 
-  
-}
 
+}

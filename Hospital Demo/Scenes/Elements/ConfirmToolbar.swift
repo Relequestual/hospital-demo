@@ -11,60 +11,44 @@ import GameplayKit
 import HLSpriteKit
 import SpriteKit
 
-class ConfirmToolbar: HLToolbarNode {
-  static let defaultNodeSize = CGSize(width: 20, height: 20)
+class ConfirmToolbar: ToolbarProtocol {
+  var location: Game.rotation?
+  
+  var menuNode: SKSpriteNode = Menu.makeMenuNode(CGSize(width: Game.sharedInstance.mainView!.bounds.width, height: 64))
+  
+  var menuItems: [Menu.menuItem] = []
+  
+  static let defaultNodeSize = CGSize(width: 64, height: 64)
 
-  fileprivate var options = [GameToolbarOption]()
   var confirm: (() -> Void)?
   var cancel: (() -> Void)?
 
-  init(size: CGSize) {
-    super.init()
+  let view = SKView.init()
 
-    self.size = size
-    zPosition = CGFloat(ZPositionManager.WorldLayer.ui.zpos)
+  init() {
 
-    // add default options
-    addOption("ok", node: createNode(.green), handler: okTouch)
-    addOption("cancel", node: createNode(.red), handler: cancelTouch)
+    self.location = .south
+    self.menuNode.anchorPoint = CGPoint(x: 0, y: 1)
 
-    toolTappedBlock = { tag in self.didTapBlock(tag!) }
-
-    let tags = options.reduce([String]()) { tags, option in
-      return tags + [option.tag]
-    }
-
-    let nodes = options.reduce([SKSpriteNode]()) { nodes, option in
-      return nodes + [option.node]
-    }
-
-    setTools(nodes, tags: tags, animation: HLToolbarNodeAnimation.slideUp)
-
-    // self.registerDescendant(toolbarNode, withOptions: Set<AnyObject>.setWithObject(HLSceneChildGestureTarget))
-    // baseScene.registerDescendant(self, withOptions: Set(arrayLiteral: HLSceneChildGestureTarget))
+    menuItems.append(contentsOf: [
+      Menu.menuItem(button: Button(texture: createNodeTexture(.green), touch_f: okTouch)),
+      Menu.menuItem(button: Button(texture: createNodeTexture(.red), touch_f: cancelTouch))
+    ])
+    Menu.layoutItems(menu: self, layout: .xSlide)
   }
 
   required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
-  func addOption(_ tag: String, node: SKSpriteNode, handler: @escaping () -> Void) {
-    let option = GameToolbarOption(tag: tag, node: node, handler: handler)
-    options.append(option)
+  func createNodeTexture(_ color: UIColor, size: CGSize = ConfirmToolbar.defaultNodeSize) -> SKTexture {
+    let texture = view.texture(from: SKSpriteNode(color: color, size: size))!
+    return texture
   }
 
-  fileprivate func didTapBlock(_ tag: String) {
-    let nodes = options.filter { $0.tag == tag }
-    nodes.forEach { $0.handler() }
-  }
-
-  fileprivate func createNode(_ color: UIColor, size: CGSize = GameToolbar.defaultNodeSize) -> SKSpriteNode {
-    return SKSpriteNode(color: color, size: size)
-  }
-
-  fileprivate func createNode(_ texture: SKTexture, size: CGSize = GameToolbar.defaultNodeSize) -> SKSpriteNode {
-    return SKSpriteNode(texture: texture, size: size)
-  }
+//  fileprivate func createNode(_ texture: SKTexture, size: CGSize = GameToolbar.defaultNodeSize) -> SKSpriteNode {
+//    return SKSpriteNode(texture: texture, size: size)
+//  }
 
   func okTouch() {
     print("ok touch")

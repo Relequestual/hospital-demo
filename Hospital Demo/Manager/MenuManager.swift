@@ -24,7 +24,7 @@ class MenuManager {
   func show(_ menu: MenuProtocol) {
 
     if (menu.menuNode.parent == nil) {
-      menu.menuNode.zPosition = CGFloat(ZPositionManager.WorldLayer.ui.zpos + 900)
+      menu.menuNode.zPosition = CGFloat(ZPositionManager.WorldLayer.ui.zpos + 1000)
       scene.camera!.addChild(menu.menuNode)
     }
     self.openMenu = menu

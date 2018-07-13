@@ -10,13 +10,19 @@ import Foundation
 import GameplayKit
 
 class ItemMenu: MenuProtocol {
-  var menuNode: SKSpriteNode = Menu.makeMenuNode()
+  var menuNode: SKSpriteNode = Menu.makeMenuNode(CGSize(width: Game.sharedInstance.mainView!.bounds.width, height: Game.sharedInstance.mainView!.bounds.height / 2))
 
   var graphics: [String: SKTexture]
   var menuItems: [Menu.menuItem] = []
 
   init(menuItems: [GKEntity.Type] = [ReceptionDesk.self, ReceptionDesk.self, ReceptionDesk.self, ReceptionDesk.self]) {
-    print("ItemMenu#init")
+    print("ItemMen#init")
+
+    self.menuNode.anchorPoint = CGPoint(x: 0, y: 1)
+    let size = CGSize(width: Game.sharedInstance.mainView!.bounds.width, height: Game.sharedInstance.mainView!.bounds.height)
+//    self.menuNode.position = CGPoint(x: 0 - size.width / 2, y: 0 + size.height / 2)
+    self.menuNode.position = CGPoint(x: 0 - size.width / 2, y: 0)
+
 
     graphics = menuItems.reduce(into: [:], { graphics, itemType in
       let item = itemType.init()
@@ -41,7 +47,7 @@ class ItemMenu: MenuProtocol {
         Game.sharedInstance.placingObjectsQueue.append(ReceptionDesk.self)
         Game.sharedInstance.menuManager?.openMenu!.remove()
       })
-      let item = Menu.menuItem(button: button, color: UIColor.blue)
+      let item = Menu.menuItem(button: button)
       self.menuItems.append(item)
     }
   }

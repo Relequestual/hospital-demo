@@ -63,7 +63,8 @@ class GSBuildDoor: GKState {
 //    Confirm toolbar needs to be here
 //    Should return a set of rooms from func call, and collect them here, so can be removed easily.
 
-    let confirmToolbar = ConfirmToolbar(size: CGSize(width: Game.sharedInstance.mainView!.bounds.width, height: 64))
+    let confirmToolbar = ConfirmToolbar()
+
     //    set callbacks for confirm toolbar
     confirmToolbar.cancel = {
       for door in self.doors.filter({ (door: Door) -> Bool in
@@ -83,7 +84,7 @@ class GSBuildDoor: GKState {
 //      Game.sharedInstance.gameStateMachine.enter(GSGeneral.self)
     }
 
-    Game.sharedInstance.toolbarManager?.addToolbar(confirmToolbar, location: Game.rotation.south, shown: true)
+    Game.sharedInstance.toolbarManager?.add(toolbar: confirmToolbar, location: .south, shown: true)
   }
 
   override func willExit(to _: GKState) {

@@ -141,11 +141,11 @@ class BaseScene: HLScene {
     Game.sharedInstance.toolbarManager = ToolbarManager(scene: self)
 
     let gameToolbar = GameToolbar(size: CGSize(width: view.bounds.width, height: 64))
-    Game.sharedInstance.toolbarManager?.addToolbar(gameToolbar, location: Game.rotation.south, shown: true)
+    Game.sharedInstance.toolbarManager?.add(toolbar: gameToolbar, location: Game.rotation.south, shown: true)
 
     let debugToolbar = DebugToolbar(size: CGSize(width: 64, height: view.bounds.height - 64))
-    Game.sharedInstance.toolbarManager?.addToolbar(debugToolbar, location: Game.rotation.east, shown: false)
-    debugToolbar.isHidden = true
+    Game.sharedInstance.toolbarManager?.add(toolbar: debugToolbar, location: Game.rotation.east, shown: false)
+    debugToolbar.menuNode.isHidden = true
 
     Game.sharedInstance.menuManager = MenuManager(scene: self)
 

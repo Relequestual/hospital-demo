@@ -11,83 +11,59 @@ import GameplayKit
 import HLSpriteKit
 import SpriteKit
 
-struct GameToolbarOption {
-  let tag: String
-  let node: SKSpriteNode
-  let handler: () -> Void
+class GameToolbar: ToolbarProtocol {
+  var location: Game.rotation?
 
-  init(tag: String, node: SKSpriteNode, handler: @escaping () -> Void) {
-    self.tag = tag
-    self.node = node
-    self.handler = handler
-  }
-}
+  static let defaultNodeSize = CGSize(width: 64, height: 64)
 
-class GameToolbar: HLToolbarNode {
-  static let defaultNodeSize = CGSize(width: 20, height: 20)
+  var menuNode: SKSpriteNode = Menu.makeMenuNode(CGSize(width: Game.sharedInstance.mainView!.bounds.width, height: 64))
 
-  fileprivate var options = [GameToolbarOption]()
+//  fileprivate var options = [GameToolbarOption]()
+  var menuItems: [Menu.menuItem] = []
 
   init(size: CGSize) {
-    super.init()
+    location = .south
 
-    self.size = size
+    self.menuNode.anchorPoint = CGPoint(x: 0, y: 1)
+    let size = CGSize(width: Game.sharedInstance.mainView!.bounds.width, height: Game.sharedInstance.mainView!.bounds.height)
 
-    // add default options
-    addOption("build_room", node: createNode(SKTexture(imageNamed: "Graphics/build_room")), handler: GameToolbar.buildRoomTouch)
-    addOption("build_item", node: createNode(SKTexture(imageNamed: "Graphics/build_item")), handler: GameToolbar.buildItemTouch)
-    addOption("build_door", node: createNode(SKTexture(imageNamed: "Graphics/door")), handler: GameToolbar.buildDoorTouch)
-    addOption("debug", node: createNode(SKTexture(imageNamed: "Graphics/debug")), handler: GameToolbar.debugToolbar)
-
-    // can also pass a closure
-
-    toolTappedBlock = { tag in self.didTapBlock(tag!) }
-
-    let tags = options.reduce([String]()) { tags, option in
-      return tags + [option.tag]
-    }
-
-    let nodes = options.reduce([SKSpriteNode]()) { nodes, option in
-      return nodes + [option.node]
-    }
-
-    setTools(nodes, tags: tags, animation: HLToolbarNodeAnimation.slideUp)
-
-    // baseScene.registerDescendant(self, withOptions: Set(arrayLiteral: HLSceneChildGestureTarget))
-    // self.registerDescendant(toolbarNode, withOptions: Set<AnyObject>.setWithObject(HLSceneChildGestureTarget))
+    self.createMenuItems()
+    Menu.layoutItems(menu: self, layout: .xSlide)
+    
   }
 
   required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
-  func addOption(_ tag: String, node: SKSpriteNode, handler: @escaping () -> Void) {
-    let option = GameToolbarOption(tag: tag, node: node, handler: handler)
-    options.append(option)
+  func createMenuItems() {
+
+    let buildRoomButton = Button(texture: SKTexture(imageNamed: "Graphics/build_room"), touch_f: GameToolbar.buildRoomTouch)
+    let buildRoomMenuItem = Menu.menuItem(button: buildRoomButton)
+
+    let buildItemButton = Button(texture: SKTexture(imageNamed: "Graphics/build_item"), touch_f: GameToolbar.buildItemTouch)
+    let buildItemMenuItem = Menu.menuItem(button: buildItemButton)
+
+    let buildDoorButton = Button(texture: SKTexture(imageNamed: "Graphics/door"), touch_f: GameToolbar.buildDoorTouch)
+    let buildDoorMenuItem = Menu.menuItem(button: buildDoorButton)
+//    let buildRoomButton = Button(texture: SKTexture(imageNamed: "Graphics/build_room"), touch_f: GameToolbar.buildRoomTouch)
+//    let buildItemMenuItem = Menu.menuItem(button: buildRoomButton)
+
+    // Cool. Cool cool cool.
+    self.menuItems.append(contentsOf: [buildRoomMenuItem, buildItemMenuItem, buildDoorMenuItem])
+
   }
 
-  fileprivate func didTapBlock(_ tag: String) {
-    let nodes = options.filter { $0.tag == tag }
-    nodes.forEach { $0.handler() }
-  }
-
-  fileprivate func createNode(_ color: UIColor, size: CGSize = GameToolbar.defaultNodeSize) -> SKSpriteNode {
-    return SKSpriteNode(color: color, size: size)
-  }
-
-  fileprivate func createNode(_ texture: SKTexture, size: CGSize = GameToolbar.defaultNodeSize) -> SKSpriteNode {
-    return SKSpriteNode(texture: texture, size: size)
-  }
-
-  static func buildRoomTouch() {
+  static func buildRoomTouch(_: Button) {
     Game.sharedInstance.gameStateMachine.enter(GSBuildRoom.self)
     Game.sharedInstance.buildRoomStateMachine.enter(BRSPrePlan.self)
     print("gamestate is...")
     print(Game.sharedInstance.gameStateMachine.currentState!)
 //    Game.sharedInstance.buildStateMachine.enterState(BRSPlan)
+
   }
 
-  static func buildItemTouch() {
+  static func buildItemTouch(_: Button) {
 
 //    let menu = Menu()
     let itemMenu = ItemMenu()
@@ -110,13 +86,13 @@ class GameToolbar: HLToolbarNode {
 //    }
   }
 
-  static func buildDoorTouch() {
+  static func buildDoorTouch(_: Button) {
     Game.sharedInstance.gameStateMachine.enter(GSBuildDoor.self)
   }
 
-  static func debugToolbar() {
+  static func debugToolbar(_: Button) {
     print("debug toolbar tap")
     let debugToolbar = (Game.sharedInstance.toolbarManager?.getDebugToolbar())!
-    debugToolbar.isHidden ? Game.sharedInstance.toolbarManager?.show(debugToolbar) : Game.sharedInstance.toolbarManager?.hideAnimated(toolbar: debugToolbar)
+    debugToolbar.isHidden() ? Game.sharedInstance.toolbarManager?.show(debugToolbar) : Game.sharedInstance.toolbarManager?.hide(debugToolbar)
   }
 }
