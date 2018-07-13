@@ -233,29 +233,26 @@ class BaseScene: SKScene {
     }
 
     if Game.sharedInstance.canAutoScroll {
-//      self.updateAutoScroll(elapsedTime)
+      self.updateAutoScroll(elapsedTime)
     } else {
       Game.sharedInstance.autoScrollVelocityX = 0
       Game.sharedInstance.autoScrollVelocityY = 0
     }
   }
 
-  // Would need to redevelop this function
-//  func updateAutoScroll(_ time: CFTimeInterval) {
-//
-//      let scrollXDistance = Game.sharedInstance.autoScrollVelocityX * CGFloat(time);
-//      let scrollYDistance = Game.sharedInstance.autoScrollVelocityY * CGFloat(time);
-//
-//      // note: Scrolling velocity is measured in scene units, not world units (i.e. regardless of world scale).
-//      let currentOffset = Game.sharedInstance.wolrdnode.contentOffset;
-//
-//      let positionX = (currentOffset.x - scrollXDistance / Game.sharedInstance.wolrdnode.xScale)
-//      let positionY = (currentOffset.y - scrollYDistance / Game.sharedInstance.wolrdnode.yScale)
-//
-//      let currentScale = Game.sharedInstance.wolrdnode.contentScale
-//      Game.sharedInstance.wolrdnode.setContentOffset(CGPoint(x: positionX, y: positionY), contentScale: currentScale)
-//
-//  }
+  func updateAutoScroll(_ time: CFTimeInterval) {
+
+      let scrollXDistance = Game.sharedInstance.autoScrollVelocityX * CGFloat(time);
+      let scrollYDistance = Game.sharedInstance.autoScrollVelocityY * CGFloat(time);
+
+      // note: Scrolling velocity is measured in scene units, not world units (i.e. regardless of world scale).
+      let currentPosition = camera!.position
+
+      let positionX = (currentPosition.x + scrollXDistance / Game.sharedInstance.wolrdnode.xScale)
+      let positionY = (currentPosition.y + scrollYDistance / Game.sharedInstance.wolrdnode.yScale)
+
+      camera?.position = CGPoint(x: positionX, y: positionY)
+  }
 
   func HL_showMessage(_ message: NSString) {
 //    let _messageNode = HLMessageNode(color: UIColor.black, size: CGSize.zero)
