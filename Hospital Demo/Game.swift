@@ -9,7 +9,6 @@
 
 import Foundation
 import GameplayKit
-import HLSpriteKit
 
 class Game {
   static let sharedInstance = Game(view: nil)

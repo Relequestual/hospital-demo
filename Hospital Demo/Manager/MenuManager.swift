@@ -7,16 +7,15 @@
 //
 
 import Foundation
-import HLSpriteKit
 import SpriteKit
 
 class MenuManager {
-  var scene: HLScene
+  var scene: SKScene
 
   var openMenu: MenuProtocol?
 //  var menuStack: [Menu] = []
 
-  init(scene: HLScene) {
+  init(scene: SKScene) {
     print("MENU MANAGER")
     self.scene = scene
   }

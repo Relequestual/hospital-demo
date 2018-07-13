@@ -9,7 +9,6 @@
 
 import Foundation
 import GameplayKit
-import HLSpriteKit
 import SpriteKit
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
 // Consider refactoring the code to use the non-optional operators.
@@ -38,7 +37,7 @@ fileprivate func > <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
 /**
  A base class for all of the scenes in the app.
  */
-class BaseScene: HLScene {
+class BaseScene: SKScene {
   // Update time
   var lastUpdateTimeInterval: TimeInterval = 0
 
