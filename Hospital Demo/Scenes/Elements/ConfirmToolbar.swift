@@ -33,7 +33,7 @@ class ConfirmToolbar: ToolbarProtocol {
       Menu.menuItem(button: Button(texture: createNodeTexture(.green), touch_f: okTouch)),
       Menu.menuItem(button: Button(texture: createNodeTexture(.red), touch_f: cancelTouch))
     ])
-    Menu.layoutItems(menu: self, layout: .xSlide)
+    Menu.layoutItems(menu: self, layoutOptions: Menu.menuLayoutOptions(layout: .xSlide))
   }
 
   required init?(coder _: NSCoder) {

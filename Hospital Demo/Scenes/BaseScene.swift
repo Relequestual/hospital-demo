@@ -168,8 +168,6 @@ class BaseScene: SKScene {
     addChild(camera!)
     camera?.position = CGPoint(x: size.width / 2, y: size.height / 2)
 
-    HL_showMessage("testing!")
-
     isPaused = false
   }
 

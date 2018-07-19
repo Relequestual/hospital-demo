@@ -11,6 +11,20 @@ import SpriteKit
 
 class Menu {
 
+  struct menuLayoutOptions {
+    var layout: Menu.Layout = Menu.Layout.grid
+    var padding: Int = 5
+    var buttonSize: CGSize = CGSize(width: 64, height: 64)
+
+    init(){}
+
+    init(layout: Menu.Layout) {
+      self.layout = layout
+    }
+    
+  }
+
+
   struct menuItem {
     var button: Button
     var section: Int
@@ -60,10 +74,10 @@ class Menu {
 
   }
 
-  static func layoutItems(menu: MenuProtocol, layout: Menu.Layout = Menu.Layout.grid) {
+  static func layoutItems(menu: MenuProtocol, layoutOptions: menuLayoutOptions = Menu.menuLayoutOptions()) {
 
-    let padding = 10
-    let buttonSize = CGSize(width: 64, height: 64)
+    let padding = layoutOptions.padding
+    let buttonSize = layoutOptions.buttonSize
 
 //    menuNode.anchorPoint = CGPoint(x: 0, y: 0)
 
@@ -80,6 +94,8 @@ class Menu {
     maxNumPerRow.round(FloatingPointRoundingRule.down)
     let maxNumPerRowInt = Int(maxNumPerRow)
 
+    let rowAutoPad = (menu.menuNode.size.width - CGFloat(buttonSpace) * maxNumPerRow) / maxNumPerRow / 2
+
     var y = 1
 
     for i in 1...menu.menuItems.count {
@@ -88,12 +104,13 @@ class Menu {
       menuItemButtonNode?.zPosition = CGFloat(ZPositionManager.WorldLayer.ui.zpos)
 
       // right by half button space required, plus half for positioning anchor
+      // TODO: Handle divide by 0 possible issue when using grid layout and width is less than button size!!
       var location = CGPoint.zero
-      if (layout == .xSlide) {
+      if (layoutOptions.layout == .xSlide) {
         location = CGPoint(x: coordOffset.x + CGFloat(buttonSpace * (i - 1)) + CGFloat(buttonSpace / 2), y: coordOffset.y - (buttonSize.height / 2))
       }
-      if (layout == .grid) {
-        location = CGPoint(x: coordOffset.x + CGFloat(buttonSpace * (i - (y / maxNumPerRowInt) - 1)) + CGFloat(buttonSpace / 2), y: coordOffset.y - CGFloat(buttonSpace * (y - 1)) - CGFloat(buttonSpace / 2))
+      if (layoutOptions.layout == .grid) {
+        location = CGPoint(x: coordOffset.x + rowAutoPad + CGFloat(buttonSpace * (i - (y / maxNumPerRowInt) - ( maxNumPerRowInt == 1 ? 0 : 1))) + CGFloat(buttonSpace / 2), y: coordOffset.y - CGFloat(buttonSpace * (y - 1)) - CGFloat(buttonSpace / 2))
         if (i == maxNumPerRowInt) {
           y += 1
         }

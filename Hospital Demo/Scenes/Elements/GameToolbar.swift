@@ -27,7 +27,7 @@ class GameToolbar: ToolbarProtocol {
     let size = CGSize(width: Game.sharedInstance.mainView!.bounds.width, height: Game.sharedInstance.mainView!.bounds.height)
 
     self.createMenuItems()
-    Menu.layoutItems(menu: self, layout: .xSlide)
+    Menu.layoutItems(menu: self, layoutOptions: Menu.menuLayoutOptions(layout: .xSlide))
     
   }
 
