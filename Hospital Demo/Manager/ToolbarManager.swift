@@ -140,7 +140,7 @@ class ToolbarManager {
     case .north:
       return CGPoint(x: 0, y: 0) // Not yet implemented
     case .east:
-      return CGPoint(x: shown ? Int(viewBounds.width) : Int(viewBounds.width) + size, y: 0)
+      return CGPoint(x: shown ? Int(viewBounds.width) / 2 - size : Int(viewBounds.width) / 2, y: Int(viewBounds.height / 2))
     case .south:
       return CGPoint(x: Int(0 - viewBounds.width / 2), y: Int(0 - viewBounds.height / 2) + (shown ? size : 0))
 //      return CGPoint(x: 0, y: 0)
