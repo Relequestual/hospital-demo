@@ -103,6 +103,7 @@ class BuildItemComponent: GKComponent {
       tile.unbuildable = true
       tile.isBuildingOn = false
     }
+    self.entity?.removeComponent(ofType: DraggableSpriteComponent.self)
     Game.sharedInstance.gameStateMachine.enter(GSGeneral.self)
   }
 
