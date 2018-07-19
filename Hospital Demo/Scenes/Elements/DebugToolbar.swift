@@ -17,14 +17,22 @@ class DebugToolbar: ToolbarProtocol {
   
   var menuItems: [Menu.menuItem] = []
   
-  static let defaultNodeSize = CGSize(width: 20, height: 20)
+  static let defaultNodeSize = CGSize(width: 40, height: 40)
 
-    let view = SKView.init()
+  let view = SKView.init()
+
+  var zoomOut:Bool = false {
+    didSet {
+      let zoomAction = SKAction.scale(to: zoomOut ? 2 : 1, duration: 0.5)
+      Game.sharedInstance.mainView?.scene?.camera?.run(zoomAction)
+    }
+  }
 
 //  fileprivate var options = [GameToolbarOption]()
 
   init(size: CGSize) {
     self.location = .east
+    self.menuNode.anchorPoint = CGPoint(x: 0, y: 1)
 
 //    self.position = CGPoint(x: Game.sharedInstance.mainView!.bounds.width, y: 0)
 //    self.position = CGPoint(x: 50, y: 0)
@@ -32,19 +40,24 @@ class DebugToolbar: ToolbarProtocol {
 //    let zPosition = CGFloat(ZPositionManager.WorldLayer.ui.zpos) + 1.0
 
     menuItems.append(contentsOf: [
-      Menu.menuItem(button: Button(texture: createNodeTexture(.orange), touch_f: showPOUs)),
+      Menu.menuItem(button: Button(texture: createNodeTexture(.orange), touch_f: zoom)),
       Menu.menuItem(button: Button(texture: createNodeTexture(.darkGray), touch_f: clearBK))
     ])
-
-   
+    var layoutOptions = Menu.menuLayoutOptions()
+    layoutOptions.buttonSize = DebugToolbar.defaultNodeSize
+    Menu.layoutItems(menu: self, layoutOptions: layoutOptions)
   }
 
   required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
-  func createNodeTexture(_ color: UIColor, size: CGSize = GameToolbar.defaultNodeSize) -> SKTexture {
+  func createNodeTexture(_ color: UIColor, size: CGSize = DebugToolbar.defaultNodeSize) -> SKTexture {
     return view.texture(from: SKSpriteNode(color: color, size: size))!
+  }
+
+  func zoom(){
+    self.zoomOut = !self.zoomOut
   }
 
   func showPOUs() {

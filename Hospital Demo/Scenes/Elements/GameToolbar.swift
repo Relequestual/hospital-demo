@@ -45,11 +45,12 @@ class GameToolbar: ToolbarProtocol {
 
     let buildDoorButton = Button(texture: SKTexture(imageNamed: "Graphics/door"), touch_f: GameToolbar.buildDoorTouch)
     let buildDoorMenuItem = Menu.menuItem(button: buildDoorButton)
-//    let buildRoomButton = Button(texture: SKTexture(imageNamed: "Graphics/build_room"), touch_f: GameToolbar.buildRoomTouch)
-//    let buildItemMenuItem = Menu.menuItem(button: buildRoomButton)
+
+    let debugButton = Button(texture: SKTexture(imageNamed: "Graphics/debug"), touch_f: GameToolbar.debugTouch)
+    let debugMenuItem = Menu.menuItem(button: debugButton)
 
     // Cool. Cool cool cool.
-    self.menuItems.append(contentsOf: [buildRoomMenuItem, buildItemMenuItem, buildDoorMenuItem])
+    self.menuItems.append(contentsOf: [buildRoomMenuItem, buildItemMenuItem, buildDoorMenuItem, debugMenuItem])
 
   }
 
@@ -89,7 +90,13 @@ class GameToolbar: ToolbarProtocol {
     Game.sharedInstance.gameStateMachine.enter(GSBuildDoor.self)
   }
 
-  static func debugToolbar(_: Button) {
+//  How to zoom the camera
+//  static func debugTouch() {
+//    let zoomOutAction = SKAction.scale(to: 2, duration: 2)
+//    Game.sharedInstance.mainView?.scene?.camera?.run(zoomOutAction)
+//  }
+
+  static func debugTouch(_: Button) {
     print("debug toolbar tap")
     let debugToolbar = (Game.sharedInstance.toolbarManager?.getDebugToolbar())!
     debugToolbar.isHidden() ? Game.sharedInstance.toolbarManager?.show(debugToolbar) : Game.sharedInstance.toolbarManager?.hide(debugToolbar)
