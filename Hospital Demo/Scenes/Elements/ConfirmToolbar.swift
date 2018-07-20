@@ -24,7 +24,7 @@ class ConfirmToolbar: ToolbarProtocol {
 
   let view = SKView.init()
 
-  init() {
+  init(addMenuItems: [Menu.menuItem] = []) {
 
     self.location = .south
     self.menuNode.anchorPoint = CGPoint(x: 0, y: 1)
@@ -33,6 +33,7 @@ class ConfirmToolbar: ToolbarProtocol {
       Menu.menuItem(button: Button(texture: createNodeTexture(.green), touch_f: okTouch)),
       Menu.menuItem(button: Button(texture: createNodeTexture(.red), touch_f: cancelTouch))
     ])
+    menuItems.append(contentsOf: addMenuItems)
     Menu.layoutItems(menu: self, layoutOptions: Menu.menuLayoutOptions(layout: .xSlide))
   }
 

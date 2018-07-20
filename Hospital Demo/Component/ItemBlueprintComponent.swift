@@ -98,9 +98,6 @@ class ItemBlueprintComponent: GKComponent {
       Game.sharedInstance.wolrdnode.addChild(graphicNode!)
     }
 
-    if plannedObject.component(ofType: ItemBlueprintComponent.self)?.status != ItemBlueprintComponent.Status.built {
-      plannedObject.component(ofType: ItemBlueprintComponent.self)?.displayBuildObjectConfirm()
-    }
   }
 
   func rotate(_ previousRotation: Game.rotation) {
@@ -177,27 +174,19 @@ class ItemBlueprintComponent: GKComponent {
       return
     }
 
-    var finalTickPosition = CGPoint(x: gridPosition.x + confirmPosition.x, y: gridPosition.y + confirmPosition.y)
-    finalTickPosition = CGPoint(x: finalTickPosition.x * 64 + 32, y: finalTickPosition.y * 64 + 32)
+    let confirmToolbar = ConfirmToolbar(addMenuItems: [Menu.menuItem(button: rotateButton)])
+    //    set callbacks for confirm toolbar
+    confirmToolbar.cancel = {
+      print("Cancel item plan")
+      self.cancelPlan()
+    }
+    confirmToolbar.confirm = {
+      print("OK TO BUILD item")
+      self.confirmPlan()
+    }
 
-    confirmButton.component(ofType: SpriteComponent.self)?.node.position = finalTickPosition
-    // TODO: This is not a solution I am happy with... =/
-    Game.sharedInstance.entityManager.remove(confirmButton)
-    Game.sharedInstance.entityManager.add(confirmButton, layer: ZPositionManager.WorldLayer.ui)
+    Game.sharedInstance.toolbarManager?.add(toolbar: confirmToolbar, location: .south, shown: true)
 
-    var finalCrossPosition = CGPoint(x: gridPosition.x + rejectPosition.x, y: gridPosition.y + rejectPosition.y)
-    finalCrossPosition = CGPoint(x: finalCrossPosition.x * 64 + 32, y: finalCrossPosition.y * 64 + 32)
-
-    cancelButton.component(ofType: SpriteComponent.self)?.node.position = finalCrossPosition
-    Game.sharedInstance.entityManager.remove(cancelButton)
-    Game.sharedInstance.entityManager.add(cancelButton, layer: ZPositionManager.WorldLayer.ui)
-
-    var finalRotatePosition = CGPoint(x: gridPosition.x + rotatePosition.x, y: gridPosition.y + rotatePosition.y)
-    finalRotatePosition = CGPoint(x: finalRotatePosition.x * 64 + 32, y: finalRotatePosition.y * 64 + 32)
-
-    rotateButton.component(ofType: SpriteComponent.self)?.node.position = finalRotatePosition
-    Game.sharedInstance.entityManager.remove(rotateButton)
-    Game.sharedInstance.entityManager.add(rotateButton, layer: ZPositionManager.WorldLayer.ui)
   }
 
   func confirmPlan() {
@@ -262,6 +251,7 @@ class ItemBlueprintComponent: GKComponent {
   func cancelPlan() {
     Game.sharedInstance.buildItemStateMachine.itemBuilding = nil
     clearPlan()
+    Game.sharedInstance.gameStateMachine.enter(GSGeneral.self)
   }
 
   func clearPlan() {

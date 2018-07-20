@@ -116,6 +116,7 @@ class Menu {
         }
       }
       menuItemButtonNode!.position = CGPoint(x: location.x, y: location.y)
+      menuItemButtonNode?.removeFromParent()
       menu.menuNode.addChild(menuItemButtonNode!)
 
     }

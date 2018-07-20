@@ -49,6 +49,8 @@ class ReceptionDesk: GKEntity {
     print("RD Start drag")
   }
 
+  var tileTracker: GKEntity?
+
   func dragMoveHandler(_ point: CGPoint) {
     print("RD Move drag")
 
@@ -64,6 +66,10 @@ class ReceptionDesk: GKEntity {
       guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else { continue }
 
       if entity.isKind(of: Tile.self) {
+        if (self.tileTracker == entity) {
+          return
+        }
+        self.tileTracker = entity
         component(ofType: ItemBlueprintComponent.self)?.planFunctionCall((entity.component(ofType: PositionComponent.self)?.gridPosition)!)
       }
     }
