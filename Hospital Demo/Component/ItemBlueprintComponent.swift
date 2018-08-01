@@ -14,12 +14,6 @@ class ItemBlueprintComponent: GKComponent {
   var pous: [CGPoint]
   var staffPous: [CGPoint]
 
-  var confirmPosition = CGPoint(x: 0, y: 1)
-  var rejectPosition = CGPoint(x: 1, y: 1)
-  var rotatePosition = CGPoint(x: 2, y: 1)
-
-  var confirmButton: Button!
-  var cancelButton: Button!
   var rotateButton: Button!
 
   var baring = Game.rotation.north
@@ -42,21 +36,11 @@ class ItemBlueprintComponent: GKComponent {
     self.staffPous = staffPous
     planFunction = pf
 
-    let tickTexture = SKTexture(imageNamed: "Graphics/tick.png")
-    let crossTexture = SKTexture(imageNamed: "Graphics/cross.png")
     let rotateTexture = SKTexture(imageNamed: "Graphics/rotate.png")
 
     spriteOffset = ItemBlueprintComponent.calculateSpritePos(area: area)
 
     super.init()
-
-    confirmButton = createConfirmButtons(tickTexture, f: { _ in
-      self.confirmPlan()
-    })
-
-    cancelButton = createConfirmButtons(crossTexture, f: { _ in
-      self.cancelPlan()
-    })
 
     rotateButton = createConfirmButtons(rotateTexture, f: ({ _ in
       self.rotate(self.baring)
