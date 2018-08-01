@@ -128,11 +128,16 @@ class Tile: GKEntity {
 
     spriteComponent.node.position = CGPoint(x: x, y: y)
 
+
     let touchableComponent = TouchableSpriteComponent {
-      self.handleTouch()
+      Game.sharedInstance.touchTile(tile: self)
     }
 
     addComponent(touchableComponent)
+
+    Game.sharedInstance.touchTile = { tile in 
+      print("tile was touched")
+    }
 
     let spriteDebugComponent = SpriteDebugComponent(node: spriteComponent.node)
     addComponent(spriteDebugComponent)
@@ -142,68 +147,7 @@ class Tile: GKEntity {
     fatalError("init(coder:) has not been implemented")
   }
 
-  func handleTouch() {
-    // Do some more things like change state of another component
-//    print(Game.sharedInstance.gameStateMachine.currentState)
-
-//    switch Game.sharedInstance.gameStateMachine.currentState {
-    ////      case is GSLevelEdit:
-    ////        self.stateMachine.enterState(self.nextSpriteState())
-//
-//      default:
-//        print("State that we aren't interested in!")
-//    }
-
-    switch Game.sharedInstance.gameStateMachine.currentState {
-    case is GSBuildItem:
-      buildItemStateTouch()
-    case is GSBuildRoom:
-      buildRoomStateTouch()
-    default:
-      print("Game state is not of interest")
-    }
-  }
-
-  func buildItemStateTouch() {
-    switch Game.sharedInstance.buildItemStateMachine.currentState {
-    case is BISPlan:
-
-      guard let placingObject: GKEntity.Type = Game.sharedInstance.placingObjectsQueue.first else {
-        return
-      }
-
-      let plannedObject = placingObject.init()
-      Game.sharedInstance.draggingEntiy = plannedObject
-      plannedObject.component(ofType: ItemBlueprintComponent.self)?.planFunctionCall((component(ofType: PositionComponent.self)?.gridPosition)!)
-      plannedObject.component(ofType: ItemBlueprintComponent.self)?.displayBuildObjectConfirm()
-
-    //      Game.sharedInstance.buildStateMachine.enterState(BISPlaned)
-    default:
-      print("State that we aren't interested in!")
-      print(Game.sharedInstance.buildItemStateMachine.currentState!)
-    }
-  }
-
-  func buildRoomStateTouch() {
-    print("Tile#buildRoomStateTouch")
-    print("-- Gets to room state touch")
-
-    switch Game.sharedInstance.buildRoomStateMachine.currentState {
-    case is BRSPrePlan:
-      let plannedRoom = Room()
-      print("planned room is")
-      print(plannedRoom)
-      plannedRoom.component(ofType: BuildRoomComponent.self)?.clearPlan()
-      plannedRoom.component(ofType: BuildRoomComponent.self)?.planAtPoint((component(ofType: PositionComponent.self)?.gridPosition)!)
-      plannedRoom.component(ofType: BuildRoomComponent.self)?.needConfirmBounds()
-      Game.sharedInstance.buildRoomStateMachine.enter(BRSPlan.self)
-      Game.sharedInstance.buildRoomStateMachine.roomBuilding = plannedRoom
-
-    default:
-      print("Some state that's not accounted for yet")
-      print(Game.sharedInstance.buildRoomStateMachine.currentState ?? "No current state")
-    }
-  }
+  
 
   var debugNode: SKShapeNode?
 

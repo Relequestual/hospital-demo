@@ -26,9 +26,24 @@ class BuildItemState: GKStateMachine {
   }
 }
 
-class BISPlan: GKState {
+class BISPlan: RQTileTouchState {
   override func isValidNextState(_ stateClass: AnyClass) -> Bool {
     return stateClass == BISPlace.self
+  }
+
+  override func touchTile(tile: Tile) {
+    print("override touch tile func called, yay!")
+      guard let placingObject: GKEntity.Type = Game.sharedInstance.placingObjectsQueue.first else {
+        return
+      }
+
+      let plannedObject = placingObject.init()
+      Game.sharedInstance.draggingEntiy = plannedObject
+      plannedObject.component(ofType: ItemBlueprintComponent.self)?.planFunctionCall((tile.component(ofType: PositionComponent.self)?.gridPosition)!)
+      plannedObject.component(ofType: ItemBlueprintComponent.self)?.displayBuildObjectConfirm()
+
+    //      Game.sharedInstance.buildStateMachine.enterState(BISPlaned)
+
   }
 }
 
@@ -38,6 +53,9 @@ class BISPlace: GKState {
     print("In Place Item State")
   }
 }
+
+
+
 
 // class BISPlaned: BuildItemState {
 //  override func didEnterWithPreviousState(previousState: GKState?) {

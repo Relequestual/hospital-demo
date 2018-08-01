@@ -45,6 +45,8 @@ class Game {
 
   var touchDidMove = false
 
+  var touchTile: ((_ tile:Tile) -> Void)?
+
   enum rotation: Int {
     case north = 1, east = 2, south = 3, west = 4
     mutating func next() {

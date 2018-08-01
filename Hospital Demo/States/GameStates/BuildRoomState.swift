@@ -25,7 +25,21 @@ class BuildRoomState: GKStateMachine {
   }
 }
 
-class BRSPrePlan: GKState {}
+
+class BRSPrePlan: RQTileTouchState {
+
+  override func touchTile(tile: Tile) {
+      let plannedRoom = Room()
+      print("planned room is")
+      print(plannedRoom)
+      plannedRoom.component(ofType: BuildRoomComponent.self)?.clearPlan()
+      plannedRoom.component(ofType: BuildRoomComponent.self)?.planAtPoint((tile.component(ofType: PositionComponent.self)?.gridPosition)!)
+      plannedRoom.component(ofType: BuildRoomComponent.self)?.needConfirmBounds()
+      Game.sharedInstance.buildRoomStateMachine.enter(BRSPlan.self)
+      Game.sharedInstance.buildRoomStateMachine.roomBuilding = plannedRoom
+
+  }
+}
 
 class BRSPlan: GKState {}
 
