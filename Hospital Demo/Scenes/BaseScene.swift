@@ -166,7 +166,7 @@ class BaseScene: SKScene {
     Game.sharedInstance.wolrdnode = myContentNode
 
     addChild(camera!)
-    camera?.position = CGPoint(x: size.width / 2, y: size.height / 2)
+    camera?.position = CGPoint(x: size.width / 2 + 5 * 64, y: size.height / 2 + 5 * 64)
 
     isPaused = false
   }
@@ -196,7 +196,7 @@ class BaseScene: SKScene {
   }
 
   func createTiles() {
-    let initSize: [Int] = [10, 10]
+    let initSize: [Int] = [20, 20]
 
     for x: Int in 0 ..< initSize[0] {
       Game.sharedInstance.tilesAtCoords[x] = [:]
