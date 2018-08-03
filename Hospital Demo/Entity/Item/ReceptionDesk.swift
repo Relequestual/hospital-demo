@@ -18,9 +18,7 @@ class ReceptionDesk: GKEntity {
 
   override init() {
     super.init()
-    let blueprint = ItemBlueprintComponent(area: area, pous: pous, staffPous: staffPous, pf: { position in
-      self.planAtPoint(position)
-    })
+    let blueprint = ItemBlueprintComponent(area: area, pous: pous, staffPous: staffPous)
     addComponent(blueprint)
 
     let draggableComponent = DraggableSpriteComponent(
@@ -82,7 +80,4 @@ class ReceptionDesk: GKEntity {
     print("RD End drag")
   }
 
-  func planAtPoint(_: CGPoint) {
-//    Do function from build component
-  }
 }

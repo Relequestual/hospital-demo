@@ -20,8 +20,6 @@ class ItemBlueprintComponent: GKComponent {
 
   var spriteOffset: CGPoint
 
-  var planFunction: (_ position: CGPoint) -> Void
-
   enum Status {
     case planning
     case planned
@@ -30,11 +28,10 @@ class ItemBlueprintComponent: GKComponent {
 
   var status = Status.planning
 
-  init(area: [CGPoint], pous: [CGPoint], staffPous: [CGPoint], pf: @escaping (_ position: CGPoint) -> Void) {
+  init(area: [CGPoint], pous: [CGPoint], staffPous: [CGPoint]) {
     self.area = area
     self.pous = pous
     self.staffPous = staffPous
-    planFunction = pf
 
     let rotateTexture = SKTexture(imageNamed: "Graphics/rotate.png")
 
@@ -56,7 +53,6 @@ class ItemBlueprintComponent: GKComponent {
   func planFunctionCall(_ position: CGPoint) {
     guard let entity = self.entity else { return }
 
-    planFunction(position)
     entity.component(ofType: BuildItemComponent.self)!.planAtPoint(position)
 
     let plannedObject = self.entity!
