@@ -35,6 +35,8 @@ class Game {
 
   var menuManager: MenuManager?
 
+  var itemManager: ItemManager?
+
   var tilesAtCoords: [Int: [Int: Tile]] = [:]
 
   var placingObjectsQueue = Array<GKEntity.Type>()

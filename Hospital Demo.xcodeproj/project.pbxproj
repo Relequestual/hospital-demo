@@ -34,8 +34,10 @@
 		914650CE1E729E6B00DBF123 /* Door.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914650CD1E729E6B00DBF123 /* Door.swift */; };
 		914667E11C5937D800560251 /* TouchableSpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914667E01C5937D800560251 /* TouchableSpriteComponent.swift */; };
 		91494DE51F87D8BF00817B45 /* DebugToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91494DE41F87D8BF00817B45 /* DebugToolbar.swift */; };
+		9159B8C5211B0B3900C8CC2F /* ItemDefinitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9159B8C4211B0B3900C8CC2F /* ItemDefinitions.swift */; };
 		9161209120EA87BF003705BF /* ToolbarProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9161209020EA87BF003705BF /* ToolbarProtocol.swift */; };
 		9163E2432109B93D00602C2D /* Game.Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9163E2422109B93D00602C2D /* Game.Tile.swift */; };
+		9169815D211624A800B885AF /* ItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169815C211624A800B885AF /* ItemManager.swift */; };
 		9175E2D31D47CACE0026BA8F /* zPositionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9175E2D21D47CACE0026BA8F /* zPositionManager.swift */; };
 		918968401E8BA06B005EB38D /* Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9189683F1E8BA06B005EB38D /* Convert.swift */; };
 		919232D92087AD3A003A31A0 /* MenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919232D82087AD3A003A31A0 /* MenuManager.swift */; };
@@ -84,8 +86,10 @@
 		914650CD1E729E6B00DBF123 /* Door.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Door.swift; sourceTree = "<group>"; };
 		914667E01C5937D800560251 /* TouchableSpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchableSpriteComponent.swift; sourceTree = "<group>"; };
 		91494DE41F87D8BF00817B45 /* DebugToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugToolbar.swift; sourceTree = "<group>"; };
+		9159B8C4211B0B3900C8CC2F /* ItemDefinitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDefinitions.swift; sourceTree = "<group>"; };
 		9161209020EA87BF003705BF /* ToolbarProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolbarProtocol.swift; sourceTree = "<group>"; };
 		9163E2422109B93D00602C2D /* Game.Tile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.Tile.swift; sourceTree = "<group>"; };
+		9169815C211624A800B885AF /* ItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemManager.swift; sourceTree = "<group>"; };
 		9175E2D21D47CACE0026BA8F /* zPositionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = zPositionManager.swift; sourceTree = "<group>"; };
 		9189683F1E8BA06B005EB38D /* Convert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Convert.swift; sourceTree = "<group>"; };
 		919232D82087AD3A003A31A0 /* MenuManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuManager.swift; sourceTree = "<group>"; };
@@ -187,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				9189683E1E8B9FFD005EB38D /* Utils */,
+				9159B8C3211B0AE600C8CC2F /* Definitions */,
 				91158CBA1D47C94600CD423D /* Manager */,
 				13B6A1B11C255B070087649C /* Entity */,
 				13B6A1B21C255B110087649C /* Component */,
@@ -232,6 +237,7 @@
 		91158CBA1D47C94600CD423D /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				9169815C211624A800B885AF /* ItemManager.swift */,
 				13CCF1541C2F47FF00297EF3 /* EntityManager.swift */,
 				9175E2D21D47CACE0026BA8F /* zPositionManager.swift */,
 				91F052651DD35031002F8B19 /* ToolbarManager.swift */,
@@ -254,6 +260,14 @@
 				95B62B8019555C808D93D325 /* Pods_Hospital_Demo.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9159B8C3211B0AE600C8CC2F /* Definitions */ = {
+			isa = PBXGroup;
+			children = (
+				9159B8C4211B0B3900C8CC2F /* ItemDefinitions.swift */,
+			);
+			path = Definitions;
 			sourceTree = "<group>";
 		};
 		9189683E1E8B9FFD005EB38D /* Utils */ = {
@@ -448,9 +462,11 @@
 				91C25B342098D0DC00E72865 /* MenuProtocol.swift in Sources */,
 				13B6A1B41C255C940087649C /* Tile.swift in Sources */,
 				130AFEAF1D0494B1002F266D /* Button.swift in Sources */,
+				9169815D211624A800B885AF /* ItemManager.swift in Sources */,
 				912CBCFB2088BDA900CAE400 /* ItemMenu.swift in Sources */,
 				13C765301BF61B2D00AC0223 /* AppDelegate.swift in Sources */,
 				91DF14CF1C2A958D003E813F /* PositionComponent.swift in Sources */,
+				9159B8C5211B0B3900C8CC2F /* ItemDefinitions.swift in Sources */,
 				13B6A1B61C255D8E0087649C /* SpriteComponent.swift in Sources */,
 				9175E2D31D47CACE0026BA8F /* zPositionManager.swift in Sources */,
 				13B223011C6407D300567B0E /* Game.swift in Sources */,

@@ -148,18 +148,7 @@ class BaseScene: SKScene {
 
     Game.sharedInstance.menuManager = MenuManager(scene: self)
 
-//    Only temp
-//    Game.sharedInstance.gameToolbar = gameToolbar
-
-//    Change this to work same as above
-//    let confirmToolbar = ConfirmToolbar(size: CGSize(width: view.bounds.width, height: 64))
-//    Game.sharedInstance.toolbarManager?.addToolbar(confirmToolbar)
-
-//    Game.sharedInstance.confirmToolbar!.hlSetGestureTarget(Game.sharedInstance.confirmToolbar)
-//    self.addChild(Game.sharedInstance.confirmToolbar!)
-//    Game.sharedInstance.confirmToolbar?.hideAnimated(true)
-//
-//    self.registerDescendant(Game.sharedInstance.confirmToolbar, withOptions: Set(arrayLiteral: HLSceneChildGestureTarget))
+    Game.sharedInstance.itemManager = ItemManager(itemTypes: ItemDefinitions.items)
 
     addChild(myContentNode)
 
