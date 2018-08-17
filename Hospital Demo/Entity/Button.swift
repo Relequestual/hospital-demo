@@ -20,7 +20,6 @@ class Button: GKEntity {
 
     let spriteComponent = SpriteComponent(texture: texture)
     addComponent(spriteComponent)
-    spriteComponent.addToNodeKey()
 
     let touchComponent = TouchableSpriteComponent {
       touch_f()
@@ -33,7 +32,6 @@ class Button: GKEntity {
 
     let spriteComponent = SpriteComponent(texture: texture)
     addComponent(spriteComponent)
-    spriteComponent.addToNodeKey()
 
     let touchComponent = TouchableSpriteComponent {
       touch_f(self)
@@ -46,7 +44,6 @@ class Button: GKEntity {
 
     let spriteComponent = SpriteComponent(texture: texture)
     addComponent(spriteComponent)
-    spriteComponent.addToNodeKey()
 
     let dragComponent = DraggableSpriteComponent(start: touch_start_f, move: touch_move_f, end: touch_end_f)
     addComponent(dragComponent)

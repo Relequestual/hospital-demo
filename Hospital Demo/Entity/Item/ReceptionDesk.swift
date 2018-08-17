@@ -36,7 +36,6 @@ class ReceptionDesk: GKEntity {
 
     let spriteComponent = SpriteComponent(texture: graphicTexture)
     addComponent(spriteComponent)
-    spriteComponent.addToNodeKey()
   }
 
   required init?(coder _: NSCoder) {

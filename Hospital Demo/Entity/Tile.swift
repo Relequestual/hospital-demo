@@ -116,7 +116,6 @@ class Tile: GKEntity {
 
     let spriteComponent = SpriteComponent(texture: SKTexture(imageNamed: imageName))
     addComponent(spriteComponent)
-    spriteComponent.addToNodeKey()
 
     let width = Int((spriteComponent.node.texture?.size().width)!)
     let sx = width * x + width / 2

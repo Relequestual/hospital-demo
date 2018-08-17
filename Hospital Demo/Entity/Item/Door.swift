@@ -141,7 +141,6 @@ class Door: GKEntity {
     print("=========================set sprite 2")
     Game.sharedInstance.entityManager.remove(self)
     addComponent(spriteComponent)
-    component(ofType: SpriteComponent.self)?.addToNodeKey()
     Game.sharedInstance.entityManager.add(self, layer: ZPositionManager.WorldLayer.interaction)
   }
 

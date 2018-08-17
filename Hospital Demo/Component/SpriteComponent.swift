@@ -10,7 +10,7 @@ import GameplayKit
 import SpriteKit
 
 class SpriteComponent: GKComponent {
-  let node: SKSpriteNode
+  var node: SKSpriteNode
 
   static let view = SKView()
 
@@ -29,7 +29,7 @@ class SpriteComponent: GKComponent {
     fatalError("init(coder:) has not been implemented")
   }
 
-  func addToNodeKey() {
+  override func didAddToEntity() {
     node.userData = NSMutableDictionary()
     guard entity != nil else { return }
     node.userData?.setObject(entity!, forKey: "entity" as NSCopying)

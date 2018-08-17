@@ -41,9 +41,6 @@ class BISPlan: RQTileTouchState {
       Game.sharedInstance.draggingEntiy = plannedObject
       plannedObject.component(ofType: ItemBlueprintComponent.self)?.planFunctionCall((tile.component(ofType: PositionComponent.self)?.gridPosition)!)
       plannedObject.component(ofType: ItemBlueprintComponent.self)?.displayBuildObjectConfirm()
-
-    //      Game.sharedInstance.buildStateMachine.enterState(BISPlaned)
-
   }
 }
 

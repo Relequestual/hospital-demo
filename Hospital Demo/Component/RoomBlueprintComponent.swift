@@ -57,8 +57,6 @@ class RoomBlueprintComponent: GKComponent {
     entity.addComponent(SpriteComponent(texture: createFloorplanTexture(roomSize: size)))
     entity.component(ofType: SpriteComponent.self)!.node.name = "planning_room_blueprint"
 
-    entity.component(ofType: SpriteComponent.self)!.addToNodeKey()
-
     entity.addComponent(PositionComponent(gridPosition: CGPoint.zero))
   }
 
@@ -142,7 +140,6 @@ class RoomBlueprintComponent: GKComponent {
           //          handleDragend(point: point)
         })
         let buttonVertSprite = vertButton.component(ofType: SpriteComponent.self)!.node
-
         buttonVertSprite.zPosition = entity.component(ofType: SpriteComponent.self)!.node.zPosition + 1
         buttonVertSprite.setScale(0.5)
         buttonVertSprite.name = "planning_room_blueprint_handles"
@@ -155,7 +152,6 @@ class RoomBlueprintComponent: GKComponent {
 
         // TODO: make this button a single image sometime
         buttonVertSprite.addChild(circle)
-        vertButton.component(ofType: SpriteComponent.self)?.addToNodeKey()
         entity.component(ofType: SpriteComponent.self)!.node.addChild(vertButton.component(ofType: SpriteComponent.self)!.node)
         //      Game.sharedInstance.entityManager.add(vertButton, layer: ZPositionManager.WorldLayer.interaction)
       }
