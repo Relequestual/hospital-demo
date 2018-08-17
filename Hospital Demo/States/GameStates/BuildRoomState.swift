@@ -37,7 +37,6 @@ class BRSPrePlan: RQTileTouchState {
       plannedRoom.component(ofType: BuildRoomComponent.self)?.needConfirmBounds()
       Game.sharedInstance.buildRoomStateMachine.enter(BRSPlan.self)
       Game.sharedInstance.buildRoomStateMachine.roomBuilding = plannedRoom
-
   }
 }
 

@@ -136,6 +136,7 @@ class BuildRoomComponent: GKComponent {
 //    Any tidy up?
     Game.sharedInstance.buildRoomStateMachine.enter(BRSDone.self)
     Game.sharedInstance.gameStateMachine.enter(GSGeneral.self)
+    self.entity?.removeComponent(ofType: DraggableSpriteComponent.self)
     build()
   }
 
