@@ -15,7 +15,7 @@ class ItemMenu: MenuProtocol {
   var graphics: [String: SKTexture]
   var menuItems: [Menu.menuItem] = []
 
-  init(menuItems: [GKEntity.Type] = [ReceptionDesk.self, ReceptionDesk.self, ReceptionDesk.self, ReceptionDesk.self]) {
+  init(menuItems: [ItemDefinitions.BaseItems] = [ItemDefinitions.BaseItems.ReceptionDesk, ItemDefinitions.BaseItems.ReceptionDesk]) {
     print("ItemMen#init")
 
     self.menuNode.anchorPoint = CGPoint(x: 0, y: 1)
@@ -23,11 +23,11 @@ class ItemMenu: MenuProtocol {
 //    self.menuNode.position = CGPoint(x: 0 - size.width / 2, y: 0 + size.height / 2)
     self.menuNode.position = CGPoint(x: 0 - size.width / 2, y: 0)
 
-
+    let view = SKView.init()
     graphics = menuItems.reduce(into: [:], { graphics, itemType in
-      let item = itemType.init()
+      let item = Game.sharedInstance.itemManager!.buildItem(itemType: itemType)
       let node = item.component(ofType: SpriteComponent.self)?.node ?? SKSpriteNode()
-      let texture = SKView.init().texture(from: node)!
+      let texture = view.texture(from: node)!
 //      texture = Menu.resizeToMax(texture: texture)
 
       graphics[String(describing: itemType)] = texture

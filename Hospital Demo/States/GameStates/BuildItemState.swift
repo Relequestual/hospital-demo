@@ -27,20 +27,61 @@ class BuildItemState: GKStateMachine {
 }
 
 class BISPlan: RQTileTouchState {
+
   override func isValidNextState(_ stateClass: AnyClass) -> Bool {
     return stateClass == BISPlace.self
   }
 
+  static func dragStartHandler(_: GKEntity, _: CGPoint) {
+    print("RD Start drag")
+  }
+
+  static var tileTracker: GKEntity?
+
+  static func dragMoveHandler(_ entity: GKEntity, _ point: CGPoint) {
+    print("RD Move drag")
+
+    if entity.component(ofType: ItemBlueprintComponent.self)?.status == ItemBlueprintComponent.Status.built {
+      print("No dragging built items")
+      return
+    }
+
+    //    self.componentForClass(SpriteComponent.self)?.node.position = point
+    let nodesAtPoint = Game.sharedInstance.wolrdnode.nodes(at: point)
+
+    for node in nodesAtPoint {
+      guard let tileEntity: GKEntity = node.userData?["entity"] as? GKEntity else { continue }
+
+      if tileEntity.isKind(of: Tile.self) {
+        if (self.tileTracker == tileEntity) {
+          return
+        }
+        self.tileTracker = tileEntity
+        entity.component(ofType: ItemBlueprintComponent.self)?.planFunctionCall((tileEntity.component(ofType: PositionComponent.self)?.gridPosition)!)
+      }
+    }
+  }
+
+  static func dragEndHandler(_ entity: GKEntity, _: CGPoint) {
+    if entity.component(ofType: ItemBlueprintComponent.self)?.status != ItemBlueprintComponent.Status.built {
+      entity.component(ofType: ItemBlueprintComponent.self)?.displayBuildObjectConfirm()
+    }
+    print("RD End drag")
+  }
+
+
+
   override func touchTile(tile: Tile) {
     print("override touch tile func called, yay!")
-      guard let placingObject: GKEntity.Type = Game.sharedInstance.placingObjectsQueue.first else {
-        return
-      }
+    guard let placingObject: GKEntity.Type = Game.sharedInstance.placingObjectsQueue.first else {
+      return
+    }
+    Game.sharedInstance.placingObjectsQueue.removeFirst()
 
-      let plannedObject = placingObject.init()
-      Game.sharedInstance.draggingEntiy = plannedObject
-      plannedObject.component(ofType: ItemBlueprintComponent.self)?.planFunctionCall((tile.component(ofType: PositionComponent.self)?.gridPosition)!)
-      plannedObject.component(ofType: ItemBlueprintComponent.self)?.displayBuildObjectConfirm()
+    let plannedObject = Game.sharedInstance.itemManager!.buildItem(itemType: ItemDefinitions.BaseItems.ReceptionDesk)
+    Game.sharedInstance.draggingEntiy = plannedObject
+    plannedObject.component(ofType: ItemBlueprintComponent.self)?.planFunctionCall((tile.component(ofType: PositionComponent.self)?.gridPosition)!)
+    plannedObject.component(ofType: ItemBlueprintComponent.self)?.displayBuildObjectConfirm()
   }
 }
 

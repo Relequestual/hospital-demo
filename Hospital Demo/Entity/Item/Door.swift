@@ -97,11 +97,7 @@ class Door: GKEntity {
     setSprite(spriteComponent: spriteComponent)
 
     if direction == .west || direction == .east {
-      if #available(iOS 10.0, *) {
-        spriteComponent.node.zRotation = CGFloat(Measurement(value: 90, unit: UnitAngle.degrees).converted(to: UnitAngle.radians).value)
-      } else {
-        spriteComponent.node.zRotation = 90 * .pi / 180
-      }
+      spriteComponent.node.zRotation = CGFloat(Measurement(value: 90, unit: UnitAngle.degrees).converted(to: UnitAngle.radians).value)
     }
   }
 

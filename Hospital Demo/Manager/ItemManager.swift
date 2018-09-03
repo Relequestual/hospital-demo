@@ -59,6 +59,29 @@ class ItemManager {
 
   }
 
+  func buildItem(itemType: ItemDefinitions.BaseItems) -> GKEntity {
+    let entity = GKEntity()
+    guard let itemDef = self.knownItemTypes[itemType] else {
+      // Should throw error?
+      fatalError("you really shouldn't be here - adding an entity type which isn't known to the game")
+    }
+
+    let blueprint = ItemBlueprintComponent(area: itemDef.area, pous: itemDef.pous, staffPous: itemDef.staffPous ?? [])
+    entity.addComponent(blueprint)
+
+    entity.addComponent(DraggableSpriteComponent(start: BISPlan.dragStartHandler, move: BISPlan.dragMoveHandler, end: BISPlan.dragEndHandler))
+
+    entity.addComponent(BuildItemComponent())
+
+
+    let spriteComponent = SpriteComponent(texture: itemDef.texture)
+    entity.addComponent(spriteComponent)
+
+    return entity
+
+  }
+
+
 
 }
 

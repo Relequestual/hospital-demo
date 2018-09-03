@@ -43,13 +43,13 @@ class RoomBlueprintComponent: GKComponent {
     let entity = self.entity!
 
     entity.addComponent(DraggableSpriteComponent(
-      start: { (point: CGPoint) in
+      start: { (entity: GKEntity, point: CGPoint) in
         print("start drag room")
         self.dragStartHandler(point)
-      }, move: { (point: CGPoint) in
+      }, move: { (entity: GKEntity, point: CGPoint) in
         self.dragMoveHandler(point)
         print("move drag room")
-      }, end: { (_: CGPoint) in
+      }, end: { (entity: GKEntity, _: CGPoint) in
         self.dragOffset = CGPoint.zero
         print("end drag room")
     }))
@@ -130,13 +130,13 @@ class RoomBlueprintComponent: GKComponent {
     for edgeInstruct in edgeInstructions {
       for x in stride(from: edgeInstruct.start, to: edgeInstruct.end, by: 64) {
         let texture_vert = SKTexture(imageNamed: edgeInstruct.axis == Game.axis.vert ? "Graphics/drag_vert" : "Graphics/drag_hroz")
-        let vertButton = Button(texture: texture_vert, touch_start_f: { (point: CGPoint) in
+        let vertButton = Button(texture: texture_vert, touch_start_f: { (entity: GKEntity, point: CGPoint) in
           self.handleDragStart(point, axis: edgeInstruct.axis)
           print("handle drag start")
-        }, touch_move_f: { point in
+        }, touch_move_f: { entity, point in
           print("handle drag move")
           self.handleDragMove(point, edge: edgeInstruct.side)
-        }, touch_end_f: { _ in
+        }, touch_end_f: { entity, _ in
           //          handleDragend(point: point)
         })
         let buttonVertSprite = vertButton.component(ofType: SpriteComponent.self)!.node

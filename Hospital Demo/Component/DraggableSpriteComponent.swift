@@ -10,9 +10,9 @@ import GameplayKit
 import SpriteKit
 
 class DraggableSpriteComponent: GKComponent {
-  var entityTouchStart: (CGPoint) -> Void
-  var entityTouchMove: (CGPoint) -> Void
-  var entityTouchEnd: (CGPoint) -> Void
+  var entityTouchStart: (GKEntity, CGPoint) -> Void
+  var entityTouchMove: (GKEntity, CGPoint) -> Void
+  var entityTouchEnd: (GKEntity, CGPoint) -> Void
 
   var startPoint: CGPoint?
   var movedPoint: CGPoint?
@@ -20,7 +20,7 @@ class DraggableSpriteComponent: GKComponent {
 
   var draggable: Bool = true
 
-  init(start: @escaping (CGPoint) -> Void, move: @escaping (CGPoint) -> Void, end: @escaping (CGPoint) -> Void) {
+  init(start: @escaping (GKEntity, CGPoint) -> Void, move: @escaping (GKEntity, CGPoint) -> Void, end: @escaping (GKEntity, CGPoint) -> Void) {
 //    Working here.
 //    Calling these directly rather than through this classes function accessors!! duh!
     entityTouchStart = start
@@ -38,7 +38,7 @@ class DraggableSpriteComponent: GKComponent {
       return
     }
     startPoint = point
-    entityTouchStart(point)
+    entityTouchStart(self.entity!, point)
   }
 
   func touchMove(_ point: CGPoint) {
@@ -48,7 +48,7 @@ class DraggableSpriteComponent: GKComponent {
       return
     }
     movedPoint = point
-    entityTouchMove(point)
+    entityTouchMove(self.entity!, point)
   }
 
   func touchEnd(_ point: CGPoint) {
@@ -56,6 +56,6 @@ class DraggableSpriteComponent: GKComponent {
       return
     }
     endPoint = point
-    entityTouchEnd(point)
+    entityTouchEnd(self.entity!, point)
   }
 }
