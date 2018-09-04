@@ -24,8 +24,8 @@ class BuildItemComponent: GKComponent {
       return
     }
 
-    let area = (entity.component(ofType: ItemBlueprintComponent.self)?.area)!
-    let pous = (entity.component(ofType: ItemBlueprintComponent.self)?.pous)!
+    let area = (entity.component(ofType: ItemSpecComponent.self)?.area)!
+    let pous = (entity.component(ofType: ItemSpecComponent.self)?.pous)!
 
     let positionComponent = PositionComponent(gridPosition: CGPoint(x: position.x, y: position.y))
     entity.addComponent(positionComponent)
@@ -74,8 +74,8 @@ class BuildItemComponent: GKComponent {
   func build() {
     guard let entity = self.entity else { return }
 
-    let area = (entity.component(ofType: ItemBlueprintComponent.self)?.area)!
-    let pous = (entity.component(ofType: ItemBlueprintComponent.self)?.pous)!
+    let area = (entity.component(ofType: ItemSpecComponent.self)?.area)!
+    let pous = (entity.component(ofType: ItemSpecComponent.self)?.pous)!
 
     let positionComponent = entity.component(ofType: PositionComponent.self)!
 

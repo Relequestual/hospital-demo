@@ -10,13 +10,10 @@ import GameplayKit
 import SpriteKit
 
 class ItemBlueprintComponent: GKComponent {
-  var area: [CGPoint]
-  var pous: [CGPoint]
-  var staffPous: [CGPoint]
+
+  var itemSpec: ItemSpecComponent
 
   var rotateButton: Button!
-
-  var baring = Game.rotation.north
 
   var spriteOffset: CGPoint
 
@@ -28,19 +25,18 @@ class ItemBlueprintComponent: GKComponent {
 
   var status = Status.planning
 
-  init(area: [CGPoint], pous: [CGPoint], staffPous: [CGPoint]) {
-    self.area = area
-    self.pous = pous
-    self.staffPous = staffPous
+  init(itemSpec: ItemSpecComponent) {
+
+    self.itemSpec = itemSpec
 
     let rotateTexture = SKTexture(imageNamed: "Graphics/rotate.png")
 
-    spriteOffset = ItemBlueprintComponent.calculateSpritePos(area: area)
+    spriteOffset = ItemBlueprintComponent.calculateSpritePos(area: itemSpec.area)
 
     super.init()
 
     rotateButton = createConfirmButtons(rotateTexture, f: ({ _ in
-      self.rotate(self.baring)
+      self.rotate(self.itemSpec.baring)
     }))
 
     print("--init after buttons created")
@@ -83,20 +79,19 @@ class ItemBlueprintComponent: GKComponent {
   func rotate(_ previousRotation: Game.rotation) {
     guard let entity = self.entity else { return }
 
-    var previousRotation = previousRotation
-    previousRotation.next()
+    var newRotation = previousRotation
+    newRotation.next()
 
-    let action = SKAction.rotate(toAngle: CGFloat(baring.rawValue) * -CGFloat(Double.pi / 2), duration: TimeInterval(0.1))
+    let action = SKAction.rotate(toAngle: CGFloat(itemSpec.baring.rawValue) * -CGFloat(Double.pi / 2), duration: TimeInterval(0.1))
 
     self.entity?.component(ofType: SpriteComponent.self)?.node.run(action, withKey: "rotate")
 
-    let newRotation = previousRotation
 
-    area = rotatePoints(points: area)
-    pous = rotatePoints(points: pous)
+    itemSpec.area = rotatePoints(points: itemSpec.area)
+    itemSpec.pous = rotatePoints(points: itemSpec.pous)
 //        print(self.area)
+    itemSpec.baring = newRotation
 
-    baring = newRotation
     print("--- new baring set")
 
     updateSpritePos()
@@ -114,7 +109,7 @@ class ItemBlueprintComponent: GKComponent {
   }
 
   func canPlanAtPoint(_ point: CGPoint) -> Bool {
-    for coord in area + pous {
+    for coord in itemSpec.area + itemSpec.pous {
       guard Game.sharedInstance.tilesAtCoords[Int(point.x + coord.x)] != nil else {
         return false
       }
@@ -132,7 +127,7 @@ class ItemBlueprintComponent: GKComponent {
   }
 
   func updateSpritePos() {
-    spriteOffset = ItemBlueprintComponent.calculateSpritePos(area: area)
+    spriteOffset = ItemBlueprintComponent.calculateSpritePos(area: itemSpec.area)
   }
 
   static func calculateSpritePos(area: [CGPoint]) -> CGPoint {
@@ -195,7 +190,7 @@ class ItemBlueprintComponent: GKComponent {
 
 //  This should be in the build item component?
   func canBuildAtPoint(_ point: CGPoint) -> Bool {
-    let totalArea = area + pous
+    let totalArea = itemSpec.area + itemSpec.pous
     for coord in totalArea {
       guard Game.sharedInstance.tilesAtCoords[Int(point.x + coord.x)] != nil else {
         return false

@@ -66,7 +66,10 @@ class ItemManager {
       fatalError("you really shouldn't be here - adding an entity type which isn't known to the game")
     }
 
-    let blueprint = ItemBlueprintComponent(area: itemDef.area, pous: itemDef.pous, staffPous: itemDef.staffPous ?? [])
+    let itemSpecComponent = ItemSpecComponent(spec: itemDef)
+    entity.addComponent(itemSpecComponent)
+
+    let blueprint = ItemBlueprintComponent(itemSpec: itemSpecComponent)
     entity.addComponent(blueprint)
 
     entity.addComponent(DraggableSpriteComponent(start: BISPlan.dragStartHandler, move: BISPlan.dragMoveHandler, end: BISPlan.dragEndHandler))

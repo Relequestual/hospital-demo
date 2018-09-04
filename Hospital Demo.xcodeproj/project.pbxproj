@@ -29,6 +29,7 @@
 		13DFA1791C65ECE8003289E9 /* GameToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DFA1781C65ECE8003289E9 /* GameToolbar.swift */; };
 		13DFA17B1C6806F4003289E9 /* BuildItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DFA17A1C6806F4003289E9 /* BuildItemState.swift */; };
 		9119835E1E72D3D100E6D2A2 /* UseableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9119835D1E72D3D100E6D2A2 /* UseableComponent.swift */; };
+		911FB1CD213D547F00ABBD41 /* ItemSpecComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911FB1CC213D547F00ABBD41 /* ItemSpecComponent.swift */; };
 		9122FA441D61AC4000F92958 /* RoomBlueprintComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9122FA431D61AC4000F92958 /* RoomBlueprintComponent.swift */; };
 		912CBCFB2088BDA900CAE400 /* ItemMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912CBCFA2088BDA900CAE400 /* ItemMenu.swift */; };
 		914650CE1E729E6B00DBF123 /* Door.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914650CD1E729E6B00DBF123 /* Door.swift */; };
@@ -81,6 +82,7 @@
 		13DFA17A1C6806F4003289E9 /* BuildItemState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildItemState.swift; sourceTree = "<group>"; };
 		6E729F281F280152765F1F6C /* Pods-Hospital Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hospital Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hospital Demo/Pods-Hospital Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		9119835D1E72D3D100E6D2A2 /* UseableComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UseableComponent.swift; sourceTree = "<group>"; };
+		911FB1CC213D547F00ABBD41 /* ItemSpecComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSpecComponent.swift; sourceTree = "<group>"; };
 		9122FA431D61AC4000F92958 /* RoomBlueprintComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomBlueprintComponent.swift; sourceTree = "<group>"; };
 		912CBCFA2088BDA900CAE400 /* ItemMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemMenu.swift; sourceTree = "<group>"; };
 		914650CD1E729E6B00DBF123 /* Door.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Door.swift; sourceTree = "<group>"; };
@@ -153,15 +155,13 @@
 		13B6A1B21C255B110087649C /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				13B6A1B51C255D8E0087649C /* SpriteComponent.swift */,
 				91DF14CE1C2A958D003E813F /* PositionComponent.swift */,
-				13CCF1561C34088D00297EF3 /* SpriteDebugComponent.swift */,
+				13B6A1B51C255D8E0087649C /* SpriteComponent.swift */,
 				914667E01C5937D800560251 /* TouchableSpriteComponent.swift */,
+				13CCF1561C34088D00297EF3 /* SpriteDebugComponent.swift */,
 				137F2E151CDF8D4600665C17 /* DraggableSpriteComponent.swift */,
-				91C3E3561C6BB1E900E8CBD8 /* ItemBlueprintComponent.swift */,
-				9122FA431D61AC4000F92958 /* RoomBlueprintComponent.swift */,
-				91F7F0E61D2FDA2D00331878 /* BuildItemComponent.swift */,
-				13388CF31D57B6C50080234A /* BuildRoomComponent.swift */,
+				911FB1CE213D549700ABBD41 /* Item */,
+				911FB1CF213D54A800ABBD41 /* Room */,
 				9119835D1E72D3D100E6D2A2 /* UseableComponent.swift */,
 			);
 			path = Component;
@@ -244,6 +244,25 @@
 				919232D82087AD3A003A31A0 /* MenuManager.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		911FB1CE213D549700ABBD41 /* Item */ = {
+			isa = PBXGroup;
+			children = (
+				91C3E3561C6BB1E900E8CBD8 /* ItemBlueprintComponent.swift */,
+				91F7F0E61D2FDA2D00331878 /* BuildItemComponent.swift */,
+				911FB1CC213D547F00ABBD41 /* ItemSpecComponent.swift */,
+			);
+			path = Item;
+			sourceTree = "<group>";
+		};
+		911FB1CF213D54A800ABBD41 /* Room */ = {
+			isa = PBXGroup;
+			children = (
+				9122FA431D61AC4000F92958 /* RoomBlueprintComponent.swift */,
+				13388CF31D57B6C50080234A /* BuildRoomComponent.swift */,
+			);
+			path = Room;
 			sourceTree = "<group>";
 		};
 		9122FA421D61ABD200F92958 /* Building */ = {
@@ -482,6 +501,7 @@
 				13CCF1571C34088D00297EF3 /* SpriteDebugComponent.swift in Sources */,
 				914650CE1E729E6B00DBF123 /* Door.swift in Sources */,
 				919232DB2087AE5F003A31A0 /* Menu.swift in Sources */,
+				911FB1CD213D547F00ABBD41 /* ItemSpecComponent.swift in Sources */,
 				13CBAB641D6A0CBB004561CB /* BuildRoomState.swift in Sources */,
 				919232D92087AD3A003A31A0 /* MenuManager.swift in Sources */,
 				91F052661DD35031002F8B19 /* ToolbarManager.swift in Sources */,
