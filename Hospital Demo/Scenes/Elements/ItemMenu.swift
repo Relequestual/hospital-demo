@@ -44,7 +44,7 @@ class ItemMenu: MenuProtocol {
         print("menu button!!!")
         Game.sharedInstance.gameStateMachine.enter(GSBuildItem.self)
         Game.sharedInstance.buildItemStateMachine.enter(BISPlan.self)
-        Game.sharedInstance.placingObjectsQueue.append(ReceptionDesk.self)
+        Game.sharedInstance.placingObjectsQueue.append(ItemDefinitions.BaseItems.ReceptionDesk)
         Game.sharedInstance.menuManager?.openMenu!.remove()
       })
       let item = Menu.menuItem(button: button)

@@ -39,7 +39,7 @@ class Game {
 
   var tilesAtCoords: [Int: [Int: Tile]] = [:]
 
-  var placingObjectsQueue = Array<GKEntity.Type>()
+  var placingObjectsQueue = Array<ItemDefinitions.BaseItems>()
 
   var draggingEntiy: GKEntity?
 

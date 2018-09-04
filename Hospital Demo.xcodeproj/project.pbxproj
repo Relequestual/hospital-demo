@@ -14,7 +14,6 @@
 		137F2E161CDF8D4600665C17 /* DraggableSpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137F2E151CDF8D4600665C17 /* DraggableSpriteComponent.swift */; };
 		13A5F5CE1C0A587F0013D478 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 13A5F5CD1C0A587F0013D478 /* GameScene.sks */; };
 		13B223011C6407D300567B0E /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B223001C6407D300567B0E /* Game.swift */; };
-		13B6032D1C6935D700A65E7F /* ReceptionDesk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B6032C1C6935D700A65E7F /* ReceptionDesk.swift */; };
 		13B6A1B41C255C940087649C /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B6A1B31C255C940087649C /* Tile.swift */; };
 		13B6A1B61C255D8E0087649C /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B6A1B51C255D8E0087649C /* SpriteComponent.swift */; };
 		13C765301BF61B2D00AC0223 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C7652F1BF61B2D00AC0223 /* AppDelegate.swift */; };
@@ -64,7 +63,6 @@
 		137F2E151CDF8D4600665C17 /* DraggableSpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableSpriteComponent.swift; sourceTree = "<group>"; };
 		13A5F5CD1C0A587F0013D478 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		13B223001C6407D300567B0E /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
-		13B6032C1C6935D700A65E7F /* ReceptionDesk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceptionDesk.swift; sourceTree = "<group>"; };
 		13B6A1B31C255C940087649C /* Tile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
 		13B6A1B51C255D8E0087649C /* SpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
 		13C7652C1BF61B2D00AC0223 /* Hospital Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hospital Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -327,7 +325,6 @@
 		91D64E411E71C5860081C17C /* Item */ = {
 			isa = PBXGroup;
 			children = (
-				13B6032C1C6935D700A65E7F /* ReceptionDesk.swift */,
 				914650CD1E729E6B00DBF123 /* Door.swift */,
 			);
 			path = Item;
@@ -496,7 +493,6 @@
 				13DFA1791C65ECE8003289E9 /* GameToolbar.swift in Sources */,
 				136FA18A1BFBCBDC0086F545 /* BaseScene.swift in Sources */,
 				91F72CF31DC9E00E00210C71 /* ConfirmToolbar.swift in Sources */,
-				13B6032D1C6935D700A65E7F /* ReceptionDesk.swift in Sources */,
 				91EEAE2F1E93BB7F001C4AC1 /* DoorState.swift in Sources */,
 				13CCF1571C34088D00297EF3 /* SpriteDebugComponent.swift in Sources */,
 				914650CE1E729E6B00DBF123 /* Door.swift in Sources */,

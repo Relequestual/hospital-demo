@@ -73,12 +73,12 @@ class BISPlan: RQTileTouchState {
 
   override func touchTile(tile: Tile) {
     print("override touch tile func called, yay!")
-    guard let placingObject: GKEntity.Type = Game.sharedInstance.placingObjectsQueue.first else {
+    guard let placingObject = Game.sharedInstance.placingObjectsQueue.first else {
       return
     }
     Game.sharedInstance.placingObjectsQueue.removeFirst()
 
-    let plannedObject = Game.sharedInstance.itemManager!.buildItem(itemType: ItemDefinitions.BaseItems.ReceptionDesk)
+    let plannedObject = Game.sharedInstance.itemManager!.buildItem(itemType: placingObject)
     Game.sharedInstance.draggingEntiy = plannedObject
     plannedObject.component(ofType: ItemBlueprintComponent.self)?.planFunctionCall((tile.component(ofType: PositionComponent.self)?.gridPosition)!)
     plannedObject.component(ofType: ItemBlueprintComponent.self)?.displayBuildObjectConfirm()
