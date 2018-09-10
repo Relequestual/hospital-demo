@@ -12,14 +12,14 @@ import SpriteKit
 class Menu {
 
   struct menuLayoutOptions {
-    var layout: Menu.Layout = Menu.Layout.grid
-    var padding: Int = 5
-    var buttonSize: CGSize = CGSize(width: 64, height: 64)
+    var layout: Menu.Layout
+    var padding: Int
+    var buttonSize: CGSize
 
-    init(){}
-
-    init(layout: Menu.Layout) {
-      self.layout = layout
+    init(layout: Menu.Layout? = Menu.Layout.grid, padding: Int? = 5, buttonSize: CGSize? = CGSize(width: 64, height: 64)) {
+      self.layout = layout!
+      self.padding = padding!
+      self.buttonSize = buttonSize!
     }
     
   }
@@ -51,6 +51,7 @@ class Menu {
     let menuBackgroundColor = SKColor.cyan
 
     let node = SKShapeNode(rectOf: size)
+    node.lineWidth = 0
     node.fillColor = menuBackgroundColor
     return SKSpriteNode(texture: SKView.init().texture(from: node))
   }
@@ -74,7 +75,7 @@ class Menu {
 
   }
 
-  static func layoutItems(menu: MenuProtocol, layoutOptions: menuLayoutOptions = Menu.menuLayoutOptions()) {
+  static func layoutItems(menu: MenuProtocol, layoutOptions: menuLayoutOptions) {
 
     let padding = layoutOptions.padding
     let buttonSize = layoutOptions.buttonSize
@@ -97,6 +98,7 @@ class Menu {
     let rowAutoPad = (menu.menuNode.size.width - CGFloat(buttonSpace) * maxNumPerRow) / maxNumPerRow / 2
 
     var y = 1
+    var x = 1
 
     for i in 1...menu.menuItems.count {
       let menuItem = menu.menuItems[i - 1]
@@ -110,11 +112,18 @@ class Menu {
         location = CGPoint(x: coordOffset.x + CGFloat(buttonSpace * (i - 1)) + CGFloat(buttonSpace / 2), y: coordOffset.y - (buttonSize.height / 2))
       }
       if (layoutOptions.layout == .grid) {
-        location = CGPoint(x: coordOffset.x + rowAutoPad + CGFloat(buttonSpace * (i - (y / maxNumPerRowInt) - ( maxNumPerRowInt == 1 ? 0 : 1))) + CGFloat(buttonSpace / 2), y: coordOffset.y - CGFloat(buttonSpace * (y - 1)) - CGFloat(buttonSpace / 2))
+        let leftPad = CGFloat((buttonSpace + (Int(rowAutoPad)) * 2) * (x - 1))
+        location = CGPoint(
+          x: coordOffset.x + rowAutoPad + leftPad + CGFloat(buttonSpace / 2),
+//          x: coordOffset.x + rowAutoPad + CGFloat(buttonSpace * (i - (y / maxNumPerRowInt) - ( maxNumPerRowInt == 1 ? 0 : 1))) + CGFloat(buttonSpace / 2),
+          y: coordOffset.y - CGFloat(buttonSpace * (y - 1)) - CGFloat(buttonSpace / 2)
+        )
         if (i == maxNumPerRowInt) {
           y += 1
+          x = 0
         }
       }
+      x += 1
       menuItemButtonNode!.position = CGPoint(x: location.x, y: location.y)
       menuItemButtonNode?.removeFromParent()
       menu.menuNode.addChild(menuItemButtonNode!)
