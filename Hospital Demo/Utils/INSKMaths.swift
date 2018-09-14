@@ -78,19 +78,19 @@ class INSKMaths {
 
 //  Convenience creaters
 
-  func CGPointMake(_ x: CGFloat, _ y: CGFloat) -> CGPoint {
+  static func CGPointMake(_ x: CGFloat, _ y: CGFloat) -> CGPoint {
     return CGPoint(x: x, y: y)
   }
 
-  func CGPointMake(_ x: Float, _ y: Float) -> CGPoint {
+  static func CGPointMake(_ x: Float, _ y: Float) -> CGPoint {
     return CGPoint(x: CGFloat(x), y: CGFloat(y))
   }
 
-  func CGSizeMake(_ width: CGFloat, _ height: CGFloat) -> CGSize {
+  static func CGSizeMake(_ width: CGFloat, _ height: CGFloat) -> CGSize {
     return CGSize(width: width, height: height)
   }
 
-  func CGVectorMake(_ dx: CGFloat, _ dy: CGFloat) -> CGVector {
+  static func CGVectorMake(_ dx: CGFloat, _ dy: CGFloat) -> CGVector {
     return CGVector(dx: dx, dy: dy)
   }
 
@@ -107,7 +107,7 @@ class INSKMaths {
  @param size The size.
  @return A CGPoint.
  */
-func CGPointFromSize(size:CGSize) -> CGPoint {
+static func CGPointFromSize(size:CGSize) -> CGPoint {
   return CGPointMake(size.width, size.height)
 }
 
@@ -117,7 +117,7 @@ func CGPointFromSize(size:CGSize) -> CGPoint {
  @param point The point.
  @return A CGSize.
  */
-func CGSizeFromPoint(point:CGPoint) -> CGSize {
+static func CGSizeFromPoint(point:CGPoint) -> CGSize {
   return CGSizeMake(point.x, point.y)
 }
 
@@ -127,7 +127,7 @@ func CGSizeFromPoint(point:CGPoint) -> CGSize {
  @param vector A CGVector.
  @return A CGPoint.
  */
-func CGPointFromCGVector(vector:CGVector) -> CGPoint {
+static func CGPointFromCGVector(vector:CGVector) -> CGPoint {
   return CGPointMake(vector.dx, vector.dy)
 }
 
@@ -137,7 +137,7 @@ func CGPointFromCGVector(vector:CGVector) -> CGPoint {
  @param point A CGPoint.
  @return A CGVector.
  */
-func CGVectorFromCGPoint(point:CGPoint) -> CGVector {
+static func CGVectorFromCGPoint(point:CGPoint) -> CGVector {
   return CGVectorMake(point.x, point.y)
 }
 
@@ -147,17 +147,17 @@ func CGVectorFromCGPoint(point:CGPoint) -> CGVector {
  @param vector A GLKVector2.
  @return A CGPoint.
  */
-func CGPointFromGLKVector2(vector:GLKVector2) -> CGPoint {
+static func CGPointFromGLKVector2(vector:GLKVector2) -> CGPoint {
   return CGPointMake(vector.x, vector.y)
 }
 
 /**
- Converts a CGPoint into a GLKVector2 so it can be used with the GLKMath functions from GL Kit.
+ Converts a CGPoint into a GLKVector2 so it can be used with the GLKMath static functions from GL Kit.
 
  @param point A CGPoint.
  @return A GLKVector2.
  */
-func GLKVector2FromCGPoint(point:CGPoint) -> GLKVector2 {
+static func GLKVector2FromCGPoint(point:CGPoint) -> GLKVector2 {
   return GLKVector2Make(Float(point.x), Float(point.y))
 }
 
@@ -175,7 +175,7 @@ func GLKVector2FromCGPoint(point:CGPoint) -> GLKVector2 {
  @param max The maximum the value shouldn't exceed.
  @return The value clamped.
  */
-func Clamp(value:CGFloat, min:CGFloat, max:CGFloat) -> CGFloat {
+static func Clamp(value:CGFloat, min:CGFloat, max:CGFloat) -> CGFloat {
   return ((value < min) ? min : ((value > max) ? max : value))
 }
 
@@ -187,7 +187,7 @@ func Clamp(value:CGFloat, min:CGFloat, max:CGFloat) -> CGFloat {
  @param variance The delta in which both values may vary.
  @return True if both values are approximately equal.
  */
-func ScalarNearOtherWithVariance(value:CGFloat, other:CGFloat, variance:CGFloat) -> Bool {
+static func ScalarNearOtherWithVariance(value:CGFloat, other:CGFloat, variance:CGFloat) -> Bool {
   if value <= other + variance && value >= other - variance {
     return true
   }
@@ -201,7 +201,7 @@ func ScalarNearOtherWithVariance(value:CGFloat, other:CGFloat, variance:CGFloat)
  @param other Another value.
  @return True if both values are approximately equal.
  */
-func ScalarNearOther(value:CGFloat, other:CGFloat) -> Bool {
+static func ScalarNearOther(value:CGFloat, other:CGFloat) -> Bool {
   if value <= other + CGFloat.ulpOfOne && value >= other - CGFloat.ulpOfOne {
     return true
   }
@@ -214,7 +214,7 @@ func ScalarNearOther(value:CGFloat, other:CGFloat) -> Bool {
  @param value A value.
  @return +1.0 if the value is positive or zero, -1.0 if it is negative.
  */
-func ScalarSign(value:CGFloat) -> CGFloat {
+static func ScalarSign(value:CGFloat) -> CGFloat {
   return ((value >= 0.0) ? 1.0 : -1.0)
 }
 
@@ -232,7 +232,7 @@ func ScalarSign(value:CGFloat) -> CGFloat {
  @param dy The y offset.
  @return A new point.
  */
-func CGPointOffset(point:CGPoint, dx:CGFloat, dy:CGFloat) -> CGPoint {
+static func CGPointOffset(point:CGPoint, dx:CGFloat, dy:CGFloat) -> CGPoint {
   return CGPointFromGLKVector2(vector: GLKVector2Add(GLKVector2FromCGPoint(point: point), GLKVector2Make(Float(dx), Float(dy))))
 }
 
@@ -243,7 +243,7 @@ func CGPointOffset(point:CGPoint, dx:CGFloat, dy:CGFloat) -> CGPoint {
  @param point2 Another point.
  @return A new point.
  */
-func CGPointAdd(point1:CGPoint, point2:CGPoint) -> CGPoint {
+static func CGPointAdd(point1:CGPoint, point2:CGPoint) -> CGPoint {
   return CGPointFromGLKVector2(vector: GLKVector2Add(GLKVector2FromCGPoint(point: point1), GLKVector2FromCGPoint(point: point2)))
 }
 
@@ -254,7 +254,7 @@ func CGPointAdd(point1:CGPoint, point2:CGPoint) -> CGPoint {
  @param point2 Another point.
  @return A new point.
  */
-func CGPointSubtract(point1:CGPoint, point2:CGPoint) -> CGPoint {
+static func CGPointSubtract(point1:CGPoint, point2:CGPoint) -> CGPoint {
   return CGPointFromGLKVector2(vector: GLKVector2Subtract(GLKVector2FromCGPoint(point: point1), GLKVector2FromCGPoint(point: point2)))
 }
 
@@ -265,7 +265,7 @@ func CGPointSubtract(point1:CGPoint, point2:CGPoint) -> CGPoint {
  @param point2 Another point.
  @return A new point.
  */
-func CGPointMultiply(point1:CGPoint, point2:CGPoint) -> CGPoint {
+static func CGPointMultiply(point1:CGPoint, point2:CGPoint) -> CGPoint {
   return CGPointFromGLKVector2(vector: GLKVector2Multiply(GLKVector2FromCGPoint(point: point1), GLKVector2FromCGPoint(point: point2)))
 }
 
@@ -276,7 +276,7 @@ func CGPointMultiply(point1:CGPoint, point2:CGPoint) -> CGPoint {
  @param value A scalar.
  @return A new point.
  */
-func CGPointMultiplyScalar(point:CGPoint, value:CGFloat) -> CGPoint {
+static func CGPointMultiplyScalar(point:CGPoint, value:CGFloat) -> CGPoint {
   return CGPointFromGLKVector2(vector: GLKVector2MultiplyScalar(GLKVector2FromCGPoint(point: point), Float(value)))
 }
 
@@ -287,7 +287,7 @@ func CGPointMultiplyScalar(point:CGPoint, value:CGFloat) -> CGPoint {
  @param point2 Another point.
  @return A new point.
  */
-func CGPointDivide(point1:CGPoint, point2:CGPoint) -> CGPoint {
+static func CGPointDivide(point1:CGPoint, point2:CGPoint) -> CGPoint {
   return CGPointFromGLKVector2(vector: GLKVector2Divide(GLKVector2FromCGPoint(point: point1), GLKVector2FromCGPoint(point: point2)))
 }
 
@@ -298,7 +298,7 @@ func CGPointDivide(point1:CGPoint, point2:CGPoint) -> CGPoint {
  @param value A scalar.
  @return A new point.
  */
-func CGPointDivideScalar(point:CGPoint, value:CGFloat) -> CGPoint {
+static func CGPointDivideScalar(point:CGPoint, value:CGFloat) -> CGPoint {
   return CGPointFromGLKVector2(vector: GLKVector2DivideScalar(GLKVector2FromCGPoint(point: point), Float(value)))
 }
 
@@ -308,7 +308,7 @@ func CGPointDivideScalar(point:CGPoint, value:CGFloat) -> CGPoint {
  @param point A point.
  @return The length scalar.
  */
-func CGPointLength(point:CGPoint) -> CGFloat {
+static func CGPointLength(point:CGPoint) -> CGFloat {
   return CGFloat(GLKVector2Length(GLKVector2FromCGPoint(point: point)))
 }
 
@@ -318,7 +318,7 @@ func CGPointLength(point:CGPoint) -> CGFloat {
  @param point A point.
  @return The squared length.
  */
-func CGPointLengthSq(point:CGPoint) -> CGFloat {
+static func CGPointLengthSq(point:CGPoint) -> CGFloat {
   let vector:GLKVector2 = GLKVector2FromCGPoint(point: point)
   return CGFloat(GLKVector2DotProduct(vector, vector))
 }
@@ -329,7 +329,7 @@ func CGPointLengthSq(point:CGPoint) -> CGFloat {
  @param point A point.
  @return A new point.
  */
-func CGPointNormalize(point:CGPoint) -> CGPoint {
+static func CGPointNormalize(point:CGPoint) -> CGPoint {
   return CGPointFromGLKVector2(vector: GLKVector2Normalize(GLKVector2FromCGPoint(point: point)))
 }
 
@@ -340,7 +340,7 @@ func CGPointNormalize(point:CGPoint) -> CGPoint {
  @param point2 Another point.
  @return A new point.
  */
-func CGPointDistance(point1:CGPoint, point2:CGPoint) -> CGFloat {
+static func CGPointDistance(point1:CGPoint, point2:CGPoint) -> CGFloat {
   return CGFloat(GLKVector2Distance(GLKVector2FromCGPoint(point: point1), GLKVector2FromCGPoint(point: point2)))
 }
 
@@ -351,7 +351,7 @@ func CGPointDistance(point1:CGPoint, point2:CGPoint) -> CGFloat {
  @param point2 Another point.
  @return A new point.
  */
-func CGPointDistanceSq(point1:CGPoint, point2:CGPoint) -> CGFloat {
+static func CGPointDistanceSq(point1:CGPoint, point2:CGPoint) -> CGFloat {
   return CGPointLengthSq(point: CGPointSubtract(point1: point1, point2: point2))
 }
 
@@ -361,7 +361,7 @@ func CGPointDistanceSq(point1:CGPoint, point2:CGPoint) -> CGFloat {
  @param point A point.
  @return A new point.
  */
-func CGPointNegate(point:CGPoint) -> CGPoint {
+static func CGPointNegate(point:CGPoint) -> CGPoint {
   return CGPointFromGLKVector2(vector: GLKVector2Negate(GLKVector2FromCGPoint(point: point)))
 }
 
@@ -374,7 +374,7 @@ func CGPointNegate(point:CGPoint) -> CGPoint {
  @param t The percentage from 0 to 1 for interpolating point1 to point2.
  @return A new point.
  */
-func CGPointLerp(point1:CGPoint, point2:CGPoint, t:CGFloat) -> CGPoint {
+static func CGPointLerp(point1:CGPoint, point2:CGPoint, t:CGFloat) -> CGPoint {
   return CGPointFromGLKVector2(vector: GLKVector2Lerp(GLKVector2FromCGPoint(point: point1), GLKVector2FromCGPoint(point: point2), Float(t)))
 }
 
@@ -385,7 +385,7 @@ func CGPointLerp(point1:CGPoint, point2:CGPoint, t:CGFloat) -> CGPoint {
  @param point2 Another point.
  @return A new point.
  */
-func CGPointDotProduct(point1:CGPoint, point2:CGPoint) -> CGFloat {
+static func CGPointDotProduct(point1:CGPoint, point2:CGPoint) -> CGFloat {
   return CGFloat(GLKVector2DotProduct(GLKVector2FromCGPoint(point: point1), GLKVector2FromCGPoint(point: point2)))
 }
 
@@ -396,7 +396,7 @@ func CGPointDotProduct(point1:CGPoint, point2:CGPoint) -> CGFloat {
  @param point2 Another point.
  @return A new point.
  */
-func CGPointCrossProduct(point1:CGPoint, point2:CGPoint) -> CGFloat {
+static func CGPointCrossProduct(point1:CGPoint, point2:CGPoint) -> CGFloat {
   return point1.x * point2.y - point1.y * point2.x
 }
 
@@ -407,7 +407,7 @@ func CGPointCrossProduct(point1:CGPoint, point2:CGPoint) -> CGFloat {
  @param point2 Another point.
  @return A new point.
  */
-func CGPointProject(point1:CGPoint, point2:CGPoint) -> CGPoint {
+static func CGPointProject(point1:CGPoint, point2:CGPoint) -> CGPoint {
   return CGPointFromGLKVector2(vector: GLKVector2Project(GLKVector2FromCGPoint(point: point1), GLKVector2FromCGPoint(point: point2)))
 }
 
@@ -419,7 +419,7 @@ func CGPointProject(point1:CGPoint, point2:CGPoint) -> CGPoint {
  @param max A maximum point.
  @return A new point.
  */
-func CGPointClamp(point:CGPoint, min:CGPoint, max:CGPoint) -> CGPoint {
+static func CGPointClamp(point:CGPoint, min:CGPoint, max:CGPoint) -> CGPoint {
   return CGPointMake(Clamp(value: point.x, min: min.x, max: max.x), Clamp(value: point.y, min: min.y, max: max.y))
 }
 
@@ -431,7 +431,7 @@ func CGPointClamp(point:CGPoint, min:CGPoint, max:CGPoint) -> CGPoint {
  @param rect A rectangle.
  @return A new point.
  */
-func CGPointNormalizedInRect(point:CGPoint, rect:CGRect) -> CGPoint {
+static func CGPointNormalizedInRect(point:CGPoint, rect:CGRect) -> CGPoint {
   let relativePoint:GLKVector2 = GLKVector2Subtract(GLKVector2FromCGPoint(point: point), GLKVector2FromCGPoint(point: rect.origin))
   return CGPointFromGLKVector2(vector: GLKVector2Divide(relativePoint, GLKVector2Make(Float(rect.size.width), Float(rect.size.height))))
 }
@@ -443,7 +443,7 @@ func CGPointNormalizedInRect(point:CGPoint, rect:CGRect) -> CGPoint {
  @param size A size.
  @return A new point.
  */
-func CGPointNormalizedInSize(point:CGPoint, size:CGSize) -> CGPoint {
+static func CGPointNormalizedInSize(point:CGPoint, size:CGSize) -> CGPoint {
   return CGPointFromGLKVector2(vector: GLKVector2Divide(GLKVector2FromCGPoint(point: point), GLKVector2Make(Float(size.width), Float(size.height))))
 }
 
@@ -455,7 +455,7 @@ func CGPointNormalizedInSize(point:CGPoint, size:CGSize) -> CGPoint {
  @param variance A small delta scalar.
  @return True if both points are within the variance, otherwise false.
  */
-func CGPointNearToPointWithVariance(point1:CGPoint, point2:CGPoint, variance:CGFloat) -> Bool {
+static func CGPointNearToPointWithVariance(point1:CGPoint, point2:CGPoint, variance:CGFloat) -> Bool {
   if point1.x <= point2.x + variance && point1.x >= point2.x - variance {
     if point1.y <= point2.y + variance && point1.y >= point2.y - variance {
       return true
@@ -471,7 +471,7 @@ func CGPointNearToPointWithVariance(point1:CGPoint, point2:CGPoint, variance:CGF
  @param point2 Another point.
  @return True if bot points are approximately equal.
  */
-func CGPointNearToPoint(point1:CGPoint, point2:CGPoint) -> Bool {
+static func CGPointNearToPoint(point1:CGPoint, point2:CGPoint) -> Bool {
   return CGPointNearToPointWithVariance(point1: point1, point2: point2, variance: CGFloat.ulpOfOne)
 }
 
@@ -488,7 +488,7 @@ func CGPointNearToPoint(point1:CGPoint, point2:CGPoint) -> Bool {
  @param destSize The max size to which an object has to be scaled.
  @return The scale factor to fit an object into respecting the aspect ratio.
  */
-func CGSizeScaleFactorToSizeAspectFit(origSize:CGSize, destSize:CGSize) -> CGFloat {
+static func CGSizeScaleFactorToSizeAspectFit(origSize:CGSize, destSize:CGSize) -> CGFloat {
   let ratioWidth:CGFloat = destSize.width / origSize.width
   let ratioHeight:CGFloat = destSize.height / origSize.height
   return min(ratioWidth, ratioHeight)
@@ -503,7 +503,7 @@ func CGSizeScaleFactorToSizeAspectFit(origSize:CGSize, destSize:CGSize) -> CGFlo
  @param destSize The max size to which an object has to be scaled.
  @return The scaled size .
  */
-func CGSizeScaledToSizeAspectFit(origSize:CGSize, destSize:CGSize) -> CGSize {
+static func CGSizeScaledToSizeAspectFit(origSize:CGSize, destSize:CGSize) -> CGSize {
   let scaleFactor:CGFloat = CGSizeScaleFactorToSizeAspectFit(origSize: origSize, destSize: destSize)
   return CGSizeMake(origSize.width * scaleFactor, origSize.height * scaleFactor)
 }
@@ -515,7 +515,7 @@ func CGSizeScaledToSizeAspectFit(origSize:CGSize, destSize:CGSize) -> CGSize {
  @param destSize The max size to which an object has to be scaled.
  @return The scale factor to fill an object into respecting the aspect ratio.
  */
-func CGSizeScaleFactorToSizeAspectFill(origSize:CGSize, destSize:CGSize) -> CGFloat {
+static func CGSizeScaleFactorToSizeAspectFill(origSize:CGSize, destSize:CGSize) -> CGFloat {
   let ratioWidth:CGFloat = destSize.width / origSize.width
   let ratioHeight:CGFloat = destSize.height / origSize.height
   return max(ratioWidth, ratioHeight)
@@ -530,7 +530,7 @@ func CGSizeScaleFactorToSizeAspectFill(origSize:CGSize, destSize:CGSize) -> CGFl
  @param destSize The max size to which an object has to be scaled.
  @return The scaled size .
  */
-func CGSizeScaledToSizeAspectFill(origSize:CGSize, destSize:CGSize) -> CGSize {
+static func CGSizeScaledToSizeAspectFill(origSize:CGSize, destSize:CGSize) -> CGSize {
   let scaleFactor:CGFloat = CGSizeScaleFactorToSizeAspectFill(origSize: origSize, destSize: destSize)
   return CGSizeMake(origSize.width * scaleFactor, origSize.height * scaleFactor)
 }
@@ -547,7 +547,7 @@ func CGSizeScaledToSizeAspectFill(origSize:CGSize, destSize:CGSize) -> CGSize {
  @param degrees An angle in degrees.
  @return The angle in radians.
  */
-func DegreesToRadians(degrees:CGFloat) -> CGFloat {
+static func DegreesToRadians(degrees:CGFloat) -> CGFloat {
   return degrees * M_PI_180
 }
 
@@ -557,7 +557,7 @@ func DegreesToRadians(degrees:CGFloat) -> CGFloat {
  @param radians An angle in radians.
  @return The angle in degrees.
  */
-func RadiansToDegrees(radians:CGFloat) -> CGFloat {
+static func RadiansToDegrees(radians:CGFloat) -> CGFloat {
   return radians * M_180_PI
 }
 
@@ -568,7 +568,7 @@ func RadiansToDegrees(radians:CGFloat) -> CGFloat {
  @param angle An angle in radians.
  @return A CGPoint as a vector.
  */
-func CGPointForAngle(angle:CGFloat) -> CGPoint {
+static func CGPointForAngle(angle:CGFloat) -> CGPoint {
   return CGPointMake(cos(angle), sin(angle))
 }
 
@@ -580,7 +580,7 @@ func CGPointForAngle(angle:CGFloat) -> CGPoint {
  @param point A point as a vector.
  @return The angle in radians.
  */
-func CGPointToAngle(point:CGPoint) -> CGFloat {
+static func CGPointToAngle(point:CGPoint) -> CGFloat {
   return atan2(point.y, point.x)
 }
 
@@ -590,7 +590,7 @@ func CGPointToAngle(point:CGPoint) -> CGFloat {
  @param angle An angle in radians from -M_PI to M_PI.
  @return The angle in radians from 0 to 2*M_PI.
  */
-func AngleIn2Pi(angle:CGFloat) -> CGFloat {
+static func AngleIn2Pi(angle:CGFloat) -> CGFloat {
   var newAngle = angle
   while  newAngle >= M_PI_X_2 {
     newAngle -= M_PI_X_2
@@ -607,7 +607,7 @@ func AngleIn2Pi(angle:CGFloat) -> CGFloat {
  @param angle An angle in radians from 0 to 2*M_PI.
  @return The angle in radians from -M_PI to M_PI.
  */
-func AngleInPi(angle:CGFloat) -> CGFloat {
+static func AngleInPi(angle:CGFloat) -> CGFloat {
   var newAngle = angle
   while  newAngle >= CGFloat.pi {
     newAngle -= M_PI_X_2
@@ -628,7 +628,7 @@ func AngleInPi(angle:CGFloat) -> CGFloat {
  @parma angle2 The second angle in radians.
  @return The difference angle in radians. A positive value means a clockwise, a negative counterclockwise direction.
  */
-func ShortestAngleBetween(angle1:CGFloat, angle2:CGFloat) -> CGFloat {
+static func ShortestAngleBetween(angle1:CGFloat, angle2:CGFloat) -> CGFloat {
   var a1 = angle1
   var a2 = angle2
   if a1 < 0.0 {

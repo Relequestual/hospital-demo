@@ -43,9 +43,11 @@
 		918968401E8BA06B005EB38D /* Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9189683F1E8BA06B005EB38D /* Convert.swift */; };
 		919232D92087AD3A003A31A0 /* MenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919232D82087AD3A003A31A0 /* MenuManager.swift */; };
 		919232DB2087AE5F003A31A0 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919232DA2087AE5F003A31A0 /* Menu.swift */; };
+		91BC56F821468F300063F02B /* SKNode+INSKExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BC56F721468F300063F02B /* SKNode+INSKExtension.swift */; };
 		91C25B342098D0DC00E72865 /* MenuProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C25B332098D0DC00E72865 /* MenuProtocol.swift */; };
 		91C3E3571C6BB1E900E8CBD8 /* ItemBlueprintComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3E3561C6BB1E900E8CBD8 /* ItemBlueprintComponent.swift */; };
 		91C836831C649978008ECABF /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C836821C649978008ECABF /* GameState.swift */; };
+		91D9F4D421414A2B0032508E /* ScrollNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D9F4D321414A2B0032508E /* ScrollNode.swift */; };
 		91DF14CF1C2A958D003E813F /* PositionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DF14CE1C2A958D003E813F /* PositionComponent.swift */; };
 		91E4F98D21119A6F008747D2 /* StateProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E4F98C21119A6F008747D2 /* StateProtocols.swift */; };
 		91ED91971D01A34300A9D536 /* Graphics in Resources */ = {isa = PBXBuildFile; fileRef = 91ED91961D01A34300A9D536 /* Graphics */; };
@@ -96,9 +98,11 @@
 		9189683F1E8BA06B005EB38D /* Convert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Convert.swift; sourceTree = "<group>"; };
 		919232D82087AD3A003A31A0 /* MenuManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuManager.swift; sourceTree = "<group>"; };
 		919232DA2087AE5F003A31A0 /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
+		91BC56F721468F300063F02B /* SKNode+INSKExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKNode+INSKExtension.swift"; sourceTree = "<group>"; };
 		91C25B332098D0DC00E72865 /* MenuProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuProtocol.swift; sourceTree = "<group>"; };
 		91C3E3561C6BB1E900E8CBD8 /* ItemBlueprintComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemBlueprintComponent.swift; sourceTree = "<group>"; };
 		91C836821C649978008ECABF /* GameState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
+		91D9F4D321414A2B0032508E /* ScrollNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollNode.swift; sourceTree = "<group>"; };
 		91DF14CE1C2A958D003E813F /* PositionComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionComponent.swift; sourceTree = "<group>"; };
 		91E4F98C21119A6F008747D2 /* StateProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateProtocols.swift; sourceTree = "<group>"; };
 		91ED91961D01A34300A9D536 /* Graphics */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Graphics; sourceTree = "<group>"; };
@@ -190,6 +194,7 @@
 		13C7652E1BF61B2D00AC0223 /* Hospital Demo */ = {
 			isa = PBXGroup;
 			children = (
+				91BC56F621468F0A0063F02B /* Extensions */,
 				9189683E1E8B9FFD005EB38D /* Utils */,
 				9159B8C3211B0AE600C8CC2F /* Definitions */,
 				91158CBA1D47C94600CD423D /* Manager */,
@@ -221,6 +226,7 @@
 				91494DE41F87D8BF00817B45 /* DebugToolbar.swift */,
 				919232DA2087AE5F003A31A0 /* Menu.swift */,
 				912CBCFA2088BDA900CAE400 /* ItemMenu.swift */,
+				91D9F4D321414A2B0032508E /* ScrollNode.swift */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
@@ -296,6 +302,14 @@
 				9176D1FF2143DB7800BC4CA8 /* INSKMaths.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		91BC56F621468F0A0063F02B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				91BC56F721468F300063F02B /* SKNode+INSKExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		91BE0E5E210860450001F848 /* Tiles */ = {
@@ -486,11 +500,13 @@
 				13C765301BF61B2D00AC0223 /* AppDelegate.swift in Sources */,
 				91DF14CF1C2A958D003E813F /* PositionComponent.swift in Sources */,
 				9159B8C5211B0B3900C8CC2F /* ItemDefinitions.swift in Sources */,
+				91D9F4D421414A2B0032508E /* ScrollNode.swift in Sources */,
 				13B6A1B61C255D8E0087649C /* SpriteComponent.swift in Sources */,
 				9175E2D31D47CACE0026BA8F /* zPositionManager.swift in Sources */,
 				13B223011C6407D300567B0E /* Game.swift in Sources */,
 				9176D2002143DB7800BC4CA8 /* INSKMaths.swift in Sources */,
 				13388CF41D57B6C50080234A /* BuildRoomComponent.swift in Sources */,
+				91BC56F821468F300063F02B /* SKNode+INSKExtension.swift in Sources */,
 				9122FA441D61AC4000F92958 /* RoomBlueprintComponent.swift in Sources */,
 				914667E11C5937D800560251 /* TouchableSpriteComponent.swift in Sources */,
 				13CCF1551C2F47FF00297EF3 /* EntityManager.swift in Sources */,
