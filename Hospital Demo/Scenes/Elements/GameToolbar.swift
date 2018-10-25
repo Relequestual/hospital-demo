@@ -10,25 +10,41 @@ import Foundation
 import GameplayKit
 import SpriteKit
 
-class GameToolbar: ToolbarProtocol {
+class GameToolbar: ToolbarProtocol, INSKScrollNodeDelegate {
+
+  func scrollNode(_ scrollNode: INSKScrollNode?, didScrollFromOffset fromOffset: CGPoint, toOffset: CGPoint, velocity: CGPoint) {
+    print("scroll node scrolling?")
+  }
+
+  func scrollNode(_ scrollNode: INSKScrollNode?, didFinishScrollingAtPosition offset: CGPoint) {
+    print("END scroll node scrolling?")
+  }
+
   var location: Game.rotation?
 
   static let defaultNodeSize = CGSize(width: 64, height: 64)
 
-  var menuNode: SKSpriteNode = Menu.makeMenuNode(CGSize(width: Game.sharedInstance.mainView!.bounds.width, height: 64))
+  var menuNode = Menu.makeMenuNode(CGSize(width: Game.sharedInstance.mainView!.bounds.width, height: 64))
+  var contentNode: SKSpriteNode
 
 //  fileprivate var options = [GameToolbarOption]()
   var menuItems: [Menu.menuItem] = []
 
   init(size: CGSize) {
+
     location = .south
 
-    self.menuNode.anchorPoint = CGPoint(x: 0, y: 1)
-    let size = CGSize(width: Game.sharedInstance.mainView!.bounds.width, height: Game.sharedInstance.mainView!.bounds.height)
+    self.contentNode = SKSpriteNode(color: UIColor.blue, size: size)
+    self.contentNode.name = "content node"
+    self.contentNode.anchorPoint = CGPoint(x: 0, y: 1)
+//    let size = CGSize(width: Game.sharedInstance.mainView!.bounds.width, height: Game.sharedInstance.mainView!.bounds.height)
 
     self.createMenuItems()
     Menu.layoutItems(menu: self, layoutOptions: Menu.menuLayoutOptions(layout: .xSlide))
-    
+    self.contentNode.removeFromParent()
+    self.menuNode.scrollContentNode.addChild(self.contentNode)
+    self.menuNode.scrollContentSize = CGSize(width: self.contentNode.size.width + 50, height: self.contentNode.size.height)
+//    self.menuNode.scrollDelegate = self
   }
 
   required init?(coder _: NSCoder) {
@@ -46,11 +62,11 @@ class GameToolbar: ToolbarProtocol {
     let buildDoorButton = Button(texture: SKTexture(imageNamed: "Graphics/door"), touch_f: GameToolbar.buildDoorTouch)
     let buildDoorMenuItem = Menu.menuItem(button: buildDoorButton)
 
-    let debugButton = Button(texture: SKTexture(imageNamed: "Graphics/debug"), touch_f: GameToolbar.debugTouch)
-    let debugMenuItem = Menu.menuItem(button: debugButton)
+//    let debugButton = Button(texture: SKTexture(imageNamed: "Graphics/debug"), touch_f: GameToolbar.debugTouch)
+//    let debugMenuItem = Menu.menuItem(button: debugButton)
 
     // Cool. Cool cool cool.
-    self.menuItems.append(contentsOf: [buildRoomMenuItem, buildItemMenuItem, buildDoorMenuItem, debugMenuItem])
+    self.menuItems.append(contentsOf: [buildRoomMenuItem, buildItemMenuItem, buildDoorMenuItem])
 
   }
 
