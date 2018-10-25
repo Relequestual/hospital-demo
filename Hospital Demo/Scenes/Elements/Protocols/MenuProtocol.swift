@@ -11,7 +11,8 @@ import SpriteKit
 
 protocol MenuProtocol {
 
-  var menuNode: SKSpriteNode { get set }
+  var menuNode: INSKScrollNode { get set }
+  var contentNode: SKSpriteNode { get set }
   var menuItems: [Menu.menuItem] { get set }
 
   func show()
@@ -24,7 +25,8 @@ extension MenuProtocol {
 
   init() {
     self.init()
-    self.menuNode.anchorPoint = CGPoint(x: 0, y: 1)
+    self.contentNode.anchorPoint = CGPoint(x: 0, y: 1)
+    menuNode.addChild(contentNode)
   }
 
   func show() {

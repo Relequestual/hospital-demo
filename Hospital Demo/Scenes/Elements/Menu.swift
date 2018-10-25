@@ -42,18 +42,20 @@ class Menu {
 
   static let buttonSize = 80
 
-  static func makeMenuNode() -> SKSpriteNode {
+  static func makeMenuNode() -> INSKScrollNode {
     let size = CGSize(width: Game.sharedInstance.mainView!.bounds.width, height: Game.sharedInstance.mainView!.bounds.height)
     return Menu.makeMenuNode(size)
   }
 
-  static func makeMenuNode(_ size: CGSize) -> SKSpriteNode {
-    let menuBackgroundColor = SKColor.cyan
+  static func makeMenuNode(_ size: CGSize) -> INSKScrollNode {
+    let menuBackgroundColor = SKColor.yellow
 
-    let node = SKShapeNode(rectOf: size)
-    node.lineWidth = 0
-    node.fillColor = menuBackgroundColor
-    return SKSpriteNode(texture: SKView.init().texture(from: node))
+
+//    SKSpriteNode(texture: SKView.init().texture(from: node))
+    let scrollNode = INSKScrollNode(scrollNodeSize: size)
+    scrollNode.scrollBackgroundNode.color = menuBackgroundColor
+//    scrollNode.scrollContentSize = CGSize(width: size.width + 20, height: size.height)
+    return scrollNode
   }
 
 
@@ -80,7 +82,8 @@ class Menu {
     let padding = layoutOptions.padding
     let buttonSize = layoutOptions.buttonSize
 
-//    menuNode.anchorPoint = CGPoint(x: 0, y: 0)
+    let contentHolderNode = SKNode()
+    contentHolderNode.position = menu.contentNode.position
 
     // This offset is for taking away for x and y position starting at 0 0 in centre.
     // Applied to points that you want to position as if the menu anchor was top left.
@@ -91,11 +94,11 @@ class Menu {
     // How much space a button requires
     let buttonSpace = Int(buttonSize.width) + padding * 2
 
-    var maxNumPerRow = menu.menuNode.size.width / CGFloat(buttonSpace)
+    var maxNumPerRow = menu.contentNode.size.width / CGFloat(buttonSpace)
     maxNumPerRow.round(FloatingPointRoundingRule.down)
     let maxNumPerRowInt = Int(maxNumPerRow)
 
-    let rowAutoPad = (menu.menuNode.size.width - CGFloat(buttonSpace) * maxNumPerRow) / maxNumPerRow / 2
+    let rowAutoPad = (menu.contentNode.size.width - CGFloat(buttonSpace) * maxNumPerRow) / maxNumPerRow / 2
 
     var y = 1
     var x = 1
@@ -126,9 +129,9 @@ class Menu {
       x += 1
       menuItemButtonNode!.position = CGPoint(x: location.x, y: location.y)
       menuItemButtonNode?.removeFromParent()
-      menu.menuNode.addChild(menuItemButtonNode!)
-
+      contentHolderNode.addChild(menuItemButtonNode!)
     }
+    menu.contentNode.addChild(contentHolderNode)
 
 // These next two blocks will be useful for calculating position on a y extneding menu
 //    var numPerRow = menu.menuNode.size.width / CGFloat(buttonSpace)
