@@ -11,10 +11,13 @@ import GameplayKit
 import SpriteKit
 
 class ConfirmToolbar: ToolbarProtocol {
+
   var location: Game.rotation?
-  
-  var menuNode: SKSpriteNode = Menu.makeMenuNode(CGSize(width: Game.sharedInstance.mainView!.bounds.width, height: 64))
-  
+
+  var menuNode = Menu.makeMenuNode(CGSize(width: Game.sharedInstance.mainView!.bounds.width, height: 64))
+
+  var contentNode: SKSpriteNode
+
   var menuItems: [Menu.menuItem] = []
   
   static let defaultNodeSize = CGSize(width: 64, height: 64)
@@ -27,7 +30,8 @@ class ConfirmToolbar: ToolbarProtocol {
   init(addMenuItems: [Menu.menuItem] = []) {
 
     self.location = .south
-    self.menuNode.anchorPoint = CGPoint(x: 0, y: 1)
+    self.contentNode = SKSpriteNode(color: UIColor.blue, size: self.menuNode.scrollNodeSize)
+    self.contentNode.anchorPoint = CGPoint(x: 0, y: 1)
 
     menuItems.append(contentsOf: [
       Menu.menuItem(button: Button(texture: createNodeTexture(.green), touch_f: okTouch)),
@@ -35,6 +39,11 @@ class ConfirmToolbar: ToolbarProtocol {
     ])
     menuItems.append(contentsOf: addMenuItems)
     Menu.layoutItems(menu: self, layoutOptions: Menu.menuLayoutOptions(layout: .xSlide))
+
+    self.contentNode.removeFromParent()
+    self.menuNode.scrollContentNode.addChild(self.contentNode)
+    self.menuNode.scrollContentSize = CGSize(width: self.contentNode.size.width, height: self.contentNode.size.height)
+
   }
 
   required init?(coder _: NSCoder) {
