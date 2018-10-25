@@ -13,8 +13,9 @@ import SpriteKit
 class DebugToolbar: ToolbarProtocol {
   var location: Game.rotation?
   
-  var menuNode: SKSpriteNode = Menu.makeMenuNode(CGSize(width: 64, height: Game.sharedInstance.mainView!.bounds.height))
-  
+  var menuNode = Menu.makeMenuNode(CGSize(width: 64, height: Game.sharedInstance.mainView!.bounds.height))
+  var contentNode: SKSpriteNode
+
   var menuItems: [Menu.menuItem] = []
   
   static let defaultNodeSize = CGSize(width: 40, height: 40)
@@ -31,8 +32,12 @@ class DebugToolbar: ToolbarProtocol {
 //  fileprivate var options = [GameToolbarOption]()
 
   init(size: CGSize) {
+
+    self.menuNode.addChild(self.menuNode)
+
     self.location = .east
-    self.menuNode.anchorPoint = CGPoint(x: 0, y: 1)
+    self.contentNode = SKSpriteNode(color: UIColor.blue, size: size)
+    self.contentNode.anchorPoint = CGPoint(x: 0, y: 1)
 
 //    self.position = CGPoint(x: Game.sharedInstance.mainView!.bounds.width, y: 0)
 //    self.position = CGPoint(x: 50, y: 0)
