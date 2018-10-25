@@ -47,6 +47,8 @@ class Game {
 
   var touchDidMove = false
 
+  var touchIsScrollNode = false
+
   var touchTile: ((_ tile:Tile) -> Void)?
 
   enum rotation: Int {

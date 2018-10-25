@@ -142,9 +142,9 @@ class BaseScene: SKScene {
     let gameToolbar = GameToolbar(size: CGSize(width: view.bounds.width, height: 64))
     Game.sharedInstance.toolbarManager?.add(toolbar: gameToolbar, location: Game.rotation.south, shown: true)
 
-    let debugToolbar = DebugToolbar(size: CGSize(width: 64, height: view.bounds.height - 64))
-    Game.sharedInstance.toolbarManager?.add(toolbar: debugToolbar, location: Game.rotation.east, shown: false)
-    debugToolbar.menuNode.isHidden = true
+//    let debugToolbar = DebugToolbar(size: CGSize(width: 64, height: view.bounds.height - 64))
+//    Game.sharedInstance.toolbarManager?.add(toolbar: debugToolbar, location: Game.rotation.east, shown: false)
+//    debugToolbar.menuNode.isHidden = true
 
     Game.sharedInstance.menuManager = MenuManager(scene: self)
 
@@ -153,6 +153,13 @@ class BaseScene: SKScene {
     addChild(myContentNode)
 
     Game.sharedInstance.wolrdnode = myContentNode
+
+//    let testNode = SKSpriteNode(color: UIColor.orange, size: CGSize(width: 200, height: 200))
+//
+//    testNode.zPosition = 10000
+//
+//    camera?.addChild(testNode)
+
 
     addChild(camera!)
     camera?.position = CGPoint(x: size.width / 2 + 5 * 64, y: size.height / 2 + 5 * 64)
@@ -257,7 +264,9 @@ class BaseScene: SKScene {
 //    _messageNode?.showMessage(message as String, parent: self)
   }
 
-  override func touchesBegan(_ touches: Set<UITouch>, with _: UIEvent?) {
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+
+    print("touche began in scene!")
     let touch = touches.first!
     let positionInScene = touch.location(in: self)
     let positionInWorldnodeContent = touches.first?.location(in: Game.sharedInstance.wolrdnode)
@@ -273,6 +282,17 @@ class BaseScene: SKScene {
     var topTappableNodeEntity = GKEntity()
     var topDraggableNodeEntity = GKEntity()
     for node in touchedNodes {
+      if (node.isKind(of: INSKScrollNode.self)) {
+        let scrollNode = node as! INSKScrollNode
+        if (scrollNode.clipContent && scrollNode.contentCropNode != nil) {
+          if (!scrollNode.scrollBackgroundNode.contains(touch.location(in:scrollNode))) {
+            continue //Next in loop
+          }
+        }
+        scrollNode.touchesBegan([touch], with: event)
+        Game.sharedInstance.touchIsScrollNode = true
+//        return
+      }
       guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else { continue }
 
       if entity.component(ofType: DraggableSpriteComponent.self) != nil {
@@ -294,11 +314,32 @@ class BaseScene: SKScene {
     Game.sharedInstance.panningWold = !draggingDraggableNode
   }
 
-  override func touchesMoved(_ touches: Set<UITouch>, with _: UIEvent?) {
+  override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
     print("touches moved ------------")
+     let touch = touches.first!
 
-    let positionInSceneView = touches.first?.location(in: view)
+    let positionInSceneView = touch.location(in: view)
     Game.sharedInstance.touchDidMove = true
+
+    let positionInScene = touch.location(in: self)
+    let touchedNodes = nodes(at: positionInScene)
+    for node in touchedNodes {
+      if (node.isKind(of: INSKScrollNode.self)) {
+        let scrollNode = node as! INSKScrollNode
+        if (scrollNode.clipContent && scrollNode.contentCropNode != nil) {
+          if (!scrollNode.scrollBackgroundNode.contains(touch.location(in:scrollNode))) {
+            continue //Next in loop
+          }
+        }
+        scrollNode.touchesMoved([touch], with: event)
+        return
+      }
+    }
+
+    // If the start of the touch was in a scroll node, we don't want the world to move or pan for any reason on movement.
+    if Game.sharedInstance.touchIsScrollNode {
+      return
+    }
 
     if Game.sharedInstance.panningWold {
       panWold(touches)
@@ -311,16 +352,18 @@ class BaseScene: SKScene {
     }
 
     if Game.sharedInstance.canAutoScroll && !Game.sharedInstance.panningWold {
-      checkAutoScroll(positionInSceneView!)
+      checkAutoScroll(positionInSceneView)
     }
 
     // Reset tappabe entity because tap is now invalid
     Game.sharedInstance.tappableEntity = nil
   }
 
-  override func touchesEnded(_ touches: Set<UITouch>, with _: UIEvent?) {
+  override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
     print("touches ended")
 //    Game.sharedInstance.gameToolbar?.hidden = false
+
+
 
     if Game.sharedInstance.tappableEntity != nil {
       Game.sharedInstance.tappableEntity?.component(ofType: TouchableSpriteComponent.self)?.callFunction()
@@ -331,6 +374,16 @@ class BaseScene: SKScene {
     if Game.sharedInstance.touchDidMove {
       if Game.sharedInstance.draggingEntiy != nil {
         Game.sharedInstance.toolbarManager?.showAll()
+      } else {
+        let touchedNodes = nodes(at: positionInScene)
+        for node in touchedNodes {
+          if (node.isKind(of: INSKScrollNode.self)) {
+            let scrollNode = node as! INSKScrollNode
+            scrollNode.touchesEnded([touch], with: event)
+//            Game.sharedInstance.touchIsScrollNode = false
+//            return
+          }
+        }
       }
 
       Game.sharedInstance.autoScrollVelocityX = 0
@@ -339,6 +392,7 @@ class BaseScene: SKScene {
       Game.sharedInstance.draggingEntiy?.component(ofType: DraggableSpriteComponent.self)?.touchEnd(positionInScene)
       Game.sharedInstance.draggingEntiy = nil
     }
+    Game.sharedInstance.touchIsScrollNode = false
   }
 
   func panWold(_ touches: Set<UITouch>) {
