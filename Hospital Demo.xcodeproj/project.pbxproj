@@ -48,6 +48,7 @@
 		91C3E3571C6BB1E900E8CBD8 /* ItemBlueprintComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3E3561C6BB1E900E8CBD8 /* ItemBlueprintComponent.swift */; };
 		91C836831C649978008ECABF /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C836821C649978008ECABF /* GameState.swift */; };
 		91D9F4D421414A2B0032508E /* ScrollNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D9F4D321414A2B0032508E /* ScrollNode.swift */; };
+		91DD83DC217DB56C008F434C /* SKSpriteNode+INSKExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DD83DB217DB56C008F434C /* SKSpriteNode+INSKExtension.swift */; };
 		91DF14CF1C2A958D003E813F /* PositionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DF14CE1C2A958D003E813F /* PositionComponent.swift */; };
 		91E4F98D21119A6F008747D2 /* StateProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E4F98C21119A6F008747D2 /* StateProtocols.swift */; };
 		91ED91971D01A34300A9D536 /* Graphics in Resources */ = {isa = PBXBuildFile; fileRef = 91ED91961D01A34300A9D536 /* Graphics */; };
@@ -103,6 +104,7 @@
 		91C3E3561C6BB1E900E8CBD8 /* ItemBlueprintComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemBlueprintComponent.swift; sourceTree = "<group>"; };
 		91C836821C649978008ECABF /* GameState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		91D9F4D321414A2B0032508E /* ScrollNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollNode.swift; sourceTree = "<group>"; };
+		91DD83DB217DB56C008F434C /* SKSpriteNode+INSKExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKSpriteNode+INSKExtension.swift"; sourceTree = "<group>"; };
 		91DF14CE1C2A958D003E813F /* PositionComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionComponent.swift; sourceTree = "<group>"; };
 		91E4F98C21119A6F008747D2 /* StateProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateProtocols.swift; sourceTree = "<group>"; };
 		91ED91961D01A34300A9D536 /* Graphics */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Graphics; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 			isa = PBXGroup;
 			children = (
 				91BC56F721468F300063F02B /* SKNode+INSKExtension.swift */,
+				91DD83DB217DB56C008F434C /* SKSpriteNode+INSKExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -510,6 +513,7 @@
 				9122FA441D61AC4000F92958 /* RoomBlueprintComponent.swift in Sources */,
 				914667E11C5937D800560251 /* TouchableSpriteComponent.swift in Sources */,
 				13CCF1551C2F47FF00297EF3 /* EntityManager.swift in Sources */,
+				91DD83DC217DB56C008F434C /* SKSpriteNode+INSKExtension.swift in Sources */,
 				13DFA1791C65ECE8003289E9 /* GameToolbar.swift in Sources */,
 				136FA18A1BFBCBDC0086F545 /* BaseScene.swift in Sources */,
 				91F72CF31DC9E00E00210C71 /* ConfirmToolbar.swift in Sources */,
