@@ -18,7 +18,6 @@ class ItemMenu: MenuProtocol {
   var menuItems: [Menu.menuItem] = []
 
   init(menuItems: [ItemDefinitions.BaseItems] = [ItemDefinitions.BaseItems.ReceptionDesk, ItemDefinitions.BaseItems.StaffDesk, ItemDefinitions.BaseItems.PateintChair]) {
-    print("ItemMen#init")
 
     self.menuNode.decelerationMode = .Decelerate
 
@@ -29,7 +28,6 @@ class ItemMenu: MenuProtocol {
 
     self.contentNode.size = size
     self.contentNode.anchorPoint = CGPoint(x: 0, y: 1)
-//    contentNode.setPosition(position: CGPoint(x: 0, y: 0), forAnchor: CGPoint(x: 0.5, y: 0.5))
     self.contentNode.position = CGPoint(x:0,y:0)
     self.menuNode.scrollContentNode.addChild(self.contentNode)
     self.menuNode.scrollContentSize = size
@@ -41,7 +39,6 @@ class ItemMenu: MenuProtocol {
       let item = Game.sharedInstance.itemManager!.buildItem(itemType: itemType)
       let node = item.component(ofType: SpriteComponent.self)?.node ?? SKSpriteNode()
       let texture = view.texture(from: node)!
-//      texture = Menu.resizeToMax(texture: texture)
 
       graphics[itemType] = texture
     })
@@ -49,37 +46,21 @@ class ItemMenu: MenuProtocol {
     self.createMenuItems()
     Menu.layoutItems(menu: self, layoutOptions: Menu.menuLayoutOptions(layout: Menu.Layout.grid, buttonSize: CGSize(width: 100, height: 80)))
 
-    // Create custom crop node, but don't activate clipping, yet, but DO active it now.
-
-    //    SKSpriteNode *cropMask = [SKSpriteNode spriteNodeWithColor:[SKColor redColor] size:CGSizeMake(self.scrollNode.scrollNodeSize.width*2/3, self.scrollNode.scrollNodeSize.height*2/3)];
-
+    // Create custom crop node
     let cropMask = SKSpriteNode(color: UIColor.red, size: menuNode.scrollBackgroundNode.size)
-//    cropMask.anchorPoint = CGPoint(x: 0.5, y: 0.5)
 
     let cropNode = SKCropNode()
     cropNode.maskNode = cropMask
-//    cropNode.position = CGPoint(x: self.menuNode.scrollNodeSize.width / 2, y: self.menuNode.scrollNodeSize.height / 4)
     cropNode.position = CGPoint(x: 0 + size.width / 2, y: 0 - size.height / 4)
-//    cropNode.position = CGPoint(x: 0 , y: 0)
-//    cropNode.position = self.menuNode.position
 
     self.menuNode.contentCropNode = cropNode
     self.menuNode.clipContent = true
-
-
-//    SKCropNode *cropNode = [[SKCropNode alloc] init];
-//    [cropNode setMaskNode:cropMask];
-//    cropNode.position = CGPointMake(self.scrollNode.scrollNodeSize.width/2, -self.scrollNode.scrollNodeSize.height/2);
-//    self.scrollNode.contentCropNode = cropNode;
-
-
   }
 
   func createMenuItems() {
 
     self.graphics.forEach { (itemType: ItemDefinitions.BaseItems, texture: SKTexture) in
       let button = Button(texture: texture, touch_f: { (Button) in
-        print("menu button!!!")
         Game.sharedInstance.gameStateMachine.enter(GSBuildItem.self)
         Game.sharedInstance.buildItemStateMachine.enter(BISPlan.self)
         Game.sharedInstance.placingObjectsQueue.append(itemType)

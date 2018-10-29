@@ -92,7 +92,6 @@ protocol INSKScrollNodeDelegate {
 
 }
 
-//---
 
 let ScrollContentMoveActionName:String! = "INSKScrollNodeMoveScrollContent"
 let ScrollContentMoveActionDuration:CGFloat = 0.3
@@ -154,6 +153,8 @@ class INSKScrollNode : SKNode {
       self.applyScrollLimits()
     }
   }
+
+  //  Get and set the scrollContentNode position relative to the parent node
   private var _scrollContentPosition:CGPoint = CGPoint.zero
   var scrollContentPosition:CGPoint {
     get {
@@ -177,6 +178,7 @@ class INSKScrollNode : SKNode {
 
   private(set) var scrollBackgroundNode:SKSpriteNode!
   private(set) var scrollContentNode:SKNode!
+
   private var _clipContent:Bool
   var clipContent:Bool {
     get { return _clipContent }
@@ -189,7 +191,6 @@ class INSKScrollNode : SKNode {
       // Create crop node if needed
       if _clipContent && _contentCropNode == nil {
         let maskNode:SKSpriteNode! = SKSpriteNode(color: SKColor.black, size:self.scrollBackgroundNode.size)
-//        maskNode.anchorPoint = CGPoint(x: 0.0, y: 1.0)
         let cropNode:SKCropNode! = SKCropNode.init()
         cropNode.maskNode = maskNode
         _contentCropNode = cropNode
@@ -207,6 +208,7 @@ class INSKScrollNode : SKNode {
       self.scrollContentPosition = self.scrollContentNode.position
     }
   }
+
   private var _contentCropNode:SKCropNode!
   var contentCropNode:SKCropNode! {
     get { return _contentCropNode }
@@ -220,14 +222,13 @@ class INSKScrollNode : SKNode {
       self.clipContent = oldClipFlag
     }
   }
+
   var decelerationMode:INSKScrollNodeDecelerationMode  = INSKScrollNodeDecelerationMode.None
   var pageSize:CGSize = CGSize.zero
   var deceleration:CGFloat = 10000
   var scrollingEnabled:Bool = true
   private var lastTouchTimestamp:TimeInterval = 0
   private var lastVelocities:NSMutableArray!
-  private var numberOfMouseButtonsPressed:UInt = 0
-//  private var positionOfLastMouseEvent:CGPoint
 
   class func scrollNodeWithSize(scrollNodeSize:CGSize) -> Self {
     return self.init(scrollNodeSize:scrollNodeSize)
@@ -237,7 +238,6 @@ class INSKScrollNode : SKNode {
     _clipContent = false
     _scrollNodeSize = scrollNodeSize
     super.init()
-//    if self == nil {return self}
 
     self.scrollBackgroundNode = SKSpriteNode(color: SKColor.clear, size:self.scrollNodeSize)
     self.scrollBackgroundNode.anchorPoint = CGPoint(x: 0.0, y: 1.0)
@@ -250,12 +250,6 @@ class INSKScrollNode : SKNode {
     self.scrollNodeSize = scrollNodeSize
     self.scrollContentSize = CGSize.zero
     self.lastVelocities = NSMutableArray(capacity: MaxNumberOfVelocities)
-
-    self.numberOfMouseButtonsPressed = 0
-
-    // create background node
-
-
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -268,6 +262,7 @@ class INSKScrollNode : SKNode {
       return
     }
 
+    // Some maths notes from INKS:
     // v(t) = a * t + v0; s(t) = (a/2) * t*t + v0 * t + s0
     // v0 = v(t) - (a * t); sdiff = s(t) - s0; a = -2 * sdiff / t*t
     let positionDifference:CGPoint = INSKMaths.CGPointSubtract(point1: scrollContentPosition, point2: self.scrollContentPosition)
@@ -328,7 +323,6 @@ class INSKScrollNode : SKNode {
   // Position has to be in the coordinate system of self (INSKScrollNode).
   // Get the position via scrollContentPosition or convert manually if the crop node is active.
   func positionWithScrollLimitsApplyed(position:CGPoint) -> CGPoint {
-//    print(position)
     var newPosition = position
     // Limit scrolling horizontally
     if self.scrollContentSize.width <= self.scrollNodeSize.width {
@@ -489,7 +483,6 @@ class INSKScrollNode : SKNode {
   // MARK: - touch events
 
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    print("insk started touch")
     if !self.scrollingEnabled {return}
 
     if event!.allTouches!.count == touches.count {
@@ -502,7 +495,6 @@ class INSKScrollNode : SKNode {
   }
 
   override func touchesMoved(_ touches: Set<UITouch>, with event:UIEvent?) {
-    print("touch moved")
     if !self.scrollingEnabled {return}
 
     // Find touch location
@@ -524,8 +516,7 @@ class INSKScrollNode : SKNode {
     let oldPosition:CGPoint = self.scrollContentNode.position
 //    This line change made it work
     self.scrollContentPosition = INSKMaths.CGPointAdd(point1: self.scrollContentNode.position, point2: translation)
-//    self.scrollContentNode.position = INSKMaths.CGPointAdd(point1: self.scrollContentNode.position, point2: translation)
-    print(self.scrollContentNode.position)
+
     // Calculate velocity
     let timeDifferecne:TimeInterval = touch.timestamp - self.lastTouchTimestamp
     self.lastTouchTimestamp = touch.timestamp
@@ -552,112 +543,10 @@ class INSKScrollNode : SKNode {
     self.applyScrollOutWithVelocity(velocity: self.getAveragedVelocity())
   }
 
-//  #else // OSX
-//  // MARK: - mouse events
-//
-//  func mouseDown(theEvent:NSEvent!) {
-//    self.processMouseDown(theEvent)
-//  }
-//
-//  func rightMouseDown(theEvent:NSEvent!) {
-//    self.processMouseDown(theEvent)
-//  }
-//
-//  func otherMouseDown(theEvent:NSEvent!) {
-//    self.processMouseDown(theEvent)
-//  }
-//
-//  func processMouseDown(theEvent:NSEvent!) {
-//    // Track total number of mouse buttons
-//    self.numberOfMouseButtonsPressed++
-//
-//    if !self.scrollingEnabled {return}
-//
-//    // Start dragging only for the first pressed button
-//    if self.numberOfMouseButtonsPressed == 1 {
-//      self.stopScrollAnimations()
-//
-//      self.lastTouchTimestamp = theEvent.timestamp
-//      self.positionOfLastMouseEvent = theEvent.locationInNode(self)
-//      self.lastVelocities.removeAllObjects()
-//    }
-//  }
-//
-//  func mouseDragged(theEvent:NSEvent!) {
-//    self.processMouseDragged(theEvent)
-//  }
-//
-//  func rightMouseDragged(theEvent:NSEvent!) {
-//    self.processMouseDragged(theEvent)
-//  }
-//
-//  func otherMouseDragged(theEvent:NSEvent!) {
-//    self.processMouseDragged(theEvent)
-//  }
-//
-//  func processMouseDragged(theEvent:NSEvent!) {
-//    if !self.scrollingEnabled {return}
-//
-//    // Ignore touches outside of scroll node if clipping is on
-//    let location:CGPoint = theEvent.locationInNode(self)
-//    if self.clipContent {
-//      let frame:CGRect = CGRectMake(0, 0, self.scrollNodeSize.width, -self.scrollNodeSize.height)
-//      if !CGRectContainsPoint(frame, location) {
-//        return
-//      }
-//    }
-//
-//    // Calculate and apply translation
-//    let lastLocation:CGPoint = self.positionOfLastMouseEvent
-//    let translation:CGPoint = CGPointSubtract(location, lastLocation)
-//    let oldPosition:CGPoint = self.scrollContentNode.position
-//    self.scrollContentNode.position = CGPointAdd(self.scrollContentNode.position, translation)
-//
-//    // Calculate velocity
-//    let timeDifferecne:NSTimeInterval = theEvent.timestamp - self.lastTouchTimestamp
-//    let scrollVelocity:CGPoint = CGPointDivideScalar(translation, timeDifferecne)
-//    self.addVelocityToAverage(scrollVelocity)
-//
-//    self.lastTouchTimestamp = theEvent.timestamp
-//    self.positionOfLastMouseEvent = location
-//
-//    self.applyScrollLimits()
-//
-//    // Inform subclasses and delegate
-//    self.didScrollFromOffset(oldPosition, toOffset:self.scrollContentPosition, velocity:self.getAveragedVelocity())
-//  }
-//
-//  func mouseUp(theEvent:NSEvent!) {
-//    self.processMouseUp(theEvent)
-//  }
-//
-//  func rightMouseUp(theEvent:NSEvent!) {
-//    self.processMouseUp(theEvent)
-//  }
-//
-//  func otherMouseUp(theEvent:NSEvent!) {
-//    self.processMouseUp(theEvent)
-//  }
-//
-//  func processMouseUp(theEvent:NSEvent!) {
-//    // Track total number of mouse buttons
-//    self.numberOfMouseButtonsPressed--
-//
-//    if !self.scrollingEnabled {return}
-//
-//    // Apply deceleration only when the last button has been lifted
-//    if self.numberOfMouseButtonsPressed == 0 {
-//      self.applyScrollOutWithVelocity(velocity: self.getAveragedVelocity())
-//    }
-//  }
-//
-//  #endif
-
 
   // MARK: - methods to override
 
   func didScrollFromOffset(fromOffset:CGPoint, toOffset:CGPoint, velocity:CGPoint) {
-    print("delegate?")
 //    self.scrollDelegate.scrollNode(self, didScrollFromOffset:fromOffset, toOffset:toOffset, velocity:velocity)
   }
 

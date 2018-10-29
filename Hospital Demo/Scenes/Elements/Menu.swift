@@ -9,6 +9,7 @@
 import Foundation
 import SpriteKit
 
+// Utility class for menus and toolbars. Toolbars are a type of menu.
 class Menu {
 
   struct menuLayoutOptions {
@@ -23,7 +24,6 @@ class Menu {
     }
     
   }
-
 
   struct menuItem {
     var button: Button
@@ -51,10 +51,8 @@ class Menu {
     let menuBackgroundColor = SKColor.yellow
 
 
-//    SKSpriteNode(texture: SKView.init().texture(from: node))
     let scrollNode = INSKScrollNode(scrollNodeSize: size)
     scrollNode.scrollBackgroundNode.color = menuBackgroundColor
-//    scrollNode.scrollContentSize = CGSize(width: size.width + 20, height: size.height)
     return scrollNode
   }
 

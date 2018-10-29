@@ -291,8 +291,8 @@ class BaseScene: SKScene {
         }
         scrollNode.touchesBegan([touch], with: event)
         Game.sharedInstance.touchIsScrollNode = true
-//        return
       }
+
       guard let entity: GKEntity = node.userData?["entity"] as? GKEntity else { continue }
 
       if entity.component(ofType: DraggableSpriteComponent.self) != nil {
@@ -361,9 +361,6 @@ class BaseScene: SKScene {
 
   override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
     print("touches ended")
-//    Game.sharedInstance.gameToolbar?.hidden = false
-
-
 
     if Game.sharedInstance.tappableEntity != nil {
       Game.sharedInstance.tappableEntity?.component(ofType: TouchableSpriteComponent.self)?.callFunction()
@@ -380,8 +377,6 @@ class BaseScene: SKScene {
           if (node.isKind(of: INSKScrollNode.self)) {
             let scrollNode = node as! INSKScrollNode
             scrollNode.touchesEnded([touch], with: event)
-//            Game.sharedInstance.touchIsScrollNode = false
-//            return
           }
         }
       }

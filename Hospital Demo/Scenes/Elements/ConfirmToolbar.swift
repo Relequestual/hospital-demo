@@ -55,10 +55,6 @@ class ConfirmToolbar: ToolbarProtocol {
     return texture
   }
 
-//  fileprivate func createNode(_ texture: SKTexture, size: CGSize = GameToolbar.defaultNodeSize) -> SKSpriteNode {
-//    return SKSpriteNode(texture: texture, size: size)
-//  }
-
   func okTouch() {
     print("ok touch")
     if confirm != nil {

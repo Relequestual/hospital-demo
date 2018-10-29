@@ -46,15 +46,6 @@ import SpriteKit
 /// @name definitions
 
 ///**
-// Epsilon architecture independent.
-// */
-//#if CGFLOAT_IS_DOUBLE
-//// define INSK_EPSILON DBL_EPSILON
-//#else
-//// define INSK_EPSILON FLT_EPSILON
-//#endif
-
-///**
 // M_PI/180
 // */
 let M_PI_180:CGFloat = CGFloat.pi / 180
@@ -646,7 +637,6 @@ static func ShortestAngleBetween(angle1:CGFloat, angle2:CGFloat) -> CGFloat {
   }
   return angle
 }
-//#endif
 
 
 }
