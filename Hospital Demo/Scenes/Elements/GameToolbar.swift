@@ -24,7 +24,7 @@ class GameToolbar: ToolbarProtocol, INSKScrollNodeDelegate {
 
   static let defaultNodeSize = CGSize(width: 64, height: 64)
 
-  var menuNode = Menu.makeMenuNode(CGSize(width: Game.sharedInstance.mainView!.bounds.width, height: 64))
+  var menuNode: INSKScrollNode
   var contentNode: SKSpriteNode
 
 //  fileprivate var options = [GameToolbarOption]()
@@ -33,6 +33,8 @@ class GameToolbar: ToolbarProtocol, INSKScrollNodeDelegate {
   init(size: CGSize) {
 
     location = .south
+
+    self.menuNode = Menu.makeMenuNode(size)
 
     self.contentNode = SKSpriteNode(color: UIColor.blue, size: size)
     self.contentNode.name = "content node"

@@ -14,7 +14,7 @@ class ConfirmToolbar: ToolbarProtocol {
 
   var location: Game.rotation?
 
-  var menuNode = Menu.makeMenuNode(CGSize(width: Game.sharedInstance.mainView!.bounds.width, height: 64))
+  var menuNode: INSKScrollNode
 
   var contentNode: SKSpriteNode
 
@@ -30,6 +30,9 @@ class ConfirmToolbar: ToolbarProtocol {
   init(addMenuItems: [Menu.menuItem] = []) {
 
     self.location = .south
+
+    self.menuNode = Menu.makeMenuNode(CGSize(width: Game.sharedInstance.mainView!.bounds.width, height: 64))
+
     self.contentNode = SKSpriteNode(color: UIColor.blue, size: self.menuNode.scrollNodeSize)
     self.contentNode.anchorPoint = CGPoint(x: 0, y: 1)
 
