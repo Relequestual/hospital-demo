@@ -16,6 +16,7 @@ class ItemDefinitions {
     case ReceptionDesk
     case StaffDesk
     case PateintChair
+    case ExamBed
   }
 
   static let items: [BaseItems: ItemManager.ItemSpec] = [
@@ -33,7 +34,7 @@ class ItemDefinitions {
       pous: [],
       staffPous: [CGPoint(x: 0, y: 1), CGPoint(x: 1, y: 1)],
       shapeNode: SKShapeNode(rectOf: CGSize(width: 110, height: 55), cornerRadius: 0.2),
-      color: UIColor.white
+      color: UIColor.brown
     ),
     BaseItems.PateintChair: ItemManager.ItemSpec(
       name: "Chair",
@@ -42,6 +43,14 @@ class ItemDefinitions {
       staffPous: [],
       shapeNode: SKShapeNode(rectOf: CGSize(width: 45, height: 45), cornerRadius: 0.2),
       color: UIColor.brown
+    ),
+    BaseItems.ExamBed: ItemManager.ItemSpec(
+      name: "Exam Bed",
+      area: [CGPoint(x: 0, y: 0), CGPoint(x: 1, y: 0)],
+      pous: [CGPoint(x: 0, y: 1), CGPoint(x: 1, y: 1)],
+      staffPous: [CGPoint(x: 1, y: 1),],
+      shapeNode: SKShapeNode(rectOf: CGSize(width: 110, height: 55), cornerRadius: 0.4),
+      color: UIColor.white
     )
   ]
 

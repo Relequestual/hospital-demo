@@ -17,7 +17,7 @@ class ItemMenu: MenuProtocol {
   var graphics: [ItemDefinitions.BaseItems: SKTexture]
   var menuItems: [Menu.menuItem] = []
 
-  init(menuItems: [ItemDefinitions.BaseItems] = [ItemDefinitions.BaseItems.ReceptionDesk, ItemDefinitions.BaseItems.StaffDesk, ItemDefinitions.BaseItems.PateintChair]) {
+  init(menuItems: [ItemDefinitions.BaseItems] = [.ReceptionDesk, .StaffDesk, .PateintChair, .ExamBed]) {
 
     self.menuNode.decelerationMode = .Decelerate
 
