@@ -62,11 +62,11 @@ class GameToolbar: ToolbarProtocol, INSKScrollNodeDelegate {
     let buildDoorButton = Button(texture: SKTexture(imageNamed: "Graphics/door"), touch_f: GameToolbar.buildDoorTouch)
     let buildDoorMenuItem = Menu.menuItem(button: buildDoorButton)
 
-//    let debugButton = Button(texture: SKTexture(imageNamed: "Graphics/debug"), touch_f: GameToolbar.debugTouch)
-//    let debugMenuItem = Menu.menuItem(button: debugButton)
+    let debugButton = Button(texture: SKTexture(imageNamed: "Graphics/debug"), touch_f: GameToolbar.debugTouch)
+    let debugMenuItem = Menu.menuItem(button: debugButton)
 
     // Cool. Cool cool cool.
-    self.menuItems.append(contentsOf: [buildRoomMenuItem, buildItemMenuItem, buildDoorMenuItem])
+    self.menuItems.append(contentsOf: [buildRoomMenuItem, buildItemMenuItem, buildDoorMenuItem, debugMenuItem])
 
   }
 

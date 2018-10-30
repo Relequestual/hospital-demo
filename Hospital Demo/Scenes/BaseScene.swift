@@ -142,9 +142,9 @@ class BaseScene: SKScene {
     let gameToolbar = GameToolbar(size: CGSize(width: view.bounds.width, height: 64))
     Game.sharedInstance.toolbarManager?.add(toolbar: gameToolbar, location: Game.rotation.south, shown: true)
 
-//    let debugToolbar = DebugToolbar(size: CGSize(width: 64, height: view.bounds.height - 64))
-//    Game.sharedInstance.toolbarManager?.add(toolbar: debugToolbar, location: Game.rotation.east, shown: false)
-//    debugToolbar.menuNode.isHidden = true
+    let debugToolbar = DebugToolbar(size: CGSize(width: 64, height: view.bounds.height - 64))
+    Game.sharedInstance.toolbarManager?.add(toolbar: debugToolbar, location: Game.rotation.east, shown: false)
+    debugToolbar.menuNode.isHidden = true
 
     Game.sharedInstance.menuManager = MenuManager(scene: self)
 
@@ -332,6 +332,7 @@ class BaseScene: SKScene {
           }
         }
         scrollNode.touchesMoved([touch], with: event)
+        Game.sharedInstance.tappableEntity = nil
         return
       }
     }

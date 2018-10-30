@@ -33,8 +33,6 @@ class DebugToolbar: ToolbarProtocol {
 
   init(size: CGSize) {
 
-    self.menuNode.addChild(self.menuNode)
-
     self.location = .east
     self.contentNode = SKSpriteNode(color: UIColor.blue, size: size)
     self.contentNode.anchorPoint = CGPoint(x: 0, y: 1)
@@ -51,6 +49,10 @@ class DebugToolbar: ToolbarProtocol {
     var layoutOptions = Menu.menuLayoutOptions()
     layoutOptions.buttonSize = DebugToolbar.defaultNodeSize
     Menu.layoutItems(menu: self, layoutOptions: layoutOptions)
+
+
+//    self.contentNode.removeFromParent()
+    self.menuNode.scrollContentNode.addChild(self.contentNode)
   }
 
   required init?(coder _: NSCoder) {
