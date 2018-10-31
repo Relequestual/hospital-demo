@@ -16,7 +16,7 @@ class ItemSpecComponent: GKComponent {
 
   var baring = Game.rotation.north
 
-  init(spec: ItemManager.ItemSpec) {
+  init(spec: ItemDefinitions.ItemSpec) {
     area = spec.area
     pous = spec.pous
     staffPous = spec.staffPous ?? []

@@ -12,45 +12,15 @@ import GameplayKit
 // The ItemManager class is for creating items of different types based on their required properties and components, and keeping track of each item type
 class ItemManager {
 
-  struct ItemSpec {
-
-    let name: String
-
-    let area: [CGPoint]
-    let pous: [CGPoint]
-    let staffPous: [CGPoint]?
-
-    let texture: SKTexture
-    //    let shapeNode: SKShapeNode?
-    //    let color: UIColor?
-
-    init(name: String, area: [CGPoint], pous: [CGPoint], staffPous: [CGPoint], texture: SKTexture) {
-      self.name = name
-      self.area = area
-      self.pous = pous
-      self.staffPous = staffPous
-      self.texture = texture
-    }
-
-    init(name: String, area: [CGPoint], pous: [CGPoint], staffPous: [CGPoint], shapeNode: SKShapeNode, color: UIColor) {
-      shapeNode.fillColor = color
-      let view = SKView()
-      let texture: SKTexture = view.texture(from: shapeNode)!
-      self.init(name: name, area: area, pous: pous, staffPous: staffPous, texture: texture)
-    }
-
-
-  }
-
-  var knownItemTypes: [ItemDefinitions.BaseItems: ItemSpec]
+  var knownItemTypes: [ItemDefinitions.BaseItems: ItemDefinitions.ItemSpec]
 
   var knownItem: [ItemDefinitions.BaseItems:[GKEntity]] = [:]
 
 
   // Compile the set of known item types given an array of item specs
-  init(itemTypes:[ItemDefinitions.BaseItems: ItemSpec]) {
+  init(itemTypes:[ItemDefinitions.BaseItems: ItemDefinitions.ItemSpec]) {
 
-    self.knownItemTypes = itemTypes.reduce(into: [:]) { ( itemTypes: inout [ItemDefinitions.BaseItems: ItemSpec], itemSpec) in
+    self.knownItemTypes = itemTypes.reduce(into: [:]) { ( itemTypes: inout [ItemDefinitions.BaseItems: ItemDefinitions.ItemSpec], itemSpec) in
       let (key, value) = itemSpec
       itemTypes[key] = value
     }
