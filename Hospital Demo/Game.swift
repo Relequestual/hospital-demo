@@ -35,6 +35,8 @@ class Game {
 
   var menuManager: MenuManager?
 
+  var roomManager: RoomManager?
+
   var itemManager: ItemManager?
 
   var tilesAtCoords: [Int: [Int: Tile]] = [:]

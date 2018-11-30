@@ -46,6 +46,7 @@
 		919232DB2087AE5F003A31A0 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919232DA2087AE5F003A31A0 /* Menu.swift */; };
 		91BC56F821468F300063F02B /* SKNode+INSKExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BC56F721468F300063F02B /* SKNode+INSKExtension.swift */; };
 		91C25B342098D0DC00E72865 /* MenuProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C25B332098D0DC00E72865 /* MenuProtocol.swift */; };
+		91C37EE2218A23D200277716 /* RoomManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C37EE1218A23D200277716 /* RoomManager.swift */; };
 		91C3E3571C6BB1E900E8CBD8 /* ItemBlueprintComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3E3561C6BB1E900E8CBD8 /* ItemBlueprintComponent.swift */; };
 		91C836831C649978008ECABF /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C836821C649978008ECABF /* GameState.swift */; };
 		91D9F4D421414A2B0032508E /* ScrollNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D9F4D321414A2B0032508E /* ScrollNode.swift */; };
@@ -104,6 +105,7 @@
 		919232DA2087AE5F003A31A0 /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		91BC56F721468F300063F02B /* SKNode+INSKExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKNode+INSKExtension.swift"; sourceTree = "<group>"; };
 		91C25B332098D0DC00E72865 /* MenuProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuProtocol.swift; sourceTree = "<group>"; };
+		91C37EE1218A23D200277716 /* RoomManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomManager.swift; sourceTree = "<group>"; };
 		91C3E3561C6BB1E900E8CBD8 /* ItemBlueprintComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemBlueprintComponent.swift; sourceTree = "<group>"; };
 		91C836821C649978008ECABF /* GameState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		91D9F4D321414A2B0032508E /* ScrollNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollNode.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				9169815C211624A800B885AF /* ItemManager.swift */,
+				91C37EE1218A23D200277716 /* RoomManager.swift */,
 				13CCF1541C2F47FF00297EF3 /* EntityManager.swift */,
 				9175E2D21D47CACE0026BA8F /* zPositionManager.swift */,
 				91F052651DD35031002F8B19 /* ToolbarManager.swift */,
@@ -534,6 +537,7 @@
 				919232D92087AD3A003A31A0 /* MenuManager.swift in Sources */,
 				91F052661DD35031002F8B19 /* ToolbarManager.swift in Sources */,
 				91C3E3571C6BB1E900E8CBD8 /* ItemBlueprintComponent.swift in Sources */,
+				91C37EE2218A23D200277716 /* RoomManager.swift in Sources */,
 				13388CF21D5672190080234A /* RoomUtil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

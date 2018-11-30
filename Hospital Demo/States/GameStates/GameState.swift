@@ -52,7 +52,11 @@ class GSBuildDoor: GKState {
   var doors: Set<Door> = []
 
   override func didEnter(from _: GKState?) {
-    let rooms = Game.sharedInstance.entityManager.entities.filter { $0.isKind(of: Room.self) }
+
+
+    var rooms = Game.sharedInstance.roomManager!.allRooms
+
+    print(rooms)
 
     for room in rooms {
       let newDoors = room.component(ofType: BuildRoomComponent.self)?.showPossibleDoorLocation()

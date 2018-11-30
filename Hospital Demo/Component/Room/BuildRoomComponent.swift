@@ -10,24 +10,16 @@ import Foundation
 import GameplayKit
 import SpriteKit
 
+
+// All of this class probably needs to move to the RoomManager
 class BuildRoomComponent: GKComponent {
-  let minSize: CGSize
-  var size: CGSize
+  let minSize = CGSize(width: 3, height: 3)
+  var size = CGSize(width: 3, height: 3)
 
 //  Relocate this at some point
   enum doorTypes { case single, double }
 
   var requiredDoor: doorTypes = doorTypes.single
-
-  init(minSize: CGSize) {
-    self.minSize = minSize
-    size = minSize
-    super.init()
-  }
-
-  required init?(coder _: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
 
   override func didAddToEntity() {
     guard let entity = self.entity else { return }

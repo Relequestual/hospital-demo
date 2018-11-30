@@ -148,6 +148,8 @@ class BaseScene: SKScene {
 
     Game.sharedInstance.menuManager = MenuManager(scene: self)
 
+    Game.sharedInstance.roomManager = RoomManager(roomTypes: RoomDefinitions.rooms)
+
     Game.sharedInstance.itemManager = ItemManager(itemTypes: ItemDefinitions.items)
 
     addChild(myContentNode)
