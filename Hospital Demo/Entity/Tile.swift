@@ -68,7 +68,7 @@ class Tile: GKEntity {
   let wallVert = SKShapeNode(rect: CGRect(x: 0, y: 0, width: 4, height: 64))
   let wallHoriz = SKShapeNode(rect: CGRect(x: 0, y: 0, width: 64, height: 4))
 
-  func addWall(ofBaring: Game.rotation, room: Room) {
+  func addWall(ofBaring: Game.rotation, room: GKEntity?) {
     walls.addWall(ofBaring: ofBaring)
     let sprite: SKShapeNode
     if ofBaring == .north || ofBaring == .south {
@@ -94,7 +94,9 @@ class Tile: GKEntity {
     sprite.zPosition = CGFloat(ZPositionManager.WorldLayer.room.zpos + 1)
     walls.sprites[ofBaring] = sprite
     Game.sharedInstance.entityManager.node.addChild(sprite)
-    room.walls.append(sprite)
+    if (room != nil) {
+      room!.component(ofType: RoomSpecComponent.self)?.walls.append(sprite)
+    }
   }
 
   init(imageName: String, initType: tileTypes = tileTypes.tile, x: Int, y: Int) {

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		130AFEAF1D0494B1002F266D /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130AFEAE1D0494B1002F266D /* Button.swift */; };
-		13388CF21D5672190080234A /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13388CF11D5672190080234A /* Room.swift */; };
+		13388CF21D5672190080234A /* RoomUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13388CF11D5672190080234A /* RoomUtil.swift */; };
 		13388CF41D57B6C50080234A /* BuildRoomComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13388CF31D57B6C50080234A /* BuildRoomComponent.swift */; };
 		136FA18A1BFBCBDC0086F545 /* BaseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136FA1891BFBCBDC0086F545 /* BaseScene.swift */; };
 		137F2E161CDF8D4600665C17 /* DraggableSpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137F2E151CDF8D4600665C17 /* DraggableSpriteComponent.swift */; };
@@ -27,6 +27,7 @@
 		13CCF1571C34088D00297EF3 /* SpriteDebugComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CCF1561C34088D00297EF3 /* SpriteDebugComponent.swift */; };
 		13DFA1791C65ECE8003289E9 /* GameToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DFA1781C65ECE8003289E9 /* GameToolbar.swift */; };
 		13DFA17B1C6806F4003289E9 /* BuildItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DFA17A1C6806F4003289E9 /* BuildItemState.swift */; };
+		91077E7F2195FE480044138F /* RoomSpecComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91077E7E2195FE480044138F /* RoomSpecComponent.swift */; };
 		9119835E1E72D3D100E6D2A2 /* UseableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9119835D1E72D3D100E6D2A2 /* UseableComponent.swift */; };
 		911FB1CD213D547F00ABBD41 /* ItemSpecComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911FB1CC213D547F00ABBD41 /* ItemSpecComponent.swift */; };
 		9122FA441D61AC4000F92958 /* RoomBlueprintComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9122FA431D61AC4000F92958 /* RoomBlueprintComponent.swift */; };
@@ -51,6 +52,7 @@
 		91DD83DC217DB56C008F434C /* SKSpriteNode+INSKExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DD83DB217DB56C008F434C /* SKSpriteNode+INSKExtension.swift */; };
 		91DF14CF1C2A958D003E813F /* PositionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DF14CE1C2A958D003E813F /* PositionComponent.swift */; };
 		91E4F98D21119A6F008747D2 /* StateProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E4F98C21119A6F008747D2 /* StateProtocols.swift */; };
+		91ECFC6C2189A6560058E0FF /* RoomDefinitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91ECFC6B2189A6560058E0FF /* RoomDefinitions.swift */; };
 		91ED91971D01A34300A9D536 /* Graphics in Resources */ = {isa = PBXBuildFile; fileRef = 91ED91961D01A34300A9D536 /* Graphics */; };
 		91EEAE2F1E93BB7F001C4AC1 /* DoorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EEAE2E1E93BB7F001C4AC1 /* DoorState.swift */; };
 		91F052661DD35031002F8B19 /* ToolbarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F052651DD35031002F8B19 /* ToolbarManager.swift */; };
@@ -61,7 +63,7 @@
 
 /* Begin PBXFileReference section */
 		130AFEAE1D0494B1002F266D /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
-		13388CF11D5672190080234A /* Room.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Room.swift; path = ../Room.swift; sourceTree = "<group>"; };
+		13388CF11D5672190080234A /* RoomUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomUtil.swift; sourceTree = "<group>"; };
 		13388CF31D57B6C50080234A /* BuildRoomComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildRoomComponent.swift; sourceTree = "<group>"; };
 		136FA1891BFBCBDC0086F545 /* BaseScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseScene.swift; sourceTree = "<group>"; };
 		137F2E151CDF8D4600665C17 /* DraggableSpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableSpriteComponent.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 		13DFA1781C65ECE8003289E9 /* GameToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameToolbar.swift; sourceTree = "<group>"; };
 		13DFA17A1C6806F4003289E9 /* BuildItemState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildItemState.swift; sourceTree = "<group>"; };
 		6E729F281F280152765F1F6C /* Pods-Hospital Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hospital Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hospital Demo/Pods-Hospital Demo.debug.xcconfig"; sourceTree = "<group>"; };
+		91077E7E2195FE480044138F /* RoomSpecComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomSpecComponent.swift; sourceTree = "<group>"; };
 		9119835D1E72D3D100E6D2A2 /* UseableComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UseableComponent.swift; sourceTree = "<group>"; };
 		911FB1CC213D547F00ABBD41 /* ItemSpecComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSpecComponent.swift; sourceTree = "<group>"; };
 		9122FA431D61AC4000F92958 /* RoomBlueprintComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomBlueprintComponent.swift; sourceTree = "<group>"; };
@@ -107,6 +110,7 @@
 		91DD83DB217DB56C008F434C /* SKSpriteNode+INSKExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKSpriteNode+INSKExtension.swift"; sourceTree = "<group>"; };
 		91DF14CE1C2A958D003E813F /* PositionComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionComponent.swift; sourceTree = "<group>"; };
 		91E4F98C21119A6F008747D2 /* StateProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateProtocols.swift; sourceTree = "<group>"; };
+		91ECFC6B2189A6560058E0FF /* RoomDefinitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomDefinitions.swift; sourceTree = "<group>"; };
 		91ED91961D01A34300A9D536 /* Graphics */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Graphics; sourceTree = "<group>"; };
 		91EEAE2E1E93BB7F001C4AC1 /* DoorState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoorState.swift; sourceTree = "<group>"; };
 		91F052651DD35031002F8B19 /* ToolbarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolbarManager.swift; sourceTree = "<group>"; };
@@ -269,6 +273,7 @@
 			children = (
 				9122FA431D61AC4000F92958 /* RoomBlueprintComponent.swift */,
 				13388CF31D57B6C50080234A /* BuildRoomComponent.swift */,
+				91077E7E2195FE480044138F /* RoomSpecComponent.swift */,
 			);
 			path = Room;
 			sourceTree = "<group>";
@@ -276,7 +281,6 @@
 		9122FA421D61ABD200F92958 /* Building */ = {
 			isa = PBXGroup;
 			children = (
-				13388CF11D5672190080234A /* Room.swift */,
 			);
 			path = Building;
 			sourceTree = "<group>";
@@ -293,6 +297,7 @@
 			isa = PBXGroup;
 			children = (
 				9159B8C4211B0B3900C8CC2F /* ItemDefinitions.swift */,
+				91ECFC6B2189A6560058E0FF /* RoomDefinitions.swift */,
 			);
 			path = Definitions;
 			sourceTree = "<group>";
@@ -302,6 +307,7 @@
 			children = (
 				9189683F1E8BA06B005EB38D /* Convert.swift */,
 				9176D1FF2143DB7800BC4CA8 /* INSKMaths.swift */,
+				13388CF11D5672190080234A /* RoomUtil.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -484,6 +490,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13C765341BF61B2D00AC0223 /* GameScene.swift in Sources */,
+				91ECFC6C2189A6560058E0FF /* RoomDefinitions.swift in Sources */,
 				9161209120EA87BF003705BF /* ToolbarProtocol.swift in Sources */,
 				91494DE51F87D8BF00817B45 /* DebugToolbar.swift in Sources */,
 				13DFA17B1C6806F4003289E9 /* BuildItemState.swift in Sources */,
@@ -493,6 +500,7 @@
 				91E4F98D21119A6F008747D2 /* StateProtocols.swift in Sources */,
 				918968401E8BA06B005EB38D /* Convert.swift in Sources */,
 				137F2E161CDF8D4600665C17 /* DraggableSpriteComponent.swift in Sources */,
+				91077E7F2195FE480044138F /* RoomSpecComponent.swift in Sources */,
 				9119835E1E72D3D100E6D2A2 /* UseableComponent.swift in Sources */,
 				91F7F0E71D2FDA2D00331878 /* BuildItemComponent.swift in Sources */,
 				91C25B342098D0DC00E72865 /* MenuProtocol.swift in Sources */,
@@ -526,7 +534,7 @@
 				919232D92087AD3A003A31A0 /* MenuManager.swift in Sources */,
 				91F052661DD35031002F8B19 /* ToolbarManager.swift in Sources */,
 				91C3E3571C6BB1E900E8CBD8 /* ItemBlueprintComponent.swift in Sources */,
-				13388CF21D5672190080234A /* Room.swift in Sources */,
+				13388CF21D5672190080234A /* RoomUtil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -143,7 +143,7 @@ class BuildRoomComponent: GKComponent {
   func build() {
     guard let entity = self.entity else { return }
 
-    let texture = Room.createFloorTexture(entity.component(ofType: RoomBlueprintComponent.self)!.size)
+    let texture = RoomUtil.createFloorTexture(entity.component(ofType: RoomBlueprintComponent.self)!.size)
 
     let floorNode = SKSpriteNode(texture: texture)
 
@@ -169,16 +169,16 @@ class BuildRoomComponent: GKComponent {
         // Also set tile room floor
         tile?.isRoomFloor = true
         if x == Int(bottomLeftTilePosition.x) {
-          tile?.addWall(ofBaring: Game.rotation.west, room: entity as! Room)
+          tile?.addWall(ofBaring: Game.rotation.west, room: entity)
         }
         if y == Int(bottomLeftTilePosition.y) {
-          tile?.addWall(ofBaring: Game.rotation.south, room: entity as! Room)
+          tile?.addWall(ofBaring: Game.rotation.south, room: entity)
         }
         if x == Int(bottomLeftTilePosition.x + size.width - 1) {
-          tile?.addWall(ofBaring: Game.rotation.east, room: entity as! Room)
+          tile?.addWall(ofBaring: Game.rotation.east, room: entity)
         }
         if y == Int(bottomLeftTilePosition.y + size.height - 1) {
-          tile?.addWall(ofBaring: Game.rotation.north, room: entity as! Room)
+          tile?.addWall(ofBaring: Game.rotation.north, room: entity)
         }
       }
     }
