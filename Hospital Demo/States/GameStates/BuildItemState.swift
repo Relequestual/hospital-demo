@@ -78,7 +78,7 @@ class BISPlan: RQTileTouchState {
     }
     Game.sharedInstance.placingObjectsQueue.removeFirst()
 
-    let plannedObject = Game.sharedInstance.itemManager!.buildItem(itemType: placingObject)
+    let plannedObject = Game.sharedInstance.itemManager!.createEntity(itemType: placingObject)
     Game.sharedInstance.draggingEntiy = plannedObject
     plannedObject.component(ofType: ItemBlueprintComponent.self)?.planFunctionCall((tile.component(ofType: PositionComponent.self)?.gridPosition)!)
     plannedObject.component(ofType: ItemBlueprintComponent.self)?.displayBuildObjectConfirm()

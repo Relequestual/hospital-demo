@@ -36,7 +36,7 @@ class ItemMenu: MenuProtocol {
 
     let view = SKView.init()
     graphics = menuItems.reduce(into: [:], { graphics, itemType in
-      let item = Game.sharedInstance.itemManager!.buildItem(itemType: itemType)
+      let item = Game.sharedInstance.itemManager!.createEntity(itemType: itemType)
       let node = item.component(ofType: SpriteComponent.self)?.node ?? SKSpriteNode()
       let texture = view.texture(from: node)!
 

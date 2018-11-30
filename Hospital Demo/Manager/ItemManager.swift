@@ -29,7 +29,7 @@ class ItemManager {
 
   }
 
-  func buildItem(itemType: ItemDefinitions.BaseItems) -> GKEntity {
+  func createEntity(itemType: ItemDefinitions.BaseItems) -> GKEntity {
     let entity = GKEntity()
     guard let itemDef = self.knownItemTypes[itemType] else {
       // Should throw error?
