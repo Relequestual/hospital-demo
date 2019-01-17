@@ -11,30 +11,37 @@ import SpriteKit
 
 class RoomUtil {
 
-  static let floorNode: SKSpriteNode = RoomUtil.createFloorNode()
+//  static let floorColor: SKColor = SKColor(red: 238 / 255, green: 102 / 255, blue: 101 / 255, alpha: 1)
 
-//  static func createFloorNode(color: UIColor = UIColor.init(red: 150, green: 20, blue: 20, alpha: 0)) -> SKSpriteNode {
-  static func createFloorNode() -> SKSpriteNode {
+  // Create spriteNode of one square of a given colour, or default floor colour for rooms
+  static func createFloorNode(colour: SKColor) -> SKSpriteNode {
     let node = SKShapeNode(rectOf: CGSize(width: 64, height: 64))
-    let color = SKColor(red: 238 / 255, green: 102 / 255, blue: 101 / 255, alpha: 1)
     node.lineWidth = 0
-    node.fillColor = color
-    node.strokeColor = color
+    node.fillColor = colour
+    node.strokeColor = colour
     return SKSpriteNode(texture: SKView().texture(from: node))
   }
 
-  static func createFloorTexture(_ roomSize: CGSize) -> SKTexture {
+  static func createFloorTexture(_ roomSize: CGSize, colour: SKColor = RoomDefinitions.defaultRoomColor) -> SKTexture {
     let node = SKSpriteNode()
     let base = 32
     let width = 64
 
+    let floorNode: SKSpriteNode = RoomUtil.createFloorNode(colour: colour)
+
     for x in 1 ... Int(roomSize.width) {
       for y in 1 ... Int(roomSize.height) {
-        let squareNode = RoomUtil.floorNode.copy() as! SKSpriteNode
+        let squareNode = floorNode.copy() as! SKSpriteNode
         squareNode.position = CGPoint(x: x * width + base, y: y * width + base)
         node.addChild(squareNode)
       }
     }
     return SKView().texture(from: node)!
+  }
+
+  static func createFloorNode(withSize size: CGSize, colour: SKColor = RoomDefinitions.defaultRoomColor) -> SKSpriteNode {
+    let texture = RoomUtil.createFloorTexture(size, colour: colour)
+    let floorNode = SKSpriteNode(texture: texture)
+    return floorNode
   }
 }

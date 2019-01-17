@@ -14,19 +14,37 @@ class RoomManager {
 
   var knownRoomTypes: [RoomDefinitions.BaseRoomTypes: RoomDefinitions.RoomTypeSpec]
 
-  var knownRooms: [RoomDefinitions.BaseRoomTypes:[GKEntity]] = [:]
+  var typedRooms = [RoomDefinitions.BaseRoomTypes:Set<GKEntity>]()
 
-  var untypedRooms: [GKEntity] = []
+  var untypedRooms: Set<GKEntity> = Set()
 
-  var allRooms: [GKEntity] {
+  var allRooms: Set<GKEntity> {
     get {
-      var rooms: [GKEntity] = []
-      rooms = knownRooms.reduce([]) { (result, arg1) -> Array<GKEntity> in
-        let (key, value) = arg1
-        return value
+      var rooms: Set<GKEntity> = Set()
+      rooms = typedRooms.reduce([]) { (result, arg1) -> Set<GKEntity> in
+        let (_, value) = arg1
+        return result.union(value)
       }
-      rooms.append(contentsOf: untypedRooms)
+      rooms = rooms.union(untypedRooms)
       return rooms
+    }
+  }
+
+  private var _proposedTypedRoom: GKEntity?
+
+  var proposedTypedRoom: GKEntity? {
+    set(proposedTypedRoom) {
+      // Set the colour back to planned blue colour
+      _proposedTypedRoom?.component(ofType: RoomSpecComponent.self)!.changeFloorColour(color: SKColor.blue, alpha: 0.3)
+      _proposedTypedRoom = proposedTypedRoom
+
+      if (proposedTypedRoom == nil) {
+        return
+      }
+
+    }
+    get {
+      return _proposedTypedRoom
     }
   }
 
@@ -41,6 +59,10 @@ class RoomManager {
 
     print(self.knownRoomTypes)
 
+  }
+
+  func add(_ entity: GKEntity) {
+    self.untypedRooms.insert(entity)
   }
 
 //  Builds the room entity and components
@@ -66,16 +88,43 @@ class RoomManager {
 //    let spriteComponent = SpriteComponent(texture: roomDef.texture)
 //    entity.addComponent(spriteComponent)
 
-    self.untypedRooms.append(entity)
+//    self.untypedRooms.insert(entity)
 
     return entity
-
   }
 
   func plan(room: GKEntity, point: CGPoint) {
     room.component(ofType: BuildRoomComponent.self)?.clearPlan()
     room.component(ofType: BuildRoomComponent.self)?.planAtPoint(point)
     room.component(ofType: BuildRoomComponent.self)?.needConfirmBounds()
+  }
+
+  func clearProposedRoomTypes() {
+    let rooms = Game.sharedInstance.roomManager!.allRooms
+
+    for room in rooms {
+      self.registerRoomTypeChange(room)
+      room.removeComponent(ofType: TouchableSpriteComponent.self)
+    }
+  }
+
+  func registerRoomTypeChange(_ entity: GKEntity) {
+    let newRoomType = entity.component(ofType: RoomSpecComponent.self)?.roomType
+    // Remove room from all typed or untyped room, and add to correct new set
+    self.untypedRooms.remove(entity)
+    for key in self.typedRooms.keys {
+      self.typedRooms[key]?.remove(entity)
+    }
+    if (newRoomType == nil) {
+      self.untypedRooms.insert(entity)
+    } else {
+      if (self.typedRooms[newRoomType!] == nil ){
+        self.typedRooms[newRoomType!] = Set()
+      }
+      self.typedRooms[newRoomType!]?.insert(entity)
+    }
+
+    entity.component(ofType: RoomSpecComponent.self)!.updateRoomFloorColour()
   }
 
 }

@@ -25,18 +25,25 @@ class EntityManager {
     self.node = node
   }
 
-  func add(_ entity: GKEntity, layer: ZPositionManager.WorldLayer) {
-    print("adding entity")
-    entities.insert(entity)
-
+  func displayEntity(_ entity: GKEntity, _ layer: ZPositionManager.WorldLayer) {
     if let spriteNode = entity.component(ofType: SpriteComponent.self)?.node {
       spriteNode.zPosition = CGFloat(layer.zpos)
       if (entity.component(ofType: PositionComponent.self)?.spritePosition) != nil {
         spriteNode.position = entity.component(ofType: PositionComponent.self)!.spritePosition!
       }
-//      spriteNode.zPosition = 1
+      //      spriteNode.zPosition = 1
       node.addChild(spriteNode)
     }
+  }
+
+  func add(_ entity: GKEntity, layer: ZPositionManager.WorldLayer) {
+    print("adding entity")
+    entities.insert(entity)
+    if (entity.component(ofType: RoomSpecComponent.self) != nil) {
+      Game.sharedInstance.roomManager!.add(entity)
+    }
+
+    displayEntity(entity, layer)
 
     for componentSystem in componentSystems {
       componentSystem.addComponent(foundIn: entity)

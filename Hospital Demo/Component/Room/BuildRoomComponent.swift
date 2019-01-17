@@ -100,6 +100,7 @@ class BuildRoomComponent: GKComponent {
 
   func clearPlan() {
     Game.sharedInstance.entityManager.remove(entity!)
+    Game.sharedInstance.roomManager!.untypedRooms.remove(entity!)
 //    Game.sharedInstance.gameStateMachine.enter(GSGeneral.self)
 
 //    Game.sharedInstance.entityManager.node.enumerateChildNodes(withName: "planning_room_blueprint", using: { (node, stop) -> Void in
@@ -134,14 +135,17 @@ class BuildRoomComponent: GKComponent {
 
   func build() {
     guard let entity = self.entity else { return }
-
-    let texture = RoomUtil.createFloorTexture(entity.component(ofType: RoomBlueprintComponent.self)!.size)
-
-    let floorNode = SKSpriteNode(texture: texture)
-
-    self.entity?.addComponent(SpriteComponent(texture: SKView().texture(from: floorNode)!))
-    Game.sharedInstance.entityManager.add(entity, layer: ZPositionManager.WorldLayer.room)
+//    Game.sharedInstance.roomManager?.add(self.entity!)
+    self.buildFloor()
     setTileWalls()
+
+    Game.sharedInstance.entityManager.add(entity, layer: ZPositionManager.WorldLayer.room)
+  }
+
+  func buildFloor() {
+    let floorNode = RoomUtil.createFloorNode(withSize: self.entity!.component(ofType: RoomBlueprintComponent.self)!.size)
+    self.entity!.addComponent(SpriteComponent(texture: SKView().texture(from: floorNode)!))
+    self.entity!.component(ofType: RoomSpecComponent.self)!.updateRoomFloorColour()
   }
 
   func cancelBuild() {
@@ -287,7 +291,7 @@ class BuildRoomComponent: GKComponent {
           print("door touched")
           door.planStatus?.toggle()
 
-//          Working here: Need to set toolbar to confirm toolbar, on confirm will set door status to built for those planned and remove the rest
+          // TODO: Need to set toolbar to confirm toolbar, on confirm will set door status to built for those planned and remove the rest
 
         }))
 

@@ -21,8 +21,6 @@ class DraggableSpriteComponent: GKComponent {
   var draggable: Bool = true
 
   init(start: @escaping (GKEntity, CGPoint) -> Void, move: @escaping (GKEntity, CGPoint) -> Void, end: @escaping (GKEntity, CGPoint) -> Void) {
-//    Working here.
-//    Calling these directly rather than through this classes function accessors!! duh!
     entityTouchStart = start
     entityTouchMove = move
     entityTouchEnd = end

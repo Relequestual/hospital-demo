@@ -42,6 +42,7 @@
 		9175E2D31D47CACE0026BA8F /* zPositionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9175E2D21D47CACE0026BA8F /* zPositionManager.swift */; };
 		9176D2002143DB7800BC4CA8 /* INSKMaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9176D1FF2143DB7800BC4CA8 /* INSKMaths.swift */; };
 		918968401E8BA06B005EB38D /* Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9189683F1E8BA06B005EB38D /* Convert.swift */; };
+		918F686C21B55DA400933DF2 /* OverlayState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918F686B21B55DA400933DF2 /* OverlayState.swift */; };
 		919232D92087AD3A003A31A0 /* MenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919232D82087AD3A003A31A0 /* MenuManager.swift */; };
 		919232DB2087AE5F003A31A0 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919232DA2087AE5F003A31A0 /* Menu.swift */; };
 		91BC56F821468F300063F02B /* SKNode+INSKExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BC56F721468F300063F02B /* SKNode+INSKExtension.swift */; };
@@ -52,6 +53,7 @@
 		91D9F4D421414A2B0032508E /* ScrollNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D9F4D321414A2B0032508E /* ScrollNode.swift */; };
 		91DD83DC217DB56C008F434C /* SKSpriteNode+INSKExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DD83DB217DB56C008F434C /* SKSpriteNode+INSKExtension.swift */; };
 		91DF14CF1C2A958D003E813F /* PositionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DF14CE1C2A958D003E813F /* PositionComponent.swift */; };
+		91E2437221B999FC00CA01CF /* RoomTypeMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E2437121B999FC00CA01CF /* RoomTypeMenu.swift */; };
 		91E4F98D21119A6F008747D2 /* StateProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E4F98C21119A6F008747D2 /* StateProtocols.swift */; };
 		91ECFC6C2189A6560058E0FF /* RoomDefinitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91ECFC6B2189A6560058E0FF /* RoomDefinitions.swift */; };
 		91ED91971D01A34300A9D536 /* Graphics in Resources */ = {isa = PBXBuildFile; fileRef = 91ED91961D01A34300A9D536 /* Graphics */; };
@@ -101,6 +103,7 @@
 		9175E2D21D47CACE0026BA8F /* zPositionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = zPositionManager.swift; sourceTree = "<group>"; };
 		9176D1FF2143DB7800BC4CA8 /* INSKMaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INSKMaths.swift; sourceTree = "<group>"; };
 		9189683F1E8BA06B005EB38D /* Convert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Convert.swift; sourceTree = "<group>"; };
+		918F686B21B55DA400933DF2 /* OverlayState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayState.swift; sourceTree = "<group>"; };
 		919232D82087AD3A003A31A0 /* MenuManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuManager.swift; sourceTree = "<group>"; };
 		919232DA2087AE5F003A31A0 /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		91BC56F721468F300063F02B /* SKNode+INSKExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKNode+INSKExtension.swift"; sourceTree = "<group>"; };
@@ -111,6 +114,7 @@
 		91D9F4D321414A2B0032508E /* ScrollNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollNode.swift; sourceTree = "<group>"; };
 		91DD83DB217DB56C008F434C /* SKSpriteNode+INSKExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKSpriteNode+INSKExtension.swift"; sourceTree = "<group>"; };
 		91DF14CE1C2A958D003E813F /* PositionComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionComponent.swift; sourceTree = "<group>"; };
+		91E2437121B999FC00CA01CF /* RoomTypeMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTypeMenu.swift; sourceTree = "<group>"; };
 		91E4F98C21119A6F008747D2 /* StateProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateProtocols.swift; sourceTree = "<group>"; };
 		91ECFC6B2189A6560058E0FF /* RoomDefinitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomDefinitions.swift; sourceTree = "<group>"; };
 		91ED91961D01A34300A9D536 /* Graphics */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Graphics; sourceTree = "<group>"; };
@@ -146,6 +150,7 @@
 		13B6032B1C69320B00A65E7F /* States */ = {
 			isa = PBXGroup;
 			children = (
+				918F686A21B55D9000933DF2 /* VisualStates */,
 				91EEAE2D1E93BB1F001C4AC1 /* ItemStates */,
 				91C836811C64991A008ECABF /* GameStates */,
 			);
@@ -228,12 +233,10 @@
 		13DFA1771C65ECB5003289E9 /* Elements */ = {
 			isa = PBXGroup;
 			children = (
+				91E2437021B998F100CA01CF /* Toolbars */,
+				91E2436F21B998D800CA01CF /* Menus */,
 				91C25B322098D08700E72865 /* Protocols */,
-				13DFA1781C65ECE8003289E9 /* GameToolbar.swift */,
-				91F72CF21DC9E00E00210C71 /* ConfirmToolbar.swift */,
-				91494DE41F87D8BF00817B45 /* DebugToolbar.swift */,
 				919232DA2087AE5F003A31A0 /* Menu.swift */,
-				912CBCFA2088BDA900CAE400 /* ItemMenu.swift */,
 				91D9F4D321414A2B0032508E /* ScrollNode.swift */,
 			);
 			path = Elements;
@@ -315,6 +318,14 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		918F686A21B55D9000933DF2 /* VisualStates */ = {
+			isa = PBXGroup;
+			children = (
+				918F686B21B55DA400933DF2 /* OverlayState.swift */,
+			);
+			path = VisualStates;
+			sourceTree = "<group>";
+		};
 		91BC56F621468F0A0063F02B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -357,6 +368,25 @@
 				914650CD1E729E6B00DBF123 /* Door.swift */,
 			);
 			path = Item;
+			sourceTree = "<group>";
+		};
+		91E2436F21B998D800CA01CF /* Menus */ = {
+			isa = PBXGroup;
+			children = (
+				912CBCFA2088BDA900CAE400 /* ItemMenu.swift */,
+				91E2437121B999FC00CA01CF /* RoomTypeMenu.swift */,
+			);
+			path = Menus;
+			sourceTree = "<group>";
+		};
+		91E2437021B998F100CA01CF /* Toolbars */ = {
+			isa = PBXGroup;
+			children = (
+				13DFA1781C65ECE8003289E9 /* GameToolbar.swift */,
+				91F72CF21DC9E00E00210C71 /* ConfirmToolbar.swift */,
+				91494DE41F87D8BF00817B45 /* DebugToolbar.swift */,
+			);
+			path = Toolbars;
 			sourceTree = "<group>";
 		};
 		91EEAE2D1E93BB1F001C4AC1 /* ItemStates */ = {
@@ -508,6 +538,7 @@
 				91F7F0E71D2FDA2D00331878 /* BuildItemComponent.swift in Sources */,
 				91C25B342098D0DC00E72865 /* MenuProtocol.swift in Sources */,
 				13B6A1B41C255C940087649C /* Tile.swift in Sources */,
+				918F686C21B55DA400933DF2 /* OverlayState.swift in Sources */,
 				130AFEAF1D0494B1002F266D /* Button.swift in Sources */,
 				9169815D211624A800B885AF /* ItemManager.swift in Sources */,
 				912CBCFB2088BDA900CAE400 /* ItemMenu.swift in Sources */,
@@ -531,6 +562,7 @@
 				91EEAE2F1E93BB7F001C4AC1 /* DoorState.swift in Sources */,
 				13CCF1571C34088D00297EF3 /* SpriteDebugComponent.swift in Sources */,
 				914650CE1E729E6B00DBF123 /* Door.swift in Sources */,
+				91E2437221B999FC00CA01CF /* RoomTypeMenu.swift in Sources */,
 				919232DB2087AE5F003A31A0 /* Menu.swift in Sources */,
 				911FB1CD213D547F00ABBD41 /* ItemSpecComponent.swift in Sources */,
 				13CBAB641D6A0CBB004561CB /* BuildRoomState.swift in Sources */,
