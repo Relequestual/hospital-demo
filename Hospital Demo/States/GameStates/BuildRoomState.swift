@@ -26,9 +26,17 @@ class BuildRoomState: GKStateMachine {
 }
 
 
-class BRSPrePlan: RQTileTouchState {
+class BRSPrePlan: GKState, StateTouchTileDelegate {
 
-  override func touchTile(tile: Tile) {
+  override func didEnter(from previousState: GKState?) {
+    Game.sharedInstance.touchTileDelegate = self
+  }
+
+  override func willExit(to nextState: GKState) {
+    Game.sharedInstance.touchTileDelegate = nil
+  }
+
+  func touchTile(tile: Tile) {
 
     let plannedRoom = Game.sharedInstance.roomManager!.createEntity()
     let tileTouchGridPoint = tile.component(ofType: PositionComponent.self)?.gridPosition

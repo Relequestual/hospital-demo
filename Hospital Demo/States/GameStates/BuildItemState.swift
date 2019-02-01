@@ -26,10 +26,18 @@ class BuildItemState: GKStateMachine {
   }
 }
 
-class BISPlan: RQTileTouchState {
+class BISPlan: GKState, StateTouchTileDelegate {
 
   override func isValidNextState(_ stateClass: AnyClass) -> Bool {
     return stateClass == BISPlace.self
+  }
+
+  override func didEnter(from previousState: GKState?) {
+    Game.sharedInstance.touchTileDelegate = self
+  }
+
+  override func willExit(to nextState: GKState) {
+    Game.sharedInstance.touchTileDelegate = nil
   }
 
   static func dragStartHandler(_: GKEntity, _: CGPoint) {
@@ -71,7 +79,7 @@ class BISPlan: RQTileTouchState {
 
 
 
-  override func touchTile(tile: Tile) {
+  func touchTile(tile: Tile) {
     print("override touch tile func called, yay!")
     guard let placingObject = Game.sharedInstance.placingObjectsQueue.first else {
       return

@@ -9,7 +9,7 @@
 import GameplayKit
 import SpriteKit
 
-class Tile: GKEntity {
+class Tile: GKEntity, StateTouchTileDelegate {
   enum tileTypes {
     case tile
     case grass
@@ -136,9 +136,7 @@ class Tile: GKEntity {
 
     addComponent(touchableComponent)
 
-    Game.sharedInstance.touchTile = { tile in 
-      print("tile was touched")
-    }
+    Game.sharedInstance.touchTileDelegate = self
 
     let spriteDebugComponent = SpriteDebugComponent(node: spriteComponent.node)
     addComponent(spriteDebugComponent)
@@ -148,7 +146,10 @@ class Tile: GKEntity {
     fatalError("init(coder:) has not been implemented")
   }
 
-  
+  func touchTile(tile: Tile) {
+    print("tile was touched")
+  }
+
 
   var debugNode: SKShapeNode?
 

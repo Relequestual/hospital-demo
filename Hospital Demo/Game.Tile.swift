@@ -10,13 +10,11 @@ import Foundation
 
 extension Game {
 
+//  Kept as an example of how to do extensions
+
   // Global wrapper function for a variable function which is called when a tile is touched
   func touchTile(tile: Tile) {
-    guard self.touchTile != nil else {
-      return
-    }
-
-    self.touchTile!(tile)
+    self.touchTileDelegate?.touchTile(tile: tile)
   }
 
 }

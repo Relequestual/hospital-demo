@@ -9,28 +9,6 @@
 import Foundation
 import GameplayKit
 
-protocol StateTileTouch {
-
+protocol StateTouchTileDelegate {
   func touchTile(tile: Tile)
-  func didEnter(from previousState: GKState?)
-  func willExit(to nextState: GKState)
-}
-
-
-class RQTileTouchState: GKState, StateTileTouch {
-
-  override func didEnter(from previousState: GKState?) {
-    print("didEnter state for StateTileTouch")
-    Game.sharedInstance.touchTile = self.touchTile
-  }
-
-  override func willExit(to nextState: GKState) {
-    print("didExit state for StateTileTouch")
-    Game.sharedInstance.touchTile = nil
-  }
-
-  func touchTile(tile: Tile) {
-    // Noop
-  }
-
 }

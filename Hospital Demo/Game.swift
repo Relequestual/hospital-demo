@@ -51,7 +51,7 @@ class Game {
 
   var touchIsScrollNode = false
 
-  var touchTile: ((_ tile:Tile) -> Void)?
+  var touchTileDelegate: StateTouchTileDelegate?
 
   enum rotation: Int {
     case north = 1, east = 2, south = 3, west = 4

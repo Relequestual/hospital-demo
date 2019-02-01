@@ -24,4 +24,8 @@ class TouchableSpriteComponent: GKComponent {
   func callFunction() {
     entityTouched()
   }
+
+  override func willRemoveFromEntity() {
+    print("removing touchable from entity")
+  }
 }
